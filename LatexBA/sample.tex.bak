@@ -27,6 +27,8 @@
 \usepackage{float}
 \usepackage{lipsum} %% for sample text
 
+\usepackage[printonlyused]{acronym} %%abkuerzungsverzeichnis
+
 %% define some colors
 \colorlet{BackgroundColor}{gray!20}
 \colorlet{KeywordColor}{blue}
@@ -83,8 +85,10 @@
 \makeindex
 \makenomenclature
 
+
 \begin{document}
 \selectlanguage{ngerman}
+
 
 %%%%%
 %% customize (see readme.pdf for supported values)
@@ -117,7 +121,7 @@ Um die Zusammenarbeit zu erleichtern, sind verschiedene Web-Dienste für die Opti
 \\
 Doch diese Vielfalt an Diensten stellt auch eine Herausforderung für die einzelnen Gruppenmitglieder dar. Üblich ist, dass jeder dieser Dienste unabhängig für sich alleine angeboten wird, aber nicht unabhängig in der Nutzung zu sehen ist. So hat der Anwender eine noch wenig diskutierte aber wichtige Herausforderung in der Komposition dieser Dienste zu erfüllen. Beispielhaft muss jeder Nutzer für sich organisieren, ob und wann er pro Dienst eine Applikation startet oder eine Webseite besucht. Dies ist eine nicht zu unterschätzende Aufgabe,  die nicht nur mit der Zeit für die  Synchronisation der Dienste zu beschreiben ist. Automatisierte Mechanismen zur Unterstützung sind  bisher noch nicht etabliert. Diese Arbeit soll einen ersten Beitrag für zukünftige Lösungen anbieten mit der Umsetzung einer unterstützenden Middleware. \\
 \\
-Zusammengefasst wird im Rahmen dieser Bachelorarbeit  eine erste Middleware für die Dienstkomposition zum kooperativem Arbeiten für Studenten entwickelt, diegeeignete Dienste für kooperatives Arbeiten in der Lehre zusammenfasst. Hierfür werden insbesondere externe Web-Dienste auf ihre Fähigkeit für die Dienstkomposition innerhalb eines Framworks untersucht. Die Betrachtung der Schnittstellen, also die ?Application-Programming-Interfaces? (API), spielen eine besondere Rolle und bedürfen daher einer besonderen Betrachtung. Auch weitere technische, dienstabhängige Kriterien der Dienstkomposition sind zu identifizieren und als Kriterienkatalog für die zu erstellende Middleware innerhalb dieser Arbeit bereitzustellen. \\
+Zusammengefasst wird im Rahmen dieser Bachelorarbeit  eine erste Middleware für die Dienstkomposition zum kooperativem Arbeiten für Studenten entwickelt, diegeeignete Dienste für kooperatives Arbeiten in der Lehre zusammenfasst. Hierfür werden insbesondere externe Web-Dienste auf ihre Fähigkeit für die Dienstkomposition innerhalb eines Framworks untersucht. Die Betrachtung der Schnittstellen, also die Application-Programming-Interfaces (API), spielen eine besondere Rolle und bedürfen daher einer besonderen Betrachtung. Auch weitere technische, dienstabhängige Kriterien der Dienstkomposition sind zu identifizieren und als Kriterienkatalog für die zu erstellende Middleware innerhalb dieser Arbeit bereitzustellen. \\
 \\
 Eine weitere Designanforderung in der Entwicklung ist der Aufbau einer möglichst generischen Lösung. Primär bedeutet dies Gemeinsamkeiten der Dienste zu identifizieren und architektonisch zu abstrahieren. Hier spielt auch der Einsatz moderner Webtechnologien in einem systemadaptiven Anwendungsszenario eine besondere Rolle, um eine ressourcensparende und skalierende Lösung zu entwickeln.\\
 Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung bieten, die auch im Rahmen dieser Arbeit erstellt werden wird. 
@@ -149,14 +153,13 @@ Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung b
 \chapter{Einleitung}
 
 \section{Motivation}
-Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet.Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, Planlosigkeit, keine Arbeitseinteilung, sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe.\\
+Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet.Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, planloses Vorgehen, keine Arbeitseinteilung, sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe.\\
 \\
-Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das Kooperative Arbeiten entwickelt.\\
+Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das Kooperative Arbeiten entwickelt.
 Diese können in unterschiedliche Kategorien eingeteilt werden.
-Die mit am weitesten verbreiteten Arten von Web-Diensten sind die \textit{Cloud-Storage} Dienste.Dabei werden Dateien Online gespeichert und über das Internet zugänglich gemacht.Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden. \\
+Die mit am weitesten verbreiteten Arten von Web-Diensten sind die \textit{Cloud-Storage} Dienste.Dabei werden Dateien Online gespeichert und über das Internet zugänglich gemacht.Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
 Eine weitere wichtige Kategorie an Web-Diensten für kooperatives Arbeiten bilden die Messenger-Dienste. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen. Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat.Angelehnt an die bereits angesprochenen \textit{Cloud-Storage} Dienste existieren auch die \textit{Document Collaboration} Dienste.Diese ermöglichen eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.
-\\
-Die große Verbreitung von Smartphones garantiert eine einfache,mobile und flexible Nutzung dieser Web-Dienste.
+Alle diese Dienste sind mobil und flexibel nutzbar. Der Grund dafür ist die große Verbreitung von Smartphones und damit im Zusammenhang stehend das Angebot mobiler Versionen der einzelnen Dienste.
 
 
 \section{Problemstellung}
@@ -164,21 +167,16 @@ Die kooperative Zusammenarbeit in der Gruppe bedarf einer Vielzahl an Diensten. 
 Er muss für jeden Dienst eine Webseite besuchen oder Applikation starten um dessen Funktionen zu nutzen. Er muss Daten zwischen Diensten eigenständig synchronisieren.Auch bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten.\\
 \\
 Es stellt sich die Frage, wie diese Probleme gelöst werden können.
-Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden mehrere Dienste und deren Funktionen auf einer Plattform zentralisiert. Im Zuge dessen können Verknüpfungen zwischen den einzelnen Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind. \\
-Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem \textit{Cloud-Storage} Dienst könnten an einen \textit{Document Collaboration} Dienst weitergeleitet werden,wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit die Problemlösung fördern.
+Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden mehrere Dienste auf einer Plattform zentralisiert und dessen Funktionen angeboten. Im Zuge dessen können Verknüpfungen zwischen den einzelnen Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind. \\
+Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem \textit{Cloud-Storage} Dienst könnten an einen \textit{Document Collaboration} Dienst weitergeleitet werden,wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
 
 \section{Zielsetzung}
-Ziel dieser Bachelorarbeit ist die Erstellung einer Dienstkomposition für Web-Dienste.Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
-Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Bachelorarbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden(siehe Kapitel 3).Des weiteren sollen Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet werden. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Bachelorarbeit. Dadurch soll festgestellt werden, ob sich ein Dienst für die Komposition eignet oder nicht.\\
-Für die Dienstkomposition soll zunächst eine \textit{Middleware} konzipiert und implementiert werden. Die \textit{Middleware} hat die Aufgabe die Kommunikation zu jedem einzelnen Dienst herzustellen. Dies geschieht über deren APIs (Application Programmable Interface). Dadurch können die Daten der einzelnen Web-Dienste für die eigentliche Dienst-Komposition genutzt werden.\\
+Ziel der vorliegenden Bachelorarbeit ist die Erstellung einer Dienstkomposition für Web-Dienste.Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
+Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Bachelorarbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden(siehe Kapitel 3).Des weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Bachelorarbeit. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\
+Für die Dienstkomposition wird zunächst eine \textit{Middleware} konzipiert und implementiert. Die \textit{Middleware} hat die Aufgabe die Kommunikation zu jedem einzelnen Dienst herzustellen. Dies geschieht über deren \ac{API}. Dadurch können die Daten der einzelnen Web-Dienste für die eigentliche Dienst-Komposition genutzt werden.
+Eine besondere Designvorgabe an die \textit{Middleware} ist die wiederverwendbare und plattformunabhängige Lösung. Im Zuge dessen können zukünftige Arbeiten über Dienstkomposition auf die \textit{Middleware} zurückgreifen und Ihre Arbeit darauf aufbauen. \\
 \\
-Abschließend soll die \textit{Middleware} beispielhaft implementiert werden. Dazu wird eine Webseite erstellt, welche die bereitgestellten Daten der \textit{Middleware} in eine sinnvolle Komposition bringt. 
-\begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.55\textwidth]{f1-aqua.png}
-	\caption{Netztopologie der Spannungsversorgung.}
-	\label{fig:nettop}
-\end{figure}
+Abschließend wird die \textit{Middleware} beispielhaft implementiert. Dazu wird eine Webseite erstellt, auf der die Dienste mithilfe der \textit{Middleware} nutzbar sind.
 
 %See also \cite{sample_bib}.
 %%%%
@@ -190,6 +188,11 @@ Abschließend soll die \textit{Middleware} beispielhaft implementiert werden. Daz
 
 % bibliography and other stuff
 \backmatter
+\chapter{Abkürzungsverzeichnis}
+
+\begin{acronym}[Bash]
+ \acro{API}{Application Programmable Interface}
+\end{acronym}
 
 \typeout{===== Section: literature}
 %% read the documentation for customizing the style
