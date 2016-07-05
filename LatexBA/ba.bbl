@@ -1,0 +1,32 @@
+\begin{thebibliography}{3}
+% this bibliography was produced with the style dinat.bst v2.5
+\makeatletter
+\newcommand{\dinatlabel}[1]%
+{\ifNAT@numbers\else\NAT@biblabelnum{#1}\hspace{2\labelsep}\fi}
+\makeatother
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax\def\url#1{\texttt{#1}}\fi
+
+\bibitem[Nardi u.\,a.(2000)Nardi, Whittaker und Bradner]{nardi2000interaction}
+\dinatlabel{Nardi u.\,a. 2000} \textsc{Nardi}, Bonnie~A.~; \textsc{Whittaker},
+  Steve~; \textsc{Bradner}, Erin:
+\newblock Interaction and outeraction: instant messaging in action.
+\newblock In: \emph{Proceedings of the 2000 ACM conference on Computer
+  supported cooperative work}
+\newblock ACM (Veranst.), 2000, S.~79--88
+
+\bibitem[Scale(2009)]{scale2009cloud}
+\dinatlabel{Scale 2009} \textsc{Scale}, Mark-Shane~E.:
+\newblock Cloud computing and collaboration.
+\newblock In: \emph{Library Hi Tech News}
+\newblock 26 (2009), Nr.~9, S.~10--13
+
+\bibitem[Wang u.\,a.(2008)Wang, Tao, Kunze, Castellanos, Kramer und
+  Karl]{wang2008scientific}
+\dinatlabel{Wang u.\,a. 2008} \textsc{Wang}, Lizhe~; \textsc{Tao}, Jie~;
+  \textsc{Kunze}, Marcel~; \textsc{Castellanos}, Alvaro~C.~; \textsc{Kramer},
+  David~; \textsc{Karl}, Wolfgang:
+\newblock Scientific Cloud Computing: Early Definition and Experience.
+\newblock In: \emph{HPCC} Bd.~8, 2008, S.~825--830
+
+\end{thebibliography}

@@ -98,7 +98,7 @@
                     ,ThesisType={Bachelorarbeit}
                     ,ExaminationType={Bachelorprüfung}
                     ,DegreeProgramme={Bachelor of Science Technische Informatik}
-                    ,ThesisExperts={Prof. Dr. Martin Becke \and Prof. Dr. rer. nat. Thomas Lehmann}
+                    ,ThesisExperts={Prof. Dr. Martin Becke \and Prof. Dr. Thomas Lehmann}
                     ,ReleaseDate={15. Juni 2016}
                   }
 
@@ -153,32 +153,31 @@ Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung b
 \chapter{Einleitung}
 
 \section{Motivation}
-Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet.Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, planloses Vorgehen, keine Arbeitseinteilung, sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe.\\
+Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet. Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, planloses Vorgehen, keine Arbeitseinteilung, sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe.\\
 \\
 Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das kooperative Arbeiten entwickelt.
 Diese können in unterschiedliche Kategorien eingeteilt werden.
-Die mit am weitesten verbreiteten Arten von Web-Diensten sind die \textit{Cloud-Storage} Dienste.Dabei werden Dateien Online gespeichert und über das Internet zugänglich gemacht.Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
-Eine weitere wichtige Kategorie an Web-Diensten für kooperatives Arbeiten bilden die Messenger-Dienste. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen. Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat.Angelehnt an die bereits angesprochenen \textit{Cloud-Storage} Dienste existieren auch die \textit{Document Collaboration} Dienste.Diese ermöglichen eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.
-Alle diese Dienste können auch mobil und dadurch flexibel genutzt werden. Der Grund dafür ist die große Verbreitung von Smartphones und damit im Zusammenhang stehend das Angebot mobiler Versionen der einzelnen Dienste.Die Infrastruktur für kooperatives Arbeiten ist somit vorhanden.
+Die mit am weitesten verbreiteten Arten von Web-Diensten sind die \textit{Cloud-Storage} \cite[5]{wang2008scientific} Dienste. Dabei werden Dateien Online gespeichert und über das Internet zugänglich gemacht. Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
+Eine weitere wichtige Kategorie an Web-Diensten für kooperatives Arbeiten bilden die \textit{Instant-Messaging} \cite[80]{nardi2000interaction} Dienste. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen. Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat. Angelehnt an die bereits angesprochenen \textit{Cloud-Storage} Dienste existieren auch die \textit{Document Collaboration} Dienste. Diese ermöglichen eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.
+Alle diese Dienste können auch mobil und dadurch flexibel genutzt werden. Der Grund dafür ist die große Verbreitung von Smartphones und damit im Zusammenhang stehend das Angebot mobiler Versionen der einzelnen Dienste. Die Infrastruktur für kooperatives Arbeiten ist somit vorhanden.
 
 
 \section{Problemstellung}
 Die kooperative Zusammenarbeit in der Gruppe bedarf einer Vielzahl an Diensten. Dabei steht der Anwender vor mehreren Problemen. 
-Er muss für jeden Dienst eine Webseite besuchen oder Applikation starten um dessen Funktionen zu nutzen. Er muss Daten zwischen Diensten eigenständig synchronisieren.Auch bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten.\\
+Er muss für jeden Dienst eine Webseite besuchen oder Applikation starten um dessen Funktionen zu nutzen. Er muss Daten zwischen Diensten eigenständig synchronisieren. Auch bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten.\\
 \\
 Es stellt sich die Frage, wie diese Probleme gelöst werden können.
-Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden mehrere Dienste auf einer Plattform zentralisiert und dessen Funktionen angeboten. Im Zuge dessen können Verknüpfungen zwischen den  Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind. \\
-Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem \textit{Cloud-Storage} Dienst könnten an einen \textit{Document Collaboration} Dienst weitergeleitet werden,wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
+Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden verschiedene Funktionen von mehreren Diensten miteinander verbunden. Im Zuge dessen können Verknüpfungen zwischen den  Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind. \\
+Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem \textit{Cloud-Storage} Dienst könnten an einen \textit{Document Collaboration} Dienst weitergeleitet werden, wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
 
 \section{Zielsetzung}
-Ziel der vorliegenden Bachelorarbeit ist die Erstellung einer Dienstkomposition für Web-Dienste.Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
-Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Bachelorarbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden.Des weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Bachelorarbeit. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\
-Für die Dienstkomposition wird zunächst eine \textit{Middleware} konzipiert und implementiert. Die \textit{Middleware} hat die Aufgabe die Kommunikation zu jedem einzelnen Dienst herzustellen. Dies geschieht über deren \ac{API}. Dadurch können die Daten der einzelnen Web-Dienste für die eigentliche Dienst-Komposition genutzt werden.
+Ziel der vorliegenden Ausarbeitung ist die Erstellung einer Dienstkomposition für Web-Dienste. Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
+Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Bachelorarbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden. Des weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Bachelorarbeit. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\
+Für die Dienstkomposition wird zunächst eine \textit{Middleware} konzipiert und implementiert. Die \textit{Middleware} hat die Aufgabe einzelne Funktionen der Web-Dienste bereitzustellen. Die benötigten Daten werden durch verschiedene Web-Schnittstellen von den Web-Diensten zur Verfügung gestellt.
 Eine besondere Designvorgabe an die \textit{Middleware} ist die wiederverwendbare und plattformunabhängige Lösung. Im Zuge dessen können zukünftige Arbeiten über Dienstkomposition auf die \textit{Middleware} zurückgreifen und Ihre Arbeit darauf aufbauen. \\
 \\
 Abschließend wird die \textit{Middleware} beispielhaft implementiert. Dazu wird eine Webseite erstellt, auf der die Dienste mithilfe der \textit{Middleware} nutzbar sind.
 
-%See also \cite{sample_bib}.
 %%%%
 
 %% appendix if used
@@ -197,7 +196,7 @@ Abschließend wird die \textit{Middleware} beispielhaft implementiert. Dazu wird 
 \typeout{===== Section: literature}
 %% read the documentation for customizing the style
 \bibliographystyle{dinat}
-\bibliography{sample}
+\bibliography{ba}
 
 \typeout{===== Section: nomenclature}
 %% uncomment if a TOC entry is needed
