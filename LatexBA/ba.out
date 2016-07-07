@@ -2,4 +2,26 @@
 \BOOKMARK [1][-]{section.1.1}{1.1 Motivation}{chapter.1}% 2
 \BOOKMARK [1][-]{section.1.2}{1.2 Problemstellung}{chapter.1}% 3
 \BOOKMARK [1][-]{section.1.3}{1.3 Zielsetzung}{chapter.1}% 4
-\BOOKMARK [0][-]{chapter*.3}{Abk\374rzungsverzeichnis}{}% 5
+\BOOKMARK [0][-]{chapter.2}{2 Grundlagen}{}% 5
+\BOOKMARK [1][-]{section.2.1}{2.1 Dienst}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.2}{2.2 Web-Dienst}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.3}{2.3 Dienstkomposition}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{3 Middleware}{}% 9
+\BOOKMARK [1][-]{section.3.1}{3.1 Requirements Engineering}{chapter.3}% 10
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Umfrage}{section.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Funktionale Anforderungen}{section.3.1}% 12
+\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Nichtfunktionale Anforderungen}{section.3.1}% 13
+\BOOKMARK [1][-]{section.3.2}{3.2 Technologie}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 M\366glichkeiten}{section.3.2}% 15
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Auswahl}{section.3.2}% 16
+\BOOKMARK [1][-]{section.3.3}{3.3 Analyse und Design}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.4}{3.4 Architektur}{chapter.3}% 18
+\BOOKMARK [0][-]{chapter.4}{4 Implementation - lessons learned}{}% 19
+\BOOKMARK [1][-]{section.4.1}{4.1 Besondere Herausforderungen}{chapter.4}% 20
+\BOOKMARK [0][-]{chapter.5}{5 Anwendung der Middleware}{}% 21
+\BOOKMARK [1][-]{section.5.1}{5.1 Validierung der Anwendungsf\344lle}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.2}{5.2 St\344rken und Schw\344chen der Implementierung}{chapter.5}% 23
+\BOOKMARK [0][-]{chapter.6}{6 Fazit}{}% 24
+\BOOKMARK [1][-]{section.6.1}{6.1 Entwicklungsstand}{chapter.6}% 25
+\BOOKMARK [1][-]{section.6.2}{6.2 Ausblick auf zuk\374nftige Entwicklungen}{chapter.6}% 26
+\BOOKMARK [0][-]{chapter*.3}{Abk\374rzungsverzeichnis}{}% 27
