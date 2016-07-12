@@ -16,7 +16,9 @@ amqp.connect('amqp://localhost', function(err, conn) {
         ch.assertQueue('', {exclusive: true}, function(err, q) {
             var corr = generateUuid();
             var num = parseInt(args[0]);
-
+            var jsonMsg = {
+                num: num,text: 'yolo'
+            }
             console.log(' [x] Requesting fib(%d)', num);
 
             ch.consume(q.queue, function(msg) {
@@ -27,8 +29,8 @@ amqp.connect('amqp://localhost', function(err, conn) {
             }, {noAck: true});
 
             ch.sendToQueue('rpc_queue',
-                new Buffer(num.toString()),
-                { correlationId: corr, replyTo: q.queue });
+                new Buffer(JSON.stringify(jsonMsg)),
+                { correlationId: corr, replyTo: q.queue,yolo:'yolo' });
         });
     });
 });

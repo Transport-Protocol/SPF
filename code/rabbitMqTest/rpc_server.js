@@ -12,10 +12,10 @@ amqp.connect('amqp://localhost', function(err, conn) {
         ch.prefetch(1);
         console.log(' [x] Awaiting RPC requests');
         ch.consume(q, function reply(msg) {
-            var n = parseInt(msg.content.toString());
+            var jsonContent = JSON.parse(msg.content);
+            var n = parseInt(jsonContent.num);
 
             console.log(" [.] fib(%d)", n);
-
             var r = fibonacci(n);
 
             ch.sendToQueue(msg.properties.replyTo,
