@@ -1,17 +1,47 @@
 /**
  * Created by PhilippMac on 13.07.16.
  */
-var express = require('express');
-var app = express();
+// call the packages we need
+var express    = require('express');        // call express
+var app        = express();                 // define our app using express
+var bodyParser = require('body-parser');
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var port = process.env.PORT || 8080;        // set our port
+
+// ROUTES FOR OUR API
+// =============================================================================
+var router = express.Router();              // get an instance of the express Router
+
+// middleware to use for all requests
+router.use(function(req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next(); // make sure we go to the next routes and don't stop here
 });
 
-app.get('/dropbox', function (req, res) {
-    res.send('Hello dropbox!');
+router.route('/dropbox')
+    .get(function(req,res) {
+       console.log(req.query.file);
+       res.json({message: 'Dropbox get route'});
+    });
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});
+// more routes for our API will happen here
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
