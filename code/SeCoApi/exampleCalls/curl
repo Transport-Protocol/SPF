@@ -1,0 +1,3 @@
+curl --form "fileupload=@npm-debug.log" "localhost:8080/api/dropbox?oauth2Token=adasd&path=adasdas"
+
+
