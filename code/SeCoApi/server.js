@@ -5,7 +5,10 @@
 var express = require('express');
 var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
-var dropboxRoutes = require('./routes/dropbox');
+var dropbox = require('./routes/dropbox');
+var owncloud = require('./routes/owncloud');
+var github = require('./routes/github');
+var googleDrive = require('./routes/googleDrive');
 
 
 var app = express();
@@ -29,8 +32,10 @@ app.use(function (req, res, next) {
 
 // REGISTER ROUTES -------------------------------
 app.use('/api', router);
-app.use('/api/dropbox',dropboxRoutes);
-
+app.use('/api/dropbox',dropbox);
+app.use('/api/owncloud',owncloud);
+app.use('/api/github',github);
+app.use('/api/googledrive',googleDrive);
 
 
 

@@ -1,5 +1,5 @@
 /**
- * Created by phili on 18.07.2016.
+ * Created by PhilippMac on 19.07.16.
  */
 var error = require('../errorCodes');
 var ParamChecker = require('./../utility/paramChecker');
@@ -13,7 +13,7 @@ module.exports = (function () {
         if(!paramChecker.checkParams(req,res)){
             return;
         }
-        res.json({message: 'Dropbox file TODO'});
+        res.json({message: 'GoogleDrive file TODO'});
     });
 
     router.get('/fileTree', function (req, res) {
@@ -21,7 +21,7 @@ module.exports = (function () {
         if(!paramChecker.checkParams(req,res)){
             return;
         }
-        res.json({message: 'Dropbox fileTree TODO'});
+        res.json({message: 'GoogleDrive fileTree TODO'});
     });
 
     router.post('/upload', function (req, res) {
@@ -34,7 +34,7 @@ module.exports = (function () {
             return;
         }
         console.log(req.files);
-        res.send('Dropbox File uploaded! TODO');
+        res.send('GoogleDrive File uploaded! TODO');
     });
     return router;
 })();

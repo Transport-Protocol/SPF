@@ -1,0 +1,30 @@
+{
+  "routes": [
+    {
+      "http-method": "get",
+      "route": "api/owncloud/file",
+      "parameter": [
+        "username",
+        "password",
+        "path"
+      ]
+    },
+    {
+      "http-method": "get",
+      "route": "api/owncloud/fileTree",
+      "parameter": [
+        "username",
+        "password"
+      ]
+    },
+    {
+      "http-method": "post",
+      "route": "api/owncloud/upload",
+      "parameter": [
+        "username",
+        "password",
+        "path"
+      ]
+    }
+  ]
+}

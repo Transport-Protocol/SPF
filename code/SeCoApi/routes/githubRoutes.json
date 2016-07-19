@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "http-method": "get",
+      "route": "api/github/:user/repos",
+      "parameter": [
+      ]
+    },
+    {
+      "http-method": "get",
+      "route": "api/github/:user/repos/:repo",
+      "parameter": [
+      ]
+    }
+  ]
+}
