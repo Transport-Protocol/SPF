@@ -4,15 +4,19 @@
       "http-method": "get",
       "route": "api/owncloud/file",
       "parameter": [
-        "username",
-        "password",
         "path"
+      ],
+      "header": [
+        "username",
+        "password"
       ]
     },
     {
       "http-method": "get",
-      "route": "api/owncloud/fileTree",
+      "route": "api/owncloud/filetree",
       "parameter": [
+      ],
+      "header": [
         "username",
         "password"
       ]
@@ -21,9 +25,11 @@
       "http-method": "post",
       "route": "api/owncloud/upload",
       "parameter": [
-        "username",
-        "password",
         "path"
+      ],
+      "header": [
+        "username",
+        "password"
       ]
     }
   ]

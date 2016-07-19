@@ -4,23 +4,29 @@
       "http-method": "get",
       "route": "api/googleDrive/file",
       "parameter": [
-        "oauth2Token",
         "path"
+      ],
+      "header": [
+        "oauth2token"
       ]
     },
     {
       "http-method": "get",
-      "route": "api/googleDrive/fileTree",
+      "route": "api/googleDrive/filetree",
       "parameter": [
-        "oauth2Token"
+      ],
+      "header": [
+        "oauth2token"
       ]
     },
     {
       "http-method": "post",
       "route": "api/googleDrive/upload",
       "parameter": [
-        "oauth2Token",
         "path"
+      ],
+      "header": [
+        "oauth2token"
       ]
     }
   ]

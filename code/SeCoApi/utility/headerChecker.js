@@ -6,14 +6,13 @@
  */
 var error = require('../errorCodes');
 
-function HeaderChecker(params){
-    this.params = params;
+function HeaderChecker(){
 }
 
-HeaderChecker.prototype.checkParams = function ( req,res){
+HeaderChecker.prototype.containsParameter = function (params, req, res){
     var allParamsOk = true;
-    for(var i = 0;i<this.params.length;i++){
-        if(!checkParameter(req,res,this.params[i])){
+    for(var i = 0;i<params.length;i++){
+        if(!checkParameter(req,res,params[i])){
             allParamsOk = false;
             break;
         }

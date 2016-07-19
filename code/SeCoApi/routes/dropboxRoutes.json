@@ -4,23 +4,29 @@
       "http-method": "get",
       "route": "api/dropbox/file",
       "parameter": [
-        "oauth2Token",
         "path"
+      ],
+      "header": [
+        "oauth2token"
       ]
     },
     {
       "http-method": "get",
-      "route": "api/dropbox/fileTree",
+      "route": "api/dropbox/filetree",
       "parameter": [
-        "oauth2Token"
+      ],
+      "header": [
+        "oauth2token"
       ]
     },
     {
       "http-method": "post",
       "route": "api/dropbox/upload",
       "parameter": [
-        "oauth2Token",
         "path"
+      ],
+      "header": [
+        "oauth2token"
       ]
     }
   ]

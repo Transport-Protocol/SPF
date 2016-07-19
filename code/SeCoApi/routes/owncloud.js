@@ -3,22 +3,26 @@
  */
 var error = require('../errorCodes');
 var ParamChecker = require('./../utility/paramChecker');
+var HeaderChecker = require('./../utility/headerChecker');
 
 module.exports = (function () {
     'use strict';
     var router = require('express').Router();
+    var paramChecker = new ParamChecker();
+    var headerChecker = new HeaderChecker();
 
     router.get('/file', function (req, res) {
-        var paramChecker = new ParamChecker(['username','password','path']);
-        if(!paramChecker.checkParams(req,res)){
+        if(!paramChecker.containsParameter(['path'],req,res)){
+            return;
+        }
+        if(!headerChecker.containsParameter(['username','password'],req,res)){
             return;
         }
         res.json({message: 'Owncloud file TODO'});
     });
 
-    router.get('/fileTree', function (req, res) {
-        var paramChecker = new ParamChecker(['username','password']);
-        if(!paramChecker.checkParams(req,res)){
+    router.get('/filetree', function (req, res) {
+        if(!headerChecker.containsParameter(['username','password'],req,res)){
             return;
         }
         res.json({message: 'Owncloud fileTree TODO'});
@@ -29,8 +33,10 @@ module.exports = (function () {
             res.send({route: req.baseUrl, error: error.missingFile, errorMessage: 'missing file'});
             return;
         }
-        var paramChecker = new ParamChecker(['username','password','path']);
-        if(!paramChecker.checkParams(req,res)){
+        if(!paramChecker.containsParameter(['path'],req,res)){
+            return;
+        }
+        if(!headerChecker.containsParameter(['username','password'],req,res)){
             return;
         }
         console.log(req.files);
