@@ -9,6 +9,8 @@ var dropbox = require('./routes/dropbox');
 var owncloud = require('./routes/owncloud');
 var github = require('./routes/github');
 var googleDrive = require('./routes/googleDrive');
+var bitbucket = require('./routes/bitbucket');
+var slack = require('./routes/slack');
 
 
 var app = express();
@@ -16,11 +18,9 @@ app.use(bodyParser.json());
 //reading multipart fileupload
 app.use(fileUpload());
 
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || 8080;
 
-// ROUTES FOR OUR API
-// =============================================================================
-var router = express.Router();              // get an instance of the express Router
+var router = express.Router();
 
 // middleware to use for all requests
 app.use(function (req, res, next) {
@@ -34,8 +34,10 @@ app.use(function (req, res, next) {
 app.use('/api', router);
 app.use('/api/dropbox',dropbox);
 app.use('/api/owncloud',owncloud);
-app.use('/api/github',github);
 app.use('/api/googledrive',googleDrive);
+app.use('/api/github',github);
+app.use('/api/bitbucket',bitbucket);
+app.use('/api/slack',slack);
 
 
 
