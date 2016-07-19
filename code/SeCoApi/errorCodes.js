@@ -5,6 +5,7 @@ var errorCodes = [];
 
 errorCodes.missingParamater = "001";
 errorCodes.missingFile = "002";
+errorCodes.missingHeaderParameter = "003";
 
 
 
