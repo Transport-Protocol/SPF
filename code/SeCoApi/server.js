@@ -14,7 +14,8 @@ var github = require('./routes/github');
 var googleDrive = require('./routes/googleDrive');
 var bitbucket = require('./routes/bitbucket');
 var slack = require('./routes/slack');
-
+var msgBrokerType = require('./msgBroker/msgBrokerType');
+var MsgBroker = require('./msgBroker/msgBroker');
 
 process.env.LOG_LEVEL = 'info';
 winston.level = process.env.LOG_LEVEL;
@@ -46,6 +47,10 @@ app.use('/api/bitbucket',bitbucket);
 app.use('/api/slack',slack);
 
 
+var broker = new MsgBroker(msgBrokerType.RABBITMQ);
+broker.sendData(null,null,function(err,data){
+
+});
 
 // START THE SERVER
 // =============================================================================

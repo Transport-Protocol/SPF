@@ -1,9 +1,6 @@
 /**
  * Created by PhilippMac on 19.07.16.
  */
-/**
- * Created by phili on 18.07.2016.
- */
 var error = require('../errorCodes');
 
 function HeaderChecker(){

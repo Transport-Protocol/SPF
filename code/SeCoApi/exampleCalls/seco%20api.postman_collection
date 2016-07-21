@@ -1,0 +1,255 @@
+{
+	"variables": [],
+	"info": {
+		"name": "seco api",
+		"_postman_id": "477f855d-562b-e69a-71eb-d5167787bebf",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/dropbox/file?path=adsdasd",
+			"request": {
+				"url": "localhost:8080/api/dropbox/file?path=adsdasd",
+				"method": "GET",
+				"header": [
+					{
+						"key": "oauth2Token",
+						"value": "asasas",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/dropbox/filetree",
+			"request": {
+				"url": "localhost:8080/api/dropbox/filetree",
+				"method": "GET",
+				"header": [
+					{
+						"key": "oauth2Token",
+						"value": "asasas",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/dropbox/upload/?path=/xd/ds",
+			"request": {
+				"url": "localhost:8080/api/dropbox/upload/?path=/xd/ds",
+				"method": "POST",
+				"header": [
+					{
+						"key": "oauth2token",
+						"value": "sdsdshAHHS",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/googledrive/upload/?path=/xd/ds",
+			"request": {
+				"url": "localhost:8080/api/googledrive/upload/?path=/xd/ds",
+				"method": "POST",
+				"header": [
+					{
+						"key": "oauth2token",
+						"value": "sdsdshAHHS",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/googledrive/filetree",
+			"request": {
+				"url": "localhost:8080/api/googledrive/filetree",
+				"method": "GET",
+				"header": [
+					{
+						"key": "oauth2Token",
+						"value": "asasas",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/googledrive/file?path=/xd/df",
+			"request": {
+				"url": "localhost:8080/api/googledrive/file?path=/xd/df",
+				"method": "GET",
+				"header": [
+					{
+						"key": "oauth2Token",
+						"value": "asasas",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/owncloud/upload/?path=/xd/ds",
+			"request": {
+				"url": "localhost:8080/api/owncloud/upload/?path=/xd/ds",
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "philipp",
+						"description": ""
+					},
+					{
+						"key": "password",
+						"value": "test",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/owncloud/filetree",
+			"request": {
+				"url": "localhost:8080/api/owncloud/filetree",
+				"method": "GET",
+				"header": [
+					{
+						"key": "username",
+						"value": "philipp",
+						"description": ""
+					},
+					{
+						"key": "password",
+						"value": "test",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/owncloud/file?path=/xd/ds",
+			"request": {
+				"url": "localhost:8080/api/owncloud/file?path=/xd/ds",
+				"method": "GET",
+				"header": [
+					{
+						"key": "username",
+						"value": "philipp",
+						"description": ""
+					},
+					{
+						"key": "password",
+						"value": "test",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/github/philipp/repos/testrepo/filetree",
+			"request": {
+				"url": "localhost:8080/api/github/philipp/repos/testrepo/filetree",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/github/philipp/repos",
+			"request": {
+				"url": "localhost:8080/api/github/philipp/repos",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
