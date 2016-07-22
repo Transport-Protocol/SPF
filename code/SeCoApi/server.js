@@ -63,6 +63,5 @@ broker.sendData(null,null,function(err,data){
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
+app.listen(nconf.get('httpPort'));
 winston.log('info','Api created at port: ',nconf.get('httpPort'));
-console.log(nconf.get('httpPort'));
