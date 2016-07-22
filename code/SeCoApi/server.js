@@ -6,6 +6,12 @@ var express = require('express');
 var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
 var winston = require('winston');
+var fs    = require('fs'),
+    nconf = require('nconf');
+
+nconf.argv()
+    .env()
+    .file({ file: './config/config.json' });
 
 //my modules
 var dropbox = require('./routes/dropbox');
@@ -25,7 +31,6 @@ app.use(bodyParser.json());
 //reading multipart fileupload
 app.use(fileUpload());
 
-var port = process.env.PORT || 8080;
 
 var router = express.Router();
 
@@ -59,4 +64,5 @@ broker.sendData(null,null,function(err,data){
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-winston.log('info','Api created at port: ',port);
+winston.log('info','Api created at port: ',nconf.get('httpPort'));
+console.log(nconf.get('httpPort'));
