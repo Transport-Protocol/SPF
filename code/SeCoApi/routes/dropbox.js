@@ -39,7 +39,6 @@ module.exports = (function () {
         if(!headerChecker.containsParameter(['oauth2token'],req,res)){
             return;
         }
-        console.log(req.files);
         res.send('Dropbox File uploaded! TODO');
     });
     return router;
