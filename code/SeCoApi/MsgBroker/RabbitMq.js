@@ -10,14 +10,19 @@ var nconf = require('nconf');
 function RabbitMq(){
 }
 
-var connection;
+var channel;
 
 RabbitMq.prototype.sendData = function(options,data,callback){
-    if(!connection) {
+    if(!channel) {
         amqp.connect('amqp://localhost', function (err, conn) {
             if(!err){
-                connection = conn;
-                doRPC(callback);
+                conn.createChannel(function(err,ch){
+                   if(err){
+                       return callback(err);
+                   }
+                   channel = ch;
+                    doRPC(callback);
+                });
             } else {
                 return callback(err);
             }
@@ -28,11 +33,7 @@ RabbitMq.prototype.sendData = function(options,data,callback){
 }
 
 function doRPC(callback){
-    connection.createChannel(function(err, ch) {
-        if(err){
-            return callback(err);
-        }
-        ch.assertQueue('', {exclusive: true}, function(err, q) {
+        channel.assertQueue('', {exclusive: true}, function(err, q) {
             if(err){
                 return callback(err);
             }
@@ -43,12 +44,12 @@ function doRPC(callback){
             }
             console.log(' [x] Requesting fib(%d)', num);
             rabbitmqTimeout = setTimeout(function() {
-                connection.close();
+                channel.connection.close();
                 winston.log('error','timeout for rabbitmq reached');
                 process.exit(0)
             }, nconf.get('rpcTimeoutMS'));
 
-            ch.consume(q.queue, function(msg) {
+            channel.consume(q.queue, function(msg) {
                 if (msg.properties.correlationId == corr) {
                     clearTimeout(rabbitmqTimeout);
                     console.log(' [.] Got %s', msg.content.toString());
@@ -56,11 +57,10 @@ function doRPC(callback){
                 }
             }, {noAck: true});
 
-            ch.sendToQueue('rpc_queue',
+            channel.sendToQueue('rpc_queue',
                 new Buffer(JSON.stringify(jsonMsg)),
                 { correlationId: corr, replyTo: q.queue,yolo:'yolo' });
         });
-    });
 }
 
 
