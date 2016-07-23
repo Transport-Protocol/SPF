@@ -56,6 +56,20 @@ var broker = new MsgBroker(msgBrokerType.RABBITMQ);
 broker.sendData(null,null,function(err,data){
     if(!err){
         console.log('info','rabbitmq data: ',data);
+        broker.sendData(null,null,function(err,data){
+            if(!err){
+                console.log('info','rabbitmq data: ',data);
+                broker.sendData(null,null,function(err,data){
+                    if(!err){
+                        console.log('info','rabbitmq data: ',data);
+                    } else {
+                        console.log(err);
+                    }
+                });
+            } else {
+                console.log(err);
+            }
+        });
     } else {
         console.log(err);
     }

@@ -5,6 +5,7 @@
 var util = require('util');
 var winston = require('winston');
 var amqp = require('amqplib/callback_api');
+var nconf = require('nconf');
 
 function RabbitMq(){
 }
@@ -16,43 +17,42 @@ RabbitMq.prototype.sendData = function(options,data,callback){
         amqp.connect('amqp://localhost', function (err, conn) {
             if(!err){
                 connection = conn;
-                doRPC(function(err,msg){
-                    if(!err){
-                        callback(null,msg);
-                    } else {
-                        callback(err,null);
-                    }
-                });
+                doRPC(callback);
             } else {
-                return callback(err,null);
+                return callback(err);
             }
         });
     } else {
-        doRPC(function(err,msg){
-            if(!err){
-                callback(null,msg);
-            } else {
-                callback(err,null);
-            }
-        });
+        doRPC(callback);
     }
 }
 
 function doRPC(callback){
     connection.createChannel(function(err, ch) {
+        if(err){
+            return callback(err);
+        }
         ch.assertQueue('', {exclusive: true}, function(err, q) {
+            if(err){
+                return callback(err);
+            }
             var corr = generateUuid();
             var num = 10;
             var jsonMsg = {
                 num: num,text: 'yolo'
             }
             console.log(' [x] Requesting fib(%d)', num);
+            rabbitmqTimeout = setTimeout(function() {
+                connection.close();
+                winston.log('error','timeout for rabbitmq reached');
+                process.exit(0)
+            }, nconf.get('rpcTimeoutMS'));
 
             ch.consume(q.queue, function(msg) {
                 if (msg.properties.correlationId == corr) {
+                    clearTimeout(rabbitmqTimeout);
                     console.log(' [.] Got %s', msg.content.toString());
                     return callback(null,msg.content.toJSON());
-                    setTimeout(function() { conn.close(); process.exit(0) }, 500);
                 }
             }, {noAck: true});
 

@@ -1,3 +1,4 @@
 {
-  "httpPort" : 8080
+  "httpPort" : 8080,
+  "rpcTimeoutMS" : 5000
 }
