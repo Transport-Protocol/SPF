@@ -11,6 +11,7 @@ function RabbitMq(){
 }
 
 var channel;
+var callbackQueue = 'callbackQueue';
 
 RabbitMq.prototype.sendData = function(options,data,callback){
     if(!channel) {
@@ -21,6 +22,8 @@ RabbitMq.prototype.sendData = function(options,data,callback){
                        return callback(err);
                    }
                    channel = ch;
+                    channel.assertQueue(callbackQueue,{exclusive:true});
+                    listenOnCallbackQueue();
                     doRPC(callback);
                 });
             } else {
@@ -32,11 +35,13 @@ RabbitMq.prototype.sendData = function(options,data,callback){
     }
 }
 
+function listenOnCallbackQueue(){
+    channel.consume(callbackQueue,function(msg){
+       channel.emit(msg.properties.correlationId,msg);
+    }, {noAck: true});
+}
+
 function doRPC(callback){
-        channel.assertQueue('', {exclusive: true}, function(err, q) {
-            if(err){
-                return callback(err);
-            }
             var corr = generateUuid();
             var num = 10;
             var jsonMsg = {
@@ -49,18 +54,16 @@ function doRPC(callback){
                 process.exit(0)
             }, nconf.get('rpcTimeoutMS'));
 
-            channel.consume(q.queue, function(msg) {
-                if (msg.properties.correlationId == corr) {
-                    clearTimeout(rabbitmqTimeout);
-                    console.log(' [.] Got %s', msg.content.toString());
-                    return callback(null,msg.content.toJSON());
-                }
-            }, {noAck: true});
-
             channel.sendToQueue('rpc_queue',
                 new Buffer(JSON.stringify(jsonMsg)),
-                { correlationId: corr, replyTo: q.queue,yolo:'yolo' });
-        });
+                { correlationId: corr, replyTo: callbackQueue});
+
+            channel.on(corr,function(msg){
+                clearTimeout(rabbitmqTimeout);
+                var res = msg.content.toString();
+                console.log(' [.] Got %s', res);
+                return callback(null,res);
+            });
 }
 
 

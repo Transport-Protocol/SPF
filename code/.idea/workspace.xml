@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
+    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="es wird nurnoch ein channel erstellt">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/MsgBroker/RabbitMq.js" afterPath="$PROJECT_DIR$/SeCoApi/MsgBroker/RabbitMq.js" />
     </list>
@@ -49,8 +49,18 @@
       <file leaf-file-name="RabbitMq.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SeCoApi/MsgBroker/RabbitMq.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.4285715">
-              <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.378882">
+              <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rpc_server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rabbitMqTest/rpc_server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -119,6 +129,7 @@
         <option value="$PROJECT_DIR$/SeCoApi/msgBroker/MsgBroker.js" />
         <option value="$PROJECT_DIR$/SeCoApi/config/config.json" />
         <option value="$PROJECT_DIR$/SeCoApi/server.js" />
+        <option value="$PROJECT_DIR$/SeCoApi/node_modules/amqplib/lib/channel.js" />
         <option value="$PROJECT_DIR$/SeCoApi/MsgBroker/RabbitMq.js" />
       </list>
     </option>
@@ -299,7 +310,7 @@
       <recent name="C:\Users\phili\git\ba\code\SeCoApi\utility" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.index.js">
+  <component name="RunManager" selected="Node.js.rpc_server.js">
     <configuration default="false" name="index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/SeCoApi">
       <method />
     </configuration>
@@ -461,7 +472,13 @@
       <option name="project" value="LOCAL" />
       <updated>1469279884574</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="es wird nurnoch ein channel erstellt">
+      <created>1469280248136</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1469280248136</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -510,7 +527,8 @@
     <MESSAGE value="rabbitmq broker init" />
     <MESSAGE value="nconf als config modul hinzugefuegt" />
     <MESSAGE value="code callbacks übersichtlicher gemacht.&#10;timeout für rpc call eingebaut" />
-    <option name="LAST_COMMIT_MESSAGE" value="code callbacks übersichtlicher gemacht.&#10;timeout für rpc call eingebaut" />
+    <MESSAGE value="es wird nurnoch ein channel erstellt" />
+    <option name="LAST_COMMIT_MESSAGE" value="es wird nurnoch ein channel erstellt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -531,14 +549,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RestTest/TestRestServer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -874,13 +884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5279503">
           <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitMqTest/rpc_server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -909,6 +912,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SeCoApi/node_modules/amqplib/lib/channel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.751553">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -919,10 +932,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitMqTest/rpc_server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/MsgBroker/RabbitMq.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4285715">
-          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.378882">
+          <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
           <folding />
         </state>
       </provider>
