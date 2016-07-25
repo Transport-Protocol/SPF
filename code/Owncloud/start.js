@@ -3,6 +3,10 @@
  */
 var connector = require('./owncloud');
 
-connector.getFileTree("",function(err,dirs){
-   console.log(dirs);
+connector.getFileTree('BA-Philipp',function(err,dirs){
+    if(!err) {
+        console.log(dirs);
+    } else {
+        console.log(err);
+    }
 });

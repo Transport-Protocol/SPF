@@ -11,7 +11,7 @@ var connector = {};
 connector.getFileTree = function(path,callback){
     var options = {
         method: 'PROPFIND',
-        uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/',
+        uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + path,
         auth: {
             user: 'abi515',
             password: 'Injection2',
@@ -22,21 +22,33 @@ connector.getFileTree = function(path,callback){
         if(error){
             return callback(error);
         }
-        var dirs = getDirectoryFromXML(body);
+        var dirs = getDirectoryFromXML(body,cleanupPath(path));
         return callback(null,dirs);
     });
 }
 
+function cleanupPath(path){
+    if(path[path.length-1] === '/'){
+        path = path.substring(0,path.length-1);
+    }
+    return path;
+}
 
-function getDirectoryFromXML(xml){
+function getDirectoryFromXML(xml,path){
     var directoryNames = [];
     var splitted = xml.split('webdav');
     //remove first unrelated splits
     splitted.shift();
     splitted.shift();
     //remove leading slash
+    var deleteCharsCount = path.length+2; //remove leading and following slash
+    if(path === ''){
+        deleteCharsCount = deleteCharsCount - 1; //empty path,only remove leading slash
+    }
     for(var i = 0;i<splitted.length;i++){
-        splitted[i] = splitted[i].substring(1);
+        for(var j = 0;j<deleteCharsCount;j++){
+            splitted[i] = splitted[i].substring(1);
+        }
         var firstBackSlash = splitted[i].indexOf('\/');
         var directory = splitted[i].substring(0,firstBackSlash);
         directoryNames.push(directory);
