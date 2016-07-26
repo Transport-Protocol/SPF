@@ -11,9 +11,9 @@ connector.getFileTree('BA-Philipp',function(err,dirs){
     }
 });
 
-connector.getFile('ownCloudUserManual.pdf',function(err,dirs){
+connector.getFile('Umfrage.pdf',function(err,fileName,buffer){
     if(!err) {
-        console.log(dirs);
+        console.log('%s retrieved', fileName);
     } else {
         console.log(err);
     }
