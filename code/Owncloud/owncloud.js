@@ -18,12 +18,38 @@ connector.getFileTree = function(path,callback){
             sendImmediately: true
         }
     };
-    request(options, function(error, response, body) {
-        if(error){
-            return callback(error);
+    request(options, function(err, response, body) {
+        if(err){
+            return callback(err);
         }
         var dirs = getDirectoryFromXML(body,cleanupPath(path));
         return callback(null,dirs);
+    });
+}
+
+connector.getFile = function(pathToFile,callback){
+    var options = {
+        method: 'GET',
+        uri: 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?dir=%2FBA-Philipp%2FUmfrage&files=Infoblatt.pdf',
+        encoding: null,
+        auth: {
+            user: 'abi515',
+            password: 'Injection2',
+            sendImmediately: true
+        }
+    };
+    request(options, function(err, response, body) {
+        if(err){
+            return callback(err);
+        }
+        var fs = require('fs');
+        fs.writeFile('test.pdf', new Buffer(body), function(err) {
+            if(err) {
+                return callback(err);
+            }
+            console.log("The file was saved!");
+            return callback(null,body);
+        });
     });
 }
 
