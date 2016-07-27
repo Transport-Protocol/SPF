@@ -6,6 +6,12 @@ var request = require('request');
 
 var connector = {};
 
+/**
+ * Returns a directory specified by path
+ * no sub-directories regarded
+ * @param path
+ * @param callback
+ */
 connector.getFileTree = function (path, callback) {
     var options = {
         method: 'PROPFIND',
@@ -20,8 +26,33 @@ connector.getFileTree = function (path, callback) {
         if (err) {
             return callback(err);
         }
-        var dirs = getDirectoryFromXML(body, cleanupPath(path));
+        var dirs = _getDirectoryFromXML(body, _formatPath(path));
         return callback(null, dirs);
+    });
+}
+
+
+connector.uploadFile = function (path, fileBuffer, fileName, callback) {
+    var url = 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
+    var options = {
+        method: 'PUT',
+        uri: url,
+        auth: {
+            user: 'abi515',
+            password: 'Injection2',
+            sendImmediately: true
+        },
+         multipart: [{
+         fileName: fileName,
+         body: fileBuffer
+         }]
+    };
+
+    request(options, function (err, response, body) {
+        if (err) {
+            return callback(err);
+        }
+        return callback(null, 'upload succesful');
     });
 }
 
@@ -37,11 +68,11 @@ connector.getFile = function (filePath, callback) {
     var pathSplit = filePath.split('/');
     fileUrl += 'dir=';
     var fileName = {};
-    if(pathSplit.length <= 1){
+    if (pathSplit.length <= 1) {
         fileUrl += '%2F';
     }
-    for(var i = 0;i<pathSplit.length;i++){
-        if(i === pathSplit.length-1){
+    for (var i = 0; i < pathSplit.length; i++) {
+        if (i === pathSplit.length - 1) {
             //fileName
             fileUrl += '&files=' + pathSplit[i];
             fileName = pathSplit[i];
@@ -65,29 +96,15 @@ connector.getFile = function (filePath, callback) {
         if (err) {
             return callback(err);
         }
-        return callback(null, fileName,body);
-    });
-}
-
-function writeFile(buffer, fileName) {
-    var fs = require('fs');
-    fs.writeFile(fileName, buffer, function (err) {
-        if (err) {
-            return callback(err);
+        if(response.statusCode === 404){
+            return callback(new Error('404 file not found'));
         }
-        console.log("The file was saved!");
-        return callback(null, {'status': 'ok'});
+        return callback(null, fileName, body);
     });
 }
 
-function cleanupPath(path) {
-    if (path[path.length - 1] === '/') {
-        path = path.substring(0, path.length - 1);
-    }
-    return path;
-}
 
-function getDirectoryFromXML(xml, path) {
+function _getDirectoryFromXML(xml, path) {
     var directoryNames = [];
     var splitted = xml.split('webdav');
     //remove first unrelated splits
@@ -106,10 +123,10 @@ function getDirectoryFromXML(xml, path) {
         var directory = splitted[i].substring(0, firstBackSlash);
         directoryNames.push(directory);
     }
-    return sortAlphabetically(directoryNames);
+    return _sortArrayAlphabetically(directoryNames);
 }
 
-function sortAlphabetically(array) {
+function _sortArrayAlphabetically(array) {
     return array.sort(function (a, b) {
         var nameA = a.toLowerCase(), nameB = b.toLowerCase();
         if (nameA < nameB) //sort string ascending
@@ -118,6 +135,24 @@ function sortAlphabetically(array) {
             return 1;
         return 0; //default return value (no sorting)
     });
+}
+
+function _writeFile(buffer, fileName) {
+    var fs = require('fs');
+    fs.writeFile(fileName, buffer, function (err) {
+        if (err) {
+            return callback(err);
+        }
+        console.log("The file was saved!");
+        return callback(null, {'status': 'ok'});
+    });
+}
+
+function _formatPath(path) {
+    if (path[path.length - 1] === '/') {
+        path = path.substring(0, path.length - 1);
+    }
+    return path;
 }
 
 
