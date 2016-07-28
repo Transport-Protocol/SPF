@@ -19,17 +19,4 @@ connector.getFile('BA-Philipp/Umfrage/Umfrage.pdf',function(err,fileName,buffer)
     }
 });
 
-var fs = require('fs');
-
-fs.readFile("test.pdf", function (err, data) {
-    if (err) throw err;
-    console.log(data);
-    connector.uploadFile('BA-Philipp',data,'test5.pdf', function(err,msg){
-        if(err){
-            console.log(err);
-        } else {
-            console.log(msg);
-        }
-    });
-});
 

@@ -1,3 +1,4 @@
+'use strict'
 /**
  * Created by PhilippMac on 25.07.16.
  */
@@ -81,7 +82,6 @@ connector.getFile = function (filePath, callback) {
             fileUrl += '%2F' + pathSplit[i];
         }
     }
-    console.log(baseURL);
     var options = {
         method: 'GET',
         uri: fileUrl,
@@ -96,8 +96,8 @@ connector.getFile = function (filePath, callback) {
         if (err) {
             return callback(err);
         }
-        if(response.statusCode === 404){
-            return callback(new Error('404 file not found'));
+        if(response.statusCode >= 400 && response.statusCode <= 499){
+            return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
         }
         return callback(null, fileName, body);
     });
