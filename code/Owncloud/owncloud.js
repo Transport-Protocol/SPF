@@ -99,6 +99,7 @@ connector.getFile = function (filePath, callback) {
         if(response.statusCode >= 400 && response.statusCode <= 499){
             return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
         }
+        console.log(fileName);
         return callback(null, fileName, body);
     });
 }

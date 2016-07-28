@@ -4,7 +4,6 @@
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/owncloud.js" afterPath="$PROJECT_DIR$/Owncloud/owncloud.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/start.js" afterPath="$PROJECT_DIR$/Owncloud/start.js" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,21 +34,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Owncloud/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13043478">
+            <state vertical-scroll-proportion="-2.5">
               <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Owncloud/test/owncloud.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.8023256">
+              <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -59,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="158" column="17" selection-start-line="158" selection-start-column="17" selection-end-line="158" selection-end-column="17" />
+              <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -173,10 +172,10 @@
         <option value="$PROJECT_DIR$/SeCoApi/node_modules/amqplib/lib/channel.js" />
         <option value="$PROJECT_DIR$/SeCoApi/MsgBroker/RabbitMq.js" />
         <option value="$PROJECT_DIR$/Owncloud/test-setup.spec.js" />
-        <option value="$PROJECT_DIR$/Owncloud/owncloud.js" />
         <option value="$PROJECT_DIR$/Owncloud/owncloud.spec.js" />
         <option value="$PROJECT_DIR$/Owncloud/package.json" />
         <option value="$PROJECT_DIR$/Owncloud/start.js" />
+        <option value="$PROJECT_DIR$/Owncloud/owncloud.js" />
         <option value="$PROJECT_DIR$/Owncloud/test/owncloud.js" />
       </list>
     </option>
@@ -304,11 +303,8 @@
       <recent name="$PROJECT_DIR$/SeCoApi/routes" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.start.js (1)">
+  <component name="RunManager" selected="Node.js.owncloud.js">
     <configuration default="false" name="index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/SeCoApi">
-      <method />
-    </configuration>
-    <configuration default="false" name="receive.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="receive.js" working-dir="$PROJECT_DIR$/rabbitMqTest">
       <method />
     </configuration>
     <configuration default="false" name="rpc_server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="rpc_server.js" working-dir="$PROJECT_DIR$/rabbitMqTest">
@@ -318,6 +314,9 @@
       <method />
     </configuration>
     <configuration default="false" name="start.js (1)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="start.js" working-dir="$PROJECT_DIR$/Owncloud">
+      <method />
+    </configuration>
+    <configuration default="false" name="owncloud.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="owncloud.js" working-dir="$PROJECT_DIR$/Owncloud/test">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -374,18 +373,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Node.js.Unnamed" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.index.js" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.receive.js" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.rpc_server.js" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.start.js" />
-      <item index="5" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.rpc_server.js" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.start.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
+      <item index="5" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.start.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.index.js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.rpc_server.js" />
-        <item index="4" class="java.lang.String" itemvalue="Node.js.receive.js" />
+        <item index="0" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.start.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.index.js" />
+        <item index="4" class="java.lang.String" itemvalue="Node.js.rpc_server.js" />
       </list>
     </recent_temporary>
   </component>
@@ -518,7 +517,13 @@
       <option name="project" value="LOCAL" />
       <updated>1469612097621</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="mocha test added for owncloud">
+      <created>1469707226177</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1469707226177</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -531,11 +536,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3263158" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3263158" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39736843" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39736843" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -576,7 +581,8 @@
     <MESSAGE value="owncloud getfile refactored. fileName wird jetzt auch in den callback gegeben und flexible path's sind nun möglich -&gt; test/tester/test.pdf zum bespiel" />
     <MESSAGE value="owncloud file upload implementiert. pdf funktioniert einwandfrei, .txt file verbuggt iwie,sonst noch nichts getestet" />
     <MESSAGE value="owncloud file upload implementiert. pdf funktioniert einwandfrei, .txt file verbuggt iwie,sonst noch nichts getestet&#10;&#10;bei getFile owncloud wird nun fehler 404(statuscode) beachtet" />
-    <option name="LAST_COMMIT_MESSAGE" value="owncloud file upload implementiert. pdf funktioniert einwandfrei, .txt file verbuggt iwie,sonst noch nichts getestet&#10;&#10;bei getFile owncloud wird nun fehler 404(statuscode) beachtet" />
+    <MESSAGE value="mocha test added for owncloud" />
+    <option name="LAST_COMMIT_MESSAGE" value="mocha test added for owncloud" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -602,7 +608,7 @@
           <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="41" />
+      <option name="time" value="42" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -959,26 +965,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Owncloud/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="158" column="17" selection-start-line="158" selection-start-column="17" selection-end-line="158" selection-end-column="17" />
+          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/test/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13043478">
-          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.8023256">
+          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
           <folding />
         </state>
       </provider>
