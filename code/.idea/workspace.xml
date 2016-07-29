@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="istanbul added as code coverage tool">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Owncloud/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Owncloud/test/owncloud.js" />
+    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="test file und cov">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Owncloud/test/test.pdf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="code.iws" />
@@ -280,6 +279,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Owncloud" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="coverage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -530,7 +551,13 @@
       <option name="project" value="LOCAL" />
       <updated>1469708204657</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="istanbul added as code coverage tool">
+      <created>1469718757315</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1469718757315</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -590,7 +617,8 @@
     <MESSAGE value="owncloud file upload implementiert. pdf funktioniert einwandfrei, .txt file verbuggt iwie,sonst noch nichts getestet&#10;&#10;bei getFile owncloud wird nun fehler 404(statuscode) beachtet" />
     <MESSAGE value="mocha test added for owncloud" />
     <MESSAGE value="added done to mocha test to wait for asynchronous functions.&#10;use assert.equal for string comparison" />
-    <option name="LAST_COMMIT_MESSAGE" value="added done to mocha test to wait for asynchronous functions.&#10;use assert.equal for string comparison" />
+    <MESSAGE value="istanbul added as code coverage tool" />
+    <option name="LAST_COMMIT_MESSAGE" value="istanbul added as code coverage tool" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
