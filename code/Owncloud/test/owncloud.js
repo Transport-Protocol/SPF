@@ -2,19 +2,20 @@ var expect    = require('chai').expect;
 var assert    = require('chai').assert;
 var owncloud = require("../owncloud");
 
-describe('Owncloud owncloud', function() {
+describe('Owncloud', function() {
     describe('Path to directory content', function() {
-        it("returns all directory content in specified path", function(done) {
-            owncloud.getFileTree('BA-Philipp',function(err,dirs){
+        it("returns all directories in specified path", function(done) {
+            owncloud.getFileTree('abi515','Injection2','BA-Philipp',function(err,dirs){
                 expect(err).to.be.a('null');
                 expect(dirs).to.have.length.above(5);
+                console.log(dirs);
                 done();
             });
         });
     });
     describe('Path to file', function() {
         it('returns file contents as buffer and filename specified by path', function(done) {
-            owncloud.getFile('BA-Philipp/Umfrage/Umfrage.pdf',function(err,fileName,buffer){
+            owncloud.getFile('abi515','Injection2','BA-Philipp/Umfrage/Umfrage.pdf',function(err,fileName,buffer){
                 expect(err).to.be.a('null');
                 assert.equal(fileName,'Umfrage.pdf');
                 expect(buffer).to.be.not.a('null');

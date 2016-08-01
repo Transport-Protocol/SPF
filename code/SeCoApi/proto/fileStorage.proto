@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package fileStorage;
+
+// The greeting service definition.
+service FileStorage {
+  // Gets a file
+  rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+
+  rpc GetFileTree (GetFileRequest) returns (GetFileTreeReply) {}
+}
+
+// The request message
+message GetFileRequest {
+  string path = 1;
+  string token =2;
+  string username = 3;
+  string password = 4;
+}
+
+// The response message
+message GetFileReply {
+  string fileName = 1;
+  bytes fileBuffer = 2;
+}
+
+// The response message
+message GetFileTreeReply {
+  repeated string dirs = 1;
+  string err = 2;
+}

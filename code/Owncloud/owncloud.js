@@ -13,13 +13,13 @@ var owncloud = {};
  * @param path
  * @param callback
  */
-owncloud.getFileTree = function (path, callback) {
+owncloud.getFileTree = function (username,password,path, callback) {
     var options = {
         method: 'PROPFIND',
         uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + path,
         auth: {
-            user: 'abi515',
-            password: 'Injection2',
+            user: username,
+            password: password,
             sendImmediately: true
         }
     };
@@ -27,7 +27,13 @@ owncloud.getFileTree = function (path, callback) {
         if (err) {
             return callback(err);
         }
+        if(response.statusCode >= 400 && response.statusCode <= 499){
+            return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
+        }
         var dirs = _getDirectoryFromXML(body, _formatPath(path));
+        if(dirs.length === 0){
+            return callback(new Error('empty dir'));
+        }
         return callback(null, dirs);
     });
 }
@@ -63,7 +69,8 @@ owncloud.uploadFile = function (path, fileBuffer, fileName, callback) {
  * @param filePath
  * @param callback
  */
-owncloud.getFile = function (filePath, callback) {
+owncloud.getFile = function (username,password,filePath, callback) {
+    console.log('username %s password %s',username,password);
     var baseURL = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var fileUrl = baseURL;
     var pathSplit = filePath.split('/');
@@ -87,8 +94,8 @@ owncloud.getFile = function (filePath, callback) {
         uri: fileUrl,
         encoding: null,
         auth: {
-            user: 'abi515',
-            password: 'Injection2',
+            user: username,
+            password: password,
             sendImmediately: true
         }
     };

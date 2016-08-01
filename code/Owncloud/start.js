@@ -3,46 +3,38 @@
  */
 var connector = require('./owncloud');
 
-connector.getFileTree('BA-Philipp',function(err,dirs){
-    if(!err) {
-        console.log(dirs);
-    } else {
-        console.log(err);
-    }
-});
+var grpc = require('grpc');
+var fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
 
-connector.getFile('BA-Philipp/Umfrage/Umfrage.pdf',function(err,fileName,buffer){
-    if(!err) {
-        console.log('%s retrieved; buffer: %s', fileName,buffer);
-    } else {
-        console.log(err);
-    }
-});
-
-
-
-var amqp = require('amqplib/callback_api');
-
-amqp.connect('amqp://localhost', function(err, conn) {
-    conn.createChannel(function(err, ch) {
-        var q = 'rpc_queue';
-
-        ch.assertQueue(q, {durable: false});
-        ch.prefetch(1);
-        console.log(' [x] Awaiting RPC requests');
-        ch.consume(q, function reply(msg) {
-            var jsonContent = JSON.parse(msg.content);
-            var n = parseInt(jsonContent.num);
-
-            console.log(" [.] fib(%d)", n);
-            var r = fibonacci(n);
-
-            ch.sendToQueue(msg.properties.replyTo,
-                new Buffer(r.toString()),
-                {correlationId: msg.properties.correlationId});
-
-            ch.ack(msg);
-        });
+/**
+ * Implements the GetFile RPC method.
+ */
+function getFile(call, callback) {
+    console.log(call.request.username);
+    connector.getFile(call.request.username, call.request.password, call.request.path, function (err, fileName, fileBuffer) {
+        callback(null, {fileName: fileName, fileBuffer: fileBuffer});
     });
-});
+}
 
+
+/**
+ * Implements the GetFile RPC method.
+ */
+function getFileTree(call, callback) {
+    console.log('getFileTree: ' + JSON.stringify(call.request));
+    connector.getFileTree(call.request.username, call.request.password, call.request.path, function (err, dirs) {
+        if (err) {
+            console.log(err);
+            callback(null,{err: err.msg});
+        } else {
+            console.log('dirs: ' + dirs);
+            callback(null,{dirs: dirs});
+        }
+    });
+}
+
+
+var server = new grpc.Server();
+server.addProtoService(fileStorageProto.FileStorage.service, {getFile: getFile, getFileTree: getFileTree});
+server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());
+server.start();
