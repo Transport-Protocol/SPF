@@ -5,7 +5,7 @@
 var request = require('request');
 
 
-var connector = {};
+var owncloud = {};
 
 /**
  * Returns a directory specified by path
@@ -13,7 +13,7 @@ var connector = {};
  * @param path
  * @param callback
  */
-connector.getFileTree = function (path, callback) {
+owncloud.getFileTree = function (path, callback) {
     var options = {
         method: 'PROPFIND',
         uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + path,
@@ -33,7 +33,7 @@ connector.getFileTree = function (path, callback) {
 }
 
 
-connector.uploadFile = function (path, fileBuffer, fileName, callback) {
+owncloud.uploadFile = function (path, fileBuffer, fileName, callback) {
     var url = 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
     var options = {
         method: 'PUT',
@@ -63,7 +63,7 @@ connector.uploadFile = function (path, fileBuffer, fileName, callback) {
  * @param filePath
  * @param callback
  */
-connector.getFile = function (filePath, callback) {
+owncloud.getFile = function (filePath, callback) {
     var baseURL = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var fileUrl = baseURL;
     var pathSplit = filePath.split('/');
@@ -157,4 +157,4 @@ function _formatPath(path) {
 }
 
 
-module.exports = connector;
+module.exports = owncloud;

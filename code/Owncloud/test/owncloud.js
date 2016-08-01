@@ -2,7 +2,7 @@ var expect    = require('chai').expect;
 var assert    = require('chai').assert;
 var owncloud = require("../owncloud");
 
-describe('Owncloud connector', function() {
+describe('Owncloud owncloud', function() {
     describe('Path to directory content', function() {
         it("returns all directory content in specified path", function(done) {
             owncloud.getFileTree('BA-Philipp',function(err,dirs){

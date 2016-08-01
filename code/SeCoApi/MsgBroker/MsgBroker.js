@@ -7,15 +7,15 @@ var winston = require('winston');
 var RabbitMq = require('./rabbitMq');
     nconf = require('nconf');
 
-function MsgBroker(msgBrokerType){
+function MsgBroker(msgBrokerType,serverIp,serverPort){
     this.msgBrokerType = msgBrokerType;
 
     switch(this.msgBrokerType){
         case msgBrokerType.RABBITMQ:
-            this.implementation = new RabbitMq(msgBrokerType);
+            this.implementation = new RabbitMq(serverIp,serverPort);
             break;
         default:
-            this.implementation = new RabbitMq(msgBrokerType);
+            this.implementation = new RabbitMq(serverIp,serverPort);
     }
 
 }
@@ -26,6 +26,15 @@ MsgBroker.prototype.sendData = function (sendOptions,data,callback){
         return callback(null, null);
     } else {
         this.implementation.sendData(sendOptions,data,callback);
+    }
+}
+
+MsgBroker.prototype.getFile = function (options,path,auth,callback){
+    if(!typeof this.implementation.getFile == 'function') {
+        winston.log('error', 'getFile not implemented by super class');
+        return callback(null, null);
+    } else {
+        this.implementation.getFile(options.queueName,path,auth,callback);
     }
 }
 
