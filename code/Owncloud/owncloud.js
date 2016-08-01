@@ -39,14 +39,14 @@ owncloud.getFileTree = function (username,password,path, callback) {
 }
 
 
-owncloud.uploadFile = function (path, fileBuffer, fileName, callback) {
+owncloud.uploadFile = function (username,password,path, fileBuffer, fileName, callback) {
     var url = 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
     var options = {
         method: 'PUT',
         uri: url,
         auth: {
-            user: 'abi515',
-            password: 'Injection2',
+            user: username,
+            password: password,
             sendImmediately: true
         },
          multipart: [{
@@ -59,6 +59,9 @@ owncloud.uploadFile = function (path, fileBuffer, fileName, callback) {
         if (err) {
             return callback(err);
         }
+        if(response.statusCode >= 400 && response.statusCode <= 499){
+            return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
+        }
         return callback(null, 'upload succesful');
     });
 }
@@ -70,7 +73,6 @@ owncloud.uploadFile = function (path, fileBuffer, fileName, callback) {
  * @param callback
  */
 owncloud.getFile = function (username,password,filePath, callback) {
-    console.log('username %s password %s',username,password);
     var baseURL = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var fileUrl = baseURL;
     var pathSplit = filePath.split('/');
@@ -89,6 +91,7 @@ owncloud.getFile = function (username,password,filePath, callback) {
             fileUrl += '%2F' + pathSplit[i];
         }
     }
+    console.log(fileUrl);
     var options = {
         method: 'GET',
         uri: fileUrl,
@@ -162,6 +165,5 @@ function _formatPath(path) {
     }
     return path;
 }
-
 
 module.exports = owncloud;

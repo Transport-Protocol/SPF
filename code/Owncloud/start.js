@@ -18,14 +18,14 @@ function getFile(call, callback) {
 
 
 /**
- * Implements the GetFile RPC method.
+ * Implements the GetFileTree RPC method.
  */
 function getFileTree(call, callback) {
     console.log('getFileTree: ' + JSON.stringify(call.request));
     connector.getFileTree(call.request.username, call.request.password, call.request.path, function (err, dirs) {
         if (err) {
             console.log(err);
-            callback(null,{err: err.msg});
+            callback(null,{err: err.message});
         } else {
             console.log('dirs: ' + dirs);
             callback(null,{dirs: dirs});
@@ -33,8 +33,32 @@ function getFileTree(call, callback) {
     });
 }
 
+/**
+ * Implements the UploadFile RPC method.
+ */
+function uploadFile(call, callback) {
+    console.log('uploadFile: ' + JSON.stringify(call.request));
+    connector.uploadFile(call.request.username,call.request.password,call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
+        if (err) {
+            console.log(err);
+            callback(null,{err: err.message});
+        } else {
+            console.log('status: ' + status);
+            callback(null,{status: status});
+        }
+    });
+}
 
-var server = new grpc.Server();
-server.addProtoService(fileStorageProto.FileStorage.service, {getFile: getFile, getFileTree: getFileTree});
-server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());
-server.start();
+
+
+
+
+function main(){
+    var server = new grpc.Server();
+    server.addProtoService(fileStorageProto.FileStorage.service, {getFile: getFile, getFileTree: getFileTree,uploadFile: uploadFile});
+    server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());
+    server.start();
+}
+
+
+main();

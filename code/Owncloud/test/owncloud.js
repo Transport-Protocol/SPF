@@ -28,7 +28,7 @@ describe('Owncloud', function() {
             var fs = require('fs');
             fs.readFile("./test/test.pdf", function (err, data) {
                 expect(err).to.be.a('null');
-                owncloud.uploadFile('BA-Philipp',data,'test5.pdf', function(err,msg){
+                owncloud.uploadFile('abi515','Injection2','BA-Philipp',data,'test5.pdf', function(err,msg){
                     expect(err).to.be.a('null');
                     assert.equal(msg,'upload succesful');
                     done();

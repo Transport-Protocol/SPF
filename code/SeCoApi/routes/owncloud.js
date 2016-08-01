@@ -50,14 +50,18 @@ module.exports = (function () {
             res.send({route: req.baseUrl, error: error.missingFile, errorMessage: 'missing file'});
             return;
         }
-        if(!paramChecker.containsParameter(['path'],req,res)){
+        if(!paramChecker.containsParameter(['path','fileName'],req,res)){
             return;
         }
         if(!headerChecker.containsParameter(['username','password'],req,res)){
             return;
         }
-        console.log(req.files);
-        res.send('Owncloud File uploaded! TODO');
+        client.uploadFile({path: req.query.path,username:req.headers.username,password:req.headers.password,fileBuffer: req.files.file.data,fileName: req.query.fileName}, function(err,response) {
+            if(response.err){
+                return res.json(response.err);
+            }
+            return res.json(response.status);
+        });
     });
     return router;
 })();
