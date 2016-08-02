@@ -1,62 +1,25 @@
 /**
  * Created by PhilippMac on 25.07.16.
  */
-var connector = require('./owncloud');
+'use strict';
 
-var grpc = require('grpc');
-var fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
+var winston = require('winston'),
+    fs = require('fs'),
+    nconf = require('nconf'),
+    server = require('./grpc/server');
 
-/**
- * Implements the GetFile RPC method.
- */
-function getFile(call, callback) {
-    console.log(call.request.username);
-    connector.getFile(call.request.username, call.request.password, call.request.path, function (err, fileName, fileBuffer) {
-        callback(null, {fileName: fileName, fileBuffer: fileBuffer});
-    });
+
+function init() {
+    nconf.argv()
+        .env()
+        .file({file: './config/config.json'});
+    winston.log('info', 'Owncloud service init succesful');
 }
 
 
-/**
- * Implements the GetFileTree RPC method.
- */
-function getFileTree(call, callback) {
-    console.log('getFileTree: ' + JSON.stringify(call.request));
-    connector.getFileTree(call.request.username, call.request.password, call.request.path, function (err, dirs) {
-        if (err) {
-            console.log(err);
-            callback(null,{err: err.message});
-        } else {
-            console.log('dirs: ' + dirs);
-            callback(null,{dirs: dirs});
-        }
-    });
-}
-
-/**
- * Implements the UploadFile RPC method.
- */
-function uploadFile(call, callback) {
-    console.log('uploadFile: ' + JSON.stringify(call.request));
-    connector.uploadFile(call.request.username,call.request.password,call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
-        if (err) {
-            console.log(err);
-            callback(null,{err: err.message});
-        } else {
-            console.log('status: ' + status);
-            callback(null,{status: status});
-        }
-    });
-}
-
-
-
-
-
-function main(){
-    var server = new grpc.Server();
-    server.addProtoService(fileStorageProto.FileStorage.service, {getFile: getFile, getFileTree: getFileTree,uploadFile: uploadFile});
-    server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());
+function main() {
+    init();
+    server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     server.start();
 }
 

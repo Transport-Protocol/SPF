@@ -24,6 +24,7 @@ message GetFileRequest {
 message GetFileReply {
   string fileName = 1;
   bytes fileBuffer = 2;
+  string err = 3;
 }
 
 // The response message

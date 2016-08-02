@@ -5,7 +5,7 @@ var amqp = require('amqplib/callback_api');
 
 amqp.connect('amqp://localhost:5673', function(err, conn) {
     if(err){
-        console.log('rabbitmq server not reachable');
+        console.log('rabbitmq _server not reachable');
     } else {
         conn.createChannel(function (err, ch) {
             var q = 'hello';

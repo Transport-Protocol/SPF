@@ -1,6 +1,4 @@
 {
-  "httpPort" : 8080,
-  "rpcTimeoutMS" : 5000,
   "grpcServerPort" : 50051,
   "grpcServerIp" : "localhost"
 }

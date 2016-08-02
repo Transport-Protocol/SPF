@@ -1,10 +1,11 @@
 /**
  * Created by PhilippMac on 19.07.16.
  */
+'use strict';
+
 var error = require('../errorCodes');
 
 module.exports = (function () {
-    'use strict';
     var router = require('express').Router();
 
     router.get('/:user/repos', function (req, res) {

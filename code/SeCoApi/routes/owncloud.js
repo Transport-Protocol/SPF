@@ -1,47 +1,71 @@
 /**
  * Created by PhilippMac on 19.07.16.
  */
-var grpc = require('grpc');
-var fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
+'use strict';
 
-var error = require('../errorCodes');
-var ParamChecker = require('./../utility/paramChecker');
-var HeaderChecker = require('./../utility/headerChecker');
+
+var grpc = require('grpc'),
+    winston = require('winston'),
+    nconf = require('nconf'),
+    fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
+
+var error = require('../errorCodes'),
+    ParamChecker = require('./../utility/paramChecker'),
+    HeaderChecker = require('./../utility/headerChecker');
 
 
 module.exports = (function () {
-    'use strict';
-    var router = require('express').Router();
-    var paramChecker = new ParamChecker();
-    var headerChecker = new HeaderChecker();
-    var client = new fileStorageProto.FileStorage('localhost:50051',
-        grpc.credentials.createInsecure());
+    var router = require('express').Router(),
+        paramChecker = new ParamChecker(),
+        headerChecker = new HeaderChecker(),
+        url = nconf.get('grpcServerIp') + ':' + nconf.get('grpcServerPort'),
+        client = new fileStorageProto.FileStorage(url,
+            grpc.credentials.createInsecure());
 
     router.get('/file', function (req, res) {
-        if(!paramChecker.containsParameter(['path'],req,res)){
+        if (!paramChecker.containsParameter(['path'], req, res)) {
             return;
         }
-        if(!headerChecker.containsParameter(['username','password'],req,res)){
+        if (!headerChecker.containsParameter(['username', 'password'], req, res)) {
             return;
         }
-        client.getFile({path: req.query.path,username:req.headers.username,password:req.headers.password}, function(err, response) {
-            console.log('Greeting:', response.fileName);
-            res.json({fileName : response.fileName,data : response.fileBuffer});
+        //grpc method performed on server
+        client.getFile({
+            path: req.query.path,
+            username: req.headers.username,
+            password: req.headers.password
+        }, function (err, response) {
+            if (err) {
+                offlineError(res);
+            } else {
+                winston.log('info', 'RPC Method getFile succesful.Got file: ', response.fileName);
+                res.json({fileName: response.fileName, data: response.fileBuffer});
+            }
         });
     });
 
     router.get('/filetree', function (req, res) {
-        if(!paramChecker.containsParameter(['path'],req,res)){
+        if (!paramChecker.containsParameter(['path'], req, res)) {
             return;
         }
-        if(!headerChecker.containsParameter(['username','password'],req,res)){
+        if (!headerChecker.containsParameter(['username', 'password'], req, res)) {
             return;
         }
-        client.getFileTree({path: req.query.path,username:req.headers.username,password:req.headers.password}, function(err,response) {
-            if(response.err){
-                return res.json(response.err);
+        //grpc method performed on server
+        client.getFileTree({
+            path: req.query.path,
+            username: req.headers.username,
+            password: req.headers.password
+        }, function (err, response) {
+            if (err) {
+                offlineError(res);
+            } else {
+                if (response.err) {
+                    return res.json(response.err);
+                }
+                winston.log('info', 'RPC Method getFileTree succesful.Got dirs: ', response.dirs);
+                return res.json(response.dirs);
             }
-            return res.json(response.dirs);
         });
     });
 
@@ -50,18 +74,36 @@ module.exports = (function () {
             res.send({route: req.baseUrl, error: error.missingFile, errorMessage: 'missing file'});
             return;
         }
-        if(!paramChecker.containsParameter(['path','fileName'],req,res)){
+        if (!paramChecker.containsParameter(['path', 'fileName'], req, res)) {
             return;
         }
-        if(!headerChecker.containsParameter(['username','password'],req,res)){
+        if (!headerChecker.containsParameter(['username', 'password'], req, res)) {
             return;
         }
-        client.uploadFile({path: req.query.path,username:req.headers.username,password:req.headers.password,fileBuffer: req.files.file.data,fileName: req.query.fileName}, function(err,response) {
-            if(response.err){
-                return res.json(response.err);
+        //grpc method performed on server
+        client.uploadFile({
+            path: req.query.path,
+            username: req.headers.username,
+            password: req.headers.password,
+            fileBuffer: req.files.file.data,
+            fileName: req.query.fileName
+        }, function (err, response) {
+            if (err) {
+                offlineError(res);
+            } else {
+                if (response.err) {
+                    return res.json(response.err);
+                }
+                winston.log('info', 'RPC Method uploadFile succesful.Status: ', response.status);
+                return res.json(response.status);
             }
-            return res.json(response.status);
         });
     });
     return router;
-})();
+})
+();
+
+
+function offlineError(res) {
+    res.status(504).send("Owncloud connector offline");
+}

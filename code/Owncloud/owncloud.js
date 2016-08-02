@@ -1,8 +1,10 @@
-'use strict'
 /**
  * Created by PhilippMac on 25.07.16.
  */
-var request = require('request');
+'use strict';
+
+var request = require('request'),
+    winston = require('winston');
 
 
 var owncloud = {};
@@ -13,7 +15,7 @@ var owncloud = {};
  * @param path
  * @param callback
  */
-owncloud.getFileTree = function (username,password,path, callback) {
+owncloud.getFileTree = function (username, password, path, callback) {
     var options = {
         method: 'PROPFIND',
         uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + path,
@@ -25,21 +27,25 @@ owncloud.getFileTree = function (username,password,path, callback) {
     };
     request(options, function (err, response, body) {
         if (err) {
+            winston.log('error','application error: ',err);
             return callback(err);
         }
-        if(response.statusCode >= 400 && response.statusCode <= 499){
-            return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error','http error: ',err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         var dirs = _getDirectoryFromXML(body, _formatPath(path));
-        if(dirs.length === 0){
+        if (dirs.length === 0) {
+            winston.log('error','empty dir');
             return callback(new Error('empty dir'));
         }
+        winston.log('info','succesfully got filetree from owncloud');
         return callback(null, dirs);
     });
-}
+};
 
 
-owncloud.uploadFile = function (username,password,path, fileBuffer, fileName, callback) {
+owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, callback) {
     var url = 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
     var options = {
         method: 'PUT',
@@ -49,32 +55,36 @@ owncloud.uploadFile = function (username,password,path, fileBuffer, fileName, ca
             password: password,
             sendImmediately: true
         },
-         multipart: [{
-         fileName: fileName,
-         body: fileBuffer
-         }]
+        multipart: [{
+            fileName: fileName,
+            body: fileBuffer
+        }]
     };
 
-    request(options, function (err, response, body) {
+    request(options, function (err, response) {
         if (err) {
+            winston.log('error','application error: ',err);
             return callback(err);
         }
-        if(response.statusCode >= 400 && response.statusCode <= 499){
-            return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error','http error: ',err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
+        winston.log('info','succesfully uploaded file to owncloud');
         return callback(null, 'upload succesful');
     });
-}
+};
 
 /**
  * Gets a file from owncloud
  * encoding = null has to be set for binary data,otherwise file gets corrupted by utf encoding
+ * @param username
+ * @param password
  * @param filePath
  * @param callback
  */
-owncloud.getFile = function (username,password,filePath, callback) {
-    var baseURL = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
-    var fileUrl = baseURL;
+owncloud.getFile = function (username, password, filePath, callback) {
+    var fileUrl = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var pathSplit = filePath.split('/');
     fileUrl += 'dir=';
     var fileName = {};
@@ -91,7 +101,6 @@ owncloud.getFile = function (username,password,filePath, callback) {
             fileUrl += '%2F' + pathSplit[i];
         }
     }
-    console.log(fileUrl);
     var options = {
         method: 'GET',
         uri: fileUrl,
@@ -104,15 +113,17 @@ owncloud.getFile = function (username,password,filePath, callback) {
     };
     request(options, function (err, response, body) {
         if (err) {
+            winston.log('error','application error: ',err);
             return callback(err);
         }
-        if(response.statusCode >= 400 && response.statusCode <= 499){
-            return callback(new Error(response.statusCode+ ': ' + response.statusMessage));
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error','http error: ',err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        console.log(fileName);
+        winston.log('info','succesfully got file from owncloud');
         return callback(null, fileName, body);
     });
-}
+};
 
 
 function _getDirectoryFromXML(xml, path) {
@@ -154,7 +165,6 @@ function _writeFile(buffer, fileName) {
         if (err) {
             return callback(err);
         }
-        console.log("The file was saved!");
         return callback(null, {'status': 'ok'});
     });
 }
