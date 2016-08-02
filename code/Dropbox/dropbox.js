@@ -1,4 +1,7 @@
 /**
+ * Created by phili on 02.08.2016.
+ */
+/**
  * Created by PhilippMac on 25.07.16.
  */
 'use strict';
@@ -7,7 +10,7 @@ var request = require('request'),
     winston = require('winston');
 
 
-var owncloud = {};
+var dropbox = {};
 
 /**
  * Returns a directory specified by path
@@ -15,7 +18,7 @@ var owncloud = {};
  * @param path
  * @param callback
  */
-owncloud.getFileTree = function (username, password, path, callback) {
+dropbox.getFileTree = function (username, password, path, callback) {
     var options = {
         method: 'PROPFIND',
         uri: 'https://dropbox.informatik.haw-hamburg.de/remote.php/webdav/' + path,
@@ -45,7 +48,7 @@ owncloud.getFileTree = function (username, password, path, callback) {
 };
 
 
-owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, callback) {
+dropbox.uploadFile = function (username, password, path, fileBuffer, fileName, callback) {
     var url = 'https://dropbox.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
     var options = {
         method: 'PUT',
@@ -83,7 +86,7 @@ owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, 
  * @param filePath
  * @param callback
  */
-owncloud.getFile = function (username, password, filePath, callback) {
+dropbox.getFile = function (username, password, filePath, callback) {
     var fileUrl = 'https://dropbox.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var pathSplit = filePath.split('/');
     fileUrl += 'dir=';
@@ -176,4 +179,4 @@ function _formatPath(path) {
     return path;
 }
 
-module.exports = owncloud;
+module.exports = dropbox;
