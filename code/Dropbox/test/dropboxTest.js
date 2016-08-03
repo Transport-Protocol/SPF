@@ -2,14 +2,14 @@
 
 var expect = require('chai').expect,
     assert = require('chai').assert,
-    owncloud = require("../dropbox");
+    dropbox = require("../dropbox");
 
 describe('Dropbox', function () {
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
-            owncloud.getFileTree('abi515', 'Injection2', 'BA-Philipp', function (err, dirs) {
+            dropbox.getFileTree('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', '', function (err, dirs) {
                 expect(err).to.be.a('null');
-                expect(dirs).to.have.length.above(5);
+                expect(dirs).to.be.not.a('null');
                 console.log(dirs);
                 done();
             });
@@ -17,9 +17,9 @@ describe('Dropbox', function () {
     });
     describe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
-            owncloud.getFile('abi515', 'Injection2', 'BA-Philipp/Umfrage/Umfrage.pdf', function (err, fileName, buffer) {
+            dropbox.getFile('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', 'BA/Gliederung.pdf', function (err, fileName, buffer) {
                 expect(err).to.be.a('null');
-                assert.equal(fileName, 'Umfrage.pdf');
+                assert.equal(fileName, 'Gliederung.pdf');
                 expect(buffer).to.be.not.a('null');
                 done();
             });
@@ -30,7 +30,7 @@ describe('Dropbox', function () {
             var fs = require('fs');
             fs.readFile("./test/test.pdf", function (err, data) {
                 expect(err).to.be.a('null');
-                owncloud.uploadFile('abi515', 'Injection2', 'BA-Philipp', data, 'test5.pdf', function (err, msg) {
+                dropbox.uploadFile('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', 'BA-Philipp', data, 'test5.pdf', function (err, msg) {
                     expect(err).to.be.a('null');
                     assert.equal(msg, 'upload succesful');
                     done();

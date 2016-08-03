@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dropbox/proto/fileStorage.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dropbox/test/dropbox.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dropbox/test/test.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Dropbox/test/dropbox.js" afterPath="$PROJECT_DIR$/Dropbox/test/dropboxTest.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dropbox/dropbox.js" afterPath="$PROJECT_DIR$/Dropbox/dropbox.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dropbox/start.js" afterPath="$PROJECT_DIR$/Dropbox/start.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/grpc/server.js" afterPath="$PROJECT_DIR$/Owncloud/grpc/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/owncloud.js" afterPath="$PROJECT_DIR$/Owncloud/owncloud.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/proto/fileStorage.proto" afterPath="$PROJECT_DIR$/Owncloud/proto/fileStorage.proto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto" afterPath="$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/secoApiStart.js" afterPath="$PROJECT_DIR$/SeCoApi/secoApiStart.js" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,97 +31,47 @@
         <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="156" selection-end-column="1" />
+              <caret line="59" column="93" selection-start-line="59" selection-start-column="93" selection-end-line="59" selection-end-column="93" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
+      <file leaf-file-name="start.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="82" selection-start-line="42" selection-start-column="82" selection-end-line="42" selection-end-column="82" />
+            <state vertical-scroll-proportion="0.9528689">
+              <caret line="31" column="84" selection-start-line="31" selection-start-column="84" selection-end-line="31" selection-end-column="84" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Owncloud/start.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="secoApiStart.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeCoApi/secoApiStart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fileStorage.proto" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Dropbox/proto/fileStorage.proto">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6276423">
+            <state vertical-scroll-proportion="0.0">
               <caret line="54" column="97" selection-start-line="54" selection-start-column="97" selection-end-line="54" selection-end-column="97" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fileStorage.proto" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Owncloud/proto/fileStorage.proto">
+      <file leaf-file-name="dropboxTest.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Dropbox/test/dropboxTest.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="2" selection-start-line="0" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fileStorage.proto" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Dropbox/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dropbox.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Dropbox/test/dropbox.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state vertical-scroll-proportion="-2.5">
+              <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -148,7 +93,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SeCoApi/routes/paramChecker.js" />
         <option value="$PROJECT_DIR$/SeCoApi/errorCodes.js" />
         <option value="$PROJECT_DIR$/SeCoApi/utility/paramChecker.js" />
         <option value="$PROJECT_DIR$/SeCoApi/routes/githubRoutes.json" />
@@ -191,14 +135,15 @@
         <option value="$PROJECT_DIR$/Dropbox/package.json" />
         <option value="$PROJECT_DIR$/Dropbox/config/config.json" />
         <option value="$PROJECT_DIR$/SeCoApi/secoApiStart.js" />
-        <option value="$PROJECT_DIR$/Dropbox/test/dropbox.js" />
-        <option value="$PROJECT_DIR$/Dropbox/start.js" />
-        <option value="$PROJECT_DIR$/Dropbox/dropbox.js" />
         <option value="$PROJECT_DIR$/Owncloud/grpc/server.js" />
         <option value="$PROJECT_DIR$/Owncloud/proto/fileStorage.proto" />
         <option value="$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto" />
         <option value="$PROJECT_DIR$/Dropbox/proto/fileStorage.proto" />
         <option value="$PROJECT_DIR$/Owncloud/owncloud.js" />
+        <option value="$PROJECT_DIR$/Dropbox/test/dropbox.js" />
+        <option value="$PROJECT_DIR$/Dropbox/dropbox.js" />
+        <option value="$PROJECT_DIR$/Dropbox/test/dropboxTest.js" />
+        <option value="$PROJECT_DIR$/Dropbox/start.js" />
       </list>
     </option>
   </component>
@@ -208,10 +153,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="832" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -238,7 +182,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -246,52 +189,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="code" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SeCoApi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SeCoApi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RestTest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -442,6 +339,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -453,13 +351,6 @@
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\phili\git\ba\code\Dropbox\test" />
-      <recent name="C:\Users\phili\git\ba\code\Dropbox" />
-      <recent name="C:\Users\phili\git\ba\code\Owncloud\config" />
-      <recent name="C:\Users\phili\git\ba\code\SeCoApi\proto" />
-      <recent name="C:\Users\phili\git\ba\code\Owncloud" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\phili\git\ba\code\SeCoApi\proto" />
       <recent name="C:\Users\phili\git\ba\code\SeCoApi\routes" />
@@ -467,8 +358,15 @@
       <recent name="$PROJECT_DIR$/SeCoApi/json" />
       <recent name="C:\Users\phili\git\ba\code\SeCoApi\utility" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Dropbox/test" />
+      <recent name="C:\Users\phili\git\ba\code\Dropbox\test" />
+      <recent name="C:\Users\phili\git\ba\code\Dropbox" />
+      <recent name="C:\Users\phili\git\ba\code\Owncloud\config" />
+      <recent name="C:\Users\phili\git\ba\code\SeCoApi\proto" />
+    </key>
   </component>
-  <component name="RunManager" selected="Node.js.start.js (1)">
+  <component name="RunManager" selected="Node.js.start.js (2)">
     <configuration default="false" name="owncloud.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="owncloud.js" working-dir="$PROJECT_DIR$/Owncloud/test">
       <method />
     </configuration>
@@ -478,10 +376,10 @@
     <configuration default="false" name="start.js (1)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="start.js" working-dir="$PROJECT_DIR$/Owncloud">
       <method />
     </configuration>
-    <configuration default="false" name="start.js (2)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="start.js" working-dir="$PROJECT_DIR$/Dropbox">
+    <configuration default="false" name="dropbox.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="dropbox.js" working-dir="$PROJECT_DIR$/Dropbox">
       <method />
     </configuration>
-    <configuration default="false" name="dropbox.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="dropbox.js" working-dir="$PROJECT_DIR$/Dropbox">
+    <configuration default="false" name="start.js (2)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="start.js" working-dir="$PROJECT_DIR$/Dropbox">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -540,15 +438,15 @@
       <item index="1" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
       <item index="2" class="java.lang.String" itemvalue="Node.js.index.js" />
       <item index="3" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
-      <item index="5" class="java.lang.String" itemvalue="Node.js.dropbox.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.dropbox.js" />
+      <item index="5" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.index.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
+        <item index="0" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.index.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
         <item index="4" class="java.lang.String" itemvalue="Node.js.dropbox.js" />
       </list>
     </recent_temporary>
@@ -740,20 +638,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="23" width="1440" height="832" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32594937" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32594937" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32383966" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32372215" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39662448" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.395806" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -820,17 +718,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Owncloud/owncloud.js</url>
-          <line>120</line>
+          <line>141</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/SeCoApi/routes/owncloud.js</url>
-          <line>62</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Owncloud/start.js</url>
-          <line>15</line>
+          <line>7</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -844,16 +737,56 @@
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/Owncloud/owncloud.js</url>
-          <line>162</line>
-          <option name="timeStamp" value="49" />
+          <url>file://$PROJECT_DIR$/Dropbox/dropbox.js</url>
+          <line>137</line>
+          <option name="timeStamp" value="51" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="52" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Owncloud/proto/fileStorage.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="2" selection-start-line="0" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/test/dropboxTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rabbitMqTest/send.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0931677">
@@ -1034,20 +967,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/node_modules/grpc/src/node/src/credentials.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5509737">
-          <caret line="47" column="51" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SeCoApi/node_modules/grpc/src/node/src/client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7190889">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/routes/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1071,19 +990,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07589286">
-          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/config/config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.018973215">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1091,7 +1001,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1099,7 +1008,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.3076923">
           <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1111,19 +1019,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/test/dropbox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RestTest/TestRestServer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.8796748">
           <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,71 +1030,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5804878">
           <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/node_modules/request/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0682926">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/node_modules/request/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6585366">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/node_modules/extend/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6308943">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/node_modules/request/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52682924">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="156" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/node_modules/grpc/src/node/src/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6650407">
-          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/proto/fileStorage.proto">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.79591835">
           <caret line="39" column="2" selection-start-line="0" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
@@ -1203,7 +1043,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="1.1836735">
           <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
@@ -1220,7 +1060,7 @@
     <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="82" selection-start-line="42" selection-start-column="82" selection-end-line="42" selection-end-column="82" />
+          <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1228,15 +1068,47 @@
     <entry file="file://$PROJECT_DIR$/Owncloud/start.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/test/dropboxTest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6276423">
+        <state vertical-scroll-proportion="0.0">
           <caret line="54" column="97" selection-start-line="54" selection-start-column="97" selection-end-line="54" selection-end-column="97" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="93" selection-start-line="59" selection-start-column="93" selection-end-line="59" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9528689">
+          <caret line="31" column="84" selection-start-line="31" selection-start-column="84" selection-end-line="31" selection-end-column="84" />
           <folding />
         </state>
       </provider>

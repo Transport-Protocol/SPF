@@ -57,23 +57,20 @@ dropbox.getFileTree = function (oauth2Token, path, callback) {
             return callback(new Error('empty dir'));
         }
         winston.log('info','succesfully got filetree from dropbox');
-        return callback(null, _dropboxDirFormatToSimpleJSON(dirs));
+        return callback(null, _dropboxDirFormatToSimpleJSON(_sortArrayAlphabetically(dirs)));
     });
 };
 
 
-dropbox.uploadFile = function (username, password, path, fileBuffer, fileName, callback) {
-    var url = 'https://dropbox.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
+dropbox.uploadFile = function (oauth2Token, path, fileBuffer, fileName, callback) {
+    var url = 'https://content.dropboxapi.com/1/files_put/auto/' + path + '/' + fileName;
     var options = {
         method: 'PUT',
         uri: url,
         auth: {
-            user: username,
-            password: password,
-            sendImmediately: true
+            bearer: oauth2Token
         },
         multipart: [{
-            fileName: fileName,
             body: fileBuffer
         }]
     };
@@ -100,32 +97,17 @@ dropbox.uploadFile = function (username, password, path, fileBuffer, fileName, c
  * @param filePath
  * @param callback
  */
-dropbox.getFile = function (username, password, filePath, callback) {
-    var fileUrl = 'https://dropbox.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
+dropbox.getFile = function (oauth2Token, filePath, callback) {
+    var fileUrl = 'https://content.dropboxapi.com/1/files/auto/' + filePath;
     var pathSplit = filePath.split('/');
-    fileUrl += 'dir=';
-    var fileName = {};
-    if (pathSplit.length <= 1) {
-        fileUrl += '%2F';
-    }
-    for (var i = 0; i < pathSplit.length; i++) {
-        if (i === pathSplit.length - 1) {
-            //fileName
-            fileUrl += '&files=' + pathSplit[i];
-            fileName = pathSplit[i];
-        } else {
-            //directory
-            fileUrl += '%2F' + pathSplit[i];
-        }
-    }
+    //Get fileName from path for return value
+    var fileName = pathSplit[pathSplit.length-1];
     var options = {
         method: 'GET',
         uri: fileUrl,
         encoding: null,
         auth: {
-            user: username,
-            password: password,
-            sendImmediately: true
+            bearer: oauth2Token
         }
     };
     request(options, function (err, response, body) {
@@ -160,7 +142,7 @@ function _dropboxDirFormatToSimpleJSON(dirs){
 
 function _sortArrayAlphabetically(array) {
     return array.sort(function (a, b) {
-        var nameA = a.toLowerCase(), nameB = b.toLowerCase();
+        var nameA = a['name'].toLowerCase(), nameB = b['name'].toLowerCase();
         if (nameA < nameB) //sort string ascending
             return -1;
         if (nameA > nameB)
