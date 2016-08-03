@@ -18,11 +18,11 @@ var owncloud = {};
 owncloud.getFileTree = function (username, password, path, callback) {
     var options = {
         method: 'PROPFIND',
-        uri: 'https://dropbox.informatik.haw-hamburg.de/remote.php/webdav/' + path,
+        uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + path,
         auth: {
             user: username,
             password: password,
-            sendImmediately: true
+            sendImmediately: false
         }
     };
     request(options, function (err, response, body) {
@@ -40,20 +40,20 @@ owncloud.getFileTree = function (username, password, path, callback) {
             return callback(new Error('empty dir'));
         }
         winston.log('info','succesfully got filetree from dropbox');
-        return callback(null, dirs);
+        return callback(null, JSON.stringify(_owncloudDirFormatToSimpleJSON(dirs)));
     });
 };
 
 
 owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, callback) {
-    var url = 'https://dropbox.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
+    var url = 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + _formatPath(path) + '/' + fileName;
     var options = {
         method: 'PUT',
         uri: url,
         auth: {
             user: username,
             password: password,
-            sendImmediately: true
+            sendImmediately: false
         },
         multipart: [{
             fileName: fileName,
@@ -84,7 +84,7 @@ owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, 
  * @param callback
  */
 owncloud.getFile = function (username, password, filePath, callback) {
-    var fileUrl = 'https://dropbox.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
+    var fileUrl = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var pathSplit = filePath.split('/');
     fileUrl += 'dir=';
     var fileName = {};
@@ -108,7 +108,7 @@ owncloud.getFile = function (username, password, filePath, callback) {
         auth: {
             user: username,
             password: password,
-            sendImmediately: true
+            sendImmediately: false
         }
     };
     request(options, function (err, response, body) {
@@ -146,6 +146,31 @@ function _getDirectoryFromXML(xml, path) {
         directoryNames.push(directory);
     }
     return _sortArrayAlphabetically(directoryNames);
+}
+
+/**
+ * Converts Array of [fileX<,dirX,file2<,dirTest] to [{tag:'file,name:fileX etc.
+ * @param dirs
+ * @returns {Array}
+ * @private
+ */
+function _owncloudDirFormatToSimpleJSON(dirs){
+    var simpleJSONFormatArray = [];
+    for(var i = 0;i<dirs.length;i++){
+        var tag = 'folder';
+        var name = dirs[i];
+        var stringLength = dirs[i].length-1;
+        if(dirs[i].charAt(stringLength) === '<'){
+            tag = 'file';
+            name = dirs[i].substring(0,stringLength)
+        }
+        var simpleFormat = {
+            tag : tag,
+            name : name
+        }
+        simpleJSONFormatArray.push(simpleFormat);
+    }
+    return simpleJSONFormatArray;
 }
 
 function _sortArrayAlphabetically(array) {

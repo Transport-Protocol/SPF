@@ -7,7 +7,7 @@ service FileStorage {
   // Gets a file
   rpc GetFile (GetFileRequest) returns (GetFileReply) {}
 
-  rpc GetFileTree (GetFileRequest) returns (GetFileTreeReply) {}
+  rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
 
   rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
 }
@@ -24,11 +24,20 @@ message GetFileRequest {
 message GetFileReply {
   string fileName = 1;
   bytes fileBuffer = 2;
+  string err = 3;
+}
+
+// The request message
+message GetFileTreeRequest {
+  string path = 1;
+  string token =2;
+  string username = 3;
+  string password = 4;
 }
 
 // The response message
 message GetFileTreeReply {
-  repeated string dirs = 1;
+  string dirs = 1;
   string err = 2;
 }
 

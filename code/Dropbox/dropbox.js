@@ -18,14 +18,27 @@ var dropbox = {};
  * @param path
  * @param callback
  */
-dropbox.getFileTree = function (username, password, path, callback) {
+dropbox.getFileTree = function (oauth2Token, path, callback) {
+    var body = {
+        "path": path,
+        "recursive": false,
+        "include_media_info": false,
+        "include_deleted": false,
+        "include_has_explicit_shared_members": false
+    };
+    var url = 'https://api.dropboxapi.com/2/files/list_folder';
     var options = {
-        method: 'PROPFIND',
-        uri: 'https://dropbox.informatik.haw-hamburg.de/remote.php/webdav/' + path,
+        method: 'POST',
+        uri: url,
         auth: {
-            user: username,
-            password: password,
-            sendImmediately: true
+            bearer: oauth2Token
+        },
+        json: {
+            "path": path,
+            "recursive": false,
+            "include_media_info": false,
+            "include_deleted": false,
+            "include_has_explicit_shared_members": false
         }
     };
     request(options, function (err, response, body) {
@@ -35,15 +48,16 @@ dropbox.getFileTree = function (username, password, path, callback) {
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error','http error: ',err);
+            console.log(response.body);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        var dirs = _getDirectoryFromXML(body, _formatPath(path));
+        var dirs = body.entries;
         if (dirs.length === 0) {
             winston.log('error','empty dir');
             return callback(new Error('empty dir'));
         }
         winston.log('info','succesfully got filetree from dropbox');
-        return callback(null, dirs);
+        return callback(null, _dropboxDirFormatToSimpleJSON(dirs));
     });
 };
 
@@ -129,27 +143,20 @@ dropbox.getFile = function (username, password, filePath, callback) {
 };
 
 
-function _getDirectoryFromXML(xml, path) {
-    var directoryNames = [];
-    var splitted = xml.split('webdav');
-    //remove first unrelated splits
-    splitted.shift();
-    splitted.shift();
-    //remove leading slash
-    var deleteCharsCount = path.length + 2; //remove leading and following slash
-    if (path === '') {
-        deleteCharsCount = deleteCharsCount - 1; //empty path,only remove leading slash
-    }
-    for (var i = 0; i < splitted.length; i++) {
-        for (var j = 0; j < deleteCharsCount; j++) {
-            splitted[i] = splitted[i].substring(1);
+function _dropboxDirFormatToSimpleJSON(dirs){
+    console.log(dirs);
+    var simpleJSONFormatArray = [];
+    for(var i = 0;i<dirs.length;i++){
+        var simpleFormat = {
+            tag : dirs[i]['.tag'],
+            name : dirs[i]['name']
         }
-        var firstBackSlash = splitted[i].indexOf('\/');
-        var directory = splitted[i].substring(0, firstBackSlash);
-        directoryNames.push(directory);
+        simpleJSONFormatArray.push(simpleFormat);
     }
-    return _sortArrayAlphabetically(directoryNames);
+    return simpleJSONFormatArray;
 }
+
+
 
 function _sortArrayAlphabetically(array) {
     return array.sort(function (a, b) {
@@ -172,11 +179,5 @@ function _writeFile(buffer, fileName) {
     });
 }
 
-function _formatPath(path) {
-    if (path[path.length - 1] === '/') {
-        path = path.substring(0, path.length - 1);
-    }
-    return path;
-}
 
 module.exports = dropbox;
