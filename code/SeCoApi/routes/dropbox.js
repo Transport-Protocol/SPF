@@ -24,13 +24,13 @@ module.exports = (function () {
         if (!paramChecker.containsParameter(['path'], req, res)) {
             return;
         }
-        if (!headerChecker.containsParameter(['oauth2token'], req, res)) {
+        if (!headerChecker.containsParameter(['authorization'], req, res)) {
             return;
         }
         //grpc method performed on server
         client.getFile({
             path: req.query.path,
-            token: req.headers.oauth2token
+            token: req.headers.authorization
         }, function (err, response) {
             if (err) {
                 offlineError(res);
@@ -48,13 +48,13 @@ module.exports = (function () {
         if (!paramChecker.containsParameter(['path'], req, res)) {
             return;
         }
-        if (!headerChecker.containsParameter(['oauth2token'], req, res)) {
+        if (!headerChecker.containsParameter(['authorization'], req, res)) {
             return;
         }
         //grpc method performed on server
         client.getFileTree({
             path: req.query.path,
-            token: req.headers.oauth2token
+            token: req.headers.authorization
         }, function (err, response) {
             if (err) {
                 offlineError(res);
@@ -76,13 +76,13 @@ module.exports = (function () {
         if (!paramChecker.containsParameter(['path', 'fileName'], req, res)) {
             return;
         }
-        if (!headerChecker.containsParameter(['oauth2token'], req, res)) {
+        if (!headerChecker.containsParameter(['authorization'], req, res)) {
             return;
         }
         //grpc method performed on server
         client.uploadFile({
             path: req.query.path,
-            token: req.headers.oauth2token,
+            token: req.headers.authorization,
             fileBuffer: req.files.file.data,
             fileName: req.query.fileName
         }, function (err, response) {
@@ -101,5 +101,5 @@ module.exports = (function () {
 })();
 
 function offlineError(res) {
-    res.status(504).send("Owncloud connector offline");
+    res.status(504).send("Dropbox connector offline");
 }

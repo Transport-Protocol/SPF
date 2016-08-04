@@ -63,6 +63,7 @@ dropbox.getFileTree = function (oauth2Token, path, callback) {
 
 
 dropbox.uploadFile = function (oauth2Token, path, fileBuffer, fileName, callback) {
+    console.log(oauth2Token);
     var url = 'https://content.dropboxapi.com/1/files_put/auto/' + path + '/' + fileName;
     var options = {
         method: 'PUT',

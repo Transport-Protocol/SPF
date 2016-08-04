@@ -7,10 +7,6 @@
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dropbox/dropbox.js" afterPath="$PROJECT_DIR$/Dropbox/dropbox.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dropbox/grpc/server.js" afterPath="$PROJECT_DIR$/Dropbox/grpc/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/config/config.json" afterPath="$PROJECT_DIR$/Owncloud/config/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/grpc/server.js" afterPath="$PROJECT_DIR$/Owncloud/grpc/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/config/config.json" afterPath="$PROJECT_DIR$/SeCoApi/config/config.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" afterPath="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
     </list>
     <ignored path="code.iws" />
@@ -35,8 +31,8 @@
       <file leaf-file-name="dropbox.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SeCoApi/routes/dropbox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25528455">
-              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.71869916">
+              <caret line="26" column="60" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -56,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="127" column="45" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
+              <caret line="65" column="29" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -194,11 +190,11 @@
         <option value="$PROJECT_DIR$/SeCoApi/secoApiStart.js" />
         <option value="$PROJECT_DIR$/SeCoApi/config/config.json" />
         <option value="$PROJECT_DIR$/Owncloud/config/config.json" />
-        <option value="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
         <option value="$PROJECT_DIR$/Dropbox/grpc/server.js" />
         <option value="$PROJECT_DIR$/Owncloud/grpc/server.js" />
         <option value="$PROJECT_DIR$/Owncloud/owncloud.js" />
         <option value="$PROJECT_DIR$/Dropbox/dropbox.js" />
+        <option value="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
       </list>
     </option>
   </component>
@@ -549,10 +545,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.dropbox.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.index.js" />
+        <item index="0" class="java.lang.String" itemvalue="Node.js.index.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.dropbox.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
         <item index="4" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
       </list>
     </recent_temporary>
@@ -746,24 +742,30 @@
       <option name="project" value="LOCAL" />
       <updated>1470304950235</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="falsche ports für grpc gefixt.&#10;dropbox mit seco api schniuttstelle getestet und kleiner korrekturen">
+      <created>1470319205538</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1470319205538</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32594937" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32383966" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32383966" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39662448" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -784,7 +786,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="rest calls an header angepasst" />
     <MESSAGE value="restliche routen hinzugefuegt" />
     <MESSAGE value="logger hinzugefuegt" />
     <MESSAGE value="rabbitmq broker init" />
@@ -809,7 +810,8 @@
     <MESSAGE value="init dropbox connector" />
     <MESSAGE value="gitignore dropbox added" />
     <MESSAGE value="schnittstelle secoapi - dropbox implementiert - nicht getestet" />
-    <option name="LAST_COMMIT_MESSAGE" value="schnittstelle secoapi - dropbox implementiert - nicht getestet" />
+    <MESSAGE value="falsche ports für grpc gefixt.&#10;dropbox mit seco api schniuttstelle getestet und kleiner korrekturen" />
+    <option name="LAST_COMMIT_MESSAGE" value="falsche ports für grpc gefixt.&#10;dropbox mit seco api schniuttstelle getestet und kleiner korrekturen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -853,8 +855,18 @@
           <line>59</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/SeCoApi/routes/dropbox.js</url>
+          <line>74</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Dropbox/dropbox.js</url>
+          <line>84</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="52" />
+      <option name="time" value="54" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1211,14 +1223,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="127" column="45" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/routes/bitbucket.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1227,10 +1231,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="65" column="29" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/routes/dropbox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25528455">
-          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.71869916">
+          <caret line="26" column="60" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
           <folding />
         </state>
       </provider>
