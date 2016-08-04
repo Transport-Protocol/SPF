@@ -18,7 +18,7 @@ module.exports = (function () {
     var router = require('express').Router(),
         paramChecker = new ParamChecker(),
         headerChecker = new HeaderChecker(),
-        url = nconf.get('grpcServerIp') + ':' + nconf.get('grpcServerPort'),
+        url = nconf.get('owncloudGrpcServerIp') + ':' + nconf.get('owncloudGrpcServerPort'),
         client = new fileStorageProto.FileStorage(url,
             grpc.credentials.createInsecure());
 
