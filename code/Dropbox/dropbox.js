@@ -57,7 +57,7 @@ dropbox.getFileTree = function (oauth2Token, path, callback) {
             return callback(new Error('empty dir'));
         }
         winston.log('info','succesfully got filetree from dropbox');
-        return callback(null, _dropboxDirFormatToSimpleJSON(_sortArrayAlphabetically(dirs)));
+        return callback(null, JSON.stringify(_dropboxDirFormatToSimpleJSON(_sortArrayAlphabetically(dirs))));
     });
 };
 
@@ -126,7 +126,6 @@ dropbox.getFile = function (oauth2Token, filePath, callback) {
 
 
 function _dropboxDirFormatToSimpleJSON(dirs){
-    console.log(dirs);
     var simpleJSONFormatArray = [];
     for(var i = 0;i<dirs.length;i++){
         var simpleFormat = {

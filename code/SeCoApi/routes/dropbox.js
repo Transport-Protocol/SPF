@@ -30,11 +30,14 @@ module.exports = (function () {
         //grpc method performed on server
         client.getFile({
             path: req.query.path,
-            token: req.query.oauth2token
+            token: req.headers.oauth2token
         }, function (err, response) {
             if (err) {
                 offlineError(res);
             } else {
+                if (response.err) {
+                    return res.json(response.err);
+                }
                 winston.log('info', 'RPC Method getFile succesful.Got file: ', response.fileName);
                 res.json({fileName: response.fileName, data: response.fileBuffer});
             }
@@ -51,7 +54,7 @@ module.exports = (function () {
         //grpc method performed on server
         client.getFileTree({
             path: req.query.path,
-            token: req.query.oauth2token
+            token: req.headers.oauth2token
         }, function (err, response) {
             if (err) {
                 offlineError(res);
@@ -79,7 +82,7 @@ module.exports = (function () {
         //grpc method performed on server
         client.uploadFile({
             path: req.query.path,
-            token: req.query.oauth2token,
+            token: req.headers.oauth2token,
             fileBuffer: req.files.file.data,
             fileName: req.query.fileName
         }, function (err, response) {
