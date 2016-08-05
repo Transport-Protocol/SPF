@@ -4,8 +4,7 @@
 /**
  * Created by phili on 18.07.2016.
  */
-var error = require('../errorCodes'),
-    ParamChecker = require('./../utility/paramChecker'),
+var ParamChecker = require('./../utility/paramChecker'),
     HeaderChecker = require('./../utility/headerChecker');
 
 module.exports = (function () {

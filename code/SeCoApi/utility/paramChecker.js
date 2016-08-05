@@ -1,7 +1,6 @@
 /**
  * Created by phili on 18.07.2016.
  */
-var error = require('../errorCodes');
 
 function ParamChecker(){
 }
@@ -27,11 +26,7 @@ function checkParameter(req, res, paramater) {
 }
 
 function sendError(req, res, missingParamater) {
-    res.send({
-        route: req.baseUrl,
-        error: error.missingParamater,
-        errorMessage: 'parameter: '.concat(missingParamater).concat(' is missing')
-    });
+    res.status(400).send('parameter: '.concat(missingParamater).concat(' is missing'));
 }
 
 

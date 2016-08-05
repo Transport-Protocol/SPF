@@ -3,8 +3,6 @@
  */
 'use strict';
 
-var error = require('../errorCodes');
-
 module.exports = (function () {
     var router = require('express').Router();
 

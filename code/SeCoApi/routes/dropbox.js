@@ -6,9 +6,7 @@
 var grpc = require('grpc'),
     winston = require('winston'),
     nconf = require('nconf'),
-    fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
-
-var error = require('../errorCodes'),
+    fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage,
     ParamChecker = require('./../utility/paramChecker'),
     HeaderChecker = require('./../utility/headerChecker');
 

@@ -2,8 +2,7 @@
  * Created by PhilippMac on 19.07.16.
  */
 'use strict';
-var error = require('../errorCodes'),
-    ParamChecker = require('./../utility/paramChecker'),
+var ParamChecker = require('./../utility/paramChecker'),
     HeaderChecker = require('./../utility/headerChecker');
 
 module.exports = (function () {

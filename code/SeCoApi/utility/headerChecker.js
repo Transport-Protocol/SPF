@@ -1,7 +1,6 @@
 /**
  * Created by PhilippMac on 19.07.16.
  */
-var error = require('../errorCodes');
 
 function HeaderChecker(){
 }
@@ -27,11 +26,7 @@ function checkParameter(req, res, paramater) {
 }
 
 function sendError(req, res, missingParamater) {
-    res.send({
-        route: req.baseUrl,
-        error: error.missingHeaderParameter,
-        errorMessage: 'header parameter: '.concat(missingParamater).concat(' is missing')
-    });
+    res.status(400).send('header parameter: '.concat(missingParamater).concat(' is missing'));
 }
 
 
