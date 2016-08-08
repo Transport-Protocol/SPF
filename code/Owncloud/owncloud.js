@@ -101,6 +101,7 @@ owncloud.getFile = function (username, password, filePath, callback) {
             fileUrl += '%2F' + pathSplit[i];
         }
     }
+    winston.log('info','getFile adjusted url: %s',fileUrl);
     var options = {
         method: 'GET',
         uri: fileUrl,
