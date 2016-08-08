@@ -6,7 +6,11 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
-  "author": "",
+  "author": "Philipp Prögel",
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://bitbucket.org/philippBB/ba.git"
+  },
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.4.2",
