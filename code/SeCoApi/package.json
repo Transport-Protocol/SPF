@@ -1,13 +1,17 @@
 {
   "name": "secoapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST conform gateway to various webservices",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node secoApiStart.js"
   },
-  "author": "",
+  "author": "Philipp Prögel",
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://bitbucket.org/philippBB/ba.git"
+  },
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.4.2",
