@@ -36,6 +36,9 @@ module.exports = (function () {
             if (err) {
                 offlineError(res);
             } else {
+                if (response.err) {
+                    return res.json(response.err);
+                }
                 winston.log('info', 'RPC Method getFile succesful.Got file: ', response.fileName);
                 res.json({fileName: response.fileName, data: response.fileBuffer});
             }
