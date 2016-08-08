@@ -1,31 +1,30 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.6.26)  7 JUL 2016 11:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.8.8)  8 AUG 2016 11:32
 entering extended mode
 **./ba.tex
 (ba.tex
-LaTeX2e <2016/03/31>
+LaTeX2e <2016/03/31> patch level 1
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\scrbook.cls
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\scrbook.cls"
 Document Class: scrbook 2016/06/14 v3.21 KOMA-Script document class (book)
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\scrkbase.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\scrkbase.sty"
 Package: scrkbase 2016/06/14 v3.21 KOMA-Script package (KOMA-Script-dependent b
 asics and keyval usage)
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\scrbase.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\scrbase.sty"
 Package: scrbase 2016/06/14 v3.21 KOMA-Script package (KOMA-Script-independent 
 basics and keyval usage)
 
-(D:\MiKTeX\tex\latex\graphics\keyval.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\scrlfile.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\scrlfile.sty"
 Package: scrlfile 2016/06/14 v3.21 KOMA-Script package (loading files)
 
 Package scrlfile, 2016/06/14 v3.21 KOMA-Script package (loading files)
                   Copyright (C) Markus Kohm
 
-)))
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\tocbasic.sty
+))) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\tocbasic.sty"
 Package: tocbasic 2016/06/14 v3.21 KOMA-Script package (handling toc-files)
 \scr@dte@tocline@numberwidth=\skip41
 \scr@dte@tocline@numbox=\box26
@@ -44,12 +43,11 @@ Package tocbasic Info: defining new hook before heading of `' on input line 160
 Class scrbook Info: File `scrsize11pt.clo' used to setup font sizes on input li
 ne 2269.
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\scrsize11pt.cl
-o
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\scrsize11pt.clo"
 File: scrsize11pt.clo 2016/06/14 v3.21 KOMA-Script font size class option (11pt
 )
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\typearea.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\typearea.sty"
 Package: typearea 2016/06/14 v3.21 KOMA-Script package (type area)
 
 Package typearea, 2016/06/14 v3.21 KOMA-Script package (type area)
@@ -102,23 +100,23 @@ LaTeX Info: Redefining \textsubscript on input line 4782.
 \c@table=\count88
 Class scrbook Info: Redefining `\numberline' on input line 5813.
 \bibindent=\dimen102
-) (D:\MiKTeX\tex\generic\babel\babel.sty
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
 Package: babel 2016/04/23 3.9r The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\arabi\bblopts.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-(D:\MiKTeX\tex\latex\babel-german\ngerman.ldf
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-german\ngerman.ldf"
 Language: ngerman 2013/12/13 v2.7 German support for babel (new orthography)
 
-(D:\MiKTeX\tex\latex\babel-german\ngermanb.ldf
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-german\ngermanb.ldf"
 Language: ngermanb 2013/12/13 v2.7 German support for babel (new orthography)
 
-(D:\MiKTeX\tex\generic\babel\babel.def
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2016/04/23 3.9r Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen103
@@ -127,48 +125,50 @@ File: babel.def 2016/04/23 3.9r Babel common definitions
 \l@nswissgerman = a dialect from \language\l@ngerman 
 Package babel Info: Making " an active character on input line 88.
 ))
-(D:\MiKTeX\tex\latex\babel-english\english.ldf
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-english\english.ldf"
 Language: english 2012/08/20 v3.3p English support from the babel system
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-(D:\MiKTeX\tex\latex\base\fontenc.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
- (D:\MiKTeX\tex\latex\base\t1enc.def
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.def"
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
-(D:\MiKTeX\tex\latex\base\inputenc.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
- (D:\MiKTeX\tex\latex\base\latin1.def
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2015/03/17 v1.2c Input encoding file
 ))
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\libertine\libertine.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\libertine\libertine.sty"
 Package: libertine 2014/11/25 (Bob Tennent) Supports Libertine and Biolinum fon
 ts for all LaTeX engines.
 
-(D:\MiKTeX\tex\generic\ifxetex\ifxetex.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-(D:\MiKTeX\tex\generic\oberdiek\ifluatex.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
-(D:\MiKTeX\tex\latex\xkeyval\xkeyval.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty"
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
-(D:\MiKTeX\tex\generic\xkeyval\xkeyval.tex
-(D:\MiKTeX\tex\generic\xkeyval\xkvutils.tex
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.tex"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xkeyval\xkvutils.tex"
 \XKV@toks=\toks17
 \XKV@tempa@toks=\toks18
 )
 \XKV@depth=\count90
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-(D:\MiKTeX\tex\latex\base\textcomp.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\textcomp.sty"
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -182,7 +182,8 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
 Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
- (D:\MiKTeX\tex\latex\base\ts1enc.def
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1enc.def"
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
 LaTeX Info: Redefining \oldstylenums on input line 334.
@@ -249,7 +250,7 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\mweights\mweights.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\mweights\mweights.sty"
 Package: mweights 2013/07/21 (Bob Tennent) Support package for multiple-weight 
 font packages. 
 LaTeX Info: Redefining \bfseries on input line 22.
@@ -258,10 +259,10 @@ LaTeX Info: Redefining \rmfamily on input line 36.
 LaTeX Info: Redefining \sffamily on input line 53.
 LaTeX Info: Redefining \ttfamily on input line 70.
 )
-(D:\MiKTeX\tex\latex\base\fontenc.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\fontaxes\fontaxes.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fontaxes\fontaxes.sty"
 Package: fontaxes 2014/03/23 v1.0d Font selection axes
 LaTeX Info: Redefining \upshape on input line 29.
 LaTeX Info: Redefining \itshape on input line 31.
@@ -270,18 +271,20 @@ LaTeX Info: Redefining \scshape on input line 37.
 )
 LaTeX Info: Redefining \oldstylenums on input line 478.
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\libertine\LinLibertine_I.t
-ex)) (D:\MiKTeX\tex\latex\psnfss\pifont.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\libertine\LinLibertine_I.tex"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\pifont.sty"
 Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
 LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
- (D:\MiKTeX\tex\latex\psnfss\upzd.fd
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\upzd.fd"
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
 LaTeX Font Info:    Try loading font information for U+psy on input line 64.
- (D:\MiKTeX\tex\latex\psnfss\upsy.fd
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\upsy.fd"
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\microtype.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\microtype.sty"
 Package: microtype 2016/05/14 v2.6a Micro-typographical refinements (RS)
 \MT@toks=\toks19
 \MT@count=\count91
@@ -290,8 +293,7 @@ LaTeX Info: Redefining \textls on input line 774.
 LaTeX Info: Redefining \textmicrotypecontext on input line 1310.
 \MT@listname@count=\count92
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\microtype-pdftex
-.def
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\microtype-pdftex.def"
 File: microtype-pdftex.def 2016/05/14 v2.6a Definitions specific to pdftex (RS)
 
 LaTeX Info: Redefining \lsstyle on input line 916.
@@ -300,22 +302,22 @@ LaTeX Info: Redefining \lslig on input line 916.
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\microtype.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\microtype.cfg"
 File: microtype.cfg 2016/05/14 v2.6a microtype main configuration file (RS)
 ))
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\nomencl\nomencl.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\nomencl\nomencl.sty"
 Package: nomencl 2005/09/22 v4.2 Nomenclature package (LN)
 \nomlabelwidth=\dimen105
 \nom@tempdim=\dimen106
 \nomitemsep=\skip57
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\setspace\setspace.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\setspace\setspace.sty"
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(D:\MiKTeX\tex\latex\base\makeidx.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\makeidx.sty"
 Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\listings.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.sty"
 \lst@mode=\count93
 \lst@gtempboxa=\box28
 \lst@token=\toks20
@@ -329,32 +331,32 @@ Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 \lst@lineno=\count98
 \lst@maxwidth=\dimen110
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstmisc.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 \c@lstnumber=\count99
 \lst@skipnumbers=\count100
 \lst@framebox=\box29
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\listings.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\listings.cfg"
 File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\natbib\natbib.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\natbib\natbib.sty"
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip58
 \bibsep=\skip59
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count101
 )
-(D:\MiKTeX\tex\latex\hyperref\hyperref.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
 Package: hyperref 2016/05/21 v6.83p Hypertext links for LaTeX
 
-(D:\MiKTeX\tex\generic\oberdiek\hobsub-hyperref.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
 
-(D:\MiKTeX\tex\generic\oberdiek\hobsub-generic.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
@@ -389,26 +391,26 @@ Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
 Package: xcolor-patch 2016/05/16 xcolor patch
 Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
-Package: atbegshi 2016/05/16 v1.17 At begin shipout hook (HO)
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
-(D:\MiKTeX\tex\latex\oberdiek\auxhook.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
-(D:\MiKTeX\tex\latex\oberdiek\kvoptions.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen111
 \Hy@linkcounter=\count102
 \Hy@pagecounter=\count103
 
-(D:\MiKTeX\tex\latex\hyperref\pd1enc.def
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
 File: pd1enc.def 2016/05/21 v6.83p Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count104
 
-(D:\MiKTeX\tex\latex\00miktex\hyperref.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `draft' set `false' on input line 4362.
@@ -422,7 +424,7 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4735.
 \c@Hy@tempcnt=\count105
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\url\url.sty"
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -447,19 +449,19 @@ LaTeX Info: Redefining \pageref on input line 6416.
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
-(D:\MiKTeX\tex\latex\hyperref\hpdftex.def
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
 File: hpdftex.def 2016/05/21 v6.83p Hyperref driver for pdfTeX
 \Fld@listcount=\count110
 \c@bookmark@seq@number=\count111
 
-(D:\MiKTeX\tex\latex\oberdiek\rerunfilecheck.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip60
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\soul\soul.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\soul\soul.sty"
 Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@word=\toks21
 \SOUL@lasttoken=\toks22
@@ -470,22 +472,22 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@ttwidth=\dimen115
 \SOUL@uldp=\dimen116
 \SOUL@ulht=\dimen117
-)
-(hawstyle.sty
+) (hawstyle.sty
 Package: hawstyle 2010/04/26 v1.0 HAW Thesis Style
- (D:\MiKTeX\tex\latex\base\ifthen.sty
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\xcolor\xcolor.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
-(D:\MiKTeX\tex\latex\00miktex\color.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
 
-(D:\MiKTeX\tex\latex\pdftex-def\pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2016/06/17 v0.06h Graphics/color for pdfTeX
 \Gread@gobject=\count112
 )
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
@@ -498,7 +500,7 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-(D:\MiKTeX\tex\latex\tools\calc.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\calc.sty"
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count113
 \calc@Bcount=\count114
@@ -511,11 +513,11 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count115
 \calc@Cskip=\skip64
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\textpos\textpos.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\textpos\textpos.sty"
 Package: textpos 2016/06/07 v1.8
 
 Package: textpos 2016/06/07 1.8, absolute positioning of text on the page
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\ms\everyshi.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ms\everyshi.sty"
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 )
 \TP@textbox=\box30
@@ -532,27 +534,28 @@ Grid set 16 x 16 = 37.34424pt x 52.81543pt
 \TP@tbargs=\toks26
 \TP@prevdepth=\dimen127
 TextBlockOrigin set to 0pt x 0pt
-) (C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\koma-script\scrpage2.sty
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\koma-script\scrpage2.sty"
 Package: scrpage2 2016/06/14 v3.21 KOMA-Script package (page head and foot)
 LaTeX Info: Redefining \pagemark on input line 174.
-) (D:\MiKTeX\tex\latex\graphics\graphicx.sty
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-(D:\MiKTeX\tex\latex\graphics\graphics.sty
-Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2016/06/02 v1.0s Standard LaTeX Graphics (DPC,SPQR)
 
-(D:\MiKTeX\tex\latex\graphics\trig.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(D:\MiKTeX\tex\latex\00miktex\graphics.cfg
-File: graphics.cfg 2016/01/02 v1.10 sample graphics configuration
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 96.
+Package graphics Info: Driver file: pdftex.def on input line 99.
 )
 \Gin@req@height=\dimen128
 \Gin@req@width=\dimen129
 ))
-(D:\MiKTeX\tex\latex\float\float.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count116
 \float@exts=\toks27
@@ -560,18 +563,18 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks28
 \@floatcapt=\box33
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\lipsum\lipsum.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty"
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count117
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\acronym\acronym.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\acronym\acronym.sty"
 Package: acronym 2015/03/21 v1.41 Support for acronyms (Tobias Oetiker)
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\bigfoot\suffix.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\bigfoot\suffix.sty"
 Package: suffix 2006/07/15 1.5a Variant command support
 )
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\xstring\xstring.sty
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\generic\xstring\xstring.tex
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\xstring\xstring.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xstring\xstring.tex"
 \@xs@message=\write3
 \integerpart=\count118
 \decimalpart=\count119
@@ -586,8 +589,8 @@ Package hyperref Info: Option `linktocpage' set `true' on input line 69.
 LaTeX Font Info:    Try loading font information for T1+LinuxLibertineT-TLF on 
 input line 83.
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\libertine\t1linuxlibertine
-t-tlf.fd
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\libertine\t1linuxlibertinet-tlf.f
+d"
 File: T1LinuxLibertineT-TLF.fd 2012/11/26 (autoinst) Font definitions for T1/Li
 nuxLibertineT-TLF.
 )
@@ -636,7 +639,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
 LaTeX Font Info:    ... okay on input line 89.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 89.
- (D:\MiKTeX\tex\latex\base\ts1cmr.fd
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 89.
@@ -662,10 +665,10 @@ Package microtype Info: Loading generic settings for font family
 \AtBeginShipoutBox=\box34
 Package hyperref Info: Link coloring ON on input line 89.
 
-(D:\MiKTeX\tex\latex\hyperref\nameref.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
-(D:\MiKTeX\tex\generic\oberdiek\gettitlestring.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count123
@@ -673,12 +676,13 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 89.
 LaTeX Info: Redefining \pageref on input line 89.
 LaTeX Info: Redefining \nameref on input line 89.
- (ba.out) (ba.out)
+
+(ba.out) (ba.out)
 \@outlinefile=\write6
 \openout6 = `ba.out'.
 
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count124
 \scratchdimen=\dimen130
@@ -691,18 +695,20 @@ LaTeX Info: Redefining \nameref on input line 89.
 \MPnumerator=\count128
 \makeMPintoPDFobject=\count129
 \everyMPtoPDFconversion=\toks31
-) ABD: EveryShipout initializing macros
-(D:\MiKTeX\tex\latex\oberdiek\epstopdf-base.sty
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(D:\MiKTeX\tex\latex\oberdiek\grfext.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
+ABD: EveryShipout initializing macros
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 103.
 Package babel Info: Redefining ngerman shorthand "~
@@ -718,8 +724,8 @@ Package babel Info: Redefining ngerman shorthand "~
 LaTeX Font Info:    Try loading font information for T1+LinuxBiolinumT-TLF on i
 nput line 109.
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\libertine\t1linuxbiolinumt
--tlf.fd
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\libertine\t1linuxbiolinumt-tlf.fd
+"
 File: T1LinuxBiolinumT-TLF.fd 2012/11/26 (autoinst) Font definitions for T1/Lin
 uxBiolinumT-TLF.
 )
@@ -740,7 +746,7 @@ Overfull \hbox (227.62206pt too wide) in paragraph at lines 109--109
 [][] 
  []
 
-(C:\Users\phili\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\mt-cmr.cfg
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\microtype\mt-cmr.cfg"
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
@@ -797,7 +803,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 109.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 109.
-[1{C:/Users/phili/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 
@@ -1214,26 +1220,25 @@ Package rerunfilecheck Info: File `ba.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
  ) 
 Here is how much of TeX's memory you used:
- 14886 strings out of 493335
- 241061 string characters out of 3147024
- 549285 words of memory out of 3000000
- 17998 multiletter control sequences out of 15000+200000
+ 14892 strings out of 493335
+ 242957 string characters out of 3136675
+ 549455 words of memory out of 3000000
+ 18004 multiletter control sequences out of 15000+200000
  85510 words of font info for 127 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,10n,66p,8850b,541s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/phili/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_25t
-csq.enc}{C:/Users/phili/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lb
-tn_ncsllp.enc}{C:/Users/phili/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libert
-ine/lbtn_nh77jq.enc}{C:/Users/phili/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/
-libertine/lbtn_76gpa5.enc}{C:/Users/phili/AppData/Roaming/MiKTeX/2.9/fonts/enc/
-dvips/libertine/lbtn_7grukw.enc}<C:/Users/phili/AppData/Roaming/MiKTeX/2.9/font
-s/type1/public/libertine/LinBiolinumT.pfb><C:/Users/phili/AppData/Roaming/MiKTe
-X/2.9/fonts/type1/public/libertine/LinBiolinumTB.pfb><C:/Users/phili/AppData/Ro
-aming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/phili
-/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/libertine/LinLibertineTB.pfb><C:
-/Users/phili/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/libertine/LinLiberti
-neTI.pfb>
-Output written on ba.pdf (17 pages, 389526 bytes).
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{C
+:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{C:/
+Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{C:/Pr
+ogram Files (x86)/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_7grukw.enc}<C:/Prog
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Pr
+ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/libertine/LinBiolinumTB.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/libertine/LinLibertineT.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/libertine/LinLibertineTB.
+pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/libertine/LinLibertin
+eTI.pfb>
+Output written on ba.pdf (17 pages, 389540 bytes).
 PDF statistics:
  267 PDF objects out of 1000 (max. 8388607)
  51 named destinations out of 1000 (max. 500000)
