@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/owncloud.js" afterPath="$PROJECT_DIR$/Owncloud/owncloud.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/test/owncloud.js" afterPath="$PROJECT_DIR$/Owncloud/test/owncloud.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" afterPath="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SeCoApi/routes/owncloud.js" afterPath="$PROJECT_DIR$/SeCoApi/routes/owncloud.js" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,33 +25,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SeCoApi/routes/owncloud.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-              <folding>
-                <marker date="1470745415000" expanded="true" signature="0:45" placeholder="/** Created by PhilippMac on 19.07.16. ...*/" />
-                <marker date="1470745415000" expanded="true" signature="377:3582" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="754:1591" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="1032:1164" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="1191:1583" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="1214:1264" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="1270:1573" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="1643:2448" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="1925:2057" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2084:2440" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2107:2157" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2163:2430" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2199:2269" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2499:3559" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2525:2656" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="2948:3167" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="3194:3551" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="3217:3267" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="3273:3541" placeholder="{...}" />
-                <marker date="1470745415000" expanded="true" signature="3309:3379" placeholder="{...}" />
-              </folding>
+            <state vertical-scroll-proportion="0.15368852">
+              <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -66,10 +45,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Owncloud/test/owncloud.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67622954">
+            <state vertical-scroll-proportion="0.0">
               <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
               <folding />
             </state>
@@ -128,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="paramChecker.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SeCoApi/utility/paramChecker.js">
+      <file leaf-file-name="dropbox.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SeCoApi/routes/dropbox.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="87" />
+              <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -205,9 +184,7 @@
         <option value="$PROJECT_DIR$/Owncloud/config/config.json" />
         <option value="$PROJECT_DIR$/Dropbox/config/config.json" />
         <option value="$PROJECT_DIR$/SeCoApi/utility/paramChecker.js" />
-        <option value="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
         <option value="$PROJECT_DIR$/SeCoApi/utility/headerChecker.js" />
-        <option value="$PROJECT_DIR$/SeCoApi/routes/owncloud.js" />
         <option value="$PROJECT_DIR$/SeCoApi/routes/github.js" />
         <option value="$PROJECT_DIR$/SeCoApi/routes/googleDrive.js" />
         <option value="$PROJECT_DIR$/SeCoApi/routes/bitbucket.js" />
@@ -215,6 +192,8 @@
         <option value="$PROJECT_DIR$/SeCoApi/secoApiStart.js" />
         <option value="$PROJECT_DIR$/Owncloud/owncloud.js" />
         <option value="$PROJECT_DIR$/Owncloud/test/owncloud.js" />
+        <option value="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
+        <option value="$PROJECT_DIR$/SeCoApi/routes/owncloud.js" />
       </list>
     </option>
   </component>
@@ -270,6 +249,16 @@
               <option name="myItemId" value="code" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="SeCoApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -308,16 +297,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="routes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -571,7 +550,7 @@
       </FILE-GROUP>
     </UpdatedFiles>
   </component>
-  <component name="RunManager" selected="Node.js.start.js (1)">
+  <component name="RunManager" selected="Node.js.start.js (2)">
     <configuration default="false" name="owncloud.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="owncloud.js" working-dir="$PROJECT_DIR$/Owncloud/test">
       <method />
     </configuration>
@@ -648,9 +627,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.index.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
+        <item index="0" class="java.lang.String" itemvalue="Node.js.index.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
         <item index="3" class="java.lang.String" itemvalue="Node.js.owncloud.js" />
         <item index="4" class="java.lang.String" itemvalue="Node.js.dropbox.js" />
       </list>
@@ -851,15 +830,22 @@
       <option name="project" value="LOCAL" />
       <updated>1470389555288</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="owncloud getFile gefixt. Nehme nun normale http Route anstatt ajax path">
+      <created>1470747087351</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1470747087351</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="831" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32594937" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328084" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32283464" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
@@ -868,7 +854,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.395806" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32805908" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -889,7 +874,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="restliche routen hinzugefuegt" />
     <MESSAGE value="logger hinzugefuegt" />
     <MESSAGE value="rabbitmq broker init" />
     <MESSAGE value="nconf als config modul hinzugefuegt" />
@@ -914,7 +898,8 @@
     <MESSAGE value="gitignore dropbox added" />
     <MESSAGE value="custom error messages entfernt. bad request secoapi hnzugefügt" />
     <MESSAGE value="404 route hinzugefügt" />
-    <option name="LAST_COMMIT_MESSAGE" value="404 route hinzugefügt" />
+    <MESSAGE value="owncloud getFile gefixt. Nehme nun normale http Route anstatt ajax path" />
+    <option name="LAST_COMMIT_MESSAGE" value="owncloud getFile gefixt. Nehme nun normale http Route anstatt ajax path" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1259,14 +1244,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SeCoApi/routes/dropbox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="74" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/utility/paramChecker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1280,35 +1257,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SeCoApi/routes/owncloud.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <marker date="1470745415000" expanded="true" signature="0:45" placeholder="/** Created by PhilippMac on 19.07.16. ...*/" />
-            <marker date="1470745415000" expanded="true" signature="377:3582" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="754:1591" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="1032:1164" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="1191:1583" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="1214:1264" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="1270:1573" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="1643:2448" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="1925:2057" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2084:2440" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2107:2157" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2163:2430" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2199:2269" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2499:3559" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2525:2656" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="2948:3167" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="3194:3551" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="3217:3267" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="3273:3541" placeholder="{...}" />
-            <marker date="1470745415000" expanded="true" signature="3309:3379" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1354,6 +1302,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Owncloud/test/owncloud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SeCoApi/routes/dropbox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1362,10 +1326,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/test/owncloud.js">
+    <entry file="file://$PROJECT_DIR$/SeCoApi/routes/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67622954">
-          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.15368852">
+          <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
           <folding />
         </state>
       </provider>

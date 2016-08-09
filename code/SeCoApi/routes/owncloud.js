@@ -72,7 +72,7 @@ module.exports = (function () {
 
     router.post('/upload', function (req, res) {
         if (!req.files) {
-            res.send({route: req.baseUrl, error: error.missingFile, errorMessage: 'missing file'});
+            res.send({route: req.baseUrl, error: 'no file uploaded', errorMessage: 'missing file'});
             return;
         }
         if (!paramChecker.containsParameter(['path', 'fileName'], req, res)) {
