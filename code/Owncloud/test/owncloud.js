@@ -17,9 +17,9 @@ describe('Owncloud', function () {
     });
     describe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
-            owncloud.getFile('abi515', 'Injection2', 'BA-Philipp/Umfrage/Umfrage.pdf', function (err, fileName, buffer) {
+            owncloud.getFile('abi515', 'Injection2', 'BA-Philipp/test5.pdf', function (err, fileName, buffer) {
                 expect(err).to.be.a('null');
-                assert.equal(fileName, 'Umfrage.pdf');
+                assert.equal(fileName, 'test5.pdf');
                 expect(buffer).to.be.not.a('null');
                 done();
             });

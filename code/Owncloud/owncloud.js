@@ -84,27 +84,12 @@ owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, 
  * @param callback
  */
 owncloud.getFile = function (username, password, filePath, callback) {
-    var fileUrl = 'https://owncloud.informatik.haw-hamburg.de/index.php/apps/files/ajax/download.php?';
     var pathSplit = filePath.split('/');
-    fileUrl += 'dir=';
-    var fileName = {};
-    if (pathSplit.length <= 1) {
-        fileUrl += '%2F';
-    }
-    for (var i = 0; i < pathSplit.length; i++) {
-        if (i === pathSplit.length - 1) {
-            //fileName
-            fileUrl += '&files=' + pathSplit[i];
-            fileName = pathSplit[i];
-        } else {
-            //directory
-            fileUrl += '%2F' + pathSplit[i];
-        }
-    }
-    winston.log('info','getFile adjusted url: %s',fileUrl);
+    var fileName = pathSplit[pathSplit.length-1];
+    console.log(fileName);
     var options = {
         method: 'GET',
-        uri: fileUrl,
+        uri: 'https://owncloud.informatik.haw-hamburg.de/remote.php/webdav/' + filePath,
         encoding: null,
         auth: {
             user: username,
