@@ -13,7 +13,13 @@
         "username",
         "password"
       ],
-      "grpc_function": "getFile"
+      "grpc_function": "getFile",
+      "grpc_function_paramater":[
+        "path",
+        "username",
+        "password"
+      ],
+      "response_parameter": "status"
     },
     {
       "http-method": "get",
@@ -25,7 +31,13 @@
         "username",
         "password"
       ],
-      "grpc_function":"getFileTree"
+      "grpc_function":"getFileTree",
+      "grpc_function_paramater":[
+        "path",
+        "username",
+        "password"
+      ],
+      "response_parameter": "dirs"
     },
     {
       "http-method": "post",
@@ -44,7 +56,8 @@
         "password",
         "fileBuffer",
         "fileName"
-      ]
+      ],
+      "response_parameter": "status"
     }
   ]
 }

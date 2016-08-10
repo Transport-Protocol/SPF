@@ -8,9 +8,9 @@
     "start": "node secoApiStart.js"
   },
   "author": "Philipp Prögel",
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://bitbucket.org/philippBB/ba.git"
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/philippBB/ba.git"
   },
   "license": "ISC",
   "dependencies": {
@@ -19,6 +19,7 @@
     "express": "^4.14.0",
     "express-fileupload": "0.0.5",
     "grpc": "^1.0.0-pre1",
+    "hashmap": "^2.0.6",
     "nconf": "^0.8.4",
     "winston": "^2.2.0"
   }

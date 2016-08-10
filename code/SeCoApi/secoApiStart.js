@@ -24,7 +24,7 @@ var dropbox = require('./routes/dropbox'),
 function registerRoutes() {
     app.use('/api', router);
     app.use('/api/dropbox', dropbox);
-    app.use('/api', owncloud);
+    app.use('/api', new owncloud('./json/owncloudRoutes.json').route());
     app.use('/api/googledrive', googleDrive);
     app.use('/api/github', github);
     app.use('/api/bitbucket', bitbucket);
