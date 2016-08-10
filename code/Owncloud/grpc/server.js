@@ -66,7 +66,8 @@ function getFileTree(call, callback) {
  * Implements the UploadFile RPC method.
  */
 function uploadFile(call, callback) {
-    winston.log('info', 'uploadFile rpc method request');
+    winston.log('info', 'uploadFile rpc method request: ' + JSON.stringify(call.request));
+    winston.log('info',call.request.username);
     connector.uploadFile(call.request.username, call.request.password, call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
         if (err) {
             winston.log('error', 'error performing uploadFile: ',err);

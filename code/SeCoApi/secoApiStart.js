@@ -15,7 +15,7 @@ nconf.argv()
 
 //my modules
 var dropbox = require('./routes/dropbox'),
-    owncloud = require('./routes/owncloud'),
+    owncloud = require('./routes/owncloudParsed'),
     github = require('./routes/github'),
     googleDrive = require('./routes/googleDrive'),
     bitbucket = require('./routes/bitbucket'),
@@ -24,7 +24,7 @@ var dropbox = require('./routes/dropbox'),
 function registerRoutes() {
     app.use('/api', router);
     app.use('/api/dropbox', dropbox);
-    app.use('/api/owncloud', owncloud);
+    app.use('/api', owncloud);
     app.use('/api/googledrive', googleDrive);
     app.use('/api/github', github);
     app.use('/api/bitbucket', bitbucket);
