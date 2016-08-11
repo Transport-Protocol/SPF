@@ -1,32 +1,63 @@
 {
-  "routes": [
+  "service_name": "Dropbox",
+  "grpc_ip": "localhost",
+  "grpc_port": 50052,
+  "requests": [
     {
       "http-method": "get",
-      "route": "api/dropbox/file",
-      "parameter": [
+      "route": "/dropbox/file",
+      "query_parameter": [
         "path"
       ],
-      "header": [
-        "oauth2token"
+      "header_parameter": [
+        "authorization"
+      ],
+      "grpc_function": "getFile",
+      "grpc_function_paramater": [
+        "path",
+        "authorization"
+      ],
+      "response_parameter": [
+        "fileName",
+        "fileBuffer"
       ]
     },
     {
       "http-method": "get",
-      "route": "api/dropbox/filetree",
-      "parameter": [
+      "route": "/dropbox/filetree",
+      "query_parameter": [
+        "path"
       ],
-      "header": [
-        "oauth2token"
+      "header_parameter": [
+        "authorization"
+      ],
+      "grpc_function": "getFileTree",
+      "grpc_function_paramater": [
+        "path",
+        "authorization"
+      ],
+      "response_parameter": [
+        "dirs"
       ]
     },
     {
       "http-method": "post",
-      "route": "api/dropbox/upload",
-      "parameter": [
+      "route": "/dropbox/upload",
+      "query_parameter": [
         "path"
       ],
-      "header": [
-        "oauth2token"
+      "header_parameter": [
+        "authorization"
+      ],
+      "grpc_function": "uploadFile",
+      "grpc_function_paramater": [
+        "path",
+        "authorization",
+        "fileBuffer",
+        "fileName"
+      ],
+      "response_parameter": [
+        "status"
       ]
     }
   ]

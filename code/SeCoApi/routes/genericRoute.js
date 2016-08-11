@@ -17,6 +17,7 @@ var grpc = require('grpc'),
 
 
 function CustomRoute(jsonConfigFilePath) {
+    self = this;
     this.config = JSON.parse(fs.readFileSync(jsonConfigFilePath));
     this.paramChecker = new ParamChecker();
     this.headerChecker = new HeaderChecker();
@@ -24,6 +25,8 @@ function CustomRoute(jsonConfigFilePath) {
 
     _initGRPC(this);
 }
+
+var self = {};
 
 function _initGRPC(self){
     var url = self.config['grpc_ip'] + ':' + self.config['grpc_port'];
@@ -49,7 +52,7 @@ CustomRoute.prototype.route = function (){
             if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
                 return;
             }
-            var json = createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater']);
+            var json = createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater'],res);
             console.log(json);
             self.client[requestArray[requestID]['grpc_function']](json, function (err, response) {
                 if (err) {
@@ -58,8 +61,8 @@ CustomRoute.prototype.route = function (){
                     if (response.err) {
                         return res.json(response.err);
                     }
-                    var result = response[requestArray[requestID]['response_parameter']];
-                    winston.log('info', 'RPC Method uploadFile succesful.Status: ', result);
+                    var result = createHttpJsonResult(requestArray[requestID]['response_parameter'],response);
+                    winston.log('info', 'RPC Method %s succesful.', requestArray[requestID]['grpc_function']);
                     return res.json(result);
                 }
             });
@@ -68,9 +71,24 @@ CustomRoute.prototype.route = function (){
     return router;
 }
 
+function createHttpJsonResult(params,grpcResponse){
+    var result = {};
+    var noJson = false;
+    for(var i in params){
+        try{
+            result[params[i]] = JSON.parse(grpcResponse[params[i]]);
+        } catch(e) {
+            result[params[i]] = grpcResponse[params[i]];
+            noJson = true;
+        }
+    }
+    if(noJson){
+        winston.log('error', 'connector %s responded without json', self.config['service_name']);
+    }
+    return result;
+}
 
-
-function createGrpcJsonArgs(req, params) {
+function createGrpcJsonArgs(req, params,res) {
     var resultAsObj = {};
     for (var i in params) {
         var param = params[i];
@@ -89,8 +107,12 @@ function createGrpcJsonArgs(req, params) {
     return resultAsObj;
 }
 
+function noFileUploadedError(res){
+    res.status(400).send("no uploaded file found under 'file'");
+}
+
 function offlineError(res) {
-    res.status(504).send(this.config['service_name'] + 'connector offline');
+    res.status(504).send(self.config['service_name'] + 'connector offline');
 }
 
 

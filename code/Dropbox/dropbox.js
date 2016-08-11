@@ -49,7 +49,7 @@ dropbox.getFileTree = function (oauth2Token, path, callback) {
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error','http error: ',err);
             console.log(response.body);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage  + ' ' + body));
         }
         var dirs = body.entries;
         if (dirs.length === 0) {

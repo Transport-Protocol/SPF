@@ -15,7 +15,7 @@ service FileStorage {
 // The request message
 message GetFileRequest {
   string path = 1;
-  string token =2;
+  string authorization =2;
   string username = 3;
   string password = 4;
 }
@@ -30,7 +30,7 @@ message GetFileReply {
 // The request message
 message GetFileTreeRequest {
   string path = 1;
-  string token =2;
+  string authorization =2;
   string username = 3;
   string password = 4;
 }
@@ -46,7 +46,7 @@ message UploadFileRequest {
   string path = 1;
   bytes fileBuffer = 2;
   string fileName = 3;
-  string token = 4;
+  string authorization = 4;
   string username = 5;
   string password = 6;
 }

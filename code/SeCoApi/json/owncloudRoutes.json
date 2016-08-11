@@ -1,6 +1,6 @@
 {
-  "service_name":"Owncloud",
-  "grpc_ip":"localhost",
+  "service_name": "Owncloud",
+  "grpc_ip": "localhost",
   "grpc_port": 50051,
   "requests": [
     {
@@ -14,12 +14,15 @@
         "password"
       ],
       "grpc_function": "getFile",
-      "grpc_function_paramater":[
+      "grpc_function_paramater": [
         "path",
         "username",
         "password"
       ],
-      "response_parameter": "status"
+      "response_parameter": [
+        "fileName",
+        "fileBuffer"
+      ]
     },
     {
       "http-method": "get",
@@ -31,13 +34,15 @@
         "username",
         "password"
       ],
-      "grpc_function":"getFileTree",
-      "grpc_function_paramater":[
+      "grpc_function": "getFileTree",
+      "grpc_function_paramater": [
         "path",
         "username",
         "password"
       ],
-      "response_parameter": "dirs"
+      "response_parameter": [
+        "dirs"
+      ]
     },
     {
       "http-method": "post",
@@ -49,15 +54,17 @@
         "username",
         "password"
       ],
-      "grpc_function":"uploadFile",
-      "grpc_function_paramater":[
+      "grpc_function": "uploadFile",
+      "grpc_function_paramater": [
         "path",
         "username",
         "password",
         "fileBuffer",
         "fileName"
       ],
-      "response_parameter": "status"
+      "response_parameter": [
+        "status"
+      ]
     }
   ]
 }
