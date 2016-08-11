@@ -36,7 +36,7 @@ exports.start = function () {
  */
 function getFile(call, callback) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
-    connector.getFile(call.request.authorization, call.request.path, function (err, fileName, fileBuffer) {
+    connector.getFile(call.request.auth.token, call.request.path, function (err, fileName, fileBuffer) {
         if (err) {
             winston.log('error', 'error performing getFile: ',err);
             return callback(null, {err: err.message});
@@ -52,7 +52,7 @@ function getFile(call, callback) {
  */
 function getFileTree(call, callback) {
     winston.log('info', 'getFileTree rpc method request: ' + JSON.stringify(call.request));
-    connector.getFileTree(call.request.authorization, call.request.path, function (err, dirs) {
+    connector.getFileTree(call.request.auth.token, call.request.path, function (err, dirs) {
         if (err) {
             winston.log('error', 'error performing getFileTree: ',err);
             return callback(null, {err: err.message});
@@ -67,7 +67,7 @@ function getFileTree(call, callback) {
  */
 function uploadFile(call, callback) {
     winston.log('info', 'uploadFile rpc method request');
-    connector.uploadFile(call.request.authorization, call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
+    connector.uploadFile(call.request.auth.token, call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
         if (err) {
             winston.log('error', 'error performing uploadFile: ',err);
             return callback(null, {err: err.message});

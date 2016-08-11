@@ -36,7 +36,8 @@ exports.start = function () {
  */
 function getFile(call, callback) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
-    connector.getFile(call.request.username, call.request.password, call.request.path, function (err, fileName, fileBuffer) {
+    var encrypted = _basicAuthEncryption(call.request.auth.token);
+    connector.getFile(encrypted[0], encrypted[1], call.request.path, function (err, fileName, fileBuffer) {
         if (err) {
             winston.log('error', 'error performing getFile: ',err);
             return callback(null, {err: err.message});
@@ -76,4 +77,11 @@ function uploadFile(call, callback) {
         winston.log('info', 'succesfully performed uploadFile rpc method');
         return callback(null, {status: status});
     });
+}
+
+function _basicAuthEncryption(token){
+    var withoutBasic = token.substr(6);
+    var readableString = new Buffer(withoutBasic, 'base64').toString()
+    var userPasswordArray = readableString.split(':');
+    return userPasswordArray;
 }

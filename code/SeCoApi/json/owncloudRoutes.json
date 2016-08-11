@@ -2,6 +2,7 @@
   "service_name": "Owncloud",
   "grpc_ip": "localhost",
   "grpc_port": 50051,
+  "authentication_type": "oauth2",
   "requests": [
     {
       "http-method": "get",
@@ -10,14 +11,12 @@
         "path"
       ],
       "header_parameter": [
-        "username",
-        "password"
+        "authorization"
       ],
       "grpc_function": "getFile",
       "grpc_function_paramater": [
         "path",
-        "username",
-        "password"
+        "authorization"
       ],
       "response_parameter": [
         "fileName",
@@ -31,14 +30,12 @@
         "path"
       ],
       "header_parameter": [
-        "username",
-        "password"
+        "authorization"
       ],
       "grpc_function": "getFileTree",
       "grpc_function_paramater": [
         "path",
-        "username",
-        "password"
+        "authorization"
       ],
       "response_parameter": [
         "dirs"
@@ -51,14 +48,12 @@
         "path"
       ],
       "header_parameter": [
-        "username",
-        "password"
+        "authorization"
       ],
       "grpc_function": "uploadFile",
       "grpc_function_paramater": [
         "path",
-        "username",
-        "password",
+        "authorization",
         "fileBuffer",
         "fileName"
       ],

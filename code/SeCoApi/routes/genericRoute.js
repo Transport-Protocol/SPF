@@ -52,16 +52,16 @@ CustomRoute.prototype.route = function (){
             if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
                 return;
             }
-            var json = createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater'],res);
+            var json = _createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater'],res);
             console.log(json);
             self.client[requestArray[requestID]['grpc_function']](json, function (err, response) {
                 if (err) {
-                    offlineError(res);
+                    _offlineError(res);
                 } else {
                     if (response.err) {
                         return res.json(response.err);
                     }
-                    var result = createHttpJsonResult(requestArray[requestID]['response_parameter'],response);
+                    var result = _createHttpJsonResult(requestArray[requestID]['response_parameter'],response);
                     winston.log('info', 'RPC Method %s succesful.', requestArray[requestID]['grpc_function']);
                     return res.json(result);
                 }
@@ -71,7 +71,21 @@ CustomRoute.prototype.route = function (){
     return router;
 }
 
-function createHttpJsonResult(params,grpcResponse){
+function _encryptAuthorization(token,authType){
+    var grpcAuth = {token: token,type: 0};
+    switch(authType){
+        case 'basic': //BASIC
+            grpcAuth.type = 0;
+            break;
+        case 'oauth2': //OAUTH2
+            grpcAuth.type = 1;
+            break;
+        default:
+    }
+    return grpcAuth;
+}
+
+function _createHttpJsonResult(params, grpcResponse){
     var result = {};
     var noJson = false;
     for(var i in params){
@@ -88,12 +102,13 @@ function createHttpJsonResult(params,grpcResponse){
     return result;
 }
 
-function createGrpcJsonArgs(req, params,res) {
+function _createGrpcJsonArgs(req, params, res) {
     var resultAsObj = {};
     for (var i in params) {
         var param = params[i];
-        if (req.headers.hasOwnProperty(param)) {
-            resultAsObj[param] = req.headers[param];
+        if (param === 'authorization') {
+            //encrypt authentication
+            resultAsObj['auth'] = _encryptAuthorization(req.headers.authorization,self.config['authentication_type'])
         } else if (req.query.hasOwnProperty(param)) {
             resultAsObj[param] = req.query[param];
         }
@@ -107,11 +122,11 @@ function createGrpcJsonArgs(req, params,res) {
     return resultAsObj;
 }
 
-function noFileUploadedError(res){
+function _noFileUploadedError(res){
     res.status(400).send("no uploaded file found under 'file'");
 }
 
-function offlineError(res) {
+function _offlineError(res) {
     res.status(504).send(self.config['service_name'] + 'connector offline');
 }
 
