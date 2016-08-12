@@ -31,7 +31,7 @@ dropbox.getFileTree = function (oauth2Token, path, callback) {
         method: 'POST',
         uri: url,
         auth: {
-            bearer: oauth2Token
+            bearer: _formatOauth2Token(oauth2Token)
         },
         json: {
             "path": path,
@@ -69,7 +69,7 @@ dropbox.uploadFile = function (oauth2Token, path, fileBuffer, fileName, callback
         method: 'PUT',
         uri: url,
         auth: {
-            bearer: oauth2Token
+            bearer: _formatOauth2Token(oauth2Token)
         },
         multipart: [{
             body: fileBuffer
@@ -108,7 +108,7 @@ dropbox.getFile = function (oauth2Token, filePath, callback) {
         uri: fileUrl,
         encoding: null,
         auth: {
-            bearer: oauth2Token
+            bearer: _formatOauth2Token(oauth2Token)
         }
     };
     request(options, function (err, response, body) {
@@ -159,6 +159,11 @@ function _writeFile(buffer, fileName) {
         }
         return callback(null, {'status': 'ok'});
     });
+}
+
+function _formatOauth2Token(token){
+    var oauth2TokenWithoutSpace = token.replace(/\s+/g, '');
+    return oauth2TokenWithoutSpace.replace('Bearer',''); //Remove Bearer
 }
 
 
