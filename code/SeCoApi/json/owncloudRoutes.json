@@ -2,7 +2,7 @@
   "service_name": "Owncloud",
   "grpc_ip": "localhost",
   "grpc_port": 50051,
-  "authentication_type": "oauth2",
+  "authentication_type": "basic",
   "requests": [
     {
       "http-method": "get",

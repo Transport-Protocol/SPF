@@ -37,7 +37,7 @@ exports.start = function () {
 function getFile(call, callback) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
     var encrypted = _basicAuthEncryption(call.request.auth.token);
-    connector.getFile(encrypted[0], encrypted[1], call.request.path, function (err, fileName, fileBuffer) {
+    connector.getFile(encrypted.username, encrypted.password, call.request.path, function (err, fileName, fileBuffer) {
         if (err) {
             winston.log('error', 'error performing getFile: ',err);
             return callback(null, {err: err.message});
@@ -53,7 +53,8 @@ function getFile(call, callback) {
  */
 function getFileTree(call, callback) {
     winston.log('info', 'getFileTree rpc method request: ' + JSON.stringify(call.request));
-    connector.getFileTree(call.request.username, call.request.password, call.request.path, function (err, dirs) {
+    var encrypted = _basicAuthEncryption(call.request.auth.token);
+    connector.getFileTree(encrypted.username, encrypted.password, call.request.path, function (err, dirs) {
         if (err) {
             winston.log('error', 'error performing getFileTree: ',err);
             return callback(null, {err: err.message});
@@ -68,8 +69,8 @@ function getFileTree(call, callback) {
  */
 function uploadFile(call, callback) {
     winston.log('info', 'uploadFile rpc method request: ' + JSON.stringify(call.request));
-    winston.log('info',call.request.username);
-    connector.uploadFile(call.request.username, call.request.password, call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
+    var encrypted = _basicAuthEncryption(call.request.auth.token);
+    connector.uploadFile(encrypted.username, encrypted.password, call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
         if (err) {
             winston.log('error', 'error performing uploadFile: ',err);
             return callback(null, {err: err.message});
@@ -83,5 +84,5 @@ function _basicAuthEncryption(token){
     var withoutBasic = token.substr(6);
     var readableString = new Buffer(withoutBasic, 'base64').toString()
     var userPasswordArray = readableString.split(':');
-    return userPasswordArray;
+    return {username:userPasswordArray[0],password:userPasswordArray[1]};
 }

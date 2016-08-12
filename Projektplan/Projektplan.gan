@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-05-09" view-index="0" gantt-divider-location="474" resource-divider-location="300" version="2.7.2" locale="de">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2016-04-01" view-index="0" gantt-divider-location="474" resource-divider-location="300" version="2.7.2" locale="de">
     <description/>
-    <view zooming-state="default:7" id="gantt-chart">
+    <view zooming-state="default:9" id="gantt-chart">
         <field id="tpd3" name="Vorgang" width="55" order="0"/>
         <field id="tpd4" name="Anfang" width="19" order="1"/>
         <field id="tpd5" name="Ende" width="24" order="2"/>
-        <option id="color.recent"><![CDATA[#3333ff #009933 #eeeeee #000000]]></option>
+        <option id="color.recent"><![CDATA[#009933 #3333ff #eeeeee #000000]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Ressource" width="50" order="0"/>
@@ -53,29 +53,30 @@
             <depend id="56" type="2" difference="0" hardness="Strong"/>
         </task>
         <task id="56" name="Kapitel 2 Grundlagen Martin Probelesen" color="#000000" meeting="false" start="2016-08-22" duration="5" complete="0" expand="true"/>
-        <task id="92" name="Kapitel 3 Middleware" color="#3333ff" meeting="false" start="2016-08-29" duration="15" complete="0" expand="true">
+        <task id="111" name="Kooperations-Feature für SeCo Api" color="#009933" meeting="false" start="2016-08-22" duration="5" complete="0" expand="true"/>
+        <task id="92" name="Kapitel 3 Middleware" color="#3333ff" meeting="false" start="2016-08-29" duration="20" complete="0" expand="true">
             <depend id="94" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="94" name="Kapitel 3 Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-09-19" duration="5" complete="0" expand="true"/>
+        <task id="94" name="Kapitel 3 Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-09-26" duration="5" complete="0" expand="true"/>
         <task id="104" name="Milestone 2" color="#8cb6ce" meeting="true" start="2016-09-26" duration="0" complete="0" expand="true"/>
-        <task id="65" name="Kapitel 4 Implementation" color="#3333ff" meeting="false" start="2016-09-19" duration="5" complete="0" expand="true">
+        <task id="65" name="Kapitel 4 Implementation" color="#3333ff" meeting="false" start="2016-10-03" duration="10" complete="0" expand="true">
             <depend id="67" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="67" name="Kapitel 4 Implementation Martin Probelesen" color="#000000" meeting="false" start="2016-09-26" duration="5" complete="0" expand="true"/>
-        <task id="73" name="Implementation restliche Service Connectoren" color="#009933" meeting="false" start="2016-09-19" duration="15" complete="0" expand="true"/>
-        <task id="107" name="Milestone 3" color="#8cb6ce" meeting="true" start="2016-10-10" duration="0" complete="0" expand="true"/>
-        <task id="75" name="Kapitel 5 Anwendung der Middleware" color="#3333ff" meeting="false" start="2016-10-10" duration="10" complete="0" expand="true">
+        <task id="67" name="Kapitel 4 Implementation Martin Probelesen" color="#000000" meeting="false" start="2016-10-17" duration="5" complete="0" expand="true"/>
+        <task id="73" name="Implementation restliche Service Connectoren" color="#009933" meeting="false" start="2016-10-24" duration="15" complete="0" expand="true"/>
+        <task id="107" name="Milestone 3" color="#8cb6ce" meeting="true" start="2016-11-14" duration="0" complete="0" expand="true"/>
+        <task id="75" name="Kapitel 5 Anwendung der Middleware" color="#3333ff" meeting="false" start="2016-11-14" duration="10" complete="0" expand="true">
             <depend id="78" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="78" name="Kapitel 5 Anwendung der Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-10-24" duration="5" complete="0" expand="true"/>
-        <task id="72" name="Entwicklung Frontend" color="#009933" meeting="false" start="2016-10-24" duration="20" complete="0" expand="true"/>
-        <task id="110" name="Milestone 4" color="#8cb6ce" meeting="true" start="2016-11-28" duration="0" complete="0" expand="true"/>
-        <task id="96" name="Kapitel 6 Fazit" color="#3333ff" meeting="false" start="2016-11-28" duration="10" complete="0" expand="true">
+        <task id="78" name="Kapitel 5 Anwendung der Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-11-28" duration="5" complete="0" expand="true"/>
+        <task id="72" name="Entwicklung Frontend" color="#009933" meeting="false" start="2016-12-05" duration="20" complete="0" expand="true"/>
+        <task id="110" name="Milestone 4" color="#8cb6ce" meeting="true" start="2017-01-09" duration="0" complete="0" expand="true"/>
+        <task id="96" name="Kapitel 6 Fazit" color="#3333ff" meeting="false" start="2017-01-02" duration="10" complete="0" expand="true">
             <depend id="98" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="98" name="Kapitel 6 Fazit Martin Probelesen" color="#000000" meeting="false" start="2016-12-12" duration="5" complete="0" expand="true"/>
-        <task id="84" name="Korrekturen" color="#3333ff" meeting="false" start="2016-12-05" duration="10" complete="0" expand="true"/>
-        <task id="86" name="Arbeit drucken und binden" color="#3333ff" meeting="false" start="2016-12-19" duration="2" complete="0" expand="true"/>
+        <task id="98" name="Kapitel 6 Fazit Martin Probelesen" color="#000000" meeting="false" start="2017-01-16" duration="5" complete="0" expand="true"/>
+        <task id="84" name="Korrekturen" color="#3333ff" meeting="false" start="2017-01-16" duration="10" complete="0" expand="true"/>
+        <task id="86" name="Arbeit drucken und binden" color="#3333ff" meeting="false" start="2017-01-30" duration="2" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
@@ -83,10 +84,10 @@
     <taskdisplaycolumns>
         <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="262" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="92" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="252" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="89" visible="true"/>
         <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd5" order="2" width="116" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="112" visible="true"/>
         <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>

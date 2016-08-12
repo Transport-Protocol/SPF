@@ -34,7 +34,7 @@ owncloud.getFileTree = function (username, password, path, callback) {
             winston.log('error','http error: ',err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        var dirs = _getDirectoryFromXML(body, _formatPath(path));
+        var dirs = _getDirectoryFromXML(body);
         if (dirs.length === 0) {
             winston.log('error','empty dir');
             return callback(new Error('empty dir'));
@@ -112,14 +112,19 @@ owncloud.getFile = function (username, password, filePath, callback) {
 };
 
 
-function _getDirectoryFromXML(xml, path) {
+function _getDirectoryFromXML(xml) {
     var directoryNames = [];
+    console.log(xml);
     var splitted = xml.split('webdav');
+    var path = splitted[1].substring(0,splitted[1].indexOf('<'));
+    console.log(path);
+
+
     //remove first unrelated splits
     splitted.shift();
     splitted.shift();
     //remove leading slash
-    var deleteCharsCount = path.length + 2; //remove leading and following slash
+    var deleteCharsCount = path.length; //remove leading and following slash
     if (path === '') {
         deleteCharsCount = deleteCharsCount - 1; //empty path,only remove leading slash
     }
