@@ -23,7 +23,7 @@ exports.init = function (serverIp, serverPort) {
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
-    winston.log('info', 'RPC init succesful');
+    winston.log('info', 'RPC init succesful on ' + serverUri);
 };
 
 exports.start = function () {

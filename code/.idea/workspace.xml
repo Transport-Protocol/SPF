@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dropbox/dropbox.js" afterPath="$PROJECT_DIR$/Dropbox/dropbox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dropbox/grpc/server.js" afterPath="$PROJECT_DIR$/Dropbox/grpc/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Owncloud/grpc/server.js" afterPath="$PROJECT_DIR$/Owncloud/grpc/server.js" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,16 +25,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="owncloud.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="38" selection-start-line="126" selection-start-column="38" selection-end-line="126" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="secoApiStart.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SeCoApi/secoApiStart.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -54,11 +45,61 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dropbox.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dropbox.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4">
+            <state vertical-scroll-proportion="0.0">
               <caret line="107" column="21" selection-start-line="107" selection-start-column="21" selection-end-line="107" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="connectorDescriptionPrototype.rtf" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/connectorDescriptionPrototype.rtf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="owncloudRoutes.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SeCoApi/json/owncloudRoutes.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.875">
+              <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Dropbox/grpc/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="63" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.07272727">
+              <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -79,16 +120,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.625">
               <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Owncloud/start.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -144,7 +175,6 @@
         <option value="$PROJECT_DIR$/SeCoApi/proto/fileStorage.proto" />
         <option value="$PROJECT_DIR$/Dropbox/proto/fileStorage.proto" />
         <option value="$PROJECT_DIR$/Dropbox/start.js" />
-        <option value="$PROJECT_DIR$/Dropbox/grpc/server.js" />
         <option value="$PROJECT_DIR$/Owncloud/config/config.json" />
         <option value="$PROJECT_DIR$/Dropbox/config/config.json" />
         <option value="$PROJECT_DIR$/SeCoApi/utility/paramChecker.js" />
@@ -158,9 +188,10 @@
         <option value="$PROJECT_DIR$/SeCoApi/routes/dropbox.js" />
         <option value="$PROJECT_DIR$/SeCoApi/routes/owncloud.js" />
         <option value="$PROJECT_DIR$/SeCoApi/json/owncloudRoutes.json" />
-        <option value="$PROJECT_DIR$/Owncloud/grpc/server.js" />
         <option value="$PROJECT_DIR$/Owncloud/owncloud.js" />
         <option value="$PROJECT_DIR$/Dropbox/dropbox.js" />
+        <option value="$PROJECT_DIR$/Dropbox/grpc/server.js" />
+        <option value="$PROJECT_DIR$/Owncloud/grpc/server.js" />
       </list>
     </option>
   </component>
@@ -383,6 +414,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Dropbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dropbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grpc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -852,7 +901,13 @@
       <option name="project" value="LOCAL" />
       <updated>1471010015236</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Dropbox service nimmt jetzt Bearer Token entgegen und nichtmehr nur Token.">
+      <created>1471012673012</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1471012673012</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -865,7 +920,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32594937" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282532" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276316" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32239157" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32239157" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -890,7 +945,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="nconf als config modul hinzugefuegt" />
     <MESSAGE value="code callbacks übersichtlicher gemacht.&#10;timeout für rpc call eingebaut" />
     <MESSAGE value="es wird nurnoch ein channel erstellt" />
     <MESSAGE value="rabbitmq nutzt jetzt nurnoch 1 callback queue für alle rpc's.&#10;" />
@@ -915,7 +969,8 @@
     <MESSAGE value="owncloud getFile gefixt. Nehme nun normale http Route anstatt ajax path" />
     <MESSAGE value="missing file error code entfernt.&#10;" />
     <MESSAGE value="Projektplan angepasst -&gt; mehr Zeit für schreiben und kooperatives Element der Middleware eingeplant.&#10;&#10;Owncloud getFileTree bug gefixed das Teile des Namens abgeschnitten werden&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Projektplan angepasst -&gt; mehr Zeit für schreiben und kooperatives Element der Middleware eingeplant.&#10;&#10;Owncloud getFileTree bug gefixed das Teile des Namens abgeschnitten werden&#10;" />
+    <MESSAGE value="Dropbox service nimmt jetzt Bearer Token entgegen und nichtmehr nur Token." />
+    <option name="LAST_COMMIT_MESSAGE" value="Dropbox service nimmt jetzt Bearer Token entgegen und nichtmehr nur Token." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -955,21 +1010,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Dropbox/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/proto/fileStorage.proto">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -995,6 +1035,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,13 +1223,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SeCoApi/utility/paramChecker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1263,22 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SeCoApi/json/owncloudRoutes.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5">
-          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45454547">
-          <caret line="72" column="63" selection-start-line="72" selection-start-column="63" selection-end-line="72" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/start.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1329,8 +1347,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Dropbox/dropbox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4">
+        <state vertical-scroll-proportion="0.0">
           <caret line="107" column="21" selection-start-line="107" selection-start-column="21" selection-end-line="107" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connectorDescriptionPrototype.rtf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SeCoApi/json/owncloudRoutes.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/start.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dropbox/grpc/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="63" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Owncloud/grpc/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.07272727">
+          <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
           <folding />
         </state>
       </provider>
