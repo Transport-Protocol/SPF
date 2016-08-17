@@ -158,7 +158,7 @@ Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbei
 Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das kooperative Arbeiten entwickelt.
 Diese können in unterschiedliche Kategorien eingeteilt werden.
 Die mit am weitesten verbreiteten Arten von Web-Diensten sind die \textit{Cloud-Storage} \cite[5]{wang2008scientific} Dienste. Dabei werden Dateien Online gespeichert und über das Internet zugänglich gemacht. Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
-Eine weitere wichtige Kategorie an Web-Diensten für kooperatives Arbeiten bilden die \textit{Instant-Messaging} \cite[80]{nardi2000interaction} Dienste. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen. Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat. Angelehnt an die bereits angesprochenen \textit{Cloud-Storage} Dienste existieren auch die \textit{Document Collaboration} Dienste. Diese ermöglichen eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.
+Eine weitere wichtige Kategorie an Web-Diensten für kooperatives Arbeiten bilden die \textit{Instant-Messaging} \cite[80]{nardi2000interaction} Dienste. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen. Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat. Angelehnt an die bereits angesprochenen \textit{Cloud-Storage} Dienste existieren auch die \textit{Document Collaboration} \cite[12]{scale2009cloud} Dienste. Diese ermöglichen eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.
 Alle diese Dienste können auch mobil und dadurch flexibel genutzt werden. Der Grund dafür ist die große Verbreitung von Smartphones und damit im Zusammenhang stehend das Angebot mobiler Versionen der einzelnen Dienste. Die Infrastruktur für kooperatives Arbeiten ist somit vorhanden.
 
 
@@ -171,12 +171,71 @@ Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden verschieden
 Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem \textit{Cloud-Storage} Dienst könnten an einen \textit{Document Collaboration} Dienst weitergeleitet werden, wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
 
 \section{Zielsetzung}
-Ziel der vorliegenden Ausarbeitung ist die Erstellung einer Dienstkomposition für Web-Dienste. Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
-Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Bachelorarbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden. Des weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Bachelorarbeit. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\
+Ziel der vorliegenden Ausarbeitung ist die Erstellung einer Dienstkomposition für Web-Dienste in der Lehre. Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
+Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Arbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden. Des weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Ausarbeitung. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\
 Für die Dienstkomposition wird zunächst eine \textit{Middleware} konzipiert und implementiert. Die \textit{Middleware} hat die Aufgabe einzelne Funktionen der Web-Dienste bereitzustellen. Die benötigten Daten werden durch verschiedene Web-Schnittstellen von den Web-Diensten zur Verfügung gestellt.
 Eine besondere Designvorgabe an die \textit{Middleware} ist die wiederverwendbare und plattformunabhängige Lösung. Im Zuge dessen können zukünftige Arbeiten über Dienstkomposition auf die \textit{Middleware} zurückgreifen und Ihre Arbeit darauf aufbauen. \\
 \\
 Abschließend wird die \textit{Middleware} beispielhaft implementiert. Dazu wird eine Webseite erstellt, auf der die Dienste mithilfe der \textit{Middleware} nutzbar sind.
+
+
+
+\chapter{Grundlagen}
+
+In diesem Kapitel beschreibe ich wichtige Begrifflichkeiten im Zusammenhang mit dieser Ausarbeitung. Dabei sollen Abgrenzungen zu bestehenden Definitionen getroffen und die Notwendigkeit für die Arbeit gezeigt werden.
+
+\section{Dienst}
+
+Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt. Dienste können auch anders bezeichnet werden. Bei Betriebssystemen von Microsoft sind sie unter dem Namen \textit{Service} bekannt und in der Welt der Unix basierten Systeme als \textit{Daemon}. Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder aufgeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Im Kontext der Service-Orientierten-Architektur(TODO Quelle) müssen Dienste folgende Anforderungen erfüllen.\begin{itemize}
+\item Der Dienst benötigt einen Namen. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird muss der Name eindeutig sein.
+\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes den Anwendungskomponenten bereitgestellt. Außerdem wird die Signatur des Dienstes über die Schnittstelle bekannt gemacht. Sie umfässt Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen.(Quelle Master Vorlesung TODO)
+\end{itemize}
+
+\section{Web-Dienst}
+
+Web-Dienste sind eine spezielle Form von Diensten. Sie weisen die gleichen Eigenschaften wie Dienste auf, müssen darüber hinaus weitere Eigenschaften erfüllen und in irgendeiner Form über das "Web" erreichbar sein. 
+
+Definition,Bedeutung innerhalb der Arbeit, Arten, Entwicklung,Unterscheidung von externen Web-Diensten zu meinen eigenen für die Microservice Architektur.(
+
+\section{Dienstkomposition}
+
+Definition,vorhandene Kompositionen, Bedeutung innerhalb der Arbeit.Abgrenzung von Applikationsinterner Web-Service Komposition(z.B. ein Bestellprozess bei einem Reiseanbieter) zu der Komposition die ich anstrebe von unterschiedlichen vorhandenen Diensten im Bereich der Lehre.
+
+\chapter{Middleware}
+
+\section{Requirements Engineering}
+
+\subsection{Umfrage}
+
+\subsection{Funktionale Anforderungen}
+
+\subsection{Nichtfunktionale Anforderungen}
+
+\section{Technologie}
+
+\subsection{Möglichkeiten}
+
+\subsection{Auswahl}
+
+\section{Analyse und Design}
+
+\section{Architektur}
+
+\chapter{Implementation - lessons learned}
+
+\section{Besondere Herausforderungen}
+
+\chapter{Anwendung der Middleware}
+
+\section{Validierung der Anwendungsfälle}
+
+\section{Stärken und Schwächen der Implementierung}
+
+\chapter{Fazit}
+
+\section{Entwicklungsstand}
+
+\section{Ausblick auf zukünftige Entwicklungen}
 
 %%%%
 

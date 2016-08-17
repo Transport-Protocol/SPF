@@ -186,15 +186,10 @@ In diesem Kapitel beschreibe ich wichtige Begrifflichkeiten im Zusammenhang mit 
 
 \section{Dienst}
 
-Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst der  Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt. Dienste sind auch unter anderen Namen bekannt. Bei Betriebssystemen von Microsoft sind sie unter dem Namen \textit{Service} bekannt und in der Welt der Unix basierten Systeme als \textit{Daemon}.
-
-Definition Dienst,Klassifizierungen,Entwicklungen
-
-andere Begriffe für Dienst: Service(Englisch und Microsoft Systeme) und Daemon(unix Systeme)
-es ist keine genaue Definition verfügbar.
-es wiederholen sich aber Eigenschaften die ein Dienst aufweisen um ihn als Dienst identifizieren zu können.
-Kategorien von Diensten aufzählen(Web-Dienst,System-Dienst,Netzwerk-Dienst)
-abschließend erklären das der Begriff Dienst in dem Sinne eine Rolle spielt als das er ein übergeordneter Begriff zu den relevanten Web-Diensten darstellt.
+Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt. Dienste sind auch unter anderen Namen bekannt. Bei Betriebssystemen von Microsoft sind sie unter dem Namen \textit{Service} bekannt und in der Welt der Unix basierten Systeme als \textit{Daemon}. Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder aufgeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Im Kontext der Service-Orientierten-Architektur(TODO Quelle) müssen Dienste folgende Anforderungen erfüllen.\begin{itemize}
+\item Der Dienst benötigt einen Namen. Falls er mit mehreren anderen Diensten in einem System gekoppelt wird muss dieser noch dazu eindeutig sein.
+\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes den Anwendungskomponenten bereitgestellt. Außerdem wird die Signatur des Dienstes über die Schnittstelle bekannt gemacht. Sie umfässt Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen.(Quelle Master Vorlesung TODO)
+\end{itemize}
 
 \section{Web-Dienst}
 
