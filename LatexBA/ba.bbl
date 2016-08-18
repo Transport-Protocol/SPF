@@ -1,4 +1,4 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{4}
 % this bibliography was produced with the style dinat.bst v2.5
 \makeatletter
 \newcommand{\dinatlabel}[1]%
@@ -14,6 +14,13 @@
 \newblock In: \emph{Proceedings of the 2000 ACM conference on Computer
   supported cooperative work}
 \newblock ACM (Veranst.), 2000, S.~79--88
+
+\bibitem[Papazoglou(2003)]{papazoglou2003service}
+\dinatlabel{Papazoglou 2003} \textsc{Papazoglou}, Mike~P.:
+\newblock Service-oriented computing: Concepts, characteristics and directions.
+\newblock In: \emph{Web Information Systems Engineering, 2003. WISE 2003.
+  Proceedings of the Fourth International Conference on}
+\newblock IEEE (Veranst.), 2003, S.~3--12
 
 \bibitem[Scale(2009)]{scale2009cloud}
 \dinatlabel{Scale 2009} \textsc{Scale}, Mark-Shane~E.:

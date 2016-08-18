@@ -182,16 +182,22 @@ Abschließend wird die \textit{Middleware} beispielhaft implementiert. Dazu wird 
 
 \chapter{Grundlagen}
 
-In diesem Kapitel beschreibe ich wichtige Begrifflichkeiten im Zusammenhang mit dieser Ausarbeitung. Dabei sollen Abgrenzungen zu bestehenden Definitionen getroffen und die Notwendigkeit für die Arbeit gezeigt werden.
+In diesem Kapitel beschreibe ich wichtige Begrifflichkeiten im Zusammenhang mit dieser Ausarbeitung. Dabei sollen Abgrenzungen zu bestehenden Definitionen getroffen und die Bedeutung der Begriffe beschrieben werden.
 
 \section{Dienst}
 
-Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt. Dienste sind auch unter anderen Namen bekannt. Bei Betriebssystemen von Microsoft sind sie unter dem Namen \textit{Service} bekannt und in der Welt der Unix basierten Systeme als \textit{Daemon}. Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder aufgeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Im Kontext der Service-Orientierten-Architektur(TODO Quelle) müssen Dienste folgende Anforderungen erfüllen.\begin{itemize}
-\item Der Dienst benötigt einen Namen. Falls er mit mehreren anderen Diensten in einem System gekoppelt wird muss dieser noch dazu eindeutig sein.
-\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes den Anwendungskomponenten bereitgestellt. Außerdem wird die Signatur des Dienstes über die Schnittstelle bekannt gemacht. Sie umfässt Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen.(Quelle Master Vorlesung TODO)
+Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt. Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen. Nun können allgemeine Aussagen getroffen werden, die jeder Dienst erfüllen muss um als solcher erkannt zu werden
+\begin{itemize}
+\item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird muss der Name oder \textit{Identifier} eindeutig sein.
+\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Außerdem wird die Signatur des Dienstes über die Schnittstelle bekannt gemacht. Innerhalb der Schnittstelle müssen Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen beschrieben werden.(Quelle Master Vorlesung TODO)
+\item Jeder Dienst besitzt einen Anwendungsbereich oder \textit{Scope}. Dieser kann von der Applikation über das System bis zum Internet reichen.
 \end{itemize}
+Die Eigenschaften eines Dienstes sind sehr allgemein gehalten und werden in Folge dessen für verschiedene Situationen genutzt. Er bietet ein Gerüst an Anforderungen die von den spezifischeren Begriffen übernommen und erweitert werden.
 
 \section{Web-Dienst}
+
+Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Der entscheidende Faktor ist dabei der \textit{Scope}. Der Dienst muss in irgendeiner Form über das Internet erreichbar sein. Dies geschieht über die Schnittstelle. Für diesen Zweck sind verschiedene Standards entstanden.  
+\cite{papazoglou2003service}
 
 Definition,Bedeutung innerhalb der Arbeit, Arten, Entwicklung,Unterscheidung von externen Web-Diensten zu meinen eigenen für die Microservice Architektur.(
 
