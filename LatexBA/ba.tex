@@ -186,7 +186,9 @@ In diesem Kapitel beschreibe ich wichtige Begrifflichkeiten im Zusammenhang mit 
 
 \section{Dienst}
 
-Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt. Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen. Nun können allgemeine Aussagen getroffen werden, die jeder Dienst erfüllen muss um als solcher erkannt zu werden
+Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt.\\
+Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen.\\
+Nun können allgemeine Aussagen getroffen werden, die jeder Dienst erfüllen muss um als solcher erkannt zu werden
 \begin{itemize}
 \item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird muss der Name oder \textit{Identifier} eindeutig sein.
 \item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Außerdem wird die Signatur des Dienstes über die Schnittstelle bekannt gegeben. Innerhalb der Schnittstelle müssen Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen beschrieben werden.
@@ -196,7 +198,7 @@ Die Eigenschaften eines Dienstes sind sehr allgemein gehalten und werden in Folg
 
 \section{Web-Dienst}
 
-Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Der entscheidende Faktor ist dabei der \textit{Scope}. Der Dienst muss in irgendeiner Form über das Internet erreichbar sein. Web-Dienste werden auf unterschiedlichste Weisen definiert. Beispiele von Eigenschaften eines Web-Dienstes sind folgende.
+Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Web-Dienste werden auf unterschiedlichste Weisen definiert. Beispiele von Eigenschaften eines Web-Dienstes sind folgende:
 \begin{itemize}
 \item "It exposes its features programmatically over the Internet
 using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
@@ -204,9 +206,16 @@ using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
 based on open Internet standards (e.g., XML interfaces
 which are published in a network-based repositories)"\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind hauptsächlich \ac{SOAP} und \ac{REST}. Im Rahmen dieser Ausarbeitung  
+Die angesprochenen Standards für die Entwicklung der Web-Dienste sind hauptsächlich \ac{SOAP} und \ac{REST}.\cite{pautasso2008restful} Durch diese Definition sind Dienste die ihre Schnittstellen mit anderen Protokollen als \ac{HTTP} anbieten ausgeschlossen.Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst breiter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
+\begin{itemize}
+\item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
+\item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
+\item Die Schnittstelle des Dienstes ist öffentlich erreichbar und für die Bereitstellung der Dienstfunktionen vorgesehen.
+\end{itemize}
 
 \section{Dienstkomposition}
+
+Nachdem Dienste und Web-Dienste definiert sind muss diskutiert werden wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt.
 
 Definition,vorhandene Kompositionen, Bedeutung innerhalb der Arbeit.Abgrenzung von Applikationsinterner Web-Service Komposition(z.B. ein Bestellprozess bei einem Reiseanbieter) zu der Komposition die ich anstrebe von unterschiedlichen vorhandenen Diensten im Bereich der Lehre.
 
@@ -261,6 +270,7 @@ Definition,vorhandene Kompositionen, Bedeutung innerhalb der Arbeit.Abgrenzung v
  \acro{API}{Application Programmable Interface}
  \acro{SOAP}{Simple Object Access Protocol}
  \acro{REST}{Representational State Transfer}
+ \acro{HTTP}{Hypertext Transfer Protocol}
 \end{acronym}
 
 \typeout{===== Section: literature}

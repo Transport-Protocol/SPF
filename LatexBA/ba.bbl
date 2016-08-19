@@ -1,4 +1,4 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{5}
 % this bibliography was produced with the style dinat.bst v2.5
 \makeatletter
 \newcommand{\dinatlabel}[1]%
@@ -21,6 +21,16 @@
 \newblock In: \emph{Web Information Systems Engineering, 2003. WISE 2003.
   Proceedings of the Fourth International Conference on}
 \newblock IEEE (Veranst.), 2003, S.~3--12
+
+\bibitem[Pautasso u.\,a.(2008)Pautasso, Zimmermann und
+  Leymann]{pautasso2008restful}
+\dinatlabel{Pautasso u.\,a. 2008} \textsc{Pautasso}, Cesare~;
+  \textsc{Zimmermann}, Olaf~; \textsc{Leymann}, Frank:
+\newblock Restful web services vs. big'web services: making the right
+  architectural decision.
+\newblock In: \emph{Proceedings of the 17th international conference on World
+  Wide Web}
+\newblock ACM (Veranst.), 2008, S.~805--814
 
 \bibitem[Scale(2009)]{scale2009cloud}
 \dinatlabel{Scale 2009} \textsc{Scale}, Mark-Shane~E.:
