@@ -191,14 +191,14 @@ Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingetei
 Nun können allgemeine Aussagen getroffen werden, die jeder Dienst erfüllen muss um als solcher erkannt zu werden
 \begin{itemize}
 \item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird muss der Name oder \textit{Identifier} eindeutig sein.
-\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Außerdem wird die Signatur des Dienstes über die Schnittstelle bekannt gegeben. Innerhalb der Schnittstelle müssen Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen beschrieben werden.
+\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Innerhalb der Schnittstelle müssen Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen für die jeweiligen Funktionen beschrieben werden.
 \item Jeder Dienst besitzt einen Anwendungsbereich oder \textit{Scope}. Dieser kann von der Applikation über das System bis hin zum Internet reichen.
 \end{itemize}
 Die Eigenschaften eines Dienstes sind sehr allgemein gehalten und werden in Folge dessen für verschiedene Situationen genutzt. Er bietet ein Gerüst an Anforderungen die von den spezifischeren Begriffen übernommen und erweitert werden.
 
 \section{Web-Dienst}
 
-Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Web-Dienste werden auf unterschiedlichste Weisen definiert. Beispiele von Eigenschaften eines Web-Dienstes sind folgende:
+Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Web-Dienste oder auch \textit{Webservices} werden auf unterschiedlichste Weisen definiert. Beispiele von Eigenschaften eines Web-Dienstes sind folgende:
 \begin{itemize}
 \item "It exposes its features programmatically over the Internet
 using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
@@ -206,7 +206,7 @@ using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
 based on open Internet standards (e.g., XML interfaces
 which are published in a network-based repositories)"\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind hauptsächlich \ac{SOAP} und \ac{REST}.\cite{pautasso2008restful} Durch diese Definition sind Dienste die ihre Schnittstellen mit anderen Protokollen als \ac{HTTP} anbieten ausgeschlossen.Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst breiter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
+Die angesprochenen Standards für die Entwicklung der Web-Dienste sind  \ac{SOAP} und \ac{REST}.\cite{pautasso2008restful} Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen.Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst breiter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
 \item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
@@ -215,9 +215,9 @@ Die angesprochenen Standards für die Entwicklung der Web-Dienste sind hauptsächl
 
 \section{Dienstkomposition}
 
-Nachdem Dienste und Web-Dienste definiert sind muss diskutiert werden wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt.
+Nachdem Dienste und Web-Dienste definiert sind muss diskutiert werden wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt. Wenn der Zusammenschluss von mehreren Diensten einen neuen komplexen Dienst erschafft, ist eine Dienstkomposition entstanden.\\ Eine Dienstkomposition kann nun aus zwei Perspektiven betrachtet werden. Die erste Perspektive ist die des Anwenders. Der Anwender nutzt eine Menge an Diensten in einer Anwendung um ein Problem zu lösen. Die zweite Perspektive ist die des Entwicklers. Der Entwickler hat mithilfe einer Komposition von Diensten eine Anwendung entwickelt. Dabei muss die resultierende Anwendung aus Sicht des Anwenders keine Dienstkomposition darstellen. \\
+Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Choreographie entwickelt werden.\cite{haas2004ws-gloss} Bei der Orchestrierung wird ein zentraler Koordinator(\textit{Orchestrator} eingesetzt, der die einzelnen Dienste steuert und die Kommunikation reguliert. Bei der Choreographie kommunizieren die Dienste untereinander und beschreiben ihre Interaktionen eigenständig.
 
-Definition,vorhandene Kompositionen, Bedeutung innerhalb der Arbeit.Abgrenzung von Applikationsinterner Web-Service Komposition(z.B. ein Bestellprozess bei einem Reiseanbieter) zu der Komposition die ich anstrebe von unterschiedlichen vorhandenen Diensten im Bereich der Lehre.
 
 \chapter{Middleware}
 

@@ -8,44 +8,47 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: ba.bib
-You've used 5 entries,
+Warning--entry type for "haas2004ws-gloss" isn't style-file defined
+--line 49 of file ba.bib
+You've used 6 entries,
             3552 wiz_defined-function locations,
-            829 strings with 6973 characters,
-and the built_in function-call counts, 4534 in all, are:
-= -- 587
-> -- 62
-< -- 121
-+ -- 152
-- -- 46
-* -- 412
-:= -- 751
+            833 strings with 7061 characters,
+and the built_in function-call counts, 4984 in all, are:
+= -- 639
+> -- 69
+< -- 135
++ -- 168
+- -- 50
+* -- 448
+:= -- 835
 add.period$ -- 5
-call.type$ -- 5
-change.case$ -- 29
-chr.to.int$ -- 5
-cite$ -- 5
-duplicate$ -- 97
-empty$ -- 307
-format.name$ -- 75
-if$ -- 894
+call.type$ -- 6
+change.case$ -- 33
+chr.to.int$ -- 6
+cite$ -- 6
+duplicate$ -- 110
+empty$ -- 338
+format.name$ -- 81
+if$ -- 979
 int.to.chr$ -- 0
 int.to.str$ -- 1
 missing$ -- 8
-newline$ -- 39
-num.names$ -- 20
-pop$ -- 32
+newline$ -- 44
+num.names$ -- 24
+pop$ -- 40
 preamble$ -- 1
-purify$ -- 29
+purify$ -- 33
 quote$ -- 0
-skip$ -- 193
+skip$ -- 214
 stack$ -- 0
-substring$ -- 450
-swap$ -- 25
-text.length$ -- 14
+substring$ -- 475
+swap$ -- 27
+text.length$ -- 15
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 55
+type$ -- 66
 warning$ -- 0
-while$ -- 49
+while$ -- 55
 width$ -- 0
-write$ -- 65
+write$ -- 73
+(There was 1 warning)

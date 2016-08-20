@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{6}
 % this bibliography was produced with the style dinat.bst v2.5
 \makeatletter
 \newcommand{\dinatlabel}[1]%
@@ -6,6 +6,11 @@
 \makeatother
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax\def\url#1{\texttt{#1}}\fi
+
+\bibitem[Hugo~Haas()]{haas2004ws-gloss}
+\dinatlabel{Hugo~Haas } \textsc{Hugo~Haas}, Allen~B.:
+\newblock \emph{Web Services Glossary}. --
+\newblock URL \url{https://www.w3.org/TR/ws-gloss}
 
 \bibitem[Nardi u.\,a.(2000)Nardi, Whittaker und Bradner]{nardi2000interaction}
 \dinatlabel{Nardi u.\,a. 2000} \textsc{Nardi}, Bonnie~A.~; \textsc{Whittaker},
