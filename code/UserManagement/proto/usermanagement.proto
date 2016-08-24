@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package userManagement;
+
+// The rpc FileStorage service definition.
+service UserManagement {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
+
+
+
+  rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+
+  rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
+
+  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
+}
+
+
+//Auth types enum
+enum AuthenticationType {
+    BASIC = 0;
+    OAUTH2 = 1;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string password = 2;
+}
+
+message CreateUserReply {
+  string status = 1;
+  string err = 2;
+}
+
+// The request message
+message GetFileTreeRequest {
+  string path = 1;
+  Authentication auth = 2;
+}
+
+// The response message
+message GetFileTreeReply {
+  string dirs = 1;
+  string err = 2;
+}
+
+// The request message
+message UploadFileRequest {
+  string path = 1;
+  bytes fileBuffer = 2;
+  string fileName = 3;
+  Authentication auth = 4;
+}
+
+// The response message
+message UploadFileResponse {
+  string status = 1;
+  string err = 2;
+}
