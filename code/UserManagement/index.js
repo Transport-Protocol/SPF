@@ -24,26 +24,38 @@ function main() {
     //server.start();
     db.connect();
 
-    var create = false;
+    var create = true;
 
     if (create) {
-        db.createUser('hallo1235', 'password123', function (err, user) {
+        db.createUser('hallo123', 'password123', function (err, user) {
             if (err) {
-                console.log(err);
+
+            } else {
+                console.log(user);
+                // test a matching password
+                user.comparePassword('password123', function (err, isMatch) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log('password123:', isMatch); // -&gt; Password123: true
+                });
             }
-            console.log(user);
-            // test a matching password
-            user.comparePassword('password123', function (err, isMatch) {
-                if (err) throw err;
-                console.log('password123:', isMatch); // -&gt; Password123: true
-            });
         });
     }
-    db.readUser('hallo123', function (err, user) {
+
+    db.readUser('hallo12345', function (err, user) {
         if (err) {
-            console.log(err);
+
         } else {
-            console.log(user);
+            //console.log(user);
+        }
+    });
+
+    db.deleteUser('hallo123', function (err, removed) {
+        if (err) {
+
+        } else {
+            //console.log(user);
         }
     });
 

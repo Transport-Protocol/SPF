@@ -1,5 +1,5 @@
 {
-  "dbPath":"mongodb://127.0.0.1",
+  "dbPath":"mongodb://127.0.0.1/secoUser",
   "dbPoolSize":10,
   "dbUsername":"superuser",
   "dbPassword":"password"
