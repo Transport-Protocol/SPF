@@ -62,6 +62,7 @@ function readUser(name, callback) {
     });
 }
 
+
 function deleteUser(name, callback) {
     User.remove({username: name}, function (err, removed) {
         if (err) {
