@@ -4,7 +4,7 @@ package userManagement;
 
 // The rpc FileStorage service definition.
 service UserManagement {
-  rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
+  rpc Register (RegisterRequest) returns (RegisterReply) {}
 
   rpc ReadUser (ReadUserRequest) returns (ReadUserReply) {}
 
@@ -14,13 +14,12 @@ service UserManagement {
 
 }
 
-
-message CreateUserRequest {
+message RegisterRequest {
   string name = 1;
   string password = 2;
 }
 
-message CreateUserReply {
+message RegisterReply {
   string status = 1;
   string err = 2;
 }

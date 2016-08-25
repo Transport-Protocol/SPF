@@ -4,5 +4,7 @@
   "dbUsername":"superuser",
   "dbPassword":"password",
   "grpcServerIp":"localhost",
-  "grpcServerPort":60000
+  "grpcServerPort":60000,
+  "userNameMinLength":4,
+  "passwordMinLength":6
 }
