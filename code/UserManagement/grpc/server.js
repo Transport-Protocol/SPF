@@ -23,7 +23,7 @@ exports.init = function (serverIp, serverPort) {
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
-    db.connect();
+    db.connect(nconf.get('dbPoolSize'),nconf.get('dbPath'));
     winston.log('info', 'RPC init succesful on: ' + serverUri);
 };
 

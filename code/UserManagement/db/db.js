@@ -6,17 +6,17 @@ var mongoose = require('mongoose'),
     User = require('./models/user'),
     logger = require('winston');
 
-var options = {
-    db: {native_parser: true},
-    server: {poolSize: nconf.get('dbPoolSize')},
-    user: nconf.get('dbUsername'),
-    pass: nconf.get('dbPassword')
-};
 
-function connect() {
-    var connection;
-    mongoose.connect(nconf.get('dbPath'), options);
-    connection = mongoose.connection;
+function connect(dbPoolsize,dbPath) {
+    var options = {
+        db: {native_parser: true},
+        server: {poolSize: dbPoolsize},
+        user: '', //local access no user needed
+        pass: ''
+    };
+
+    mongoose.connect(dbPath, options);
+    var connection = mongoose.connection;
     connection.on('error', function callback(err) {
         logger.log('error', err);
         throw err;
@@ -67,7 +67,11 @@ function readUser(name, callback) {
     });
 }
 
-
+/**
+ * Removes a user from mongodb
+ * @param name
+ * @param callback err,isRemoved
+ */
 function deleteUser(name, callback) {
     User.remove({username: name}, function (err, removed) {
         if (err) {
