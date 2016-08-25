@@ -6,21 +6,14 @@ package userManagement;
 service UserManagement {
   rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {}
 
+  rpc ReadUser (ReadUserRequest) returns (ReadUserReply) {}
 
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply) {}
 
-  rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+  rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {}
 
-  rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
-
-  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
 }
 
-
-//Auth types enum
-enum AuthenticationType {
-    BASIC = 0;
-    OAUTH2 = 1;
-}
 
 message CreateUserRequest {
   string name = 1;
@@ -32,28 +25,31 @@ message CreateUserReply {
   string err = 2;
 }
 
-// The request message
-message GetFileTreeRequest {
-  string path = 1;
-  Authentication auth = 2;
+message ReadUserRequest {
+  string name = 1;
 }
 
-// The response message
-message GetFileTreeReply {
-  string dirs = 1;
+message ReadUserReply {
+  string name = 1;
+  string auth = 2;
+  string err = 3;
+}
+
+message DeleteUserRequest {
+  string name = 1;
+}
+
+message DeleteUserReply {
+  string status = 1;
   string err = 2;
 }
 
-// The request message
-message UploadFileRequest {
-  string path = 1;
-  bytes fileBuffer = 2;
-  string fileName = 3;
-  Authentication auth = 4;
+message IsLoginCorrectRequest {
+  string name = 1;
+  string password = 2;
 }
 
-// The response message
-message UploadFileResponse {
-  string status = 1;
+message IsLoginCorrectReply {
+  bool isCorrect = 1;
   string err = 2;
 }

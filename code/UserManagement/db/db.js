@@ -28,7 +28,12 @@ function connect() {
     });
 }
 
-
+/**
+ * Creates a user in mongodb
+ * @param name
+ * @param password
+ * @param callback err,user
+ */
 function createUser(name, password, callback) {
     // create a user a new user
     var newUser = new User({
@@ -66,7 +71,7 @@ function readUser(name, callback) {
 function deleteUser(name, callback) {
     User.remove({username: name}, function (err, removed) {
         if (err) {
-            logger.log('error', 'delete User', err.message);
+            logger.log('error', 'delete User - ', err.message);
             return callback(err);
         }
         if (removed.result.n === 0) {
@@ -78,6 +83,38 @@ function deleteUser(name, callback) {
     });
 }
 
+/**
+ * Checks the login credentials
+ * @param name
+ * @param password
+ * @param callback err,isCorrect(bool)
+ */
+function isLoginCorrect(name, password, callback) {
+    readUser(name, function (err, user) {
+        if (err) {
+            logger.log('error','isLoginCorrect - ',err.message);
+            callback(err);
+        }
+        user.comparePassword(password, function (err, isMatch) {
+            if (err) {
+                logger.log('error','isLoginCorrect - ',err.message);
+                callback(err);
+            }
+            logger.log('info', 'succesfully checked isLoginCorrect for name: ' + name + '  result: ' + isMatch);
+            callback(null, isMatch);
+        });
+    });
+}
+
+/**
+ * Whenever a user is not found this method is called and returns
+ * not found error on previous callback
+ * @param name
+ * @param functionName
+ * @param callback
+ * @returns {*}
+ * @private
+ */
 function _notFoundError(name, functionName, callback) {
     var error = new Error('no user with ' + name + ' found while performing: ' + functionName);
     logger.log('error', error.message);
@@ -89,5 +126,6 @@ module.exports = {
     connect: connect,
     createUser: createUser,
     readUser: readUser,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    isLoginCorrect: isLoginCorrect
 };
