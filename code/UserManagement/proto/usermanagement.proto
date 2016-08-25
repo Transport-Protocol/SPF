@@ -6,6 +6,8 @@ package userManagement;
 service UserManagement {
   rpc Register (RegisterRequest) returns (RegisterReply) {}
 
+  rpc Login (LoginRequest) returns (LoginReply) {}
+
   rpc ReadUser (ReadUserRequest) returns (ReadUserReply) {}
 
   rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply) {}
@@ -20,6 +22,16 @@ message RegisterRequest {
 }
 
 message RegisterReply {
+  string status = 1;
+  string err = 2;
+}
+
+message LoginRequest {
+  string name = 1;
+  string password = 2;
+}
+
+message LoginReply {
   string status = 1;
   string err = 2;
 }
