@@ -1,0 +1,8 @@
+{
+  "dbPath":"mongodb://127.0.0.1/secoTeam",
+  "dbPoolSize":10,
+  "grpcServerIp":"localhost",
+  "grpcServerPort":50055,
+  "teamNameMinLength":4,
+  "passwordMinLength":6
+}

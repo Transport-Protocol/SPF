@@ -13,7 +13,7 @@ function init() {
     nconf.argv()
         .env()
         .file({file: './config/config.json'});
-    winston.log('info', 'User management service init succesful');
+    winston.log('info', 'Team management service init succesful');
 }
 
 

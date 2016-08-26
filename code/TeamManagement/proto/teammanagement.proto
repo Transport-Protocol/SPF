@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package teamManagement;
+
+// The rpc FileStorage service definition.
+service TeamManagement {
+  rpc Create (CreateRequest) returns (CreateReply) {}
+
+  rpc Join (JoinRequest) returns (JoinReply) {}
+
+  rpc ReadTeam (ReadTeamRequest) returns (ReadTeamReply) {}
+
+  rpc DeleteTeam (DeleteTeamRequest) returns (DeleteTeamReply) {}
+
+  rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {}
+
+}
+
+message CreateRequest {
+  string teamName = 1;
+  string password = 2;
+  string teamCreator = 3;
+}
+
+message CreateReply {
+  string status = 1;
+  string err = 2;
+}
+
+message JoinRequest {
+  string name = 1;
+  string password = 2;
+}
+
+message JoinReply {
+  string status = 1;
+  string err = 2;
+}
+
+message ReadTeamRequest {
+  string name = 1;
+}
+
+message ReadTeamReply {
+  string name = 1;
+  repeated string services = 2;
+  string err = 3;
+}
+
+message DeleteTeamRequest {
+  string name = 1;
+}
+
+message DeleteTeamReply {
+  string status = 1;
+  string err = 2;
+}
+
+message IsLoginCorrectRequest {
+  string name = 1;
+  string password = 2;
+}
+
+message IsLoginCorrectReply {
+  bool isCorrect = 1;
+  string err = 2;
+}
