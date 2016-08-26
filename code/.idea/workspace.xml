@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
+    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="dependency injection bei db hinzugefügt.tests erweitert">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/config/config.json" afterPath="$PROJECT_DIR$/UserManagement/config/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/db/db.js" afterPath="$PROJECT_DIR$/UserManagement/db/db.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/grpc/server.js" afterPath="$PROJECT_DIR$/UserManagement/grpc/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/test/test.js" afterPath="$PROJECT_DIR$/UserManagement/test/test.js" />
     </list>
@@ -30,8 +28,8 @@
       <file leaf-file-name="test.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UserManagement/test/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43032786">
-              <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
+            <state vertical-scroll-proportion="1.3995901">
+              <caret line="72" column="7" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
               <folding>
                 <element signature="e#0#45#0" expanded="false" />
               </folding>
@@ -43,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/UserManagement/grpc/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+              <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -53,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/UserManagement/db/db.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+              <caret line="122" column="16" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
               <folding>
                 <element signature="e#0#45#0" expanded="false" />
               </folding>
@@ -168,8 +166,8 @@
         <option value="$PROJECT_DIR$/UserManagement/proto/usermanagement.proto" />
         <option value="$PROJECT_DIR$/UserManagement/config/config.json" />
         <option value="$PROJECT_DIR$/UserManagement/db/db.js" />
-        <option value="$PROJECT_DIR$/UserManagement/grpc/server.js" />
         <option value="$PROJECT_DIR$/UserManagement/test/test.js" />
+        <option value="$PROJECT_DIR$/UserManagement/grpc/server.js" />
       </list>
     </option>
   </component>
@@ -483,6 +481,22 @@
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="147" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="156" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="161" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="946" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="147" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="156" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="161" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="946" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -964,7 +978,13 @@
       <option name="project" value="LOCAL" />
       <updated>1472130150203</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="dependency injection bei db hinzugefügt.tests erweitert">
+      <created>1472137899420</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1472137899420</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1002,7 +1022,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="owncloud getfile refactored. fileName wird jetzt auch in den callback gegeben und flexible path's sind nun möglich -&gt; test/tester/test.pdf zum bespiel" />
     <MESSAGE value="owncloud file upload implementiert. pdf funktioniert einwandfrei, .txt file verbuggt iwie,sonst noch nichts getestet" />
     <MESSAGE value="owncloud file upload implementiert. pdf funktioniert einwandfrei, .txt file verbuggt iwie,sonst noch nichts getestet&#10;&#10;bei getFile owncloud wird nun fehler 404(statuscode) beachtet" />
     <MESSAGE value="mocha test added for owncloud" />
@@ -1027,7 +1046,8 @@
     <MESSAGE value="erste grpc funktionen für UserManagement implementiert" />
     <MESSAGE value="fehlersemantik usermanagement hinzugefügt für register" />
     <MESSAGE value="login rpc für usermanagement impl" />
-    <option name="LAST_COMMIT_MESSAGE" value="login rpc für usermanagement impl" />
+    <MESSAGE value="dependency injection bei db hinzugefügt.tests erweitert" />
+    <option name="LAST_COMMIT_MESSAGE" value="dependency injection bei db hinzugefügt.tests erweitert" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1440,10 +1460,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/config/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625">
+          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UserManagement/db/db.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <caret line="122" column="16" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
           <folding>
             <element signature="e#0#45#0" expanded="false" />
           </folding>
@@ -1453,23 +1481,15 @@
     <entry file="file://$PROJECT_DIR$/UserManagement/grpc/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/config/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="40" />
+          <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UserManagement/test/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43032786">
-          <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
+        <state vertical-scroll-proportion="1.3995901">
+          <caret line="72" column="7" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
           <folding>
             <element signature="e#0#45#0" expanded="false" />
           </folding>

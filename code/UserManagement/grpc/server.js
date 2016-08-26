@@ -23,7 +23,7 @@ exports.init = function (serverIp, serverPort) {
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
-    db.connect(nconf.get('dbPoolSize'),nconf.get('dbPath'));
+    db.connect(nconf.get('dbPoolSize'), nconf.get('dbPath'));
     winston.log('info', 'RPC init succesful on: ' + serverUri);
 };
 
@@ -36,48 +36,49 @@ exports.start = function () {
  * Implements the register RPC method.
  */
 function register(call, callback) {
-    winston.log('info', 'createUser rpc method request: ' + JSON.stringify(call.request));
+    winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
     if (!call.request.name || !call.request.password) {
-        _error(register, 'missing parameter', callback);
+        _error('register', 'missing parameter', callback);
+    } else if (call.request.name.length < nconf.get('userNameMinLength')) {
+        _error('register', 'name has to be at least ' + nconf.get('userNameMinLength') + ' characters', callback);
+    } else if (call.request.password.length < nconf.get('passwordMinLength')) {
+        _error('register', 'password has to be at least ' + nconf.get('passwordMinLength'), callback);
+    } else {
+        db.createUser(call.request.name, call.request.password, function (err, createdUser) {
+            if (err) {
+                winston.log('error', 'error performing rpc method createUser: ', err);
+                return callback(null, {err: err.message});
+            } else {
+                winston.log('info', 'succesfully performed createUser rpc method');
+                return callback(null, {status: 'created'});
+            }
+        });
     }
-    if (call.request.name.length < nconf.get('userNameMinLength')) {
-        _error(register, 'name has to be at least ' + nconf.get('userNameMinLength'), callback);
-    }
-    if (call.request.password.length < nconf.get('passwordMinLength')) {
-        _error(register, 'password has to be at least ' + nconf.get('passwordMinLength'), callback);
-    }
-    db.createUser(call.request.name, call.request.password, function (err, createdUser) {
-        if (err) {
-            winston.log('error', 'error performing rpc method createUser: ', err);
-            return callback(null, {err: err.message});
-        }
-        winston.log('info', 'succesfully performed createUser rpc method');
-        return callback(null, {status: 'created'});
-    });
 }
 
 /**
  * Implements the login RPC method.
  */
 function login(call, callback) {
-    winston.log('info', 'login rpc method request: ' + JSON.stringify(call.request));
+    winston.log('info', 'rpc method login request: ' + JSON.stringify(call.request));
     if (!call.request.name || !call.request.password) {
-        _error(register, 'missing parameter', callback);
-    }
-    db.readUser(call.request.name, function (err, user) {
-        if (err) {
-            winston.log('error', 'error performing rpc method login: ', err);
-            return callback(null, {err: err.message});
-        }
-        user.comparePassword(call.request.password, function (err, isCorrect) {
-            if(err){
-                winston.log('error', 'error performing rpc method login while comparing passwords: ', err);
+        _error('login', 'missing parameter', callback);
+    } else {
+        db.readUser(call.request.name, function (err, user) {
+            if (err) {
+                winston.log('error', 'error performing rpc method login: ', err);
                 return callback(null, {err: err.message});
             }
-            winston.log('info', 'succesfully performed login rpc method');
-            return callback(null, {status: 'login successful'});
+            user.comparePassword(call.request.password, function (err, isCorrect) {
+                if (err) {
+                    winston.log('error', 'error performing rpc method login while comparing passwords: ', err);
+                    return callback(null, {err: err.message});
+                }
+                winston.log('info', 'succesfully performed login rpc method');
+                return callback(null, {status: 'login successful'});
+            });
         });
-    });
+    }
 }
 
 

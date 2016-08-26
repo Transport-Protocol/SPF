@@ -43,15 +43,34 @@ describe('UserManagement', function () {
                 done();
             });
         });
+        it('regitser with to short username', function (done) {
+            client.register({
+                name: 'tes',
+                password: '123456'
+            }, function (err, response) {
+                expect(err).to.be.a('null');
+                assert.equal(response.err, 'name has to be at least 4 characters');
+                done();
+            });
+        });
     });
     describe('login', function () {
-        it('checks user and password and tries to log him in', function (done) {
+        it('perform a login with username and password', function (done) {
             client.login({
                 name: 'test1',
                 password: '123456'
             }, function (err, response) {
                 expect(err).to.be.a('null');
                 assert.equal(response.status, 'login successful');
+                done();
+            });
+        });
+        it('perform a login with missing parameter', function (done) {
+            client.login({
+                password: '123456'
+            }, function (err, response) {
+                expect(err).to.be.a('null');
+                assert.equal(response.err, 'missing parameter');
                 done();
             });
         });
