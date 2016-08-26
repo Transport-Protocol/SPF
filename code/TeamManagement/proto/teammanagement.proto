@@ -28,8 +28,9 @@ message CreateReply {
 }
 
 message JoinRequest {
-  string name = 1;
+  string teamName = 1;
   string password = 2;
+  string userName = 3;
 }
 
 message JoinReply {

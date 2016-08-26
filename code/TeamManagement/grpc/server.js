@@ -34,6 +34,8 @@ exports.start = function () {
 
 /**
  * Implements the register RPC method.
+ * Check for missing parameter. check for valid input.
+ * CreateTeam in mongodb.
  */
 function create(call, callback) {
     winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
@@ -44,7 +46,7 @@ function create(call, callback) {
     } else if (call.request.password.length < nconf.get('passwordMinLength')) {
         _error('register', 'password has to be at least ' + nconf.get('passwordMinLength'), callback);
     } else {
-        db.createTeam(call.request.teamCreator,call.request.teamName, call.request.password, function (err, createdUser) {
+        db.createTeam(call.request.teamCreator, call.request.teamName, call.request.password, function (err, createdUser) {
             if (err) {
                 winston.log('error', 'error performing rpc method createTeam: ', err);
                 return callback(null, {err: err.message});
@@ -58,25 +60,42 @@ function create(call, callback) {
 
 /**
  * Implements the login RPC method.
+ * Check missing parameter.
+ * Add user to team members.
  */
 function join(call, callback) {
     winston.log('info', 'rpc method login request: ' + JSON.stringify(call.request));
-    if (!call.request.name || !call.request.password) {
+    if (!call.request.teamName || !call.request.password || !call.request.userName) {
         _error('login', 'missing parameter', callback);
     } else {
-        db.readUser(call.request.name, function (err, user) {
+        db.isTeamLoginCorrect(call.request.teamName, call.request.password, function (err, isCorrect) {
             if (err) {
-                winston.log('error', 'error performing rpc method login: ', err);
+                winston.log('error', 'error performing rpc method join: ', err);
                 return callback(null, {err: err.message});
-            }
-            user.comparePassword(call.request.password, function (err, isCorrect) {
-                if (err) {
-                    winston.log('error', 'error performing rpc method login while comparing passwords: ', err);
-                    return callback(null, {err: err.message});
+            } else {
+                if (isCorrect === false) {
+                    winston.log('info', 'wrong login credentials for team: ', call.request.teamName);
+                    return callback(null, {err: 'wrong password'});
+                } else {
+                    db.readTeam(call.request.teamName, function (err, team) {
+                        if (err) {
+                            winston.log('error', 'error performing rpc method join: ', err);
+                            return callback(null, {err: err.message});
+                        } else {
+                            team.members.push(call.request.userName);
+                            team.save(function (err) {
+                                if (err) {
+                                    winston.log('error', 'creating adding member to  Team ', err);
+                                    return callback(null, {err: err.message});
+                                } else {
+                                    winston.log('info', 'succesfully added member to Team with name: ' + team.name);
+                                    return callback(null, {status: 'joined'});
+                                }
+                            });
+                        }
+                    });
                 }
-                winston.log('info', 'succesfully performed login rpc method');
-                return callback(null, {status: 'login successful'});
-            });
+            }
         });
     }
 }

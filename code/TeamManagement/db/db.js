@@ -55,6 +55,7 @@ function createTeam(teamCreator, teamName, password, callback) {
     });
 }
 
+
 function readTeam(name, callback) {
     Team.findOne({teamName: name}, function (err, team) {
         if (err) {

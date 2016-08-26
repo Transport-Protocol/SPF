@@ -55,26 +55,29 @@ describe('TeamManagement', function () {
                 done();
             });
         });
-    });/*
-    describe('login', function () {
-        it('perform a login with username and password', function (done) {
-            client.login({
-                name: 'test1',
-                password: '123456'
+    });
+    describe('join', function () {
+        it('user joins team', function (done) {
+            client.join({
+                teamName: 'test1',
+                password: '123456',
+                userName: 'sadasdad'
             }, function (err, response) {
                 expect(err).to.be.a('null');
-                assert.equal(response.status, 'login successful');
+                assert.equal(response.status, 'joined');
                 done();
             });
         });
-        it('perform a login with missing parameter', function (done) {
-            client.login({
-                password: '123456'
+        it('fails joining team because of wrong password', function (done) {
+            client.join({
+                teamName: 'test1',
+                password: '1234567',
+                userName: 'sadasdad'
             }, function (err, response) {
                 expect(err).to.be.a('null');
-                assert.equal(response.err, 'missing parameter');
+                assert.equal(response.err, 'wrong password');
                 done();
             });
         });
-    });*/
+    });
 });
