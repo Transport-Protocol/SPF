@@ -54,26 +54,26 @@
         </task>
         <task id="56" name="Kapitel 2 Grundlagen Martin Probelesen" color="#000000" meeting="false" start="2016-08-22" duration="5" complete="0" expand="true"/>
         <task id="111" name="Kooperations-Feature für SeCo Api" color="#009933" meeting="false" start="2016-08-22" duration="5" complete="0" expand="true"/>
-        <task id="92" name="Kapitel 3 Middleware" color="#3333ff" meeting="false" start="2016-08-29" duration="20" complete="0" expand="true">
+        <task id="73" name="Implementation restliche Service Connectoren" color="#009933" meeting="false" start="2016-08-29" duration="10" complete="0" expand="true"/>
+        <task id="92" name="Kapitel 3 Middleware" color="#3333ff" meeting="false" start="2016-09-12" duration="20" complete="0" expand="true">
             <depend id="94" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="94" name="Kapitel 3 Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-09-26" duration="5" complete="0" expand="true"/>
-        <task id="104" name="Milestone 2" color="#8cb6ce" meeting="true" start="2016-09-26" duration="0" complete="0" expand="true"/>
+        <task id="94" name="Kapitel 3 Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-10-10" duration="5" complete="0" expand="true"/>
+        <task id="104" name="Milestone 2" color="#8cb6ce" meeting="true" start="2016-10-10" duration="0" complete="0" expand="true"/>
         <task id="65" name="Kapitel 4 Implementation" color="#3333ff" meeting="false" start="2016-10-03" duration="10" complete="0" expand="true">
             <depend id="67" type="2" difference="0" hardness="Strong"/>
         </task>
         <task id="67" name="Kapitel 4 Implementation Martin Probelesen" color="#000000" meeting="false" start="2016-10-17" duration="5" complete="0" expand="true"/>
-        <task id="73" name="Implementation restliche Service Connectoren" color="#009933" meeting="false" start="2016-10-24" duration="15" complete="0" expand="true"/>
         <task id="107" name="Milestone 3" color="#8cb6ce" meeting="true" start="2016-11-14" duration="0" complete="0" expand="true"/>
-        <task id="75" name="Kapitel 5 Anwendung der Middleware" color="#3333ff" meeting="false" start="2016-11-14" duration="10" complete="0" expand="true">
+        <task id="72" name="Entwicklung Frontend" color="#009933" meeting="false" start="2016-11-14" duration="20" complete="0" expand="true"/>
+        <task id="75" name="Kapitel 5 Anwendung der Middleware" color="#3333ff" meeting="false" start="2016-12-12" duration="10" complete="0" expand="true">
             <depend id="78" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="78" name="Kapitel 5 Anwendung der Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-11-28" duration="5" complete="0" expand="true"/>
-        <task id="72" name="Entwicklung Frontend" color="#009933" meeting="false" start="2016-12-05" duration="20" complete="0" expand="true"/>
-        <task id="110" name="Milestone 4" color="#8cb6ce" meeting="true" start="2017-01-09" duration="0" complete="0" expand="true"/>
+        <task id="78" name="Kapitel 5 Anwendung der Middleware Martin Probelesen" color="#000000" meeting="false" start="2016-12-26" duration="5" complete="0" expand="true"/>
         <task id="96" name="Kapitel 6 Fazit" color="#3333ff" meeting="false" start="2017-01-02" duration="10" complete="0" expand="true">
             <depend id="98" type="2" difference="0" hardness="Strong"/>
         </task>
+        <task id="110" name="Milestone 4" color="#8cb6ce" meeting="true" start="2017-01-09" duration="0" complete="0" expand="true"/>
         <task id="98" name="Kapitel 6 Fazit Martin Probelesen" color="#000000" meeting="false" start="2017-01-16" duration="5" complete="0" expand="true"/>
         <task id="84" name="Korrekturen" color="#3333ff" meeting="false" start="2017-01-16" duration="10" complete="0" expand="true"/>
         <task id="86" name="Arbeit drucken und binden" color="#3333ff" meeting="false" start="2017-01-30" duration="2" complete="0" expand="true"/>
