@@ -1,0 +1,27 @@
+{
+  "name": "github",
+  "version": "1.0.0",
+  "description": "gateway to some functions of the github api",
+  "main": "start.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "author": "Philipp Prögel",
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://bitbucket.org/philippBB/ba.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.4.2",
+    "chai": "^3.5.0",
+    "grpc": "^1.0.0-pre1",
+    "mocha": "^2.5.3",
+    "nconf": "^0.8.4",
+    "request": "^2.74.0",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.4"
+  }
+}
