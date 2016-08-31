@@ -21,13 +21,23 @@ function main() {
     init();
     //server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     //server.start();
-
+/*
     github.getRepositories({username:'philipphaw',password:'Injection1'},function(err,res){
 
     });
 
     github.addUserToRepo({username:'philipphaw',password:'Injection1'},'testApi','germanyforwm',function(err,res){
 
+    });
+
+    */
+
+    github.getRepoFiles({username:'philipphaw',password:'Injection1'},'libgdx',function(err,res){
+        if(err){
+            winston.log('error',err);
+        } else {
+            winston.log('info',res);
+        }
     });
 
 }
