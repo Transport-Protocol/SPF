@@ -21,9 +21,15 @@ function main() {
     init();
     //server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     //server.start();
-    github.getRepositories(function(err,res){
+
+    github.getRepositories({username:'philipphaw',password:'Injection1'},function(err,res){
 
     });
+
+    github.addUserToRepo({username:'philipphaw',password:'Injection1'},'testApi','germanyforwm',function(err,res){
+
+    });
+
 }
 
 
