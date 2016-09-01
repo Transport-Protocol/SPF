@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package versionControl;
+
+// The rpc VersionControl service definition.
+service VersionControl {
+  // Gets a file
+  rpc GetRepositories (GetReposRequest) returns (GetReposReply) {}
+
+  rpc GetRepositoryContent (GetRepoContenRequest) returns (GetRepoContentReply) {}
+
+  rpc addUserToRepository (AddUserToRepoRequest) returns (AddUserToRepoResponse) {}
+}
+
+//Auth message
+message Authentication {
+    string token = 1; //auth string,for example user:password or Bearer XXXXX
+    AuthenticationType type = 2;
+}
+
+//Auth types enum
+enum AuthenticationType {
+    BASIC = 0;
+    OAUTH2 = 1;
+}
+
+
+message GetReposRequest {
+  Authentication auth = 2;
+}
+
+
+message GetReposReply {
+  string repos = 1; //JSON String
+  string err = 2;
+}
+
+
+message GetRepoContenRequest {
+  string path = 1;
+  Authentication auth = 2;
+  string repositoryName = 3;
+}
+
+
+message GetRepoContentReply {
+  string dirs = 1;
+  string err = 2;
+}
+
+
+message AddUserToRepoRequest {
+  string repo = 1;
+  string usernameToAdd = 2;
+  Authentication auth = 4;
+}
+
+
+message AddUserToRepoResponse {
+  string status = 1;
+  string err = 2;
+}

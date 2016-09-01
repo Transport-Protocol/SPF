@@ -11,7 +11,7 @@ var request = require('request'),
 /**
  * Retrieves all Repos from user
  * @param auth containing username and password
- * @param callback
+ * @param callback err,dirs
  */
 function getRepositories (auth,callback) {
     var url = 'https://api.github.com/user/repos';
@@ -71,8 +71,8 @@ function addUserToRepo (auth,repo,userToAdd,callback) {
     });
 };
 
-function getRepoFiles (auth,repo,callback) {
-    var url = 'https://api.github.com/repos/' + auth.username +  '/' + repo + '/contents';
+function getRepoContent (auth, repo, path, callback) {
+    var url = 'https://api.github.com/repos/' + auth.username +  '/' + repo + '/contents/' + path;
     console.log(url);
     var options = {
         method: 'GET',
@@ -123,5 +123,5 @@ function _parseRepoContent(body){
 module.exports = {
     getRepositories : getRepositories,
     addUserToRepo : addUserToRepo,
-    getRepoFiles : getRepoFiles
+    getRepoFiles : getRepoContent
 };
