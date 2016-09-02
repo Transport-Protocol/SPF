@@ -37,13 +37,14 @@ exports.start = function () {
 function getRepositories(call, callback) {
     winston.log('info', 'getRepositories rpc method request: ' + JSON.stringify(call.request));
     var userCred = _basicAuthEncryption(call.request.auth.token);
+    console.log(userCred);
     connector.getRepositories(userCred, function (err, repos) {
         if (err) {
             winston.log('error', 'error performing getRepositories: ',err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getRepositories rpc method');
-        return callback(null, {repos : repos});
+        return callback(null, {repos : JSON.stringify(repos)});
     });
 }
 
@@ -54,13 +55,13 @@ function getRepositories(call, callback) {
 function getRepositoryContent(call, callback) {
     winston.log('info', 'getRepositoryContent rpc method request: ' + JSON.stringify(call.request));
     var userCred = _basicAuthEncryption(call.request.auth.token);
-    connector.getRepoFiles(userCred, call.request.repo,call.request.path, function (err, dirs) {
+    connector.getRepoFiles(userCred, call.request.repositoryName,call.request.path, function (err, dirs) {
         if (err) {
             winston.log('error', 'error performing getRepositoryContent: ',err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getRepositoryContent rpc method',dirs);
-        return callback(null, {dirs: dirs});
+        return callback(null, {dirs: JSON.stringify(dirs)});
     });
 }
 
@@ -70,7 +71,7 @@ function getRepositoryContent(call, callback) {
 function addUserToRepository(call, callback) {
     winston.log('info', 'addUserToRepository rpc method request');
     var userCred = _basicAuthEncryption(call.request.auth.token);
-    connector.addUserToRepo(userCred, call.request.repo, call.request.userToAdd, function (err, status) {
+    connector.addUserToRepo(userCred, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
         if (err) {
             winston.log('error', 'error performing addUserToRepository: ',err);
             return callback(null, {err: err.message});

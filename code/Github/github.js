@@ -37,8 +37,8 @@ function getRepositories (auth,callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage  + ' ' + body));
         }
         var parsed = _parseRepoListBody(body);
-        winston.log('info','succesfully got repos from github',JSON.stringify(parsed));
-        return callback(null, JSON.stringify(parsed));
+        winston.log('info','succesfully got repos from github',parsed);
+        return callback(null, parsed);
     });
 };
 
@@ -106,7 +106,7 @@ function _parseRepoListBody(body){
     var parsed = JSON.parse(body);
     var result = [];
     for(var i = 0;i<parsed.length;i++){
-        result[i] = parsed[i].name;
+        result[i] = {repo:parsed[i].name};
     }
     return result;
 }

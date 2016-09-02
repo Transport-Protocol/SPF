@@ -50,9 +50,9 @@ message GetRepoContentReply {
 
 
 message AddUserToRepoRequest {
-  string repo = 1;
+  string repositoryName = 1;
   string usernameToAdd = 2;
-  Authentication auth = 4;
+  Authentication auth = 3;
 }
 
 
