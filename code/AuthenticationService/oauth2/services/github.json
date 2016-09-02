@@ -1,0 +1,7 @@
+{
+  "service":"github",
+  "client_id":"c02e585deb0c918ec41b",
+  "client_secret":"9e330d6503941992abd7e09dcf28a70bd57e8b01",
+  "redirect_uri":"http://localhost:4000/github/oauth/callback",
+  "redirect_route":"/github/oauth/callback"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "authenticationservice",
+  "version": "1.0.0",
+  "description": "Enables oauth2 authentication for different services",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "author": "philipp prögel",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.1",
+    "chai": "^3.5.0",
+    "express": "^4.14.0",
+    "grpc": "^1.0.0",
+    "mocha": "^3.0.2",
+    "nconf": "^0.8.4",
+    "request": "^2.74.0",
+    "winston": "^2.2.0"
+  }
+}
