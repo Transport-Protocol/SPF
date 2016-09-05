@@ -16,44 +16,51 @@ var fs = require('fs'),
     request = require('request');
 
 
-function OAuth2(expressApp,filePath, callback) {
+function OAuth2(expressApp, filePath, callback) {
     this.config = {};
+    this.authUrl = {};
     var self = this;
     fs.readFile(filePath, function (err, file) {
         if (err) {
             return callback(err);
         }
         self.config = JSON.parse(file);
-        winston.log('info',self.getAuthorizationURL('philipp'));
-        _registerHttpCallback(self,expressApp);
+        self.authUrl = _setAuthUrl(self);
+        winston.log('info', self.getAuthorizationURL('philipp'));
+        _registerHttpCallback(self, expressApp);
+
         return callback(null);
     });
 }
 
-function _registerHttpCallback(self,expressApp){
-    expressApp.get(self.getRedirectRoute(),function(req,res){
-        winston.log('info','redirect received');
+function _registerHttpCallback(self, expressApp) {
+    expressApp.get(self.getRedirectRoute(), function (req, res) {
+        winston.log('info', 'redirect received');
         res.send('ty');
-        self.getAccessToken(res.req.query.state,res.req.query.code,function(err,token){
-            if(err){
-                winston.log('error',err);
+        self.getAccessToken(res.req.query.state, res.req.query.code, function (err, token) {
+            if (err) {
+                winston.log('error', err);
             } else {
-                winston.log('info',token);
+                winston.log('info', token);
             }
         });
     });
 }
 
-OAuth2.prototype.getAuthorizationURL = function (userName) {
-    var baseUrl = this.config.auth_url;
-    var clientId = '?client_id=' + this.config.client_id;
-    var redirect_uri = '&redirect_uri=' + this.config.redirect_uri;
-    var state = '&state=' + userName;
-    var fullUrl = baseUrl + clientId + redirect_uri + state;
-    if(this.config.service === 'dropbox'){
+function _setAuthUrl(self) {
+    var baseUrl = self.config.auth_url;
+    var clientId = '?client_id=' + self.config.client_id;
+    var redirect_uri = '&redirect_uri=' + self.config.redirect_uri;
+    var fullUrl = baseUrl + clientId + redirect_uri;
+    if (self.config.service === 'DROPBOX') {
         fullUrl += '&response_type=code';
     }
     return fullUrl;
+}
+
+OAuth2.prototype.getAuthorizationURL = function (userName) {
+    var url = this.authUrl + '&state=' + userName;
+    return this.authUrl;
 };
 
 OAuth2.prototype.getRedirectURI = function () {
@@ -68,7 +75,7 @@ OAuth2.prototype.getServiceName = function () {
     return this.config.service;
 }
 
-OAuth2.prototype.getAccessToken = function (user,code,callback) {
+OAuth2.prototype.getAccessToken = function (user, code, callback) {
     var options = {
         method: 'POST',
         uri: this.config.access_token_url,
@@ -81,7 +88,7 @@ OAuth2.prototype.getAccessToken = function (user,code,callback) {
         },
         json: true
     };
-    if(this.config.service === 'dropbox'){
+    if (this.config.service === 'DROPBOX') {
         options.qs.grant_type = 'authorization_code';
     }
     request(options, function (err, response, body) {
@@ -93,7 +100,7 @@ OAuth2.prototype.getAccessToken = function (user,code,callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got request token: %s for user %s',body.access_token,user);
+        winston.log('info', 'succesfully got request token: %s for user %s', body.access_token, user);
         return callback(null, body.access_token);
     });
 }

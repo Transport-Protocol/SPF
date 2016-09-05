@@ -13,13 +13,13 @@ function init() {
     nconf.argv()
         .env()
         .file({file: './config/config.json'});
+    server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     winston.log('info', 'Team management service init succesful');
 }
 
 
 function main() {
     init();
-    server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     server.start();
 }
 

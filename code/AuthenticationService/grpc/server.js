@@ -13,14 +13,13 @@ var exports = module.exports = {};
 var _server;
 var _services = [];
 
-function init(serverIp, serverPort,oauth2Services) {
-    var fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
+function init(serverIp, serverPort, oauth2Services) {
+    var authServiceProto = grpc.load('./proto/authService.proto').authService;
     _services = oauth2Services;
     _server = new grpc.Server();
-    _server.addProtoService(fileStorageProto.FileStorage.service, {
+    _server.addProtoService(authServiceProto.AuthService.service, {
         getAuthorizationUrl: getAuthorizationUrl,
-        getAccessToken: getAccessToken,
-        uploadFile: uploadFile
+        getAccessToken: getAccessToken
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -32,13 +31,16 @@ function start() {
     winston.log('info', 'RPC server started');
 };
 
-function _getOAuth2ServiceByName(name){
+function _getOAuth2ServiceByName(name) {
     var res;
-    for(var i = 0;i<_services.length;i++){
-        if(_services[i].getServiceName() === name){
+    for (var i = 0; i < _services.length; i++) {
+        if (_services[i].getServiceName() === name) {
             res = _services[i];
             break;
         }
+    }
+    if (!res) {
+        winston.log('error', 'no service found for name %s ', name);
     }
     return res;
 }
@@ -48,6 +50,12 @@ function _getOAuth2ServiceByName(name){
  */
 function getAuthorizationUrl(call, callback) {
     winston.log('info', 'getAuthorizationUrl rpc method request: ' + JSON.stringify(call.request));
+    var service = _getOAuth2ServiceByName(call.request.service);
+    var url = service.getAuthorizationURL(call.request.username);
+    if (!url) {
+        return callback(null, {err: 'no service for ' + call.request.service + 'found'})
+    }
+    return callback(null, {url: url});
 }
 
 
@@ -57,7 +65,6 @@ function getAuthorizationUrl(call, callback) {
 function getAccessToken(call, callback) {
     winston.log('info', 'getAccessToken rpc method request: ' + JSON.stringify(call.request));
 }
-
 
 
 module.exports = {

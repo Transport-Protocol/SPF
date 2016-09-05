@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package authService;
+
+// The rpc VersionControl service definition.
+service AuthService {
+  // Gets a file
+  rpc GetAuthorizationUrl (AuthUrlRequest) returns (AuthUrlReply) {}
+
+  rpc GetAccessToken (AccessTokenRequest) returns (AccessTokenReply) {}
+}
+
+//service types enum
+enum ServiceType {
+    GITHUB = 0;
+    DROPBOX = 1;
+}
+
+message AuthUrlRequest {
+  ServiceType service = 1;
+  string username = 2;
+}
+
+
+message AuthUrlReply {
+  string url = 1; //oauth2 url
+  string err = 2;
+}
+
+
+message AccessTokenRequest {
+  ServiceType service = 1;
+  string username = 2;
+  string code = 3; //oauth2 code
+}
+
+
+message AccessTokenReply {
+  string access_token = 1;
+  string err = 2;
+}

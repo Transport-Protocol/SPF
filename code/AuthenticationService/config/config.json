@@ -1,3 +1,5 @@
 {
-  "httpPort" : 4000
+  "httpPort" : 4000,
+  "grpcServerIp":"localhost",
+  "grpcServerPort":50061
 }

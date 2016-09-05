@@ -1,5 +1,5 @@
 {
-  "service":"dropbox",
+  "service":"DROPBOX",
   "auth_url": "https://www.dropbox.com/1/oauth2/authorize",
   "access_token_url": "https://api.dropboxapi.com/1/oauth2/token",
   "client_id":"krqnhrofayxzazq",

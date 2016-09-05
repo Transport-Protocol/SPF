@@ -1,5 +1,5 @@
 {
-  "service":"github",
+  "service":"GITHUB",
   "auth_url": "https://github.com/login/oauth/authorize",
   "access_token_url": "https://github.com/login/oauth/access_token",
   "client_id":"e7703193a0cc139aae74",
