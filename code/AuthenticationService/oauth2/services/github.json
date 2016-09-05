@@ -1,7 +1,9 @@
 {
   "service":"github",
-  "client_id":"c02e585deb0c918ec41b",
-  "client_secret":"9e330d6503941992abd7e09dcf28a70bd57e8b01",
+  "auth_url": "https://github.com/login/oauth/authorize",
+  "access_token_url": "https://github.com/login/oauth/access_token",
+  "client_id":"e7703193a0cc139aae74",
+  "client_secret":"18419c2f87f2ccc146ce8e9d37d7e126f7ee32d9",
   "redirect_uri":"http://localhost:4000/github/oauth/callback",
   "redirect_route":"/github/oauth/callback"
 }

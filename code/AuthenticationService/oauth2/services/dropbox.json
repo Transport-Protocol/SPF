@@ -1,0 +1,9 @@
+{
+  "service":"dropbox",
+  "auth_url": "https://www.dropbox.com/1/oauth2/authorize",
+  "access_token_url": "https://api.dropboxapi.com/1/oauth2/token",
+  "client_id":"krqnhrofayxzazq",
+  "client_secret":"oxyodpb0l4hlxmo",
+  "redirect_uri":"http://localhost:4000/dropbox/oauth/callback",
+  "redirect_route":"/dropbox/oauth/callback"
+}
