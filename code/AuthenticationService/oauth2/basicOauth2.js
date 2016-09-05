@@ -41,6 +41,7 @@ function _registerHttpCallback(self, expressApp) {
             if (err) {
                 winston.log('error', err);
             } else {
+                //TODO send message to usermanagement service that a new accesstoken got generated
                 winston.log('info', token);
             }
         });

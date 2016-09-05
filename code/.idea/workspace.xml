@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AuthenticationService/test/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/config/config.json" afterPath="$PROJECT_DIR$/AuthenticationService/config/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/grpc/server.js" afterPath="$PROJECT_DIR$/AuthenticationService/grpc/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/index.js" afterPath="$PROJECT_DIR$/AuthenticationService/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js" afterPath="$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/oauth2/services/dropbox.json" afterPath="$PROJECT_DIR$/AuthenticationService/oauth2/services/dropbox.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/oauth2/services/github.json" afterPath="$PROJECT_DIR$/AuthenticationService/oauth2/services/github.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TeamManagement/index.js" afterPath="$PROJECT_DIR$/TeamManagement/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" afterPath="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,8 +67,8 @@
       <file leaf-file-name="basicOauth2.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1309">
-              <caret line="92" column="5" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+            <state relative-caret-position="330">
+              <caret line="43" column="98" selection-start-line="43" selection-start-column="98" selection-end-line="43" selection-end-column="98" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -87,8 +79,8 @@
       <file leaf-file-name="authService.proto" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AuthenticationService/proto/authService.proto">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+            <state relative-caret-position="187">
+              <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -117,7 +109,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AuthenticationService/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
+            <state relative-caret-position="153">
               <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
@@ -194,12 +186,12 @@
         <option value="$PROJECT_DIR$/AuthenticationService/proto/versionControl.proto" />
         <option value="$PROJECT_DIR$/AuthenticationService/config/config.json" />
         <option value="$PROJECT_DIR$/TeamManagement/index.js" />
-        <option value="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" />
         <option value="$PROJECT_DIR$/AuthenticationService/oauth2/services/dropbox.json" />
         <option value="$PROJECT_DIR$/AuthenticationService/oauth2/services/github.json" />
         <option value="$PROJECT_DIR$/AuthenticationService/test/test.js" />
         <option value="$PROJECT_DIR$/AuthenticationService/index.js" />
         <option value="$PROJECT_DIR$/AuthenticationService/grpc/server.js" />
+        <option value="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" />
         <option value="$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js" />
       </list>
     </option>
@@ -724,7 +716,7 @@
       <workItem from="1473070420680" duration="25000" />
       <workItem from="1473070786984" duration="6741000" />
       <workItem from="1473091135242" duration="16000" />
-      <workItem from="1473091190791" duration="3149000" />
+      <workItem from="1473091190791" duration="3577000" />
     </task>
     <task id="LOCAL-00001" summary="rabbitmq node test programm für rpc">
       <created>1468231369562</created>
@@ -1048,11 +1040,18 @@
       <option name="project" value="LOCAL" />
       <updated>1473080250255</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="auth service erster test case">
+      <created>1473095764347</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1473095764347</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11607000" />
+    <option name="totallyTimeSpent" value="12035000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1089,7 +1088,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="istanbul added as code coverage tool" />
     <MESSAGE value="rabbitmq kommunikation hunzugefügt." />
     <MESSAGE value="grpc funktioniert für owncloud filetree und getfile" />
     <MESSAGE value="node modules ordner gelöscht.&#10;owncloud grpc uploadFile fertig." />
@@ -1114,7 +1112,8 @@
     <MESSAGE value="teammanagement service init" />
     <MESSAGE value="oauth2 für github und dropbox implementiert" />
     <MESSAGE value="auth service grpc init" />
-    <option name="LAST_COMMIT_MESSAGE" value="auth service grpc init" />
+    <MESSAGE value="auth service erster test case" />
+    <option name="LAST_COMMIT_MESSAGE" value="auth service erster test case" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1479,26 +1478,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AuthenticationService/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AuthenticationService/grpc/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AuthenticationService/proto/authService.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -1511,10 +1494,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AuthenticationService/proto/authService.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AuthenticationService/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="92" column="5" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+        <state relative-caret-position="330">
+          <caret line="43" column="98" selection-start-line="43" selection-start-column="98" selection-end-line="43" selection-end-column="98" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
