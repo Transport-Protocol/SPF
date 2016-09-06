@@ -1,8 +1,10 @@
 {
-  "service_name": "Owncloud",
+  "service_name": "OWNCLOUD",
   "grpc_ip": "localhost",
   "grpc_port": 50051,
-  "authentication_type": "basic",
+  "grpc_service_name": "FileStorage",
+  "grpc_package_name": "fileStorage",
+  "authentication_type": "BASIC",
   "requests": [
     {
       "http-method": "get",

@@ -10,27 +10,27 @@ var grpc = require('grpc'),
     express = require('express'),
     nconf = require('nconf'),
     HashMap = require('hashmap'),
-    fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage,
     ParamChecker = require('./../utility/paramChecker'),
     HeaderChecker = require('./../utility/headerChecker');
 
 
 
-function CustomRoute(jsonConfigFilePath) {
+function CustomRoute(jsonConfigFilePath,protoFileName) {
     self = this;
     this.config = JSON.parse(fs.readFileSync(jsonConfigFilePath));
     this.paramChecker = new ParamChecker();
     this.headerChecker = new HeaderChecker();
     this.client = {};
 
-    _initGRPC(this);
+    _initGRPC(this,protoFileName);
 }
 
 var self = {};
 
-function _initGRPC(self){
+function _initGRPC(self,protoFileName){
     var url = self.config['grpc_ip'] + ':' + self.config['grpc_port'];
-    self.client = new fileStorageProto.FileStorage(url,
+    var proto = grpc.load('./proto/' + protoFileName)[self.config['grpc_package_name']];
+    self.client = new proto[self.config['grpc_service_name']](url,
         grpc.credentials.createInsecure());
 }
 
@@ -40,10 +40,13 @@ CustomRoute.prototype.route = function (){
     var self = this;
     var requestArray = this.config['requests'];
     var requestMap = new HashMap();
+    //Map routes to array index, neccessary for secondary for loop to get the right config
     for(var j in requestArray){
         requestMap.set(requestArray[j]['route'],j);
     }
+    //build all routes specified in config file
     for (var i in requestArray) {
+        //listen on http method on route
         router[requestArray[i]['http-method']](requestArray[i]['route'], function (req, res) {
             var requestID = requestMap.get(req.route.path);
             if (!self.paramChecker.containsParameter(requestArray[requestID]['query_parameter'], req, res)) {
@@ -52,9 +55,9 @@ CustomRoute.prototype.route = function (){
             if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
                 return;
             }
-            var json = _createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater'],res);
-            console.log(json);
-            self.client[requestArray[requestID]['grpc_function']](json, function (err, response) {
+            var jsonGrpcArgs = _createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater'],res);
+            console.log(jsonGrpcArgs);
+            self.client[requestArray[requestID]['grpc_function']](jsonGrpcArgs, function (err, response) {
                 if (err) {
                     _offlineError(res);
                 } else {
@@ -69,20 +72,10 @@ CustomRoute.prototype.route = function (){
         });
     }
     return router;
-}
+};
 
-function _encryptAuthorization(token,authType){
-    var grpcAuth = {token: token,type: 0};
-    switch(authType){
-        case 'basic': //BASIC
-            grpcAuth.type = 0;
-            break;
-        case 'oauth2': //OAUTH2
-            grpcAuth.type = 1;
-            break;
-        default:
-    }
-    return grpcAuth;
+function _setAuthorization(token, authType){
+    return {token: token,type: authType};
 }
 
 function _createHttpJsonResult(params, grpcResponse){
@@ -102,13 +95,13 @@ function _createHttpJsonResult(params, grpcResponse){
     return result;
 }
 
-function _createGrpcJsonArgs(req, params, res) {
+function _createGrpcJsonArgs(req, params) {
     var resultAsObj = {};
     for (var i in params) {
         var param = params[i];
         if (param === 'authorization') {
             //encrypt authentication
-            resultAsObj['auth'] = _encryptAuthorization(req.headers.authorization,self.config['authentication_type'])
+            resultAsObj['auth'] = _setAuthorization(req.headers.authorization,self.config['authentication_type'])
         } else if (req.query.hasOwnProperty(param)) {
             resultAsObj[param] = req.query[param];
         }

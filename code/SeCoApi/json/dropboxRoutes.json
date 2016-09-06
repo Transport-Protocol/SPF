@@ -1,8 +1,10 @@
 {
-  "service_name": "Dropbox",
+  "service_name": "DROPBOX",
   "grpc_ip": "localhost",
   "grpc_port": 50052,
-  "authentication_type": "basic",
+  "grpc_service_name": "FileStorage",
+  "grpc_package_name": "fileStorage",
+  "authentication_type": "OAUTH2",
   "requests": [
     {
       "http-method": "get",

@@ -36,16 +36,26 @@ exports.start = function () {
  */
 function getRepositories(call, callback) {
     winston.log('info', 'getRepositories rpc method request: ' + JSON.stringify(call.request));
-    var userCred = _basicAuthEncryption(call.request.auth.token);
-    console.log(userCred);
-    connector.getRepositories(userCred, function (err, repos) {
-        if (err) {
-            winston.log('error', 'error performing getRepositories: ',err);
-            return callback(null, {err: err.message});
+    if (!call.request.auth) {
+        _error('getRepositories', 'missing parameter', callback);
+    } else {
+        var auth = call.request.auth;
+        var token;
+        if(auth.type === 'BASIC'){
+            token = _basicAuthEncryption(call.request.auth.token)
+        } else {
+            token = auth.token;
         }
-        winston.log('info', 'succesfully performed getRepositories rpc method');
-        return callback(null, {repos : JSON.stringify(repos)});
-    });
+        console.log(token);
+        connector.getRepositories(token, function (err, repos) {
+            if (err) {
+                winston.log('error', 'error performing getRepositories: ', err);
+                return callback(null, {err: err.message});
+            }
+            winston.log('info', 'succesfully performed getRepositories rpc method');
+            return callback(null, {repos: JSON.stringify(repos)});
+        });
+    }
 }
 
 
@@ -54,15 +64,26 @@ function getRepositories(call, callback) {
  */
 function getRepositoryContent(call, callback) {
     winston.log('info', 'getRepositoryContent rpc method request: ' + JSON.stringify(call.request));
-    var userCred = _basicAuthEncryption(call.request.auth.token);
-    connector.getRepoFiles(userCred, call.request.repositoryName,call.request.path, function (err, dirs) {
-        if (err) {
-            winston.log('error', 'error performing getRepositoryContent: ',err);
-            return callback(null, {err: err.message});
+    if (!call.request.auth || !call.request.repositoryName || !call.request.path) {
+        _error('getRepositoryContent', 'missing parameter', callback);
+    } else {
+        var auth = call.request.auth;
+        var token;
+        if(auth.type === 'BASIC'){
+            token = _basicAuthEncryption(call.request.auth.token)
+        } else {
+            token = auth.token;
         }
-        winston.log('info', 'succesfully performed getRepositoryContent rpc method',dirs);
-        return callback(null, {dirs: JSON.stringify(dirs)});
-    });
+        console.log(token);
+        connector.getRepoFiles(token, call.request.repositoryName, call.request.path, function (err, dirs) {
+            if (err) {
+                winston.log('error', 'error performing getRepositoryContent: ', err);
+                return callback(null, {err: err.message});
+            }
+            winston.log('info', 'succesfully performed getRepositoryContent rpc method', dirs);
+            return callback(null, {dirs: JSON.stringify(dirs)});
+        });
+    }
 }
 
 /**
@@ -70,20 +91,44 @@ function getRepositoryContent(call, callback) {
  */
 function addUserToRepository(call, callback) {
     winston.log('info', 'addUserToRepository rpc method request');
-    var userCred = _basicAuthEncryption(call.request.auth.token);
-    connector.addUserToRepo(userCred, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
-        if (err) {
-            winston.log('error', 'error performing addUserToRepository: ',err);
-            return callback(null, {err: err.message});
+    if (!call.request.auth || !call.request.repositoryName || !call.request.usernameToAdd) {
+        _error('addUserToRepository', 'missing parameter', callback);
+    } else {
+        var auth = call.request.auth;
+        var token;
+        if(auth.type === 'BASIC'){
+            token = _basicAuthEncryption(call.request.auth.token)
+        } else {
+            token = auth.token;
         }
-        winston.log('info', 'succesfully performed addUserToRepository rpc method');
-        return callback(null, {status: status});
-    });
+        console.log(token);
+        connector.addUserToRepo(token, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
+            if (err) {
+                winston.log('error', 'error performing addUserToRepository: ', err);
+                return callback(null, {err: err.message});
+            }
+            winston.log('info', 'succesfully performed addUserToRepository rpc method');
+            return callback(null, {status: status});
+        });
+    }
 }
 
-function _basicAuthEncryption(token){
+/**
+ * Converts a base64 encoded basic auth token to username and password
+ * @param token
+ * @returns {{username: *, password: *}}
+ * @private
+ */
+function _basicAuthEncryption(token) {
     var withoutBasic = token.substr(6);
-    var readableString = new Buffer(withoutBasic, 'base64').toString()
+    var readableString = new Buffer(withoutBasic, 'base64').toString();
     var userPasswordArray = readableString.split(':');
-    return {username:userPasswordArray[0],password:userPasswordArray[1]};
+    return {username: userPasswordArray[0], password: userPasswordArray[1]};
+}
+
+
+function _error(functionName, errorMessage, callback) {
+    var error = new Error(errorMessage);
+    winston.log('error', 'error performing rpc method ' + functionName + ' ' + error);
+    return callback(null, {err: error.message});
 }

@@ -1,21 +1,63 @@
 {
-  "routes": [
+  "service_name": "GITHUB",
+  "grpc_ip": "localhost",
+  "grpc_port": 50056,
+  "grpc_service_name": "VersionControl",
+  "grpc_package_name": "versionControl",
+  "authentication_type": "OAUTH2",
+  "requests": [
     {
       "http-method": "get",
-      "route": "api/github/:user/repos",
-      "parameter": [
+      "route": "/github/repositories",
+      "header_parameter": [
+        "authorization"
       ],
-      "header": [
-
+      "grpc_function": "getRepositories",
+      "grpc_function_paramater": [
+        "auth"
+      ],
+      "response_parameter": [
+        "repos"
       ]
     },
     {
       "http-method": "get",
-      "route": "api/github/:user/repos/:repo",
-      "parameter": [
+      "route": "/github/repository/content",
+      "query_parameter": [
+        "path",
+        "repositoryName"
       ],
-      "header": [
-
+      "header_parameter": [
+        "authorization"
+      ],
+      "grpc_function": "getRepositoryContent",
+      "grpc_function_paramater": [
+        "path",
+        "authorization",
+        "repositoryName"
+      ],
+      "response_parameter": [
+        "dirs"
+      ]
+    },
+    {
+      "http-method": "post",
+      "route": "/github/repository/share",
+      "query_parameter": [
+        "repositoryName",
+        "usernameToAdd"
+      ],
+      "header_parameter": [
+        "authorization"
+      ],
+      "grpc_function": "addUserToRepository",
+      "grpc_function_paramater": [
+        "repositoryName",
+        "authorization",
+        "usernameToAdd"
+      ],
+      "response_parameter": [
+        "status"
       ]
     }
   ]
