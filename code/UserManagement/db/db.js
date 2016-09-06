@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     logger = require('winston');
 
 
-function connect(dbPoolsize,dbPath) {
+function connect(dbPoolsize, dbPath) {
     var options = {
         db: {native_parser: true},
         server: {poolSize: dbPoolsize},
@@ -96,16 +96,40 @@ function deleteUser(name, callback) {
 function isLoginCorrect(name, password, callback) {
     readUser(name, function (err, user) {
         if (err) {
-            logger.log('error','isLoginCorrect - ',err.message);
-            callback(err);
+            logger.log('error', 'isLoginCorrect - ', err.message);
+            return callback(err);
         }
         user.comparePassword(password, function (err, isMatch) {
             if (err) {
-                logger.log('error','isLoginCorrect - ',err.message);
-                callback(err);
+                logger.log('error', 'isLoginCorrect - ', err.message);
+                return callback(err);
             }
             logger.log('info', 'succesfully checked isLoginCorrect for name: ' + name + '  result: ' + isMatch);
-            callback(null, isMatch);
+            return callback(null, isMatch);
+        });
+    });
+}
+
+/**
+ * Adds authentication for a service
+ * @param username
+ * @param service
+ * @param token
+ * @param callback
+ */
+function addAuthentication(username, service, token, callback) {
+    readUser(username, function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+        user.auth.push({name: username, service: service, token: token});
+        user.save(function (err) {
+            if (err) {
+                logger.log('error', 'adding authentication ', err.message);
+                return callback(err);
+            }
+            logger.log('info', 'succesfully added authentication for user : ' + user);
+            return callback(null, user);
         });
     });
 }
@@ -131,5 +155,6 @@ module.exports = {
     createUser: createUser,
     readUser: readUser,
     deleteUser: deleteUser,
-    isLoginCorrect: isLoginCorrect
+    isLoginCorrect: isLoginCorrect,
+    addAuthentication: addAuthentication
 };

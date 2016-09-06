@@ -19,7 +19,8 @@ exports.init = function (serverIp, serverPort) {
     _server = new grpc.Server();
     _server.addProtoService(userManagementProto.UserManagement.service, {
         register: register,
-        login: login
+        login: login,
+        setAuthentication : setAuthentication
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -77,6 +78,26 @@ function login(call, callback) {
                 winston.log('info', 'succesfully performed login rpc method');
                 return callback(null, {status: 'login successful'});
             });
+        });
+    }
+}
+
+/**
+ * Implements the setAccessToken RPC method.
+ */
+function setAuthentication(call, callback) {
+    winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
+    if (!call.request.service || !call.request.username || !call.request.token) {
+        _error('setAccessToken', 'missing parameter', callback);
+    } else {
+        db.addAuthentication(call.request.username, call.request.service,call.request.token, function (err, user) {
+            if (err) {
+                winston.log('error', 'error performing rpc method setAccessToken: ', err);
+                return callback(null, {err: err.message});
+            } else {
+                winston.log('info', 'succesfully performed setAccessToken rpc method');
+                return callback(null, {status: 'created'});
+            }
         });
     }
 }
