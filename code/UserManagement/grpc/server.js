@@ -16,11 +16,14 @@ var _server;
 
 exports.init = function (serverIp, serverPort) {
     var userManagementProto = grpc.load('./proto/usermanagement.proto').userManagement;
+    var authProto = grpc.load('./proto/authentication.proto').authentication;
     _server = new grpc.Server();
     _server.addProtoService(userManagementProto.UserManagement.service, {
         register: register,
         login: login,
-        setAuthentication : setAuthentication
+    });
+    _server.addProtoService(authProto.Authentication.service, {
+        setAuthentication: setAuthentication
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -90,7 +93,7 @@ function setAuthentication(call, callback) {
     if (!call.request.service || !call.request.username || !call.request.token) {
         _error('setAccessToken', 'missing parameter', callback);
     } else {
-        db.addAuthentication(call.request.username, call.request.service,call.request.token, function (err, user) {
+        db.addAuthentication(call.request.username, call.request.service, call.request.token, function (err, user) {
             if (err) {
                 winston.log('error', 'error performing rpc method setAccessToken: ', err);
                 return callback(null, {err: err.message});

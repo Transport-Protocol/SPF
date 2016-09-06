@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package authentication;
+
+// The rpc FileStorage service definition.
+service Authentication {
+
+    rpc SetAuthentication (AuthenticationRequest) returns (AuthenticationReply) {}
+
+}
+
+//service types enum
+enum ServiceType {
+    GITHUB = 0;
+    DROPBOX = 1;
+}
+
+message AuthenticationRequest {
+    ServiceType service = 1;
+    string username = 2;
+    string token = 3;
+}
+
+
+message AuthenticationReply {
+    string status = 1;
+    string err = 2;
+}
+

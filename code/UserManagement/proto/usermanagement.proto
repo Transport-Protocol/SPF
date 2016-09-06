@@ -14,10 +14,6 @@ service UserManagement {
 
   rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {}
 
-  //AccessToken
-
-  rpc SetAuthentication (AuthenticationRequest) returns (AuthenticationReply) {}
-
 }
 
 message RegisterRequest {
@@ -66,24 +62,6 @@ message IsLoginCorrectRequest {
 
 message IsLoginCorrectReply {
   bool isCorrect = 1;
-  string err = 2;
-}
-
-//service types enum
-enum ServiceType {
-  GITHUB = 0;
-  DROPBOX = 1;
-}
-
-message AuthenticationRequest {
-  ServiceType service = 1;
-  string username = 2;
-  string token = 3;
-}
-
-
-message AuthenticationReply {
-  string status = 1;
   string err = 2;
 }
 

@@ -13,12 +13,18 @@
 
 var fs = require('fs'),
     winston = require('winston'),
+    grpc = require('grpc'),
     request = require('request');
 
 
 function OAuth2(expressApp, filePath, callback) {
     this.config = {};
     this.authUrl = {};
+    var proto = grpc.load('./proto/authentication.proto').authentication;
+    var url='localhost:50054';
+    console.log(url);
+    this.client = new proto.Authentication(url,
+        grpc.credentials.createInsecure());
     var self = this;
     fs.readFile(filePath, function (err, file) {
         if (err) {
@@ -43,6 +49,21 @@ function _registerHttpCallback(self, expressApp) {
             } else {
                 //TODO send message to usermanagement service that a new accesstoken got generated
                 winston.log('info', token);
+                self.client.setAuthentication({
+                    service: self.config.service,
+                    username: res.req.query.state,
+                    token: token
+                }, function (err, response) {
+                    if(err){
+                        winston.log('error',err);
+                    } else {
+                        if(response.err){
+                            winston.log('error',response.err);
+                        } else {
+                            winston.log('info',response.status);
+                        }
+                    }
+                });
             }
         });
     });
@@ -61,7 +82,7 @@ function _setAuthUrl(self) {
 
 OAuth2.prototype.getAuthorizationURL = function (userName) {
     var url = this.authUrl + '&state=' + userName;
-    return this.authUrl;
+    return url;
 };
 
 OAuth2.prototype.getRedirectURI = function () {
