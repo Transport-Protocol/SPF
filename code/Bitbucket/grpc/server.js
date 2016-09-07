@@ -40,14 +40,8 @@ function getRepositories(call, callback) {
         _error('getRepositories', 'missing parameter', callback);
     } else {
         var auth = call.request.auth;
-        var token;
-        if(auth.type === 'BASIC'){
-            token = _basicAuthEncryption(call.request.auth.token)
-        } else {
-            token = auth.token;
-        }
-        console.log(token);
-        connector.getRepositories(token, function (err, repos) {
+        console.log(auth);
+        connector.getRepositories(auth, function (err, repos) {
             if (err) {
                 winston.log('error', 'error performing getRepositories: ', err);
                 return callback(null, {err: err.message});

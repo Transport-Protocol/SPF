@@ -43,16 +43,17 @@ function _registerHttpCallback(self, expressApp) {
     expressApp.get(self.getRedirectRoute(), function (req, res) {
         winston.log('info', 'redirect received');
         res.send('ty');
-        self.getAccessToken(res.req.query.state, res.req.query.code, function (err, token) {
+        self.getAccessToken(res.req.query.state, res.req.query.code, function (err, access_token, refresh_token) {
             if (err) {
                 winston.log('error', err);
             } else {
                 //TODO send message to usermanagement service that a new accesstoken got generated
-                winston.log('info', token);
+                winston.log('info', access_token);
                 self.client.setAuthentication({
                     service: self.config.service,
                     username: res.req.query.state,
-                    token: token
+                    access_token: access_token,
+                    refresh_token: refresh_token
                 }, function (err, response) {
                     if(err){
                         winston.log('error',err);
@@ -101,6 +102,12 @@ OAuth2.prototype.getServiceName = function () {
     return this.config.service;
 }
 
+/**
+ *
+ * @param user
+ * @param code
+ * @param callback err,access_token,refresh_token(optional)
+ */
 OAuth2.prototype.getAccessToken = function (user, code, callback) {
     var options = {
         method: 'POST',
@@ -137,7 +144,10 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         winston.log('info', 'succesfully got request token: %s for user %s', body.access_token, user);
-        return callback(null, body.access_token);
+        if(body.refresh_token){
+            winston.log('info','also got refresh_token: %s for user %s',body.refresh_token, user);
+        }
+        return callback(null, body.access_token,body.refresh_token);
     });
 }
 

@@ -114,15 +114,16 @@ function isLoginCorrect(name, password, callback) {
  * Adds authentication for a service
  * @param username
  * @param service
- * @param token
+ * @param access_token
+ * @param refresh_token {optional}
  * @param callback
  */
-function addAuthentication(username, service, token, callback) {
+function addAuthentication(username, service, access_token,refresh_token, callback) {
     readUser(username, function (err, user) {
         if (err) {
             return callback(err);
         }
-        user.auth.push({service: service, token: token});
+        user.auth.push({service: service, access_token: access_token, refresh_token: refresh_token});
         user.save(function (err) {
             if (err) {
                 logger.log('error', 'adding authentication ', err.message);

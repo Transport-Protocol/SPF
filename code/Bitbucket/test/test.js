@@ -14,7 +14,7 @@ function init(){
     var url='localhost:50071';
     client = new proto.VersionControl(url,
         grpc.credentials.createInsecure());
-    auth = {type:0,token:'Basic cGhpbGlwcGhhdzpJbmplY3Rpb24x'};
+    auth = {type:'OAUTH2',token:'Lxpdm6cAu1B2NQfSuQmk-jLkkLiUZUQRCZMnJ6iLbCC4UsMkk5yJ6oqezjk34_KSRLUx6eRj5boFRz_pYP4='};
 }
 
 
@@ -36,7 +36,7 @@ describe('Bitbucket', function () {
                 done();
             });
         });
-    });
+    });/*
     describe('getRepositoryContent', function () {
         it('lists the repository content specified by path', function (done) {
             client.getRepositoryContent({
@@ -63,5 +63,5 @@ describe('Bitbucket', function () {
                 done();
             });
         });
-    });
+    });*/
 });

@@ -90,10 +90,10 @@ function login(call, callback) {
  */
 function setAuthentication(call, callback) {
     winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
-    if (!call.request.service || !call.request.username || !call.request.token) {
+    if (!call.request.service || !call.request.username || !call.request.access_token) {
         _error('setAccessToken', 'missing parameter', callback);
     } else {
-        db.addAuthentication(call.request.username, call.request.service, call.request.token, function (err, user) {
+        db.addAuthentication(call.request.username, call.request.service, call.request.access_token,call.request.refresh_token, function (err, user) {
             if (err) {
                 winston.log('error', 'error performing rpc method setAccessToken: ', err);
                 return callback(null, {err: err.message});

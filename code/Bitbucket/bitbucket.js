@@ -19,11 +19,10 @@ function getRepositories (auth,callback) {
         method: 'GET',
         uri: url,
         auth: {
-            user:auth.username,
-            pass:auth.password
+            'bearer' : auth
         },
         headers:{
-            'User-Agent':auth.username
+            'User-Agent': 'Seco Api'
         }
     };
     request(options, function (err, response, body) {
