@@ -123,7 +123,17 @@ function addAuthentication(username, service, access_token,refresh_token, callba
         if (err) {
             return callback(err);
         }
-        user.auth.push({service: service, access_token: access_token, refresh_token: refresh_token});
+        var alreadyRegistered = false;
+        for(var i = 0;i<user.auth.length;i++){
+            if(user.auth[i].service === service){
+                //Entry already registered;update
+                logger.log('info', 'authentication entry already registered for user %s on service %s', username,service);
+                alreadyRegistered = true;
+                user.auth[i].access_token = access_token;
+                user.auth[i].refresh_token = refresh_token;
+            }
+        }
+        if(!alreadyRegistered) user.auth.push({service: service, access_token: access_token, refresh_token: refresh_token});
         user.save(function (err) {
             if (err) {
                 logger.log('error', 'adding authentication ', err.message);
