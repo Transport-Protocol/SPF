@@ -39,15 +39,17 @@ function getRepositories(call, callback) {
     if (!call.request.auth) {
         _error('getRepositories', 'missing parameter', callback);
     } else {
-        var auth = call.request.auth;
-        var token;
-        if(auth.type === 'BASIC'){
-            token = _basicAuthEncryption(call.request.auth.token)
+        var auth = {};
+        if(call.request.auth.type === 'BASIC'){
+            var basic = _basicAuthEncryption(call.request.auth.token);
+            auth.username = basic.username;
+            auth.password = basic.password;
+            auth.type = 'BASIC';
         } else {
-            token = auth.token;
+            auth.token = call.request.auth.token;
+            auth.type = 'OAUTH2';
         }
-        console.log(token);
-        connector.getRepositories(token, function (err, repos) {
+        connector.getRepositories(auth, function (err, repos) {
             if (err) {
                 winston.log('error', 'error performing getRepositories: ', err);
                 return callback(null, {err: err.message});
@@ -67,15 +69,18 @@ function getRepositoryContent(call, callback) {
     if (!call.request.auth || !call.request.repositoryName || !call.request.path) {
         _error('getRepositoryContent', 'missing parameter', callback);
     } else {
-        var auth = call.request.auth;
-        var token;
-        if(auth.type === 'BASIC'){
-            token = _basicAuthEncryption(call.request.auth.token)
+        var auth = {};
+        if(call.request.auth.type === 'BASIC'){
+            var basic = _basicAuthEncryption(call.request.auth.token);
+            auth.username = basic.username;
+            auth.password = basic.password;
+            auth.type = 'BASIC';
         } else {
-            token = auth.token;
+            auth.token = call.request.auth.token;
+            auth.type = 'OAUTH2';
         }
-        console.log(token);
-        connector.getRepoFiles(token, call.request.repositoryName, call.request.path, function (err, dirs) {
+        console.log(auth);
+        connector.getRepoFiles(auth, call.request.repositoryName, call.request.path, function (err, dirs) {
             if (err) {
                 winston.log('error', 'error performing getRepositoryContent: ', err);
                 return callback(null, {err: err.message});
@@ -94,15 +99,18 @@ function addUserToRepository(call, callback) {
     if (!call.request.auth || !call.request.repositoryName || !call.request.usernameToAdd) {
         _error('addUserToRepository', 'missing parameter', callback);
     } else {
-        var auth = call.request.auth;
-        var token;
-        if(auth.type === 'BASIC'){
-            token = _basicAuthEncryption(call.request.auth.token)
+        var auth = {};
+        if(call.request.auth.type === 'BASIC'){
+            var basic = _basicAuthEncryption(call.request.auth.token);
+            auth.username = basic.username;
+            auth.password = basic.password;
+            auth.type = 'BASIC';
         } else {
-            token = auth.token;
+            auth.token = call.request.auth.token;
+            auth.type = 'OAUTH2';
         }
-        console.log(token);
-        connector.addUserToRepo(token, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
+        console.log(auth);
+        connector.addUserToRepo(auth, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
             if (err) {
                 winston.log('error', 'error performing addUserToRepository: ', err);
                 return callback(null, {err: err.message});

@@ -14,7 +14,7 @@ function init(){
     var url='localhost:50056';
     client = new proto.VersionControl(url,
         grpc.credentials.createInsecure());
-    auth = {type:0,token:'Basic cGhpbGlwcGhhdzpJbmplY3Rpb24x'};
+    auth = {type:'OAUTH2',token:'ac77e527e8cf42e714e49492a97b1f1c6f5d7ccc'};
 }
 
 

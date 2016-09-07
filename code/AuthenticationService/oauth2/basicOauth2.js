@@ -56,6 +56,7 @@ function _registerHttpCallback(self, expressApp) {
                 }, function (err, response) {
                     if(err){
                         winston.log('error',err);
+                        winston.log('error', 'usermanagement service offline');
                     } else {
                         if(response.err){
                             winston.log('error',response.err);
@@ -76,6 +77,9 @@ function _setAuthUrl(self) {
     var fullUrl = baseUrl + clientId + redirect_uri;
     if (self.config.service === 'DROPBOX' || self.config.service === 'BITBUCKET') {
         fullUrl += '&response_type=code';
+    }
+    if(self.config.service === 'GITHUB'){
+        fullUrl += '&scope=repo,user';
     }
     return fullUrl;
 }

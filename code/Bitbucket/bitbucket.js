@@ -14,7 +14,7 @@ var request = require('request'),
  * @param callback err,dirs
  */
 function getRepositories (auth,callback) {
-    var url = 'https://api.github.com/user/repos';
+    var url = 'https://api.bitbucket.org/2.0/repositories/';
     var options = {
         method: 'GET',
         uri: url,
