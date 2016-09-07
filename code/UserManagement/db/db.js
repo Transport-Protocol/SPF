@@ -122,7 +122,7 @@ function addAuthentication(username, service, token, callback) {
         if (err) {
             return callback(err);
         }
-        user.auth.push({name: username, service: service, token: token});
+        user.auth.push({service: service, token: token});
         user.save(function (err) {
             if (err) {
                 logger.log('error', 'adding authentication ', err.message);

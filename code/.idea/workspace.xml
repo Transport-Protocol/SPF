@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="bitbucket init">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AuthenticationService/oauth2/services/bitbucket.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+    <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js" afterPath="$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" afterPath="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/proto/authentication.proto" afterPath="$PROJECT_DIR$/AuthenticationService/proto/authentication.proto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AuthenticationService/test/test.js" afterPath="$PROJECT_DIR$/AuthenticationService/test/test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/db/db.js" afterPath="$PROJECT_DIR$/UserManagement/db/db.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/proto/authentication.proto" afterPath="$PROJECT_DIR$/UserManagement/proto/authentication.proto" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManagement/test/test.js" afterPath="$PROJECT_DIR$/UserManagement/test/test.js" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,26 +26,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AuthenticationService/grpc/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-270">
-              <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Bitbucket/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="60" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AuthenticationService/index.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -80,11 +58,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="basicOauth2.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="basicOauth2.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="83" column="50" selection-start-line="83" selection-start-column="50" selection-end-line="83" selection-end-column="50" />
+            <state relative-caret-position="328">
+              <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserManagement/test/test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -100,21 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dropbox.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AuthenticationService/oauth2/services/dropbox.json">
+      <file leaf-file-name="authentication.proto" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserManagement/proto/authentication.proto">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Bitbucket/start.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+            <state relative-caret-position="45">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,6 +103,26 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="654">
               <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserManagement/grpc/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UserManagement/db/db.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="124" column="24" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -153,8 +151,6 @@
         <option value="$PROJECT_DIR$/Dropbox/start.js" />
         <option value="$PROJECT_DIR$/UserManagement/db/models/User.js" />
         <option value="$PROJECT_DIR$/UserManagement/package.json" />
-        <option value="$PROJECT_DIR$/UserManagement/db/db.js" />
-        <option value="$PROJECT_DIR$/UserManagement/test/test.js" />
         <option value="$PROJECT_DIR$/TeamManagement/package.json" />
         <option value="$PROJECT_DIR$/TeamManagement/index.js" />
         <option value="$PROJECT_DIR$/UserManagement/index.js" />
@@ -176,7 +172,6 @@
         <option value="$PROJECT_DIR$/AuthenticationService/oauth2/services/github.json" />
         <option value="$PROJECT_DIR$/AuthenticationService/index.js" />
         <option value="$PROJECT_DIR$/AuthenticationService/package.json" />
-        <option value="$PROJECT_DIR$/UserManagement/proto/authentication.proto" />
         <option value="$PROJECT_DIR$/UserManagement/proto/usermanagement.proto" />
         <option value="$PROJECT_DIR$/UserManagement/grpc/server.js" />
         <option value="$PROJECT_DIR$/UserManagement/config/config.json" />
@@ -196,7 +191,10 @@
         <option value="$PROJECT_DIR$/AuthenticationService/test/test.js" />
         <option value="$PROJECT_DIR$/AuthenticationService/proto/authService.proto" />
         <option value="$PROJECT_DIR$/AuthenticationService/oauth2/services/bitbucket.json" />
+        <option value="$PROJECT_DIR$/UserManagement/proto/authentication.proto" />
+        <option value="$PROJECT_DIR$/UserManagement/db/db.js" />
         <option value="$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js" />
+        <option value="$PROJECT_DIR$/UserManagement/test/test.js" />
       </list>
     </option>
   </component>
@@ -331,6 +329,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="grpc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UserManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -772,9 +788,9 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Node.js.index.js (2)" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.secoApiStart.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.index.js (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.index.js (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.secoApiStart.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.start.js (1)" />
         <item index="4" class="java.lang.String" itemvalue="Node.js.start.js (2)" />
       </list>
     </recent_temporary>
@@ -803,14 +819,7 @@
       <workItem from="1472719080175" duration="11595000" />
       <workItem from="1473166168369" duration="9000" />
       <workItem from="1473166212490" duration="1611000" />
-      <workItem from="1473167994970" duration="8164000" />
-    </task>
-    <task id="LOCAL-00006" summary="rest calls an header angepasst">
-      <created>1468939117494</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1468939117494</updated>
+      <workItem from="1473167994970" duration="9380000" />
     </task>
     <task id="LOCAL-00007" summary="restliche routen hinzugefuegt">
       <created>1468941836359</created>
@@ -1148,11 +1157,18 @@
       <option name="project" value="LOCAL" />
       <updated>1473237899558</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="bitbucket oauth2 implementiert">
+      <created>1473240909166</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1473240909166</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31189000" />
+    <option name="totallyTimeSpent" value="32405000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="829" extended-state="0" />
@@ -1190,7 +1206,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
-    <MESSAGE value="404 route hinzugefügt" />
     <MESSAGE value="owncloud getFile gefixt. Nehme nun normale http Route anstatt ajax path" />
     <MESSAGE value="missing file error code entfernt.&#10;" />
     <MESSAGE value="Projektplan angepasst -&gt; mehr Zeit für schreiben und kooperatives Element der Middleware eingeplant.&#10;&#10;Owncloud getFileTree bug gefixed das Teile des Namens abgeschnitten werden&#10;" />
@@ -1215,7 +1230,8 @@
     <MESSAGE value="authentication proto to user and auth service added and implemented" />
     <MESSAGE value="refactorings und customroute weiter abstrahiert" />
     <MESSAGE value="bitbucket init" />
-    <option name="LAST_COMMIT_MESSAGE" value="bitbucket init" />
+    <MESSAGE value="bitbucket oauth2 implementiert" />
+    <option name="LAST_COMMIT_MESSAGE" value="bitbucket oauth2 implementiert" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1291,14 +1307,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TeamManagement/db/db.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="54" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Owncloud/owncloud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1418,26 +1426,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/proto/authentication.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Github/config/config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="26" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/grpc/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="92" column="1" selection-start-line="92" selection-start-column="1" selection-end-line="94" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1504,14 +1496,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManagement/test/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="72" column="7" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -1686,10 +1670,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/proto/authentication.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/grpc/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="104" column="5" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AuthenticationService/oauth2/basicOauth2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="83" column="50" selection-start-line="83" selection-start-column="50" selection-end-line="83" selection-end-column="50" />
+        <state relative-caret-position="328">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/test/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManagement/db/db.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="124" column="24" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
           <folding />
         </state>
       </provider>

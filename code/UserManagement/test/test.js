@@ -26,16 +26,16 @@ describe('UserManagement', function () {
         init();
     });
     after(function() {
-        db.deleteUser('test1',function(err,isRemoved){
+        /*db.deleteUser('philipp',function(err,isRemoved){
             if(err){
                 throw err;
             }
-        });
+        });*/
     });
     describe('registration', function () {
         it('regitsers a new user', function (done) {
             client.register({
-                name: 'test1',
+                name: 'philipp',
                 password: '123456'
             }, function (err, response) {
                 expect(err).to.be.a('null');
@@ -57,7 +57,7 @@ describe('UserManagement', function () {
     describe('login', function () {
         it('perform a login with username and password', function (done) {
             client.login({
-                name: 'test1',
+                name: 'philipp',
                 password: '123456'
             }, function (err, response) {
                 expect(err).to.be.a('null');

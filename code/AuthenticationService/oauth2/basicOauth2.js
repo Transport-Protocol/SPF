@@ -49,7 +49,7 @@ function _registerHttpCallback(self, expressApp) {
             } else {
                 //TODO send message to usermanagement service that a new accesstoken got generated
                 winston.log('info', token);
-                client.setAuthentication({
+                self.client.setAuthentication({
                     service: self.config.service,
                     username: res.req.query.state,
                     token: token
@@ -58,9 +58,9 @@ function _registerHttpCallback(self, expressApp) {
                         winston.log('error',err);
                     } else {
                         if(response.err){
-                            winston.log('error',err);
+                            winston.log('error',response.err);
                         } else {
-                            winston.log('info')
+                            winston.log('info','succesfully set authentication for user %s and service %s',res.req.query.state,self.config.service);
                         }
                     }
                 });
