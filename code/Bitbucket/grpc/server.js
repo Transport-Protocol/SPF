@@ -63,7 +63,7 @@ function getRepositoryContent(call, callback) {
     } else {
         var auth = call.request.auth;
         var token;
-        if(auth.type === 'BASIC'){
+        if (auth.type === 'BASIC') {
             token = _basicAuthEncryption(call.request.auth.token)
         } else {
             token = auth.token;
@@ -90,7 +90,7 @@ function addUserToRepository(call, callback) {
     } else {
         var auth = call.request.auth;
         var token;
-        if(auth.type === 'BASIC'){
+        if (auth.type === 'BASIC') {
             token = _basicAuthEncryption(call.request.auth.token)
         } else {
             token = auth.token;

@@ -21,7 +21,7 @@ function OAuth2(expressApp, filePath, callback) {
     this.config = {};
     this.authUrl = {};
     var proto = grpc.load('./proto/authentication.proto').authentication;
-    var url='localhost:50054';
+    var url = 'localhost:50054';
     console.log(url);
     this.client = new proto.Authentication(url,
         grpc.credentials.createInsecure());
@@ -55,14 +55,14 @@ function _registerHttpCallback(self, expressApp) {
                     access_token: access_token,
                     refresh_token: refresh_token
                 }, function (err, response) {
-                    if(err){
-                        winston.log('error',err);
+                    if (err) {
+                        winston.log('error', err);
                         winston.log('error', 'usermanagement service offline');
                     } else {
-                        if(response.err){
-                            winston.log('error',response.err);
+                        if (response.err) {
+                            winston.log('error', response.err);
                         } else {
-                            winston.log('info','succesfully set authentication for user %s and service %s',res.req.query.state,self.config.service);
+                            winston.log('info', 'succesfully set authentication for user %s and service %s', res.req.query.state, self.config.service);
                         }
                     }
                 });
@@ -79,28 +79,28 @@ function _setAuthUrl(self) {
     if (self.config.service === 'DROPBOX' || self.config.service === 'BITBUCKET') {
         fullUrl += '&response_type=code';
     }
-    if(self.config.service === 'GITHUB'){
+    if (self.config.service === 'GITHUB') {
         fullUrl += '&scope=repo,user';
     }
     return fullUrl;
 }
 
 OAuth2.prototype.getAuthorizationURL = function (userName) {
-    var url = this.authUrl + '&state=' + userName;
-    return url;
+    return this.authUrl + '&state=' + userName;
+
 };
 
 OAuth2.prototype.getRedirectURI = function () {
     return this.config.redirect_uri;
-}
+};
 
 OAuth2.prototype.getRedirectRoute = function () {
     return this.config.redirect_route;
-}
+};
 
 OAuth2.prototype.getServiceName = function () {
     return this.config.service;
-}
+};
 
 /**
  *
@@ -124,13 +124,13 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
     if (this.config.service === 'DROPBOX') {
         options.qs.grant_type = 'authorization_code';
     }
-    if(this.config.service === 'BITBUCKET'){
+    if (this.config.service === 'BITBUCKET') {
         options.form = {
-            'grant_type' : 'authorization_code',
-            'client_id' : this.config.client_id,
-            'redirect_uri' : this.config.redirect_uri,
-            'client_secret' : this.config.client_secret,
-            'code' : code
+            'grant_type': 'authorization_code',
+            'client_id': this.config.client_id,
+            'redirect_uri': this.config.redirect_uri,
+            'client_secret': this.config.client_secret,
+            'code': code
         }
     }
     request(options, function (err, response, body) {
@@ -144,12 +144,12 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         winston.log('info', 'succesfully got request token: %s for user %s', body.access_token, user);
-        if(body.refresh_token){
-            winston.log('info','also got refresh_token: %s for user %s',body.refresh_token, user);
+        if (body.refresh_token) {
+            winston.log('info', 'also got refresh_token: %s for user %s', body.refresh_token, user);
         }
-        return callback(null, body.access_token,body.refresh_token);
+        return callback(null, body.access_token, body.refresh_token);
     });
-}
+};
 
 
 module.exports = OAuth2;
