@@ -49,7 +49,7 @@ function _registerHttpCallback(self, expressApp) {
             } else {
                 //TODO send message to usermanagement service that a new accesstoken got generated
                 winston.log('info', token);
-                self.client.setAuthentication({
+                client.setAuthentication({
                     service: self.config.service,
                     username: res.req.query.state,
                     token: token
@@ -58,9 +58,9 @@ function _registerHttpCallback(self, expressApp) {
                         winston.log('error',err);
                     } else {
                         if(response.err){
-                            winston.log('error',response.err);
+                            winston.log('error',err);
                         } else {
-                            winston.log('info',response.status);
+                            winston.log('info')
                         }
                     }
                 });
@@ -74,7 +74,7 @@ function _setAuthUrl(self) {
     var clientId = '?client_id=' + self.config.client_id;
     var redirect_uri = '&redirect_uri=' + self.config.redirect_uri;
     var fullUrl = baseUrl + clientId + redirect_uri;
-    if (self.config.service === 'DROPBOX') {
+    if (self.config.service === 'DROPBOX' || self.config.service === 'BITBUCKET') {
         fullUrl += '&response_type=code';
     }
     return fullUrl;
@@ -113,6 +113,15 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
     if (this.config.service === 'DROPBOX') {
         options.qs.grant_type = 'authorization_code';
     }
+    if(this.config.service === 'BITBUCKET'){
+        options.form = {
+            'grant_type' : 'authorization_code',
+            'client_id' : this.config.client_id,
+            'redirect_uri' : this.config.redirect_uri,
+            'client_secret' : this.config.client_secret,
+            'code' : code
+        }
+    }
     request(options, function (err, response, body) {
         if (err) {
             winston.log('error', 'application error: ', err);
@@ -120,6 +129,7 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error', 'http error: ', err);
+            console.log(body);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         winston.log('info', 'succesfully got request token: %s for user %s', body.access_token, user);

@@ -12,6 +12,7 @@ service AuthService {
 enum ServiceType {
     GITHUB = 0;
     DROPBOX = 1;
+    BITBUCKET = 2;
 }
 
 message AuthUrlRequest {

@@ -24,13 +24,36 @@ describe('Auth Service', function () {
         init();
     });
     describe('getAuthUrl', function () {
-        it('builds the auth url for users to authenticate', function (done) {
+        it('builds the auth url for github to authenticate', function (done) {
             client.getAuthorizationUrl({
                 service: 'GITHUB',
                 username: 'philipp'
             }, function (err, response) {
                 expect(err).to.be.a('null');
                 expect(response.url).not.to.be.a('null');
+                console.log(response.url);
+                done();
+            });
+        });
+        it('builds the auth url for dropbox to authenticate', function (done) {
+            client.getAuthorizationUrl({
+                service: 'DROPBOX',
+                username: 'philipp'
+            }, function (err, response) {
+                expect(err).to.be.a('null');
+                expect(response.url).not.to.be.a('null');
+                console.log(response.url);
+                done();
+            });
+        });
+        it('builds the auth url for bitbucket to authenticate', function (done) {
+            client.getAuthorizationUrl({
+                service: 'BITBUCKET',
+                username: 'philipp'
+            }, function (err, response) {
+                expect(err).to.be.a('null');
+                expect(response.url).not.to.be.a('null');
+                console.log(response.url);
                 done();
             });
         });
