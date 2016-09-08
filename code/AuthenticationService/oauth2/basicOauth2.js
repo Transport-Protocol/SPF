@@ -143,11 +143,51 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
             console.log(body);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got request token: %s for user %s', body.access_token, user);
+        winston.log('info', 'succesfully got access_token: %s for user %s', body.access_token, user);
         if (body.refresh_token) {
             winston.log('info', 'also got refresh_token: %s for user %s', body.refresh_token, user);
         }
         return callback(null, body.access_token, body.refresh_token);
+    });
+};
+
+/**
+ *
+ * @param refresh_token
+ * @param callback err,access_token,refresh_token(optional)
+ */
+OAuth2.prototype.refreshAccessToken = function (refresh_token, callback) {
+    var options = {
+        method: 'POST',
+        uri: this.config.access_token_url,
+        encoding: null,
+        qs: {
+            client_id: this.config.client_id,
+            client_secret: this.config.client_secret,
+            refresh_token: refresh_token
+        },
+        json: true
+    };
+    if (this.config.service === 'BITBUCKET') {
+        options.form = {
+            'grant_type': 'refresh_token',
+            'client_id': this.config.client_id,
+            'client_secret': this.config.client_secret,
+            'refresh_token': refresh_token
+        }
+    }
+    request(options, function (err, response, body) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback(err);
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            console.log(body);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+        }
+        winston.log('info', 'succesfully refreshed access token to %s',body.access_token);
+        return callback(null, body.access_token);
     });
 };
 

@@ -19,7 +19,7 @@ function init(serverIp, serverPort, oauth2Services) {
     _server = new grpc.Server();
     _server.addProtoService(authServiceProto.AuthService.service, {
         getAuthorizationUrl: getAuthorizationUrl,
-        getAccessToken: getAccessToken
+        refreshAccessToken: refreshAccessToken
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -60,10 +60,18 @@ function getAuthorizationUrl(call, callback) {
 
 
 /**
- * Implements the GetFileTree RPC method.
+ * Implements the refreshAccessToken RPC method.
  */
-function getAccessToken(call, callback) {
+function refreshAccessToken(call, callback) {
     winston.log('info', 'getAccessToken rpc method request: ' + JSON.stringify(call.request));
+    var service = _getOAuth2ServiceByName(call.request.service);
+    service.refreshAccessToken(call.request.refresh_token,function(err,access_token){
+       if(err){
+           return callback(null,{err: err});
+       } else {
+           return callback(null,{access_token: access_token});
+       }
+    });
 }
 
 

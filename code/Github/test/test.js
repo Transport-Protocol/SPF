@@ -41,7 +41,7 @@ describe('Github', function () {
         it('lists the repository content specified by path', function (done) {
             client.getRepositoryContent({
                 auth: auth,
-                path: 'tests',
+                path: '/',
                 repositoryName: 'libgdx'
             }, function (err, response) {
                 expect(err).to.be.a('null');

@@ -41,7 +41,7 @@ function getRepositories(call, callback) {
     } else {
         var auth = call.request.auth;
         console.log(auth);
-        connector.getRepositories(auth, function (err, repos) {
+        connector.getRepositories(auth.token, function (err, repos) {
             if (err) {
                 winston.log('error', 'error performing getRepositories: ', err);
                 return callback(null, {err: err.message});
@@ -89,14 +89,7 @@ function addUserToRepository(call, callback) {
         _error('addUserToRepository', 'missing parameter', callback);
     } else {
         var auth = call.request.auth;
-        var token;
-        if (auth.type === 'BASIC') {
-            token = _basicAuthEncryption(call.request.auth.token)
-        } else {
-            token = auth.token;
-        }
-        console.log(token);
-        connector.addUserToRepo(token, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
+        connector.addUserToRepo(auth.token, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
             if (err) {
                 winston.log('error', 'error performing addUserToRepository: ', err);
                 return callback(null, {err: err.message});
@@ -105,19 +98,6 @@ function addUserToRepository(call, callback) {
             return callback(null, {status: status});
         });
     }
-}
-
-/**
- * Converts a base64 encoded basic auth token to username and password
- * @param token
- * @returns {{username: *, password: *}}
- * @private
- */
-function _basicAuthEncryption(token) {
-    var withoutBasic = token.substr(6);
-    var readableString = new Buffer(withoutBasic, 'base64').toString();
-    var userPasswordArray = readableString.split(':');
-    return {username: userPasswordArray[0], password: userPasswordArray[1]};
 }
 
 

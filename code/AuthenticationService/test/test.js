@@ -57,5 +57,16 @@ describe('Auth Service', function () {
                 done();
             });
         });
+        it('refreshes the access_token', function (done) {
+            client.refreshAccessToken({
+                service: 'BITBUCKET',
+                refresh_token: 'yXeDFa6rF3634QrJNK'
+            }, function (err, response) {
+                expect(err).to.be.a('null');
+                expect(response.access_token).not.to.be.a('null');
+                console.log(response.access_token);
+                done();
+            });
+        });
     });
 });
