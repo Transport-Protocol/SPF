@@ -132,6 +132,39 @@ function _getUsername(auth, callback) {
     });
 }
 
+function downloadRepository(auth,repo,callback){
+    _getUsername(auth,function(err,username){
+        if(err){
+            return callback(err);
+        } else {
+            var url = 'https://bitbucket.org/' + username + '/' + repo + '/get/master.tar.gz';
+            console.log(url);
+            var options = {
+                method: 'GET',
+                uri: url,
+                auth: {
+                    'bearer': auth
+                },
+                headers: {
+                    'User-Agent': 'Seco Api'
+                },
+            };
+            request(options, function (err, response, body) {
+                if (err) {
+                    winston.log('error', 'application error: ', err);
+                    return callback(err);
+                }
+                if (response.statusCode >= 400 && response.statusCode <= 499) {
+                    winston.log('error', 'http error: ', err);
+                    return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+                }
+                winston.log('info', 'succesfully got repo archive from bitbucket');
+                return callback(null, body);
+            });
+        }
+    });
+}
+
 
 function _parseRepoListBody(body) {
     var parsed = JSON.parse(body);
@@ -159,5 +192,6 @@ function _parseRepoContent(body) {
 module.exports = {
     getRepositories: getRepositories,
     addUserToRepo: addUserToRepo,
-    getRepoFiles: getRepoContent
+    getRepoFiles: getRepoContent,
+    downloadRepository: downloadRepository
 };
