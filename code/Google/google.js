@@ -16,47 +16,42 @@ var request = require('request'),
  * @param path
  * @param callback
  */
-function getFileTree(oauth2Token, path, callback) {
-    var body = {
-        "path": path,
-        "recursive": false,
-        "include_media_info": false,
-        "include_deleted": false,
-        "include_has_explicit_shared_members": false
-    };
-    var url = 'https://api.dropboxapi.com/2/files/list_folder';
-    var options = {
-        method: 'POST',
-        uri: url,
-        auth: {
-            bearer: _formatOauth2Token(oauth2Token)
-        },
-        json: {
-            "path": path,
-            "recursive": false,
-            "include_media_info": false,
-            "include_deleted": false,
-            "include_has_explicit_shared_members": false
-        }
-    };
-    request(options, function (err, response, body) {
-        if (err) {
-            winston.log('error', 'application error: ', err);
-            return callback(err);
-        }
-        if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error', 'http error: ', err);
-            console.log(response.body);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage + ' ' + body));
-        }
-        var dirs = body.entries;
-        if (dirs.length === 0) {
-            winston.log('error', 'empty dir');
-            return callback(new Error('empty dir'));
-        }
-        winston.log('info', 'succesfully got filetree from dropbox');
-        return callback(null, JSON.stringify(_dropboxDirFormatToSimpleJSON(_sortArrayAlphabetically(dirs))));
-    });
+function getFileTree(access_token, path, callback) {
+    //split up path
+    var splitted = path.split('/');
+    var parent = 'root'; //root folder it is just root
+    if (path === '' || path === '/') { //if root folder selected,directly get content
+        _getFolderContent(access_token, parent, function (err, content) {
+            if (err) {
+                return callback(err);
+            } else {
+                return callback(null, content);
+            }
+        });
+    } else { //if subfolder selected,recursively iterate over folder to get the folderid
+        var step = function (i) {
+            _getFolderId(access_token, parent, splitted[i], function (err, id) {
+                if (err) {
+                    return callback(err);
+                } else {
+                    parent = id;
+                    if (i === splitted.length - 1) { //real folder found,get contents
+                        console.log('now get folder content');
+                        _getFolderContent(access_token, id, function (err, content) {
+                            if (err) {
+                                return callback(err);
+                            } else {
+                                return callback(null, content);
+                            }
+                        });
+                    } else {
+                        step(i + 1);
+                    }
+                }
+            });
+        };
+        step(0);
+    }
 };
 
 
@@ -97,6 +92,7 @@ function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
  * @param callback
  */
 function getFile(oauth2Token, filePath, callback) {
+    var splitted = filePath.split('/');
     var fileUrl = 'https://content.dropboxapi.com/1/files/auto/' + filePath;
     var pathSplit = filePath.split('/');
     //Get fileName from path for return value
@@ -121,18 +117,77 @@ function getFile(oauth2Token, filePath, callback) {
         winston.log('info', 'succesfully got file from dropbox');
         return callback(null, fileName, body);
     });
-};
+}
 
 
-function _googleDirFormatToSimpleJSON(dirs) {
+function _getFolderId(access_token, parentId, folderName, callback) {
+    var url = 'https://www.googleapis.com/drive/v2/files?q=mimeType=\'application/vnd.google-apps.folder\'andtitle=\'' + folderName + '\'and\'' + parentId + '\'+in+parents';
+    console.log(url);
+    var options = {
+        method: 'GET',
+        uri: url,
+        auth: {
+            bearer: access_token
+        },
+    };
+    request(options, function (err, response, body) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback(err);
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+        }
+        var items = JSON.parse(body).items;
+        if (items.length === 0) {
+            return callback(new Error('not found'));
+        }
+        var id = items[0].id;
+        winston.log('info', 'succesfully got folderid from google for folder: %s', folderName);
+        return callback(null, id);
+    });
+}
+
+function _getFolderContent(access_token, folderId, callback) {
+    var url = 'https://www.googleapis.com/drive/v2/files/?q=trashed=falseand\'' + folderId + '\'+in+parents';
+    console.log(url);
+    var options = {
+        method: 'GET',
+        uri: url,
+        auth: {
+            bearer: access_token
+        },
+    };
+    request(options, function (err, response, body) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback(err);
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+        }
+        winston.log('info', 'succesfully got filetree from google');
+        return callback(null, _googleDirFormatToSimpleJSON(body));
+    });
+}
+
+
+function _googleDirFormatToSimpleJSON(body) {
+    var parsed = JSON.parse(body);
     var simpleJSONFormatArray = [];
-    for (var i = 0; i < dirs.length; i++) {
-        var simpleFormat = {
-            tag: dirs[i]['.tag'],
-            name: dirs[i]['name']
+    for (var i = 0; i < parsed.items.length; i++) {
+        var simpleFormat = {};
+        simpleFormat.name = parsed.items[i].title;
+        if (parsed.items[i].mimeType === 'application/vnd.google-apps.folder') {
+            simpleFormat.type = 'dir';
+        } else {
+            simpleFormat.type = 'file';
         }
         simpleJSONFormatArray.push(simpleFormat);
     }
+    console.log(simpleJSONFormatArray.length);
     return simpleJSONFormatArray;
 }
 
@@ -152,5 +207,6 @@ function _sortArrayAlphabetically(array) {
 module.exports = {
     getFileTree: getFileTree,
     getFile: getFile,
-    uploadFile: uploadFile
+    uploadFile: uploadFile,
+    getFolderId: _getFolderId
 };

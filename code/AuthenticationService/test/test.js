@@ -59,8 +59,8 @@ describe('Auth Service', function () {
         });
         it('refreshes the access_token', function (done) {
             client.refreshAccessToken({
-                service: 'BITBUCKET',
-                refresh_token: 'yXeDFa6rF3634QrJNK'
+                service: 'GOOGLE',
+                refresh_token: '1/SdJe3HDqP9HDlvi4IDa7VYA03dO-9jfSbTHRRac8lDU'
             }, function (err, response) {
                 expect(err).to.be.a('null');
                 expect(response.access_token).not.to.be.a('null');
