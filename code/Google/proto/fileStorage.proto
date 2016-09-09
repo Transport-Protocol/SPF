@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package fileStorage;
+
+// The rpc FileStorage service definition.
+service FileStorage {
+  // Gets a file
+  rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+
+  rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
+
+  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
+}
+
+//Auth message
+message Authentication {
+    string token = 1; //auth string,for example user:password or Bearer XXXXX
+    AuthenticationType type = 2;
+}
+
+//Auth types enum
+enum AuthenticationType {
+    BASIC = 0;
+    OAUTH2 = 1;
+}
+
+// The request message
+message GetFileRequest {
+  string path = 1;
+  Authentication auth = 2;
+}
+
+// The response message
+message GetFileReply {
+  string fileName = 1;
+  bytes fileBuffer = 2;
+  string err = 3;
+}
+
+// The request message
+message GetFileTreeRequest {
+  string path = 1;
+  Authentication auth = 2;
+}
+
+// The response message
+message GetFileTreeReply {
+  string dirs = 1;
+  string err = 2;
+}
+
+// The request message
+message UploadFileRequest {
+  string path = 1;
+  bytes fileBuffer = 2;
+  string fileName = 3;
+  Authentication auth = 4;
+}
+
+// The response message
+message UploadFileResponse {
+  string status = 1;
+  string err = 2;
+}

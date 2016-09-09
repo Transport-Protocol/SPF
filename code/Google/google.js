@@ -124,7 +124,7 @@ function getFile(oauth2Token, filePath, callback) {
 };
 
 
-function _dropboxDirFormatToSimpleJSON(dirs) {
+function _googleDirFormatToSimpleJSON(dirs) {
     var simpleJSONFormatArray = [];
     for (var i = 0; i < dirs.length; i++) {
         var simpleFormat = {
@@ -148,24 +148,9 @@ function _sortArrayAlphabetically(array) {
     });
 }
 
-function _writeFile(buffer, fileName) {
-    var fs = require('fs');
-    fs.writeFile(fileName, buffer, function (err) {
-        if (err) {
-            return callback(err);
-        }
-        return callback(null, {'status': 'ok'});
-    });
-}
-
-function _formatOauth2Token(token) {
-    var oauth2TokenWithoutSpace = token.replace(/\s+/g, '');
-    return oauth2TokenWithoutSpace.replace('Bearer', ''); //Remove Bearer
-}
-
 
 module.exports = {
     getFileTree: getFileTree,
     getFile: getFile,
     uploadFile: uploadFile
-}
+};

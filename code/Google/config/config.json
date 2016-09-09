@@ -1,0 +1,4 @@
+{
+  "grpcServerPort" : 50049,
+  "grpcServerIp" : "localhost"
+}
