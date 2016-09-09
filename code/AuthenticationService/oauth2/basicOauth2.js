@@ -14,6 +14,7 @@
 var fs = require('fs'),
     winston = require('winston'),
     grpc = require('grpc'),
+    nconf = require('nconf'),
     request = require('request');
 
 
@@ -21,8 +22,8 @@ function OAuth2(expressApp, filePath, callback) {
     this.config = {};
     this.authUrl = {};
     var proto = grpc.load('./proto/authentication.proto').authentication;
-    var url = 'localhost:50054';
-    console.log(url);
+    var url = nconf.get('userManagementServiceIp') + ':' + nconf.get('userManagementServicePort');
+    winston.log('info','usermanagamentservice url : %s',url);
     this.client = new proto.Authentication(url,
         grpc.credentials.createInsecure());
     var self = this;
@@ -43,31 +44,34 @@ function _registerHttpCallback(self, expressApp) {
     expressApp.get(self.getRedirectRoute(), function (req, res) {
         winston.log('info', 'redirect received');
         res.send('ty');
-        self.getAccessToken(res.req.query.state, res.req.query.code, function (err, access_token, refresh_token) {
-            if (err) {
-                winston.log('error', err);
-            } else {
-                //TODO send message to usermanagement service that a new accesstoken got generated
-                winston.log('info', access_token);
-                self.client.setAuthentication({
-                    service: self.config.service,
-                    username: res.req.query.state,
-                    access_token: access_token,
-                    refresh_token: refresh_token
-                }, function (err, response) {
-                    if (err) {
-                        winston.log('error', err);
-                        winston.log('error', 'usermanagement service offline');
-                    } else {
-                        if (response.err) {
-                            winston.log('error', response.err);
+        if(res.req.query.code) {
+            self.getAccessToken(res.req.query.state, res.req.query.code, function (err, access_token, refresh_token) {
+                if (err) {
+                    winston.log('error', err);
+                } else {
+                    winston.log('info', access_token);
+                    self.client.setAuthentication({
+                        service: self.config.service,
+                        username: res.req.query.state,
+                        access_token: access_token,
+                        refresh_token: refresh_token
+                    }, function (err, response) {
+                        if (err) {
+                            winston.log('error', err);
+                            winston.log('error', 'usermanagement service offline');
                         } else {
-                            winston.log('info', 'succesfully set authentication for user %s and service %s', res.req.query.state, self.config.service);
+                            if (response.err) {
+                                winston.log('error', response.err);
+                            } else {
+                                winston.log('info', 'succesfully set authentication for user %s and service %s', res.req.query.state, self.config.service);
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } else {
+            winston.log('error','user didnt allow access');
+        }
     });
 }
 
@@ -78,9 +82,10 @@ function _setAuthUrl(self) {
     var fullUrl = baseUrl + clientId + redirect_uri;
     if (self.config.service === 'DROPBOX' || self.config.service === 'BITBUCKET') {
         fullUrl += '&response_type=code';
-    }
-    if (self.config.service === 'GITHUB') {
+    } else if (self.config.service === 'GITHUB') {
         fullUrl += '&scope=repo,user';
+    }  else if(self.config.service === 'GOOGLE') {
+        fullUrl += '&response_type=code&scope=https://www.googleapis.com/auth/drive&access_type=offline'
     }
     return fullUrl;
 }
@@ -121,7 +126,7 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
         },
         json: true
     };
-    if (this.config.service === 'DROPBOX') {
+    if (this.config.service === 'DROPBOX' || this.config.service === 'GOOGLE') {
         options.qs.grant_type = 'authorization_code';
     }
     if (this.config.service === 'BITBUCKET') {
@@ -164,7 +169,8 @@ OAuth2.prototype.refreshAccessToken = function (refresh_token, callback) {
         qs: {
             client_id: this.config.client_id,
             client_secret: this.config.client_secret,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+            grant_type: 'refresh_token'
         },
         json: true
     };
@@ -186,7 +192,7 @@ OAuth2.prototype.refreshAccessToken = function (refresh_token, callback) {
             console.log(body);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully refreshed access token to %s',body.access_token);
+        winston.log('info', 'succesfully refreshed access token to %s', body.access_token);
         return callback(null, body.access_token);
     });
 };

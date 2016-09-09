@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package authentication;
 
-// The rpc FileStorage service definition.
+//interface between auth service and user service to insert auth credentials to database
 service Authentication {
 
     rpc SetAuthentication (AuthenticationRequest) returns (AuthenticationReply) {
@@ -15,6 +15,7 @@ enum ServiceType {
     GITHUB = 0;
     DROPBOX = 1;
     BITBUCKET = 2;
+    GOOGLE = 3;
 }
 
 message AuthenticationRequest {

@@ -1,0 +1,9 @@
+{
+  "service": "GOOGLE",
+  "auth_url": "https://accounts.google.com/o/oauth2/v2/auth",
+  "access_token_url": "https://www.googleapis.com/oauth2/v4/token",
+  "client_id": "991755779041-2pkhh9e2o4tjpfic4hc4gj83j3msq7bm.apps.googleusercontent.com",
+  "client_secret": "nzXGBQmH94MSk-f3fUwOaCwb",
+  "redirect_uri": "http://localhost:4000/google/oauth/callback",
+  "redirect_route": "/google/oauth/callback"
+}

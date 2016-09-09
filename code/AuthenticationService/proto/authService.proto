@@ -2,9 +2,8 @@ syntax = "proto3";
 
 package authService;
 
-// The rpc VersionControl service definition.
+// interface between auth service and seco api to start authentication process and refresh tokens
 service AuthService {
-  // Gets a file
   rpc GetAuthorizationUrl (AuthUrlRequest) returns (AuthUrlReply) {}
   rpc RefreshAccessToken (RefreshRequest) returns (RefreshReply) {}
 }
@@ -14,6 +13,7 @@ enum ServiceType {
     GITHUB = 0;
     DROPBOX = 1;
     BITBUCKET = 2;
+    GOOGLE = 3;
 }
 
 message AuthUrlRequest {
