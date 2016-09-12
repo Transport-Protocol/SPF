@@ -26,7 +26,6 @@ function main() {
     var access_token = 'ya29.Ci9ZAzLmuWRBTv4RNIwDcahsznBFhCTOpwGsp4YvG7c8HFTXlR3G4LckkO_Db10MfA';
 
 
-
 }
 
 

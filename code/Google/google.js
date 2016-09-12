@@ -17,41 +17,13 @@ var request = require('request'),
  * @param callback
  */
 function getFileTree(access_token, path, callback) {
-    //split up path
-    var splitted = path.split('/');
-    var parent = 'root'; //root folder it is just root
-    if (path === '' || path === '/') { //if root folder selected,directly get content
-        _getFolderContent(access_token, parent, function (err, content) {
-            if (err) {
-                return callback(err);
-            } else {
-                return callback(null, content);
-            }
-        });
-    } else { //if subfolder selected,recursively iterate over folder to get the folderid
-        var step = function (i) {
-            _getFolderId(access_token, parent, splitted[i], function (err, id) {
-                if (err) {
-                    return callback(err);
-                } else {
-                    parent = id;
-                    if (i === splitted.length - 1) { //real folder found,get contents
-                        console.log('now get folder content');
-                        _getFolderContent(access_token, id, function (err, content) {
-                            if (err) {
-                                return callback(err);
-                            } else {
-                                return callback(null, content);
-                            }
-                        });
-                    } else {
-                        step(i + 1);
-                    }
-                }
-            });
-        };
-        step(0);
-    }
+    _getFolderContentByPath(access_token, path, function (err, content) {
+        if (err) {
+            return callback(err);
+        } else {
+            return callback(null, _googleDirFormatToSimpleJSON(content));
+        }
+    });
 };
 
 
@@ -91,32 +63,72 @@ function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
  * @param filePath
  * @param callback
  */
-function getFile(oauth2Token, filePath, callback) {
+function getFile(access_token, filePath, callback) {
     var splitted = filePath.split('/');
-    var fileUrl = 'https://content.dropboxapi.com/1/files/auto/' + filePath;
-    var pathSplit = filePath.split('/');
-    //Get fileName from path for return value
-    var fileName = pathSplit[pathSplit.length - 1];
-    var options = {
-        method: 'GET',
-        uri: fileUrl,
-        encoding: null,
-        auth: {
-            bearer: _formatOauth2Token(oauth2Token)
+    var pathWithoutFilename = "";
+    var fileName = splitted[splitted.length - 1];
+    //cut off filename
+    for (var i = 0; i < splitted.length - 1; i++) {
+        pathWithoutFilename += splitted[i];
+        if (i <= splitted.length - 3) {
+            pathWithoutFilename += '/';
         }
-    };
-    request(options, function (err, response, body) {
+    }
+    _getFolderContentByPath(access_token, pathWithoutFilename, function (err, content) {
         if (err) {
-            winston.log('error', 'application error: ', err);
             return callback(err);
+        } else {
+            var fileId = _getFileIdFromFolderContentByName(content, fileName);
+            var fileUrl = 'https://www.googleapis.com/drive/v3/files/' + fileId;
+            if(fileName.indexOf('.') === -1){
+                fileUrl += '/export';
+            }
+            console.log(fileUrl);
+            var options = {
+                method: 'GET',
+                uri: fileUrl,
+                encoding: null,
+                auth: {
+                    bearer: access_token
+                },
+                qs:{
+                    'alt' : 'media',
+                    'mimeType' : 'application/pdf'
+                }
+            };
+            request(options, function (err, response, body) {
+                if (err) {
+                    winston.log('error', 'application error: ', err);
+                    return callback(err);
+                }
+                if (response.statusCode >= 400 && response.statusCode <= 499) {
+                    winston.log('error', 'http error: ', err);
+                    return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+                }
+                winston.log('info', 'succesfully got file from google');
+                return callback(null, fileName, body);
+            });
         }
-        if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-        }
-        winston.log('info', 'succesfully got file from dropbox');
-        return callback(null, fileName, body);
     });
+}
+
+/**
+ * Parses directory content and retrieves id from specified filename
+ * @param content
+ * @param fileName
+ * @returns {{id}}
+ * @private
+ */
+function _getFileIdFromFolderContentByName(content, fileName) {
+    var parsed = JSON.parse(content);
+    var id = {};
+    for (var i = 0; i < parsed.items.length; i++) {
+        if (parsed.items[i].title === fileName) {
+            id = parsed.items[i].id;
+            break;
+        }
+    }
+    return id;
 }
 
 
@@ -149,7 +161,7 @@ function _getFolderId(access_token, parentId, folderName, callback) {
     });
 }
 
-function _getFolderContent(access_token, folderId, callback) {
+function _getFolderContentById(access_token, folderId, callback) {
     var url = 'https://www.googleapis.com/drive/v2/files/?q=trashed=falseand\'' + folderId + '\'+in+parents';
     console.log(url);
     var options = {
@@ -169,13 +181,51 @@ function _getFolderContent(access_token, folderId, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         winston.log('info', 'succesfully got filetree from google');
-        return callback(null, _googleDirFormatToSimpleJSON(body));
+        return callback(null, body);
     });
 }
 
+function _getFolderContentByPath(access_token, path, callback) {
+    //split up path
+    var splitted = path.split('/');
+    var parent = 'root'; //root folder it is just root
+    if (path === '' || path === '/') { //if root folder selected,directly get content
+        _getFolderContentById(access_token, parent, function (err, content) {
+            if (err) {
+                return callback(err);
+            } else {
+                return callback(null, content);
+            }
+        });
+    } else { //if subfolder selected,recursively iterate over folder to get the folderid
+        var step = function (i) {
+            _getFolderId(access_token, parent, splitted[i], function (err, id) {
+                if (err) {
+                    return callback(err);
+                } else {
+                    parent = id;
+                    if (i === splitted.length - 1) { //real folder found,get contents
+                        console.log('now get folder content');
+                        _getFolderContentById(access_token, id, function (err, content) {
+                            if (err) {
+                                return callback(err);
+                            } else {
+                                return callback(null, content);
+                            }
+                        });
+                    } else {
+                        step(i + 1);
+                    }
+                }
+            });
+        };
+        step(0);
+    }
+}
 
-function _googleDirFormatToSimpleJSON(body) {
-    var parsed = JSON.parse(body);
+
+function _googleDirFormatToSimpleJSON(content) {
+    var parsed = JSON.parse(content);
     var simpleJSONFormatArray = [];
     for (var i = 0; i < parsed.items.length; i++) {
         var simpleFormat = {};

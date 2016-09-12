@@ -8,14 +8,14 @@ var expect = require('chai').expect,
 var access_token = {};
 
 function init(){
-    access_token = 'ya29.Ci9ZA1ak1_U5YKDos-PngVd0_DHfcvOEW1CFQXhg27ANiDbD0AI9plWV5pPv5UYcoQ';
+    access_token = 'ya29.CjBcA0h4dnTFrHY6pkBV9H_bInXT1Tlgm0zfvKk4KaDM0HaMrmPcWIHa7ng1y8N_2FM';
 }
 
 
 describe('Google', function () {
     before (function(){
         init();
-    });
+    })/*
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
             google.getFileTree(access_token, '', function (err, dirs) {
@@ -25,17 +25,19 @@ describe('Google', function () {
                 done();
             });
         });
-    });/*
+    });*/
     describe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
-            google.getFile('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', 'BA/Gliederung.pdf', function (err, fileName, buffer) {
+            google.getFile(access_token, 'test1/unterordner1/Unbenanntes Dokument', function (err, fileName, buffer) {
+                console.log(err);
+                console.log(buffer);
                 expect(err).to.be.a('null');
-                assert.equal(fileName, 'Gliederung.pdf');
+                assert.equal(fileName, 'awsCommands.txt');
                 expect(buffer).to.be.not.a('null');
                 done();
             });
         });
-    });
+    });/*
     describe('Upload file to path', function () {
         it('uploads file to path and returns status', function (done) {
             var fs = require('fs');
