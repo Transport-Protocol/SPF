@@ -32,6 +32,11 @@ B.~A. Nardi, S.~Whittaker, and E.~Bradner, ``Interaction and outeraction:
   conference on Computer supported cooperative work}.\hskip 1em plus 0.5em
   minus 0.4em\relax ACM, 2000, pp. 79--88.
 
+\bibitem{collins2004version}
+B.~Collins-Sussman, B.~Fitzpatrick, and M.~Pilato, \emph{Version control with
+  subversion}.\hskip 1em plus 0.5em minus 0.4em\relax " O'Reilly Media, Inc.",
+  2004.
+
 \bibitem{scale2009cloud}
 M.-S.~E. Scale, ``Cloud computing and collaboration,'' \emph{Library Hi Tech
   News}, vol.~26, no.~9, pp. 10--13, 2009.

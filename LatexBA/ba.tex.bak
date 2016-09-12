@@ -1,4 +1,4 @@
-\documentclass[draft=false
+	\documentclass[draft=false
               ,paper=a4
               ,twoside=false
               ,fontsize=11pt
@@ -19,7 +19,7 @@
 \usepackage{setspace}
 \usepackage{makeidx}
 \usepackage{listings}
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage[ngerman,colorlinks=true]{hyperref}
 \usepackage{soul}
 \usepackage{hawstyle}
@@ -121,7 +121,7 @@ Um die Zusammenarbeit zu erleichtern, sind verschiedene Web-Dienste für die Opti
 \\
 Doch diese Vielfalt an Diensten stellt auch eine Herausforderung für die einzelnen Gruppenmitglieder dar. Üblich ist, dass jeder dieser Dienste unabhängig für sich alleine angeboten wird, aber nicht unabhängig in der Nutzung zu sehen ist. So hat der Anwender eine noch wenig diskutierte aber wichtige Herausforderung in der Komposition dieser Dienste zu erfüllen. Beispielhaft muss jeder Nutzer für sich organisieren, ob und wann er pro Dienst eine Applikation startet oder eine Webseite besucht. Dies ist eine nicht zu unterschätzende Aufgabe,  die nicht nur mit der Zeit für die  Synchronisation der Dienste zu beschreiben ist. Automatisierte Mechanismen zur Unterstützung sind  bisher noch nicht etabliert. Diese Arbeit soll einen ersten Beitrag für zukünftige Lösungen anbieten mit der Umsetzung einer unterstützenden Middleware. \\
 \\
-Zusammengefasst wird im Rahmen dieser Bachelorarbeit  eine erste Middleware für die Dienstkomposition zum kooperativem Arbeiten für Studenten entwickelt, diegeeignete Dienste für kooperatives Arbeiten in der Lehre zusammenfasst. Hierfür werden insbesondere externe Web-Dienste auf ihre Fähigkeit für die Dienstkomposition innerhalb eines Framworks untersucht. Die Betrachtung der Schnittstellen, also die Application-Programming-Interfaces (API), spielen eine besondere Rolle und bedürfen daher einer besonderen Betrachtung. Auch weitere technische, dienstabhängige Kriterien der Dienstkomposition sind zu identifizieren und als Kriterienkatalog für die zu erstellende Middleware innerhalb dieser Arbeit bereitzustellen. \\
+Zusammengefasst wird im Rahmen dieser Bachelorarbeit  eine erste Middleware für die Dienstkomposition zum kooperativem Arbeiten für Studenten entwickelt, die geeignete Dienste für kooperatives Arbeiten in der Lehre zusammenfasst. Hierfür werden insbesondere externe Web-Dienste auf ihre Fähigkeit für die Dienstkomposition innerhalb eines Framworks untersucht. Die Betrachtung der Schnittstellen, also die Application-Programming-Interfaces (API), spielen eine besondere Rolle und bedürfen daher einer besonderen Betrachtung. Auch weitere technische, dienstabhängige Kriterien der Dienstkomposition sind zu identifizieren und als Kriterienkatalog für die zu erstellende Middleware innerhalb dieser Arbeit bereitzustellen. \\
 \\
 Eine weitere Designanforderung in der Entwicklung ist der Aufbau einer möglichst generischen Lösung. Primär bedeutet dies Gemeinsamkeiten der Dienste zu identifizieren und architektonisch zu abstrahieren. Hier spielt auch der Einsatz moderner Webtechnologien in einem systemadaptiven Anwendungsszenario eine besondere Rolle, um eine ressourcensparende und skalierende Lösung zu entwickeln.\\
 Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung bieten, die auch im Rahmen dieser Arbeit erstellt werden wird. 
@@ -153,52 +153,55 @@ Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung b
 \chapter{Einleitung}
 
 \section{Motivation}
-Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet. Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, planloses Vorgehen, keine Arbeitseinteilung, sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe.
+Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet. Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, planloses Vorgehen und keine Arbeitseinteilung sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe, und insbesondere bei Studenten.
 \\\\
 Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das kooperative Arbeiten entwickelt.
-Diese können in unterschiedliche Kategorien eingeteilt werden.
-Die mit am weitesten verbreiteten Arten von Web-Diensten sind die \textit{Cloud-Storage} \cite[5]{wang2008scientific} Dienste. Dabei werden Dateien Online gespeichert und über das Internet zugänglich gemacht. Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
-Eine weitere wichtige Kategorie an Web-Diensten für kooperatives Arbeiten bilden die \textit{Instant-Messaging} \cite[80]{nardi2000interaction} Dienste. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen. Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat. Angelehnt an die bereits angesprochenen \textit{Cloud-Storage} Dienste existieren auch die \textit{Document Collaboration} \cite[12]{scale2009cloud} Dienste. Diese ermöglichen eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.\\\\
-Alle diese Dienste können auch mobil und dadurch flexibel genutzt werden. Der Grund dafür ist die große Verbreitung von Smartphones und damit im Zusammenhang stehend das Angebot mobiler Versionen der einzelnen Dienste. Die Infrastruktur für kooperatives Arbeiten ist somit vorhanden.
+Einige, für diese Ausarbeitung wichtige Web-Dienste, können in folgende Kategorien eingeteilt werden:
+\begin{itemize}
+\item Die Cloud-Storage-Dienste \cite[5]{wang2008scientific} bieten elementare Funktionen für die Zusammenarbeit von Gruppen. Dateien können online gespeichert und über das Internet bereit gestellt werden. Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
+\item Eine weitere Kategorie an Web-Diensten für kooperatives Arbeiten bilden die Instant-Messaging-Dienste \cite[80]{nardi2000interaction}. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen.
+\item Vor allem in der Informatik spielen die Web-Dienste für Versionsverwaltung eine elementare Rolle \cite{collins2004version}. Sie ermöglichen die Koordinierung von mehreren Entwicklern an einer Datei und die Protokollierung von Änderungen, wodurch nachverfolgt werden kann, welches Gruppenmitglied etwas geändert hat.
+\item Angelehnt an die bereits angesprochenen Cloud-Storage-Dienste existieren auch die Document Collaboration-Dienste \cite[12]{scale2009cloud}. Diese erlauben eine gleichzeitige und gemeinsame Bearbeitung von Dokumenten.
+\end{itemize}
 
 
 \section{Problemstellung}
-Die kooperative Zusammenarbeit in der Gruppe bedarf einer Vielzahl an Diensten. Dabei steht der Anwender vor mehreren Problemen. 
-Er muss für jeden Dienst eine Webseite besuchen oder Applikation starten um dessen Funktionen zu nutzen. Er muss Daten zwischen Diensten eigenständig synchronisieren. Auch bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten.\\
-\\
+Die kooperative Zusammenarbeit in der Gruppe bedarf also einer Vielzahl an Diensten. Dabei steht der Anwender vor mehreren Problemen.
+ 
+Der Nutzer verliert an Ordnung und Übersicht, weil er für jeden Dienst eine Webseite besuchen oder die Applikation auf seiner Zielplattform starten muss um dessen Funktionen zu nutzen. Außerdem bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten, weshalb der Anwender die Daten zwischen den Diensten eigenständig synchronisieren muss.
+\\\\
 Es stellt sich die Frage, wie diese Probleme gelöst werden können.
 Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden verschiedene Funktionen von mehreren Diensten miteinander verbunden. Im Zuge dessen können Verknüpfungen zwischen den  Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind. \\
-Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem \textit{Cloud-Storage} Dienst könnten an einen \textit{Document Collaboration} Dienst weitergeleitet werden, wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
+Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem Cloud-Storage-Dienst könnten an einen Document Collaboration-Dienst weitergeleitet werden, wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
 
 \section{Zielsetzung}
 Ziel der vorliegenden Ausarbeitung ist die Erstellung einer Dienstkomposition für Web-Dienste in der Lehre. Dabei soll der Anwendungsbereich der Dienste die Zusammenarbeit und Organisation innerhalb einer Gruppe enthalten.\\
-Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Arbeit eine Umfrage erstellt, bei der Studenten der HAW Hamburg im Fachbereich Informatik befragt werden. Des weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Ausarbeitung. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\\\
+Um die relevanten Web-Dienste zu identifizieren, wird im Rahmen dieser Arbeit eine Umfrage erstellt, bei der die Studenten der HAW Hamburg im Fachbereich Informatik befragt werden. Des Weiteren werden Anforderungen an die Dienstkomposition aus den Umfrageergebnissen abgeleitet. Ein Kriterienkatalog für Zusammensetzbarkeit von Web-Diensten ist ebenfalls Teil dieser Ausarbeitung. Dadurch wird festgestellt, ob sich ein Dienst für die Komposition eignet oder nicht.\\\\
 Für die Dienstkomposition wird zunächst eine \textit{Middleware} konzipiert und implementiert. Die \textit{Middleware} hat die Aufgabe einzelne Funktionen der Web-Dienste bereitzustellen. Die benötigten Daten werden durch verschiedene Web-Schnittstellen von den Web-Diensten zur Verfügung gestellt.
-Eine besondere Designvorgabe an die \textit{Middleware} ist die wiederverwendbare und plattformunabhängige Lösung. Im Zuge dessen können zukünftige Arbeiten über Dienstkomposition auf die \textit{Middleware} zurückgreifen und Ihre Arbeit darauf aufbauen. \\
+Eine besondere Designvorgabe an die \textit{Middleware} ist eine wiederverwendbare und plattformunabhängige Lösung. Im Zuge dessen können zukünftige Arbeiten mit dem Thema Dienstkomposition auf die \textit{Middleware} zurückgreifen und ihre Arbeit darauf aufbauen.\\
 \\
-Abschließend wird die \textit{Middleware} beispielhaft implementiert. Dazu wird eine Webseite erstellt, auf der die Dienste mithilfe der \textit{Middleware} nutzbar sind.
-
+Abschließend wird mithilfe der implementierten \textit{Middleware} eine Webseite entwickelt. Auf dieser sollen die Funktionen der Dienste, die Teil der \textit{Middleware} sind, bereitgestellt werden.
 
 
 \chapter{Grundlagen}
 
-In diesem Kapitel beschreibe ich wichtige Begrifflichkeiten im Zusammenhang mit dieser Ausarbeitung. Dabei sollen Abgrenzungen zu bestehenden Definitionen getroffen und die Bedeutung der Begriffe beschrieben werden.
+In diesem Kapitel werden wichtige Begrifflichkeiten im Zusammenhang mit dieser Ausarbeitung beschrieben. Dabei sollen Abgrenzungen zu bestehenden Definitionen getroffen und die Bedeutung der Begriffe beschrieben werden.
 
 \section{Dienst}
 
-Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt.\\
-Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel System-Dienste, Web-Dienste oder auch Netzwerk-Dienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen.\\
-Nun können allgemeine Aussagen getroffen werden, die jeder Dienst erfüllen muss um als solcher erkannt zu werden
+Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt.\cite[3]{bianco2007evaluating}\\
+Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel Systemdienste, Web-Dienste oder auch Netzwerkdienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen.\\
+Ein Dienst kann in verschiedenen Bereichen spezifiziert werden. Wie zum Beispiel Sicherheit,Zuverlässigkeit oder \textit{Performance}.\cite[89]{jones2005toward}
+Im Rahmen dieser Ausarbeitung ist die komplette Spezifikation für einen Dienst nicht notwendig. Aus diesem Grund habe ich folgende Eigenschaften für einen Dienst aufgestellt:
 \begin{itemize}
-\item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird muss der Name oder \textit{Identifier} eindeutig sein.
-\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Innerhalb der Schnittstelle müssen Eingabe, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen für die jeweiligen Funktionen beschrieben werden.
+\item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird, muss der Name oder \textit{Identifier} eindeutig sein.
+\item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Innerhalb der Schnittstelle müssen die Eingabe-, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen für die jeweiligen Funktionen beschrieben werden.
 \item Jeder Dienst besitzt einen Anwendungsbereich oder \textit{Scope}. Dieser kann von der Applikation über das System bis hin zum Internet reichen.
 \end{itemize}
-Die Eigenschaften eines Dienstes sind sehr allgemein gehalten und werden in Folge dessen für verschiedene Situationen genutzt. Er bietet ein Gerüst an Anforderungen die von den spezifischeren Begriffen übernommen und erweitert werden.
 
 \section{Web-Dienst}
 
-Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Web-Dienste oder auch \textit{Webservices} werden auf unterschiedlichste Weisen definiert. Beispiele von Eigenschaften eines Web-Dienstes sind folgende:
+Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Web-Dienste oder auch \textit{Webservices} werden auf unterschiedliche Weisen definiert:
 \begin{itemize}
 \item "It exposes its features programmatically over the Internet
 using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
@@ -206,7 +209,7 @@ using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
 based on open Internet standards (e.g., XML interfaces
 which are published in a network-based repositories)"\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind  \ac{SOAP} und \ac{REST}.\cite{pautasso2008restful} Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen.Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst breiter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
+Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst uneingeschränkter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
 \item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
@@ -215,9 +218,9 @@ Die angesprochenen Standards für die Entwicklung der Web-Dienste sind  \ac{SOAP}
 
 \section{Dienstkomposition}
 
-Nachdem Dienste und Web-Dienste definiert sind muss diskutiert werden wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt. Wenn der Zusammenschluss von mehreren Diensten einen neuen komplexen Dienst erschafft, ist eine Dienstkomposition entstanden. Wichtig ist hierbei, dass die Dienste der Dienstkomposition miteinander agieren oder auf Aktionen einzelner Dienste reagieren.\\
+Nachdem Dienste und Web-Dienste definiert sind, muss diskutiert werden, wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt. Wenn der Zusammenschluss von mehreren Diensten einen neuen komplexen Dienst erschafft, ist eine Dienstkomposition entstanden. Wichtig ist hierbei, dass die Dienste der Dienstkomposition miteinander agieren oder auf Aktionen einzelner Dienste reagieren.\\
 Eine Dienstkomposition kann nun aus zwei Perspektiven betrachtet werden. Die erste Perspektive ist die des Anwenders. Der Anwender nutzt eine Menge an Diensten in einer Anwendung um ein Problem zu lösen. Die zweite Perspektive ist die des Entwicklers. Der Entwickler hat mithilfe einer Komposition von Diensten eine Anwendung entwickelt. Dabei muss die resultierende Anwendung aus Sicht des Anwenders keine Dienstkomposition darstellen. \\
-Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Choreographie entwickelt werden.\cite{haas2004ws-gloss} Bei der Orchestrierung wird ein zentraler Koordinator(\textit{Orchestrator} eingesetzt, der die einzelnen Dienste steuert und die Kommunikation reguliert. Bei der Choreographie kommunizieren die Dienste untereinander und beschreiben ihre Interaktionen eigenständig.
+Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Choreographie entwickelt werden \cite{haas2004ws-gloss}. Bei der Orchestrierung wird ein zentraler Koordinator (\textit{Orchestrator}) eingesetzt, der die einzelnen Dienste steuert und die Kommunikation reguliert. Bei der Choreographie kommunizieren die Dienste untereinander und beschreiben ihre Interaktionen eigenständig.
 \\\\
 
 
@@ -234,7 +237,7 @@ Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Chor
 
 \section{Technologie}
 
-\subsection{Möglichkeiten}
+\subsection{Übersicht}
 
 \subsection{Auswahl}
 
@@ -242,7 +245,7 @@ Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Chor
 
 \section{Architektur}
 
-\chapter{Implementation - lessons learned}
+\chapter{Implementation}
 
 \section{Besondere Herausforderungen}
 
@@ -274,12 +277,14 @@ Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Chor
  \acro{SOAP}{Simple Object Access Protocol}
  \acro{REST}{Representational State Transfer}
  \acro{HTTP}{Hypertext Transfer Protocol}
+ \acro{AMQP}{Advanced Message Queuing Protocol}
+ \acro{GRPC}{Google Remote Procedure Call}
 \end{acronym}
 
 \typeout{===== Section: literature}
 %% read the documentation for customizing the style
-\bibliographystyle{dinat}
-\bibliography{ba}
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,bibtex}
 
 \typeout{===== Section: nomenclature}
 %% uncomment if a TOC entry is needed

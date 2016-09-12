@@ -26,35 +26,6 @@ function getFileTree(access_token, path, callback) {
     });
 };
 
-
-function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
-    console.log(oauth2Token);
-    var url = 'https://content.dropboxapi.com/1/files_put/auto/' + path + '/' + fileName;
-    var options = {
-        method: 'PUT',
-        uri: url,
-        auth: {
-            bearer: _formatOauth2Token(oauth2Token)
-        },
-        multipart: [{
-            body: fileBuffer
-        }]
-    };
-
-    request(options, function (err, response) {
-        if (err) {
-            winston.log('error', 'application error: ', err);
-            return callback(err);
-        }
-        if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-        }
-        winston.log('info', 'succesfully uploaded file to dropbox');
-        return callback(null, 'upload succesful');
-    });
-};
-
 /**
  * Gets a file from dropbox
  * encoding = null has to be set for binary data,otherwise file gets corrupted by utf encoding
@@ -80,7 +51,7 @@ function getFile(access_token, filePath, callback) {
         } else {
             var fileId = _getFileIdFromFolderContentByName(content, fileName);
             var fileUrl = 'https://www.googleapis.com/drive/v3/files/' + fileId;
-            if(fileName.indexOf('.') === -1){
+            if (fileName.indexOf('.') === -1) {
                 fileUrl += '/export';
             }
             console.log(fileUrl);
@@ -91,9 +62,9 @@ function getFile(access_token, filePath, callback) {
                 auth: {
                     bearer: access_token
                 },
-                qs:{
-                    'alt' : 'media',
-                    'mimeType' : 'application/pdf'
+                qs: {
+                    'alt': 'media',
+                    'mimeType': 'application/pdf'
                 }
             };
             request(options, function (err, response, body) {
@@ -111,6 +82,78 @@ function getFile(access_token, filePath, callback) {
         }
     });
 }
+
+function uploadFile(access_token, path, fileBuffer, fileName, callback) {
+    _getFolderIdByPath(access_token, path, function (err, id) {
+        if (err) {
+            return callback(err);
+        } else {
+            _uploadMetadata(access_token, id, fileName, function (err, id) {
+                if (err) {
+                    return callback(err);
+                } else {
+                    var url = 'https://www.googleapis.com/upload/drive/v2/files/' + id + '?uploadType=media';
+                    console.log(url);
+                    var options = {
+                        method: 'PUT',
+                        uri: url,
+                        preambleCRLF: true,
+                        postambleCRLF: true,
+                        auth: {
+                            bearer: access_token
+                        },
+                        multipart: [{
+                            body: fileBuffer
+                        }]
+                    };
+                    request(options, function (err, response) {
+                        if (err) {
+                            winston.log('error', 'application error: ', err);
+                            return callback(err);
+                        }
+                        if (response.statusCode >= 400 && response.statusCode <= 499) {
+                            winston.log('error', 'http error: ', err);
+                            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+                        }
+                        winston.log('info', 'succesfully uploaded file to google');
+                        return callback(null, 'upload succesful');
+                    });
+                }
+            });
+        }
+    });
+};
+
+function _uploadMetadata(access_token, parentid, fileName, callback) {
+    var url = 'https://www.googleapis.com/drive/v3/files';
+    var options = {
+        method: 'POST',
+        uri: url,
+        auth: {
+            bearer: access_token
+        },
+        json: true,
+        body: {
+            name: fileName,
+            parents: [
+                parentid
+                ]
+        }
+    };
+    request(options, function (err, response) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback(err);
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+        }
+        winston.log('info', 'succesfully uploaded metadata to google');
+        return callback(null, response.body.id);
+    });
+}
+
 
 /**
  * Parses directory content and retrieves id from specified filename
@@ -213,6 +256,45 @@ function _getFolderContentByPath(access_token, path, callback) {
                                 return callback(null, content);
                             }
                         });
+                    } else {
+                        step(i + 1);
+                    }
+                }
+            });
+        };
+        step(0);
+    }
+}
+
+/**
+ * Find id to folder specified by path
+ * @param access_token
+ * @param path
+ * @param callback
+ * @private
+ */
+function _getFolderIdByPath(access_token, path, callback) {
+    //split up path
+    var splitted = path.split('/');
+    var parent = 'root'; //root folder it is just root
+    if (path === '' || path === '/') { //if root folder selected,directly get content
+        _getFolderContentById(access_token, parent, function (err, content) {
+            if (err) {
+                return callback(err);
+            } else {
+                return callback(null, content);
+            }
+        });
+    } else { //if subfolder selected,recursively iterate over folder to get the folderid
+        var step = function (i) {
+            _getFolderId(access_token, parent, splitted[i], function (err, id) {
+                if (err) {
+                    return callback(err);
+                } else {
+                    parent = id;
+                    if (i === splitted.length - 1) { //real folder found,get contents
+                        winston.log('info', 'folder id by path found')
+                        return callback(null, id);
                     } else {
                         step(i + 1);
                     }

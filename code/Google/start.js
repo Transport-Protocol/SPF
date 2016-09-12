@@ -23,9 +23,16 @@ function main() {
     server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     server.start();
 
-    var access_token = 'ya29.Ci9ZAzLmuWRBTv4RNIwDcahsznBFhCTOpwGsp4YvG7c8HFTXlR3G4LckkO_Db10MfA';
-
-
+    var access_token = 'ya29.CjBcA_1gRLtSIGg-RTkYiIf2q7C7wxbm_HM3RO6HbwowVkQ1dTWl6bios9zIDQBe8PE';
+    fs.readFile("./test.pdf", function (err, data) {
+        google.uploadFile(access_token, 'test1', data, 'test5.pdf', function (err, msg) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(msg);
+            }
+        });
+    });
 }
 
 

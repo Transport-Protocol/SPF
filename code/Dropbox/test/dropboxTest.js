@@ -7,6 +7,7 @@ var expect = require('chai').expect,
 describe('Dropbox', function () {
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
+            this.timeout(10000);
             dropbox.getFileTree('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', '', function (err, dirs) {
                 expect(err).to.be.a('null');
                 expect(dirs).to.be.not.a('null');
@@ -17,6 +18,7 @@ describe('Dropbox', function () {
     });
     describe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
+            this.timeout(10000);
             dropbox.getFile('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', 'BA/Gliederung.pdf', function (err, fileName, buffer) {
                 expect(err).to.be.a('null');
                 assert.equal(fileName, 'Gliederung.pdf');
@@ -27,6 +29,7 @@ describe('Dropbox', function () {
     });
     describe('Upload file to path', function () {
         it('uploads file to path and returns status', function (done) {
+            this.timeout(10000);
             var fs = require('fs');
             fs.readFile("./test/test.pdf", function (err, data) {
                 expect(err).to.be.a('null');

@@ -2,6 +2,7 @@
 
 var expect = require('chai').expect,
     assert = require('chai').assert,
+    fs = require('fs'),
     google = require("../google");
 
 
@@ -18,6 +19,7 @@ describe('Google', function () {
     })/*
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
+            this.timeout(10000);
             google.getFileTree(access_token, '', function (err, dirs) {
                 expect(err).to.be.a('null');
                 expect(dirs).to.be.not.a('null');
@@ -25,10 +27,11 @@ describe('Google', function () {
                 done();
             });
         });
-    });*/
+    });
     describe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
-            google.getFile(access_token, 'test1/unterordner1/Unbenanntes Dokument', function (err, fileName, buffer) {
+            this.timeout(10000);
+            google.getFile(access_token, 'test1/unterordner1/awsCommands.txt', function (err, fileName, buffer) {
                 console.log(err);
                 console.log(buffer);
                 expect(err).to.be.a('null');
@@ -37,18 +40,18 @@ describe('Google', function () {
                 done();
             });
         });
-    });/*
+    });*/
     describe('Upload file to path', function () {
         it('uploads file to path and returns status', function (done) {
-            var fs = require('fs');
-            fs.readFile("./test/test.pdf", function (err, data) {
+            this.timeout(10000);
+            fs.readFile("./test.pdf", function (err, data) {
                 expect(err).to.be.a('null');
-                google.uploadFile('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', 'BA-Philipp', data, 'test5.pdf', function (err, msg) {
+                google.uploadFile(access_token, 'test1', data, 'test5.pdf', function (err, msg) {
                     expect(err).to.be.a('null');
                     assert.equal(msg, 'upload succesful');
                     done();
                 });
             });
         });
-    });*/
+    });
 });
