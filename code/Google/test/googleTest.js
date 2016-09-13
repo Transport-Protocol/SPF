@@ -9,21 +9,20 @@ var expect = require('chai').expect,
 var access_token = {};
 
 function init(){
-    access_token = 'ya29.CjBcA0h4dnTFrHY6pkBV9H_bInXT1Tlgm0zfvKk4KaDM0HaMrmPcWIHa7ng1y8N_2FM';
+    access_token = 'ya29.CjBdA7Jt-PymM9SMY5OpHZci6NlLfPI2a5a4KR76iYewAHp5-JfuNg33K5LU8eKSQBg';
 }
 
 
 describe('Google', function () {
     before (function(){
         init();
-    })/*
+    })
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
             this.timeout(10000);
             google.getFileTree(access_token, '', function (err, dirs) {
                 expect(err).to.be.a('null');
                 expect(dirs).to.be.not.a('null');
-                console.log(dirs);
                 done();
             });
         });
@@ -32,15 +31,13 @@ describe('Google', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
             this.timeout(10000);
             google.getFile(access_token, 'test1/unterordner1/awsCommands.txt', function (err, fileName, buffer) {
-                console.log(err);
-                console.log(buffer);
                 expect(err).to.be.a('null');
                 assert.equal(fileName, 'awsCommands.txt');
                 expect(buffer).to.be.not.a('null');
                 done();
             });
         });
-    });*/
+    });
     describe('Upload file to path', function () {
         it('uploads file to path and returns status', function (done) {
             this.timeout(10000);

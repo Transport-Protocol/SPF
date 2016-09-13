@@ -44,7 +44,7 @@
       ]
     },
     {
-      "http-method": "post",
+      "http-method": "put",
       "route": "/owncloud/upload",
       "query_parameter": [
         "path"

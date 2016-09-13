@@ -58,7 +58,7 @@ function getFileTree(call, callback) {
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getFileTree rpc method',dirs);
-        return callback(null, {dirs: dirs});
+        return callback(null, {dirs: JSON.stringify(dirs)});
     });
 }
 

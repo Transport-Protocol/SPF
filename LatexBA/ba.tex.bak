@@ -218,10 +218,7 @@ Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} 
 
 \section{Dienstkomposition}
 
-Nachdem Dienste und Web-Dienste definiert sind, muss diskutiert werden, wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt. Wenn der Zusammenschluss von mehreren Diensten einen neuen komplexen Dienst erschafft, ist eine Dienstkomposition entstanden. Wichtig ist hierbei, dass die Dienste der Dienstkomposition miteinander agieren oder auf Aktionen einzelner Dienste reagieren.\\
-Eine Dienstkomposition kann nun aus zwei Perspektiven betrachtet werden. Die erste Perspektive ist die des Anwenders. Der Anwender nutzt eine Menge an Diensten in einer Anwendung um ein Problem zu lösen. Die zweite Perspektive ist die des Entwicklers. Der Entwickler hat mithilfe einer Komposition von Diensten eine Anwendung entwickelt. Dabei muss die resultierende Anwendung aus Sicht des Anwenders keine Dienstkomposition darstellen. \\
-Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Choreographie entwickelt werden \cite{haas2004ws-gloss}. Bei der Orchestrierung wird ein zentraler Koordinator (\textit{Orchestrator}) eingesetzt, der die einzelnen Dienste steuert und die Kommunikation reguliert. Bei der Choreographie kommunizieren die Dienste untereinander und beschreiben ihre Interaktionen eigenständig.
-\\\\
+Nachdem Dienste und Web-Dienste beschrieben sind, muss noch die Dienstkomposition definiert werden. Eine Dienstkomposition beschreibt den Zusammenschluss mehrerer Dienste zu einer neuen Anwendung oder auch einem neuem Geschäftsprozess. Dabei kann die entstandene Komposition wieder als neuer Service verstanden werden \cite[4]{reichert2004komposition}. Eine Dienstkomposition kann sowohl Proaktiv als auch Reaktiv aufgebaut sein. Proaktiv heißt, dass die zugehörigen Dienste der Komposition vor der Laufzeit bekannt sind. Wohingegen eine reaktive Komposition die Dienste dynamisch zusammenstellt \cite[5]{reichert2004komposition}. 
 
 
 

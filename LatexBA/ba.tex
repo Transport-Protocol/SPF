@@ -189,10 +189,10 @@ In diesem Kapitel werden wichtige Begrifflichkeiten im Zusammenhang mit dieser A
 
 \section{Dienst}
 
-Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt.(QUELLE)\\
+Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt.\cite[3]{bianco2007evaluating}\\
 Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel Systemdienste, Web-Dienste oder auch Netzwerkdienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen.\\
-Beschreiben das bei einem Dienst verschiedenste Spezifikationen definiert werden könnten.Security,performance .... \cite[89]{jones2005toward}
-Nun können allgemeine Aussagen getroffen werden, die jeder Dienst erfüllen muss um als solcher erkannt zu werden:
+Ein Dienst kann in verschiedenen Bereichen spezifiziert werden. Wie zum Beispiel Sicherheit,Zuverlässigkeit oder \textit{Performance}.\cite[89]{jones2005toward}
+Im Rahmen dieser Ausarbeitung ist die komplette Spezifikation für einen Dienst nicht notwendig. Aus diesem Grund habe ich folgende Eigenschaften für einen Dienst aufgestellt:
 \begin{itemize}
 \item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird, muss der Name oder \textit{Identifier} eindeutig sein.
 \item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Innerhalb der Schnittstelle müssen die Eingabe-, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen für die jeweiligen Funktionen beschrieben werden.
@@ -209,7 +209,7 @@ using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
 based on open Internet standards (e.g., XML interfaces
 which are published in a network-based repositories)"\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} oder \ac{GRPC}. Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst breiter definiert. Für die Identifikation eines Web-Dienstes werden folgende notwendige Eigenschaften aufgestellt:
+Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst uneingeschränkter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
 \item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
@@ -218,10 +218,7 @@ Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} 
 
 \section{Dienstkomposition}
 
-Nachdem Dienste und Web-Dienste definiert sind, muss diskutiert werden, wann eine Zusammenführung von Diensten eine Dienstkomposition darstellt. Wenn der Zusammenschluss von mehreren Diensten einen neuen komplexen Dienst erschafft, ist eine Dienstkomposition entstanden. Wichtig ist hierbei, dass die Dienste der Dienstkomposition miteinander agieren oder auf Aktionen einzelner Dienste reagieren.\\
-Eine Dienstkomposition kann nun aus zwei Perspektiven betrachtet werden. Die erste Perspektive ist die des Anwenders. Der Anwender nutzt eine Menge an Diensten in einer Anwendung um ein Problem zu lösen. Die zweite Perspektive ist die des Entwicklers. Der Entwickler hat mithilfe einer Komposition von Diensten eine Anwendung entwickelt. Dabei muss die resultierende Anwendung aus Sicht des Anwenders keine Dienstkomposition darstellen. \\
-Die Dienstkomposition kann entweder mit einer Orchestrierung oder mit einer Choreographie entwickelt werden \cite{haas2004ws-gloss}. Bei der Orchestrierung wird ein zentraler Koordinator (\textit{Orchestrator}) eingesetzt, der die einzelnen Dienste steuert und die Kommunikation reguliert. Bei der Choreographie kommunizieren die Dienste untereinander und beschreiben ihre Interaktionen eigenständig.
-\\\\
+Nachdem Dienste und Web-Dienste beschrieben sind, muss noch die Dienstkomposition definiert werden. Eine Dienstkomposition beschreibt den Zusammenschluss mehrerer Dienste zu einer neuen Anwendung oder auch einem neuem Geschäftsprozess. Dabei kann die entstandene Komposition wieder als neuer Service verstanden werden \cite[4]{reichert2004komposition}. Eine Dienstkomposition kann sowohl Proaktiv als auch Reaktiv aufgebaut sein. Proaktiv heißt, dass die zugehörigen Dienste der Komposition vor der Laufzeit bekannt sind. Wohingegen eine reaktive Komposition die Dienste dynamisch zusammengestellt \cite[5]{reichert2004komposition}. 
 
 
 

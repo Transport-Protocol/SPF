@@ -13,23 +13,16 @@ nconf.argv()
     .env()
     .file({file: './config/config.json'});
 
-//my modules
-var dropbox = require('./routes/dropbox'),
-    CustomRoute = require('./routes/customRoute'),
-    github = require('./routes/github'),
-    googleDrive = require('./routes/googleDrive'),
-    bitbucket = require('./routes/bitbucket'),
-    slack = require('./routes/slack');
+
+var CustomRoute = require('./routes/customRoute');
+
 
 function registerRoutes() {
     app.use('/api', router);
-    app.use('/api', new CustomRoute('./json/dropboxRoutes.json','fileStorage.proto').route());
-    app.use('/api', new CustomRoute('./json/owncloudRoutes.json','fileStorage.proto').route());
-    app.use('/api', new CustomRoute('./json/githubRoutes.json','versionControl.proto').route());
-    app.use('/api/googledrive', googleDrive);
-    app.use('/api/github', github);
-    app.use('/api/bitbucket', bitbucket);
-    app.use('/api/slack', slack);
+    app.use('/api', new CustomRoute('./json/dropboxRoutes.json', 'fileStorage.proto').route());
+    app.use('/api', new CustomRoute('./json/owncloudRoutes.json', 'fileStorage.proto').route());
+    app.use('/api', new CustomRoute('./json/githubRoutes.json', 'versionControl.proto').route());
+    app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route());
 }
 
 //global vars
