@@ -16,6 +16,7 @@ enum ServiceType {
     DROPBOX = 1;
     BITBUCKET = 2;
     GOOGLE = 3;
+    SLACK = 4;
 }
 
 message AuthenticationRequest {
