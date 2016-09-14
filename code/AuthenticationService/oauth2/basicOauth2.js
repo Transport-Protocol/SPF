@@ -86,11 +86,16 @@ function _setAuthUrl(self) {
         fullUrl += '&scope=repo,user';
     }  else if(self.config.service === 'GOOGLE') {
         fullUrl += '&response_type=code&scope=https://www.googleapis.com/auth/drive&access_type=offline'
+    } else if(self.config.service === 'SLACK') {
+        fullUrl += '&scope=client'
     }
     return fullUrl;
 }
 
-OAuth2.prototype.getAuthorizationURL = function (userName) {
+OAuth2.prototype.getAuthorizationURL = function (userName,options) {
+    if(options){
+        this.authUrl += options;
+    }
     return this.authUrl + '&state=' + userName;
 
 };
