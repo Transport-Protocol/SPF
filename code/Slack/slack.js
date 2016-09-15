@@ -12,42 +12,8 @@ var request = require('request'),
 
 
 //Key : userid, Value : username
-var userIdUsernameCache = new Hashmap();
+var idNameCache = new Hashmap();
 
-
-/**
- * Returns a list of channels corresponding to account specified by access_token
- * @param path
- * @param callback
- */
-function getChannelList(access_token, callback) {
-    var url = 'https://slack.com/api/channels.list'
-    var options = {
-        method: 'GET',
-        uri: url,
-        qs: {
-            token: access_token
-        },
-        json: true,
-    };
-    request(options, function (err, response, body) {
-        if (err) {
-            winston.log('error', 'application error: ', err);
-            return callback(err);
-        }
-        if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-        }
-        if (body.err) {
-            winston.log('error', 'slack error: ', body.err);
-            return callback(body.err);
-        }
-        winston.log('info', 'succesfully got channel list');
-        var parsed = _parseChannelList(body);
-        return callback(null, parsed);
-    });
-};
 
 /**
  * Returns a list of channels corresponding to account specified by access_token
@@ -55,14 +21,14 @@ function getChannelList(access_token, callback) {
  * @param callback
  */
 function getChannelList(access_token, callback) {
-    var url = 'https://slack.com/api/channels.list'
+    var url = 'https://slack.com/api/channels.list';
     var options = {
         method: 'GET',
         uri: url,
         qs: {
             token: access_token
         },
-        json: true,
+        json: true
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -73,15 +39,15 @@ function getChannelList(access_token, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        if (body.err) {
-            winston.log('error', 'slack error: ', body.err);
-            return callback(body.err);
+        if (body.error) {
+            winston.log('error', 'slack error: ', body.error);
+            return callback(body.error);
         }
         winston.log('info', 'succesfully got channel list');
         var parsed = _parseChannelList(body);
         return callback(null, parsed);
     });
-};
+}
 
 /**
  * Returns a list of messages from channel
@@ -90,7 +56,7 @@ function getChannelList(access_token, callback) {
  * @param callback
  */
 function getChannelMessages(access_token, channelId, callback) {
-    var url = 'https://slack.com/api/channels.history'
+    var url = 'https://slack.com/api/channels.history';
     var options = {
         method: 'GET',
         uri: url,
@@ -98,7 +64,7 @@ function getChannelMessages(access_token, channelId, callback) {
             token: access_token,
             channel: channelId
         },
-        json: true,
+        json: true
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -109,9 +75,9 @@ function getChannelMessages(access_token, channelId, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        if (body.err) {
-            winston.log('error', 'slack error: ', body.err);
-            return callback(body.err);
+        if (body.error) {
+            winston.log('error', 'slack error: ', body.error);
+            return callback(body.error);
         }
         winston.log('info', 'succesfully got channel messages');
         _parseChannelMessages(access_token, body, function (err, messages) {
@@ -122,18 +88,28 @@ function getChannelMessages(access_token, channelId, callback) {
             }
         });
     });
-};
+}
 
-function _getUsernameById(access_token, userId, callback) {
-    var url = 'https://slack.com/api/users.info'
+/**
+ * Sends a message to specified channel
+ * @param access_token
+ * @param channelId
+ * @param message
+ * @param as_user if true,send message as user,if false,as bot
+ * @param callback
+ */
+function sendMessage(access_token, channelId, message,as_user, callback) {
+    var url = 'https://slack.com/api/chat.postMessage';
     var options = {
-        method: 'GET',
+        method: 'POST',
         uri: url,
         qs: {
             token: access_token,
-            user: userId
+            channel: channelId,
+            text: message,
+            as_user: as_user
         },
-        json: true,
+        json: true
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -144,12 +120,60 @@ function _getUsernameById(access_token, userId, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        if (body.err) {
-            winston.log('error', 'slack error: ', body.err);
-            return callback(body.err);
+        if (body.error) {
+            winston.log('error', 'slack error: ', body.error);
+            return callback(body.error);
         }
-        winston.log('info', 'succesfully got username from id');
-        return callback(null, body.user.name);
+        winston.log('info', 'succesfully send  message');
+        return callback(null, 'ok');
+    });
+}
+
+/**
+ * Gets name corresponding to id. works for user and bots.
+ * @param access_token
+ * @param id
+ * @param isBot
+ * @param callback
+ * @private
+ */
+function _getNameById(access_token, id, isBot, callback) {
+    var url = {};
+    if (!isBot) {
+        url = 'https://slack.com/api/users.info';
+    } else {
+        url = 'https://slack.com/api/bots.info';
+    }
+    var options = {
+        method: 'GET',
+        uri: url,
+        qs: {
+            token: access_token,
+            user: id,
+            bot: id
+        },
+        json: true
+    };
+    request(options, function (err, response, body) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback(err);
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+        }
+        if (body.error) {
+            console.log(id);
+            winston.log('error', 'slack error: ', body.error);
+            return callback(body.error);
+        }
+        winston.log('info', 'succesfully got name from id');
+        if (!isBot) {
+            return callback(null, body.user.name);
+        } else {
+            return callback(null, body.bot.name);
+        }
     });
 }
 
@@ -168,40 +192,46 @@ function _parseChannelList(body) {
 
 function _parseChannelMessages(access_token, body, callback) {
     var result = [];
-    var username = {};
+    var name = {};
 
-    //recursive function
+    //recursive function to retrieve all usernames from ids.Also fills cache
     var step = function (i) {
         if (i === body.messages.length) {
             return callback(null, {
                 'messages': result
             });
         } else {
-            var userid = body.messages[i].user;
-            if (userIdUsernameCache.has(userid)) {
-                username = userIdUsernameCache.get(userid);
+            var id = body.messages[i].user;
+            var bot = false;
+            if (!id) {
+                //message comes from bot
+                id = body.messages[i].bot_id;
+                bot = true;
+            }
+            if (idNameCache.has(id)) {
+                name = idNameCache.get(id);
                 result[i] = {
                     message: body.messages[i].text,
-                    username: username
-                }
+                    name: name
+                };
                 step(i + 1);
             } else {
-                _getUsernameById(access_token, userid, function (err, user) {
+                _getNameById(access_token, id,bot, function (err, name) {
                     if (err) {
                         winston.log('error', 'couldnt get username from id - ', err);
                         step(i + 1);
                     } else {
-                        userIdUsernameCache.set(userid,user);
+                        idNameCache.set(id, name);
                         result[i] = {
                             message: body.messages[i].text,
-                            username: user
-                        }
+                            name: name
+                        };
                         step(i + 1);
                     }
                 });
             }
         }
-    }
+    };
 
     if (body.messages.length > 0) {
         step(0);
@@ -213,5 +243,6 @@ function _parseChannelMessages(access_token, body, callback) {
 
 module.exports = {
     getChannelList: getChannelList,
-    getChannelMessages: getChannelMessages
+    getChannelMessages: getChannelMessages,
+    sendMessage: sendMessage
 };
