@@ -18,7 +18,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
             var num = parseInt(args[0]);
             var jsonMsg = {
                 num: num,text: 'yolo'
-            }
+            };
             console.log(' [x] Requesting fib(%d)', num);
 
             ch.consume(q.queue, function(msg) {

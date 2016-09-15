@@ -12,18 +12,11 @@ var request = require('request'),
 
 /**
  * Returns a directory specified by path
- * no sub-directories regarded
+ * @param oauth2Token
  * @param path
  * @param callback
  */
 function getFileTree(oauth2Token, path, callback) {
-    var body = {
-        "path": path,
-        "recursive": false,
-        "include_media_info": false,
-        "include_deleted": false,
-        "include_has_explicit_shared_members": false
-    };
     var url = 'https://api.dropboxapi.com/2/files/list_folder';
     var options = {
         method: 'POST',
@@ -54,10 +47,10 @@ function getFileTree(oauth2Token, path, callback) {
             winston.log('error', 'empty dir');
             return callback(new Error('empty dir'));
         }
-        winston.log('info', 'succesfully got filetree from dropbox');
+        winston.log('info', 'successfully got filetree from dropbox');
         return callback(null, JSON.stringify(_dropboxDirFormatToSimpleJSON(_sortArrayAlphabetically(dirs))));
     });
-};
+}
 
 
 function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
@@ -83,10 +76,10 @@ function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully uploaded file to dropbox');
-        return callback(null, 'upload succesful');
+        winston.log('info', 'successfully uploaded file to dropbox');
+        return callback(null, 'upload successful');
     });
-};
+}
 
 /**
  * Gets a file from dropbox
@@ -118,10 +111,10 @@ function getFile(oauth2Token, filePath, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got file from dropbox');
+        winston.log('info', 'successfully got file from dropbox');
         return callback(null, fileName, body);
     });
-};
+}
 
 
 function _dropboxDirFormatToSimpleJSON(dirs) {
@@ -130,7 +123,7 @@ function _dropboxDirFormatToSimpleJSON(dirs) {
         var simpleFormat = {
             tag: dirs[i]['.tag'],
             name: dirs[i]['name']
-        }
+        };
         simpleJSONFormatArray.push(simpleFormat);
     }
     return simpleJSONFormatArray;
@@ -148,16 +141,6 @@ function _sortArrayAlphabetically(array) {
     });
 }
 
-function _writeFile(buffer, fileName) {
-    var fs = require('fs');
-    fs.writeFile(fileName, buffer, function (err) {
-        if (err) {
-            return callback(err);
-        }
-        return callback(null, {'status': 'ok'});
-    });
-}
-
 function _formatOauth2Token(token) {
     var oauth2TokenWithoutSpace = token.replace(/\s+/g, '');
     return oauth2TokenWithoutSpace.replace('Bearer', ''); //Remove Bearer
@@ -168,4 +151,4 @@ module.exports = {
     getFileTree: getFileTree,
     getFile: getFile,
     uploadFile: uploadFile
-}
+};

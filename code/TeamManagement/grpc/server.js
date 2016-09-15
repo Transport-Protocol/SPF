@@ -46,12 +46,12 @@ function create(call, callback) {
     } else if (call.request.password.length < nconf.get('passwordMinLength')) {
         _error('register', 'password has to be at least ' + nconf.get('passwordMinLength'), callback);
     } else {
-        db.createTeam(call.request.teamCreator, call.request.teamName, call.request.password, function (err, createdUser) {
+        db.createTeam(call.request.teamCreator, call.request.teamName, call.request.password, function (err, createdTeam) {
             if (err) {
                 winston.log('error', 'error performing rpc method createTeam: ', err);
                 return callback(null, {err: err.message});
             } else {
-                winston.log('info', 'succesfully performed createTeam rpc method');
+                winston.log('info', 'succesfully performed createTeam rpc method: ',createdTeam);
                 return callback(null, {status: 'created'});
             }
         });

@@ -40,7 +40,7 @@ CustomRoute.prototype.route = function (){
     var self = this;
     var requestArray = this.config['requests'];
     var requestMap = new HashMap();
-    //Map routes to array index, neccessary for secondary for loop to get the right config
+    //Map routes to array index, necessary for secondary for loop to get the right config
     for(var j in requestArray){
         requestMap.set(requestArray[j]['route'],j);
     }
@@ -65,7 +65,7 @@ CustomRoute.prototype.route = function (){
                         return res.json(response.err);
                     }
                     var result = _createHttpJsonResult(requestArray[requestID]['response_parameter'],response);
-                    winston.log('info', 'RPC Method %s succesful.', requestArray[requestID]['grpc_function']);
+                    winston.log('info', 'RPC Method %s successful.', requestArray[requestID]['grpc_function']);
                     return res.json(result);
                 }
             });

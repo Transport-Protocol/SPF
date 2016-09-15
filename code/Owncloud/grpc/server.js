@@ -82,7 +82,7 @@ function uploadFile(call, callback) {
 
 function _basicAuthEncryption(token){
     var withoutBasic = token.substr(6);
-    var readableString = new Buffer(withoutBasic, 'base64').toString()
+    var readableString = new Buffer(withoutBasic, 'base64').toString();
     var userPasswordArray = readableString.split(':');
     return {username:userPasswordArray[0],password:userPasswordArray[1]};
 }

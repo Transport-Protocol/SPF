@@ -4,7 +4,7 @@
 'use strict';
 
 var expect = require('chai').expect,
-    assert = require('chai').assert,
+    //assert = require('chai').assert,
     grpc = require('grpc');
 
 

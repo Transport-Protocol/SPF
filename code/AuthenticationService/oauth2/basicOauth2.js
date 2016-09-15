@@ -23,7 +23,7 @@ function OAuth2(expressApp, filePath, callback) {
     this.authUrl = {};
     var proto = grpc.load('./proto/authentication.proto').authentication;
     var url = nconf.get('userManagementServiceIp') + ':' + nconf.get('userManagementServicePort');
-    winston.log('info','usermanagamentservice url : %s',url);
+    winston.log('info','usermanagementservice url : %s',url);
     this.client = new proto.Authentication(url,
         grpc.credentials.createInsecure());
     var self = this;
@@ -63,7 +63,7 @@ function _registerHttpCallback(self, expressApp) {
                             if (response.err) {
                                 winston.log('error', response.err);
                             } else {
-                                winston.log('info', 'succesfully set authentication for user %s and service %s', res.req.query.state, self.config.service);
+                                winston.log('info', 'successfully set authentication for user %s and service %s', res.req.query.state, self.config.service);
                             }
                         }
                     });
@@ -153,7 +153,7 @@ OAuth2.prototype.getAccessToken = function (user, code, callback) {
             console.log(body);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got access_token: %s for user %s', body.access_token, user);
+        winston.log('info', 'successfully got access_token: %s for user %s', body.access_token, user);
         if (body.refresh_token) {
             winston.log('info', 'also got refresh_token: %s for user %s', body.refresh_token, user);
         }
@@ -197,7 +197,7 @@ OAuth2.prototype.refreshAccessToken = function (refresh_token, callback) {
             console.log(body);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully refreshed access token to %s', body.access_token);
+        winston.log('info', 'successfully refreshed access token to %s', body.access_token);
         return callback(null, body.access_token);
     });
 };

@@ -21,7 +21,7 @@ RabbitMq.prototype.getFile = function(queueName,path,auth,callback){
     var sendData = {
         path : path,
         auth : auth
-    }
+    };
     console.log(' [x] Requesting getFile');
     rabbitmqTimeout = setTimeout(function() {
         channel.connection.close();
@@ -39,7 +39,7 @@ RabbitMq.prototype.getFile = function(queueName,path,auth,callback){
         console.log(' [.] Got %s', res);
         return callback(null,res);
     });
-}
+};
 
 function init(){
     var serverUrl = this.serverIp+':'+this.serverPort;

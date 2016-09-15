@@ -16,7 +16,7 @@ function init(){
 describe('Google', function () {
     before (function(){
         init();
-    })
+    });
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
             this.timeout(10000);

@@ -13,6 +13,7 @@ var request = require('request'),
 /**
  * Returns a directory specified by path
  * no sub-directories regarded
+ * @param access_token
  * @param path
  * @param callback
  */
@@ -24,13 +25,11 @@ function getFileTree(access_token, path, callback) {
             return callback(null, _googleDirFormatToSimpleJSON(content));
         }
     });
-};
+}
 
 /**
- * Gets a file from dropbox
- * encoding = null has to be set for binary data,otherwise file gets corrupted by utf encoding
- * @param username
- * @param password
+ * Gets a file from google
+ * @param access_token
  * @param filePath
  * @param callback
  */
@@ -76,7 +75,7 @@ function getFile(access_token, filePath, callback) {
                     winston.log('error', 'http error: ', err);
                     return callback(new Error(response.statusCode + ': ' + response.statusMessage));
                 }
-                winston.log('info', 'succesfully got file from google');
+                winston.log('info', 'successfully got file from google');
                 return callback(null, fileName, body);
             });
         }
@@ -115,14 +114,14 @@ function uploadFile(access_token, path, fileBuffer, fileName, callback) {
                             winston.log('error', 'http error: ', err);
                             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
                         }
-                        winston.log('info', 'succesfully uploaded file to google');
-                        return callback(null, 'upload succesful');
+                        winston.log('info', 'successfully uploaded file to google');
+                        return callback(null, 'upload successful');
                     });
                 }
             });
         }
     });
-};
+}
 
 function _uploadMetadata(access_token, parentid, fileName, callback) {
     var url = 'https://www.googleapis.com/drive/v3/files';
@@ -149,7 +148,7 @@ function _uploadMetadata(access_token, parentid, fileName, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully uploaded metadata to google');
+        winston.log('info', 'successfully uploaded metadata to google');
         return callback(null, response.body.id);
     });
 }
@@ -183,7 +182,7 @@ function _getFolderId(access_token, parentId, folderName, callback) {
         uri: url,
         auth: {
             bearer: access_token
-        },
+        }
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -199,7 +198,7 @@ function _getFolderId(access_token, parentId, folderName, callback) {
             return callback(new Error('not found'));
         }
         var id = items[0].id;
-        winston.log('info', 'succesfully got folderid from google for folder: %s', folderName);
+        winston.log('info', 'successfully got folderid from google for folder: %s', folderName);
         return callback(null, id);
     });
 }
@@ -212,7 +211,7 @@ function _getFolderContentById(access_token, folderId, callback) {
         uri: url,
         auth: {
             bearer: access_token
-        },
+        }
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -223,7 +222,7 @@ function _getFolderContentById(access_token, folderId, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got filetree from google');
+        winston.log('info', 'successfully got filetree from google');
         return callback(null, body);
     });
 }
@@ -293,7 +292,7 @@ function _getFolderIdByPath(access_token, path, callback) {
                 } else {
                     parent = id;
                     if (i === splitted.length - 1) { //real folder found,get contents
-                        winston.log('info', 'folder id by path found')
+                        winston.log('info', 'folder id by path found');
                         return callback(null, id);
                     } else {
                         step(i + 1);
@@ -321,18 +320,6 @@ function _googleDirFormatToSimpleJSON(content) {
     }
     console.log(simpleJSONFormatArray.length);
     return simpleJSONFormatArray;
-}
-
-
-function _sortArrayAlphabetically(array) {
-    return array.sort(function (a, b) {
-        var nameA = a['name'].toLowerCase(), nameB = b['name'].toLowerCase();
-        if (nameA < nameB) //sort string ascending
-            return -1;
-        if (nameA > nameB)
-            return 1;
-        return 0; //default return value (no sorting)
-    });
 }
 
 

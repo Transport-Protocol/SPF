@@ -24,15 +24,17 @@ function connect(dbPoolsize, dbPath) {
     connection.once('open', function callback() {
         //enable keep alive so a long session cant be interrupted
         options.server.socketOptions = options.replset.socketOptions = {keepAlive: 1};
-        logger.log('info', "connect to db: ", connection.name, " succesful!");
+        logger.log('info', "connect to db: ", connection.name, " successful!");
     });
 }
 
+
 /**
- * Creates a team in mongodb
- * @param name
+ * Creates a team
+ * @param teamCreator
+ * @param teamName
  * @param password
- * @param callback err,user
+ * @param callback
  */
 function createTeam(teamCreator, teamName, password, callback) {
     // create a user a new user
@@ -50,7 +52,7 @@ function createTeam(teamCreator, teamName, password, callback) {
             logger.log('error', 'creating new Team', err);
             return callback(err);
         }
-        logger.log('info', 'succesfully created Team with name: ' + teamName);
+        logger.log('info', 'successfully created Team with name: ' + teamName);
         return callback(null, newTeam);
     });
 }
@@ -66,7 +68,7 @@ function readTeam(name, callback) {
             var error = new Error('no Team with ' + name + ' found');
             _notFoundError(name, 'readTeam', callback);
         } else {
-            logger.log('info', 'succesfully read Team with name: ' + name);
+            logger.log('info', 'successfully read Team with name: ' + name);
             return callback(null, team);
         }
     });
@@ -86,7 +88,7 @@ function deleteTeam(name, callback) {
         if (removed.result.n === 0) {
             _notFoundError(name, 'deleteTeam', callback);
         } else {
-            logger.log('info', 'succesfully deleted Team with name: ' + name);
+            logger.log('info', 'successfully deleted Team with name: ' + name);
             return callback(null, removed);
         }
     });
@@ -109,7 +111,7 @@ function isTeamLoginCorrect(name, password, callback) {
                 logger.log('error', 'isTeamLoginCorrect - ', err.message);
                 callback(err);
             }
-            logger.log('info', 'succesfully checked isTeamLoginCorrect for name: ' + name + '  result: ' + isMatch);
+            logger.log('info', 'successfully checked isTeamLoginCorrect for name: ' + name + '  result: ' + isMatch);
             callback(null, isMatch);
         });
     });

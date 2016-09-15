@@ -24,7 +24,7 @@ function connect(dbPoolsize, dbPath) {
     connection.once('open', function callback() {
         //enable keep alive so a long session cant be interrupted
         options.server.socketOptions = options.replset.socketOptions = {keepAlive: 1};
-        logger.log('info', "connect to db: ", connection.name, " succesful!");
+        logger.log('info', "connect to db: ", connection.name, " successful!");
     });
 }
 
@@ -46,7 +46,7 @@ function createUser(name, password, callback) {
             logger.log('error', 'creating new User', err.message);
             return callback(err);
         }
-        logger.log('info', 'succesfully created User with name: ' + name);
+        logger.log('info', 'successfully created User with name: ' + name);
         return callback(null, newUser);
     });
 }
@@ -61,7 +61,7 @@ function readUser(name, callback) {
             var error = new Error('no user with ' + name + ' found');
             _notFoundError(name, 'readUser', callback);
         } else {
-            logger.log('info', 'succesfully read User with name: ' + name);
+            logger.log('info', 'successfully read User with name: ' + name);
             return callback(null, user);
         }
     });
@@ -81,7 +81,7 @@ function deleteUser(name, callback) {
         if (removed.result.n === 0) {
             _notFoundError(name, 'deleteUser', callback);
         } else {
-            logger.log('info', 'succesfully deleted User with name: ' + name);
+            logger.log('info', 'successfully deleted User with name: ' + name);
             return callback(null, removed);
         }
     });
@@ -104,7 +104,7 @@ function isLoginCorrect(name, password, callback) {
                 logger.log('error', 'isLoginCorrect - ', err.message);
                 return callback(err);
             }
-            logger.log('info', 'succesfully checked isLoginCorrect for name: ' + name + '  result: ' + isMatch);
+            logger.log('info', 'successfully checked isLoginCorrect for name: ' + name + '  result: ' + isMatch);
             return callback(null, isMatch);
         });
     });
@@ -143,7 +143,7 @@ function addAuthentication(username, service, access_token, refresh_token, callb
                 logger.log('error', 'adding authentication ', err.message);
                 return callback(err);
             }
-            logger.log('info', 'succesfully added authentication for user : ' + user);
+            logger.log('info', 'successfully added authentication for user : ' + user);
             return callback(null, user);
         });
     });

@@ -27,7 +27,7 @@ MsgBroker.prototype.sendData = function (sendOptions,data,callback){
     } else {
         this.implementation.sendData(sendOptions,data,callback);
     }
-}
+};
 
 MsgBroker.prototype.getFile = function (options,path,auth,callback){
     if(!typeof this.implementation.getFile == 'function') {
@@ -36,7 +36,7 @@ MsgBroker.prototype.getFile = function (options,path,auth,callback){
     } else {
         this.implementation.getFile(options.queueName,path,auth,callback);
     }
-}
+};
 
 
 module.exports = MsgBroker;

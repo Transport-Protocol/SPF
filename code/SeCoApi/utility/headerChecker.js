@@ -14,18 +14,18 @@ HeaderChecker.prototype.containsParameter = function (params, req, res){
         }
     }
     return allParamsOk;
-}
+};
 
 function checkParameter(req, res, paramater) {
     var contains = true;
     if (!req.headers.hasOwnProperty(paramater)) {
-        sendError(req, res, paramater);
+        sendError(res, paramater);
         contains = false;
     }
     return contains;
 }
 
-function sendError(req, res, missingParamater) {
+function sendError(res, missingParamater) {
     res.status(400).send('header parameter: '.concat(missingParamater).concat(' is missing'));
 }
 

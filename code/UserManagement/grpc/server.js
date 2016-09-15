@@ -20,7 +20,7 @@ exports.init = function (serverIp, serverPort) {
     _server = new grpc.Server();
     _server.addProtoService(userManagementProto.UserManagement.service, {
         register: register,
-        login: login,
+        login: login
     });
     _server.addProtoService(authProto.Authentication.service, {
         setAuthentication: setAuthentication
@@ -79,7 +79,13 @@ function login(call, callback) {
                     return callback(null, {err: err.message});
                 }
                 winston.log('info', 'succesfully performed login rpc method');
-                return callback(null, {status: 'login successful'});
+                var status = {};
+                if(isCorrect){
+                    status = 'login successful';
+                } else {
+                    status = 'wrong login credentials';
+                }
+                return callback(null, {status: status});
             });
         });
     }
@@ -98,7 +104,7 @@ function setAuthentication(call, callback) {
                 winston.log('error', 'error performing rpc method setAccessToken: ', err);
                 return callback(null, {err: err.message});
             } else {
-                winston.log('info', 'succesfully performed setAccessToken rpc method');
+                winston.log('info', 'succesfully performed setAccessToken rpc method ',user);
                 return callback(null, {status: 'created'});
             }
         });

@@ -12,6 +12,8 @@ var owncloud = {};
 /**
  * Returns a directory specified by path
  * no sub-directories regarded
+ * @param username
+ * @param password
  * @param path
  * @param callback
  */
@@ -27,19 +29,19 @@ owncloud.getFileTree = function (username, password, path, callback) {
     };
     request(options, function (err, response, body) {
         if (err) {
-            winston.log('error','application error: ',err);
+            winston.log('error', 'application error: ', err);
             return callback(err);
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error','http error: ',err);
+            winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         var dirs = _getDirectoryFromXML(body);
         if (dirs.length === 0) {
-            winston.log('error','empty dir');
+            winston.log('error', 'empty dir');
             return callback(new Error('empty dir'));
         }
-        winston.log('info','succesfully got filetree from dropbox');
+        winston.log('info', 'succesfully got filetree from dropbox');
         return callback(null, JSON.stringify(_owncloudDirFormatToSimpleJSON(dirs)));
     });
 };
@@ -63,14 +65,14 @@ owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, 
 
     request(options, function (err, response) {
         if (err) {
-            winston.log('error','application error: ',err);
+            winston.log('error', 'application error: ', err);
             return callback(err);
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error','http error: ',err);
+            winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info','succesfully uploaded file to dropbox');
+        winston.log('info', 'succesfully uploaded file to dropbox');
         return callback(null, 'upload succesful');
     });
 };
@@ -85,7 +87,7 @@ owncloud.uploadFile = function (username, password, path, fileBuffer, fileName, 
  */
 owncloud.getFile = function (username, password, filePath, callback) {
     var pathSplit = filePath.split('/');
-    var fileName = pathSplit[pathSplit.length-1];
+    var fileName = pathSplit[pathSplit.length - 1];
     console.log(fileName);
     var options = {
         method: 'GET',
@@ -99,14 +101,14 @@ owncloud.getFile = function (username, password, filePath, callback) {
     };
     request(options, function (err, response, body) {
         if (err) {
-            winston.log('error','application error: ',err);
+            winston.log('error', 'application error: ', err);
             return callback(err);
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error','http error: ',err);
+            winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info','succesfully got file from dropbox');
+        winston.log('info', 'succesfully got file from dropbox');
         return callback(null, fileName, body);
     });
 };
@@ -116,7 +118,7 @@ function _getDirectoryFromXML(xml) {
     var directoryNames = [];
     console.log(xml);
     var splitted = xml.split('webdav');
-    var path = splitted[1].substring(0,splitted[1].indexOf('<'));
+    var path = splitted[1].substring(0, splitted[1].indexOf('<'));
     console.log(path);
 
 
@@ -145,20 +147,20 @@ function _getDirectoryFromXML(xml) {
  * @returns {Array}
  * @private
  */
-function _owncloudDirFormatToSimpleJSON(dirs){
+function _owncloudDirFormatToSimpleJSON(dirs) {
     var simpleJSONFormatArray = [];
-    for(var i = 0;i<dirs.length;i++){
+    for (var i = 0; i < dirs.length; i++) {
         var tag = 'folder';
         var name = dirs[i];
-        var stringLength = dirs[i].length-1;
-        if(dirs[i].charAt(stringLength) === '<'){
+        var stringLength = dirs[i].length - 1;
+        if (dirs[i].charAt(stringLength) === '<') {
             tag = 'file';
-            name = dirs[i].substring(0,stringLength)
+            name = dirs[i].substring(0, stringLength)
         }
         var simpleFormat = {
-            tag : tag,
-            name : name
-        }
+            tag: tag,
+            name: name
+        };
         simpleJSONFormatArray.push(simpleFormat);
     }
     return simpleJSONFormatArray;
@@ -175,15 +177,6 @@ function _sortArrayAlphabetically(array) {
     });
 }
 
-function _writeFile(buffer, fileName) {
-    var fs = require('fs');
-    fs.writeFile(fileName, buffer, function (err) {
-        if (err) {
-            return callback(err);
-        }
-        return callback(null, {'status': 'ok'});
-    });
-}
 
 function _formatPath(path) {
     if (path[path.length - 1] === '/') {

@@ -7,8 +7,6 @@ var grpc = require('grpc'),
     winston = require('winston');
 
 
-var exports = module.exports = {};
-
 //global var
 var _server;
 var _services = [];
@@ -24,12 +22,12 @@ function init(serverIp, serverPort, oauth2Services) {
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
     winston.log('info', 'RPC init succesful on: ' + serverUri);
-};
+}
 
 function start() {
     _server.start();
     winston.log('info', 'RPC server started');
-};
+}
 
 function _getOAuth2ServiceByName(name) {
     var res;
@@ -78,4 +76,4 @@ function refreshAccessToken(call, callback) {
 module.exports = {
     init: init,
     start: start
-}
+};

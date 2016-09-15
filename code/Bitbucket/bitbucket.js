@@ -22,7 +22,7 @@ function getRepositories(auth, callback) {
         },
         headers: {
             'User-Agent': 'Seco Api'
-        },
+        }
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -33,10 +33,10 @@ function getRepositories(auth, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got repos from bitbucket');
+        winston.log('info', 'successfully got repos from bitbucket');
         return callback(null, _parseRepoListBody(body));
     });
-};
+}
 
 function addUserToRepo(auth, repo, userToAdd, callback) {
     _getUsername(auth,function(err,username){
@@ -66,12 +66,12 @@ function addUserToRepo(auth, repo, userToAdd, callback) {
                    winston.log('error', 'http error: ', err);
                    return callback(new Error(response.statusCode + ': ' + response.statusMessage));
                }
-               winston.log('info', 'succesfully added %s to repo %s', userToAdd, repo);
+               winston.log('info', 'successfully added %s to repo %s', userToAdd, repo);
                return callback(null, 'ok');
            });
        }
     });
-};
+}
 
 function getRepoContent(auth, repo, path, callback) {
     _getUsername(auth,function(err,username){
@@ -88,7 +88,7 @@ function getRepoContent(auth, repo, path, callback) {
                 },
                 headers: {
                     'User-Agent': 'Seco Api'
-                },
+                }
             };
             request(options, function (err, response, body) {
                 if (err) {
@@ -99,12 +99,12 @@ function getRepoContent(auth, repo, path, callback) {
                     winston.log('error', 'http error: ', err);
                     return callback(new Error(response.statusCode + ': ' + response.statusMessage));
                 }
-                winston.log('info', 'succesfully got repos from bitbucket');
+                winston.log('info', 'successfully got repos from bitbucket');
                 return callback(null, _parseRepoContent(body));
             });
         }
     });
-};
+}
 
 function _getUsername(auth, callback) {
     var url = 'https://api.bitbucket.org/2.0/user';
@@ -116,7 +116,7 @@ function _getUsername(auth, callback) {
         },
         headers: {
             'User-Agent': 'Seco Api'
-        },
+        }
     };
     request(options, function (err, response, body) {
         if (err) {
@@ -127,7 +127,7 @@ function _getUsername(auth, callback) {
             winston.log('error', 'http error: ', err);
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
-        winston.log('info', 'succesfully got username from bitbucket', JSON.parse(body).username);
+        winston.log('info', 'successfully got username from bitbucket', JSON.parse(body).username);
         return callback(null, JSON.parse(body).username);
     });
 }
@@ -147,7 +147,7 @@ function downloadRepository(auth,repo,callback){
                 },
                 headers: {
                     'User-Agent': 'Seco Api'
-                },
+                }
             };
             request(options, function (err, response, body) {
                 if (err) {
@@ -158,7 +158,7 @@ function downloadRepository(auth,repo,callback){
                     winston.log('error', 'http error: ', err);
                     return callback(new Error(response.statusCode + ': ' + response.statusMessage));
                 }
-                winston.log('info', 'succesfully got repo archive from bitbucket');
+                winston.log('info', 'successfully got repo archive from bitbucket');
                 return callback(null, body);
             });
         }

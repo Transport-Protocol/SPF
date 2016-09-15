@@ -42,10 +42,10 @@ function getRepositories(auth, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage + ' ' + body));
         }
         var parsed = _parseRepoListBody(body);
-        winston.log('info', 'succesfully got repos from github', parsed);
+        winston.log('info', 'successfully got repos from github', parsed);
         return callback(null, parsed);
     });
-};
+}
 
 function addUserToRepo(auth, repo, userToAdd, callback) {
     _getUsername(auth,function(err,username){
@@ -81,12 +81,12 @@ function addUserToRepo(auth, repo, userToAdd, callback) {
                    console.log(response.body);
                    return callback(new Error(response.statusCode + ': ' + response.statusMessage + ' ' + body));
                }
-               winston.log('info', 'succesfully added %s to repo %s', userToAdd, repo);
+               winston.log('info', 'successfully added %s to repo %s', userToAdd, repo);
                return callback(null, 'ok');
            });
        }
     });
-};
+}
 
 function getRepoContent(auth, repo, path, callback) {
     _getUsername(auth, function (err, username) {
@@ -128,11 +128,11 @@ function getRepoContent(auth, repo, path, callback) {
             });
         }
     });
-};
+}
 
 /**
  * Gets the username from github api
- * @param access_token
+ * @param auth
  * @param callback err,username
  * @private
  */

@@ -27,7 +27,7 @@ function main() {
         if(err){
             console.log(err);
         } else {
-            console.log('got contents');
+            console.log('got content',content);
         }
     });
 }
