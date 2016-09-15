@@ -39,6 +39,7 @@ function init() {
     router = express.Router();
     app.use(newRequest);
     registerRoutes();
+    app.use(notFound);
 }
 
 function newRequest(req, res, next) {
@@ -49,6 +50,10 @@ function newRequest(req, res, next) {
 function notFound(req, res, next) {
     winston.log('info', 'route not found');
     res.status(404).send('not found');
+}
+
+function login(req,res,next) {
+
 }
 
 function start() {
