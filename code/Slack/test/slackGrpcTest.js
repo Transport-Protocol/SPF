@@ -18,7 +18,7 @@ function init() {
     console.log(url);
     client = new proto.SlackMessaging(url,
         grpc.credentials.createInsecure());
-    auth = {type: 'OAUTH2', token: 'ya29.CjBdA7Jt-PymM9SMY5OpHZci6NlLfPI2a5a4KR76iYewAHp5-JfuNg33K5LU8eKSQBg'};
+    auth = {type: 'OAUTH2', token: 'xoxp-11952872597-11961057271-79718090480-c8f859272a'};
 }
 
 var client = {},
@@ -35,32 +35,33 @@ describe('Slack Grpc', function () {
                 auth: auth,
             }, function (err, response) {
                 expect(err).to.be.a('null');
-                expect(response.url).not.to.be.a('null');
+                expect(response.channels).not.to.be.a('null');
                 done();
             });
-        });/*
+        });
         it('builds the auth url for dropbox to authenticate', function (done) {
-            client.getAuthorizationUrl({
-                service: 'DROPBOX',
-                username: 'philipp'
+            this.timeout(20000);
+            client.getChannelMessages({
+                auth: auth,
+                channelId: 'C0BU2EU4Q'
             }, function (err, response) {
                 expect(err).to.be.a('null');
-                expect(response.url).not.to.be.a('null');
-                console.log(response.url);
+                expect(response.messages).not.to.be.a('null');
                 done();
             });
         });
         it('builds the auth url for bitbucket to authenticate', function (done) {
-            client.getAuthorizationUrl({
-                service: 'BITBUCKET',
-                username: 'philipp'
+            this.timeout(20000);
+            client.sendMessage({
+                auth: auth,
+                channelId: 'C0BU2EU4Q',
+                message: 'test',
+                as_user: true
             }, function (err, response) {
                 expect(err).to.be.a('null');
-                expect(response.url).not.to.be.a('null');
-                console.log(response.url);
+                expect(response.status).not.to.be.a('null');
                 done();
             });
         });
-        */
     });
 });

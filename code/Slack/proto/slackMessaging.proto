@@ -3,11 +3,11 @@ syntax = "proto3";
 package slackMessaging;
 
 service SlackMessaging {
-  rpc GetChannelList (GetChannelListRequest) returns (GetChannelListeply) {}
+  rpc GetChannelList (GetChannelListRequest) returns (GetChannelListReply) {}
 
   rpc GetChannelMessages (GetChannelMessagesRequest) returns (GetChannelMessagesReply) {}
 
-  rpc SendMessage (SendMessageRequest) returns (SendMessageResponse) {}
+  rpc SendMessage (SendMessageRequest) returns (SendMessageReply) {}
 }
 
 //Auth message

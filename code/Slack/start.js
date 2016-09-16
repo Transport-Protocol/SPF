@@ -6,8 +6,8 @@
 var winston = require('winston'),
     fs = require('fs'),
     nconf = require('nconf'),
-    slack = require('./slack');
-    //server = require('./grpc/server');
+    slack = require('./slack'),
+    server = require('./grpc/server');
 
 
 function init() {
@@ -20,45 +20,8 @@ function init() {
 
 function main() {
     init();
-    //server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
-    //server.start();
-
-    var access_token = 'xoxp-11952872597-11961057271-79718090480-c8f859272a2';
-
-
-    slack.getChannelList(access_token,function(err,channelList){
-        if(err){
-            console.log(err);
-        } else {
-            console.log(channelList);
-        }
-    });
-
-    /*
-    slack.getChannelMessages(access_token,'C0BU2EU4Q',function(err,messages){
-       if(err){
-           console.log(err);
-       } else {
-           console.log(messages);
-           slack.getChannelMessages(access_token,'C0BU2EU4Q',function(err,messages){
-               if(err){
-                   console.log(err);
-               } else {
-                   console.log(messages);
-               }
-           });
-       }
-    });
-
-    /*
-    slack.sendMessage(access_token,'C0BU2EU4Q','test',true,function(err,messages){
-        if(err){
-            console.log(err);
-        } else {
-            console.log(messages);
-        }
-    });
-     */
+    server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
+    server.start();
 }
 
 

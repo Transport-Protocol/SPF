@@ -42,7 +42,7 @@ function getChannelList(call, callback) {
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getChannelList rpc method');
-        return callback(null, {channels : channelList});
+        return callback(null, {channels : JSON.stringify(channelList)});
     });
 }
 
@@ -57,7 +57,7 @@ function getChannelMessages(call, callback) {
             winston.log('error', 'error performing getChannelMessages: ',err);
             return callback(null, {err: err.message});
         }
-        winston.log('info', 'succesfully performed getChannelMessages rpc method',dirs);
+        winston.log('info', 'succesfully performed getChannelMessages rpc method');
         return callback(null, {messages: JSON.stringify(messages)});
     });
 }

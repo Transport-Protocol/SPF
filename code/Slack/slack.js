@@ -164,7 +164,6 @@ function _getNameById(access_token, id, isBot, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         if (body.error) {
-            console.log(id);
             winston.log('error', 'slack error: ', body.error);
             return callback(body.error);
         }
