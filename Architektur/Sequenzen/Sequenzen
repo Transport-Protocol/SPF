@@ -1,0 +1,11 @@
+service zugriff:    1.rest anfrage an seco api	
+					2.request an usermanagement ob user authenticated ist
+					3.wenn nicht, return error not authenticated
+					wenn ja,leite request an jeweiligen service um
+
+
+add authentication: 1.rest anfrage an seco api für service authentication
+					2.request an auth service für auth url - mit callback url
+					3.return http request mit url
+					4.warte an callback url auf auth des users 
+					5.request an user service mit token
