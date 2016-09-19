@@ -117,11 +117,11 @@
 {Web-Dienst, Dienstkomposition}%
 {Die heutige Lehr- und Arbeitswelt entwickelt sich immer stärker in eine Richtung der agilen Gruppen- und Projektarbeit. Beide Welten haben das gemeinsame Ziel, die Herausforderungen in der Kooperation möglichst effizient zu lösen. Einen besonderen Einfluss auf den Gesamterfolg hat hier die Organisation [1] innerhalb des Teams.\\
 \\
-Um die Zusammenarbeit zu erleichtern, sind verschiedene Web-Dienste für die Optimierung der Organisation[1] entstanden. Insbesondere verschiedene Ansätze aus den Service-orientierten Architekturen (SOA) werden in diesem Kontext immer erfolgreicher. So können zum Beispiel Dateien von überall aus der Welt gemeinsam aktiv bearbeitet werden. Auch Anwendungen die auf Echtzeitkommunikation basieren, wie textbasierte Chats oder interaktive Videokonferenzen, sind ein wichtiger Teil des Angebots. Gemeinsam ist all diesen Diensten, das die Kommunikation und die Organisation innerhalb einer Gruppe deutlich vereinfacht wird. Sie lösen nicht das Problem, helfen aber bei der Problemlösung.\\
+Um die Zusammenarbeit zu erleichtern, sind verschiedene Web-Dienste für die Optimierung der Organisation[1] entstanden. Insbesondere verschiedene Ansätze aus den Service-orientierten Architekturen (SOA) werden in diesem Kontext immer erfolgreicher. So können zum Beispiel Dateien von überall aus der Welt gemeinsam aktiv bearbeitet werden. Auch Anwendungen die auf Echtzeitkommunikation basieren, wie textbasierte Chats oder interaktive Videokonferenzen, sind ein wichtiger Teil des Angebots. Gemeinsam ist all diesen Diensten, dass die Kommunikation und die Organisation innerhalb einer Gruppe deutlich vereinfacht wird. Sie lösen nicht das Problem, helfen aber bei der Problemlösung.\\
 \\
 Doch diese Vielfalt an Diensten stellt auch eine Herausforderung für die einzelnen Gruppenmitglieder dar. Üblich ist, dass jeder dieser Dienste unabhängig für sich alleine angeboten wird, aber nicht unabhängig in der Nutzung zu sehen ist. So hat der Anwender eine noch wenig diskutierte aber wichtige Herausforderung in der Komposition dieser Dienste zu erfüllen. Beispielhaft muss jeder Nutzer für sich organisieren, ob und wann er pro Dienst eine Applikation startet oder eine Webseite besucht. Dies ist eine nicht zu unterschätzende Aufgabe,  die nicht nur mit der Zeit für die  Synchronisation der Dienste zu beschreiben ist. Automatisierte Mechanismen zur Unterstützung sind  bisher noch nicht etabliert. Diese Arbeit soll einen ersten Beitrag für zukünftige Lösungen anbieten mit der Umsetzung einer unterstützenden Middleware. \\
 \\
-Zusammengefasst wird im Rahmen dieser Bachelorarbeit  eine erste Middleware für die Dienstkomposition zum kooperativem Arbeiten für Studenten entwickelt, die geeignete Dienste für kooperatives Arbeiten in der Lehre zusammenfasst. Hierfür werden insbesondere externe Web-Dienste auf ihre Fähigkeit für die Dienstkomposition innerhalb eines Framworks untersucht. Die Betrachtung der Schnittstellen, also die Application-Programming-Interfaces (API), spielen eine besondere Rolle und bedürfen daher einer besonderen Betrachtung. Auch weitere technische, dienstabhängige Kriterien der Dienstkomposition sind zu identifizieren und als Kriterienkatalog für die zu erstellende Middleware innerhalb dieser Arbeit bereitzustellen. \\
+Zusammengefasst wird im Rahmen dieser Ausarbeitung eine erste Middleware für die Dienstkomposition zum kooperativem Arbeiten für Studenten entwickelt, die geeignete Dienste für kooperatives Arbeiten in der Lehre zusammenfasst. Hierfür werden insbesondere externe Web-Dienste auf ihre Fähigkeit für die Dienstkomposition innerhalb eines Frameworks untersucht. Die Betrachtung der Schnittstellen, also die Application-Programming-Interfaces (API), spielen eine besondere Rolle und bedürfen daher einer besonderen Betrachtung. Auch weitere technische, dienstabhängige Kriterien der Dienstkomposition sind zu identifizieren und als Kriterienkatalog für die zu erstellende Middleware innerhalb dieser Arbeit bereitzustellen. \\
 \\
 Eine weitere Designanforderung in der Entwicklung ist der Aufbau einer möglichst generischen Lösung. Primär bedeutet dies Gemeinsamkeiten der Dienste zu identifizieren und architektonisch zu abstrahieren. Hier spielt auch der Einsatz moderner Webtechnologien in einem systemadaptiven Anwendungsszenario eine besondere Rolle, um eine ressourcensparende und skalierende Lösung zu entwickeln.\\
 Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung bieten, die auch im Rahmen dieser Arbeit erstellt werden wird. 
@@ -155,8 +155,7 @@ Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung b
 \section{Motivation}
 Aufgaben und Arbeiten während des Studiums werden immer öfter in Gruppen bearbeitet. Dabei hat die Kooperation innerhalb der Gruppe einen großen Einfluss auf das Ergebnis. Fehlende Kommunikation, planloses Vorgehen und keine Arbeitseinteilung sind Hinweise auf eine ungenügende Organisation innerhalb der Gruppe, und insbesondere bei Studenten.
 \\\\
-Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das kooperative Arbeiten entwickelt.
-Einige, für diese Ausarbeitung wichtige Web-Dienste, können in folgende Kategorien eingeteilt werden:
+Um dem entgegen zu wirken wurden verschiedene Web-Dienste für das kooperative Arbeiten entwickelt. Einige, für diese Ausarbeitung wichtige Web-Dienste, können in folgende Kategorien eingeteilt werden:
 \begin{itemize}
 \item Die Cloud-Storage-Dienste \cite[5]{wang2008scientific} bieten elementare Funktionen für die Zusammenarbeit von Gruppen. Dateien können online gespeichert und über das Internet bereit gestellt werden. Dadurch können Dateien einfach mit Gruppenmitgliedern geteilt werden.
 \item Eine weitere Kategorie an Web-Diensten für kooperatives Arbeiten bilden die Instant-Messaging-Dienste \cite[80]{nardi2000interaction}. Mithilfe dieser können sich Gruppen in Echtzeit austauschen und aktuelle Ereignisse besprechen.
@@ -166,12 +165,10 @@ Einige, für diese Ausarbeitung wichtige Web-Dienste, können in folgende Kategori
 
 
 \section{Problemstellung}
-Die kooperative Zusammenarbeit in der Gruppe bedarf also einer Vielzahl an Diensten. Dabei steht der Anwender vor mehreren Problemen.
- 
-Der Nutzer verliert an Ordnung und Übersicht, weil er für jeden Dienst eine Webseite besuchen oder die Applikation auf seiner Zielplattform starten muss um dessen Funktionen zu nutzen. Außerdem bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten, weshalb der Anwender die Daten zwischen den Diensten eigenständig synchronisieren muss.
+Die kooperative Zusammenarbeit in der Gruppe bedarf also einer Vielzahl an Diensten. Dabei steht der Anwender vor mehreren Problemen. Der Nutzer verliert an Ordnung und Übersicht, weil er für jeden Dienst eine Webseite besuchen oder die Applikation auf seiner Zielplattform starten muss um dessen Funktionen zu nutzen. Außerdem bestehen keine sinnvollen Automatismen für die Verknüpfung von Diensten, weshalb der Anwender die Daten zwischen den Diensten eigenständig synchronisieren muss.
 \\\\
 Es stellt sich die Frage, wie diese Probleme gelöst werden können.
-Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden verschiedene Funktionen von mehreren Diensten miteinander verbunden. Im Zuge dessen können Verknüpfungen zwischen den  Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind. \\
+Eine mögliche Antwort darauf ist die Dienstkomposition. Dabei werden verschiedene Funktionen von mehreren Diensten miteinander verbunden. Im Zuge dessen können Verknüpfungen zwischen den  Diensten geschaffen werden, welche in der autonomen Ausführung der einzelnen Dienste nicht existent sind.\\
 Es könnte beispielsweise bei jeder Änderung an einer Datei eine Nachricht per Messenger-Dienst verschickt werden, um das Team über aktuelle Entwicklungen zu informieren. Dateien aus einem Cloud-Storage-Dienst könnten an einen Document Collaboration-Dienst weitergeleitet werden, wodurch die gemeinsame Bearbeitung an der Datei ermöglicht wird. Es sind also Verknüpfungen zwischen unterschiedlichen Dienstarten vorstellbar, die allesamt die Kooperation und Organisation innerhalb der Gruppe fördern und somit bei der Problemlösung helfen.
 
 \section{Zielsetzung}
@@ -209,7 +206,7 @@ using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
 based on open Internet standards (e.g., XML interfaces
 which are published in a network-based repositories)"\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Aus diesem Grund wird in der vorliegenden Ausarbeitung der Begriff Web-Dienst uneingeschränkter definiert. Für die Identifikation eines Web-Dienstes stelle ich folgende notwendige Eigenschaften auf:
+Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} \cite{soap} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Im Gegensatz zu den einschränkenden Definitionen für Web-Dienste habe ich folgende Eigenschaften die einen Web-Dienst identifizieren aufgestellt:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
 \item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
@@ -218,7 +215,7 @@ Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} 
 
 \section{Dienstkomposition}
 
-Nachdem Dienste und Web-Dienste beschrieben sind, muss noch die Dienstkomposition definiert werden. Eine Dienstkomposition beschreibt den Zusammenschluss mehrerer Dienste zu einer neuen Anwendung oder auch einem neuem Geschäftsprozess. Dabei kann die entstandene Komposition wieder als neuer Service verstanden werden \cite[4]{reichert2004komposition}. Eine Dienstkomposition kann sowohl Proaktiv als auch Reaktiv aufgebaut sein. Proaktiv heißt, dass die zugehörigen Dienste der Komposition vor der Laufzeit bekannt sind. Wohingegen eine reaktive Komposition die Dienste dynamisch zusammenstellt \cite[5]{reichert2004komposition}. 
+Nachdem Dienste und Web-Dienste beschrieben sind, muss noch die Dienstkomposition definiert werden. Eine Dienstkomposition beschreibt den Zusammenschluss mehrerer Dienste zu einer neuen Anwendung oder auch einem neuem Geschäftsprozess. Dabei kann die entstandene Komposition wieder als neuer Dienst verstanden werden \cite[4]{reichert2004komposition}. Eine Dienstkomposition kann sowohl Proaktiv als auch Reaktiv aufgebaut sein. Proaktiv heißt, dass die zugehörigen Dienste der Komposition vor der Laufzeit bekannt sind. Wohingegen eine reaktive Komposition die Dienste dynamisch zusammenstellt \cite[5]{reichert2004komposition}. 
 
 
 

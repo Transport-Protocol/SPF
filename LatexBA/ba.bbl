@@ -55,6 +55,12 @@ M.~P. Papazoglou, ``Service-oriented computing: Concepts, characteristics and
   Proceedings of the Fourth International Conference on}.\hskip 1em plus 0.5em
   minus 0.4em\relax IEEE, 2003, pp. 3--12.
 
+\bibitem{soap}
+\BIBentryALTinterwordspacing
+W3C. (2016) Soap version 1.2 part 1: Messaging framework (second edition).
+  [Online]. Available: \url{https://www.w3.org/TR/soap12-part1}
+\BIBentrySTDinterwordspacing
+
 \bibitem{pautasso2008restful}
 C.~Pautasso, O.~Zimmermann, and F.~Leymann, ``Restful web services vs. big'web
   services: making the right architectural decision,'' in \emph{Proceedings of

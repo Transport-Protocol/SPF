@@ -5,7 +5,10 @@
     <file url="file://$PROJECT_DIR$/Bitbucket" libraries="{code/Bitbucket/node_modules}" />
     <file url="file://$PROJECT_DIR$/Dropbox" libraries="{code/Dropbox/node_modules}" />
     <file url="file://$PROJECT_DIR$/Github" libraries="{code/Github/node_modules}" />
+    <file url="file://$PROJECT_DIR$/Google" libraries="{code/Google/node_modules}" />
     <file url="file://$PROJECT_DIR$/Owncloud" libraries="{code/Owncloud/node_modules}" />
     <file url="file://$PROJECT_DIR$/SeCoApi" libraries="{code/SeCoApi/node_modules}" />
+    <file url="file://$PROJECT_DIR$/Slack" libraries="{code/Slack/node_modules}" />
+    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
