@@ -43,13 +43,15 @@ describe('Slack Grpc', function () {
             this.timeout(20000);
             client.getChannelMessages({
                 auth: auth,
-                channelId: 'C0BU2EU4Q'
+                channelId: 'C0BU2EU4Q',
+                oldest: 0
             }, function (err, response) {
                 expect(err).to.be.a('null');
                 expect(response.messages).not.to.be.a('null');
+                console.log(response.messages);
                 done();
             });
-        });
+        });/*
         it('builds the auth url for bitbucket to authenticate', function (done) {
             this.timeout(20000);
             client.sendMessage({
@@ -62,6 +64,6 @@ describe('Slack Grpc', function () {
                 expect(response.status).not.to.be.a('null');
                 done();
             });
-        });
+        });*/
     });
 });

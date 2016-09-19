@@ -36,7 +36,8 @@ message GetChannelListReply {
 // The request message
 message GetChannelMessagesRequest {
   string channelId = 1;
-  Authentication auth = 2;
+  string oldest = 2; //timestamp of oldest msg
+  Authentication auth = 3;
 }
 
 // The response message

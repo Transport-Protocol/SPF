@@ -55,14 +55,15 @@ function getChannelList(access_token, callback) {
  * @param channelId
  * @param callback
  */
-function getChannelMessages(access_token, channelId, callback) {
+function getChannelMessages(access_token, channelId,tsOfOldestMessage, callback) {
     var url = 'https://slack.com/api/channels.history';
     var options = {
         method: 'GET',
         uri: url,
         qs: {
             token: access_token,
-            channel: channelId
+            channel: channelId,
+            oldest: tsOfOldestMessage
         },
         json: true
     };
@@ -192,12 +193,14 @@ function _parseChannelList(body) {
 function _parseChannelMessages(access_token, body, callback) {
     var result = [];
     var name = {};
+    var ts = {};
 
     //recursive function to retrieve all usernames from ids.Also fills cache
     var step = function (i) {
         if (i === body.messages.length) {
             return callback(null, {
-                'messages': result
+                'messages': result,
+                'tsOfLastMsg': body.messages[i-1].ts
             });
         } else {
             var id = body.messages[i].user;

@@ -52,7 +52,7 @@ function getChannelList(call, callback) {
  */
 function getChannelMessages(call, callback) {
     winston.log('info', 'getChannelMessages rpc method request: ' + JSON.stringify(call.request));
-    connector.getChannelMessages(call.request.auth.token, call.request.channelId, function (err, messages) {
+    connector.getChannelMessages(call.request.auth.token, call.request.channelId,call.request.oldest, function (err, messages) {
         if (err) {
             winston.log('error', 'error performing getChannelMessages: ',err);
             return callback(null, {err: err.message});
