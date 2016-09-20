@@ -189,7 +189,7 @@ In diesem Kapitel werden wichtige Begrifflichkeiten im Zusammenhang mit dieser A
 Um im nachfolgenden Abschnitt den Begriff Web-Dienst definieren zu können muss zunächst die übergeordnete Kategorie Dienst für sich betrachtet werden. Ein Dienst beschreibt in der Informatik zumeist ein in sich geschlossenes System, welches zusammenhängende Funktionen über ein Themenfeld bündelt und mithilfe einer Schnittstelle zur Verfügung stellt.\cite[3]{bianco2007evaluating}\\
 Dienste können in unterschiedliche Arten beziehungsweise Aufgabenfelder eingeteilt werden. Zum Beispiel Systemdienste, Web-Dienste oder auch Netzwerkdienste. Dabei bestimmt die Art des Dienstes auf welche Weise die Schnittstelle erreichbar ist. Ein Systemdienst bietet seine Schnittstelle nur für das Betriebssystem an. Ein Netzwerkdienst für das gesamte Netzwerk. Und ein Web-Dienst ist von überall durch das Internet zu erreichen.\\
 Ein Dienst kann in verschiedenen Bereichen spezifiziert werden. Wie zum Beispiel Sicherheit,Zuverlässigkeit oder \textit{Performance}.\cite[89]{jones2005toward}
-Im Rahmen dieser Ausarbeitung ist die komplette Spezifikation für einen Dienst nicht notwendig. Aus diesem Grund habe ich folgende Eigenschaften für einen Dienst aufgestellt:
+Im Rahmen dieser Ausarbeitung ist die komplette Spezifikation für einen Dienst nicht notwendig. Aus diesem Grund wurden folgende Eigenschaften für einen Dienst aufgestellt:
 \begin{itemize}
 \item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird, muss der Name oder \textit{Identifier} eindeutig sein.
 \item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Innerhalb der Schnittstelle müssen die Eingabe-, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen für die jeweiligen Funktionen beschrieben werden.
@@ -206,7 +206,7 @@ using standard Internet languages and protocols"\cite[2]{papazoglou2003service}
 based on open Internet standards (e.g., XML interfaces
 which are published in a network-based repositories)"\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} \cite{soap} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Im Gegensatz zu den einschränkenden Definitionen für Web-Dienste habe ich folgende Eigenschaften die einen Web-Dienst identifizieren aufgestellt:
+Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} \cite{soap} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Im Gegensatz zu den oben beschriebenen einschränkenden Definitionen für Web-Dienste identifizieren in der vorliegenden Ausarbeitung folgende Eigenschaften einen Web-Dienst:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
 \item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
@@ -237,9 +237,9 @@ Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, die re
 \end{center}
 \end{figure}
 
-Der Verfasser der Ausarbeitung hat die Umfrage persönlich in den jeweiligen Kursen der Fachhochschule durchgeführt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
+Die Durchführung der Umfrage fand im Juni 2016 an der Haw Hamburg statt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
 ////
-In die erste Spalte des Fragebogens konnten die Befragten einen Web-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Web-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Web-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Web-Dienst geklärt werden:
+In die erste Spalte des Fragebogens konnten die Probanden einen Web-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Web-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Web-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Web-Dienst geklärt werden:
 \begin{itemize}
 \item Häufigkeit
 \item Zufriedenheit
@@ -257,7 +257,7 @@ Grafik Dienst : Dienstgruppen
 
 -Ziel der Umfrage - Dienstmenge für Middleware definieren
 -Wo fand die Umfrage statt
--Wer wurde befragt
+-Wer wurde befragt und warum
 -Wie wurde befragt - im Kurs persönlich 10 min zeit
 -Aufbau des Umfragebogens
 -Interessante Ergebnisse die nur ansatzweise mit der BA zu tun haben

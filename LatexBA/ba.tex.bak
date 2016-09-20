@@ -227,7 +227,7 @@ Dieses Kapitel befasst sich mit der Umsetzung der Middleware der Dienstkompositi
 
 \subsection{Umfrage}
 
-Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, die relevanten Dienste zu finden, aus denen sich die Dienstkomposition zusammenschließt. Die Umfrage wurde an der HAW Hamburg durchgeführt. Befragt wurden Studenten der Fachrichtung Informatik. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, wurden insgesamt 100 Studenten befragt, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik werden mit 20 beziehungsweise 17 Studenten vertreten. Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen. Also wurden ungefähr 9,68\% der in Frage kommenden Probanden abgedeckt.  
+Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, die relevanten Dienste zu finden, aus denen sich die Dienstkomposition zusammenschließt. Die Umfrage wurde an der HAW Hamburg durchgeführt. Befragt wurden Studenten der Fachrichtung Informatik. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, wurden insgesamt 100 Studenten befragt, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik werden mit 20 beziehungsweise 17 Studenten vertreten. Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen \cite{HAWStudenten}. Also wurden ungefähr 9,68\% der in Frage kommenden Probanden abgedeckt.  
 
 \begin{figure}[H]
 \begin{center}
