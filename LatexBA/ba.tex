@@ -221,23 +221,95 @@ Nachdem Dienste und Web-Dienste beschrieben sind, muss noch die Dienstkompositio
 
 \chapter{Middleware}
 
+Dieses Kapitel befasst sich mit der Umsetzung der Middleware der Dienstkomposition. Es werden Anforderungen aufgestellt, Übersicht und Auswahl zur Technologie besprochen und die Architektur definiert. 
+
 \section{Requirements Engineering}
 
 \subsection{Umfrage}
 
+Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, die relevanten Dienste zu finden, aus denen sich die Dienstkomposition zusammenschließt. Die Umfrage wurde an der HAW Hamburg durchgeführt. Befragt wurden Studenten der Fachrichtung Informatik. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, wurden insgesamt 100 Studenten befragt, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik werden mit 20 beziehungsweise 17 Studenten vertreten. Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen. Also wurden ungefähr 9,68\% der in Frage kommenden Probanden abgedeckt.  
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/Probanden.png}
+\caption{Verteilung der Probanden}
+ \label{fig:Verteilung_Probanden}
+\end{center}
+\end{figure}
+
+Der Verfasser der Ausarbeitung hat die Umfrage persönlich in den jeweiligen Kursen der Fachhochschule durchgeführt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
+////
+In die erste Spalte des Fragebogens konnten die Befragten einen Web-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Web-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Web-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Web-Dienst geklärt werden:
+\begin{itemize}
+\item Häufigkeit
+\item Zufriedenheit
+\item Antrieb
+\item Umfeld
+\end{itemize}
+Des weiteren sollte das \textit{Device} für die Nutzung des Web-Dienstes angegeben werden und ob über den \textit{Browser} oder eine Applikation auf den Web-Dienst zugegriffen wird. Zum Schluss sollte angegeben werden, ob der Befragte Zugriffsrechte an Drittanbieter für den jeweiligen Web-Dienst freigeben würde. Diese Frage durfte auch mit "Weiß nicht" beantwortet werden, weil die Folgen auf die Antwort für jeden Web-Dienst andere sind, je nach dem wie sensibel die Daten des Web-Dienst für den Befragten sind.
+
+Grafik Studenten : Studienfach
+Grafik Studenten : Semester
+Grafik Semester : Anzahl Dienste
+Grafik Dienst : Dienstgruppen
+
+
+
+-Ziel der Umfrage - Dienstmenge für Middleware definieren
+-Wo fand die Umfrage statt
+-Wer wurde befragt
+-Wie wurde befragt - im Kurs persönlich 10 min zeit
+-Aufbau des Umfragebogens
+-Interessante Ergebnisse die nur ansatzweise mit der BA zu tun haben
+-Korrelationen zwischen Daten - Korrelationen mit Quelle kurz erklären
+-Dienstkategorisierung und Ergebnisse der einzelnen Kategorien
+-ABC Einteilung der Dienste
+-Welche Dienste sind ausgewählt worden, und warum
+
+
 \subsection{Funktionale Anforderungen}
 
+-Anforderungen an die einzelnen Dienste, nur Grundfunktionen zeitlich möglich
+-Anforderungen an ein kooperatives Element(User,Team,Notifications)
+-Beschreibung das die Anforderungen am Ende zur Validierung des Ergebnisses herangezogen werden
+
 \subsection{Nichtfunktionale Anforderungen}
+
+-Plattformunabhängige Lösung - dadurch flexible Reaktion auf neue Technologie Entwicklungen
+-TODO
 
 \section{Technologie}
 
 \subsection{Übersicht}
 
+-Entwicklungsumgebung-Sprache-Middleware: Node und Java
+-Kommunikation: grpc,rabbitmq,soap,rest
+-Datenformat: JSON,XML,PROTOBUF
+
 \subsection{Auswahl}
+
+Node
+grpc,rest
+JSON,PROTOBUF
 
 \section{Analyse und Design}
 
+UML
+Gateway Pattern.
+
+Sicherheit wird aus Zeitgründen erstmal zurückgestellt
+Plattformunabhängigkeit sehr groß geschrieben
+
+
 \section{Architektur}
+
+Monolitisch oder Microservice. Vor und nachteile aufzeigen
+Das Zusammenspiel von Komposition und Microservice Architektur aufzeigen
+Reaktive oder Proaktive Komposition 
+Koordination der einzelnen Microservices(Koordinator)
+
+Komponentendiagramm. Hier oder Analyse Design?
+
 
 \chapter{Implementation}
 
