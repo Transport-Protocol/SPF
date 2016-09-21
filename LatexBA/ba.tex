@@ -35,7 +35,7 @@
 \colorlet{CommentColor}{black!60}
 %% for tables
 \colorlet{HeadColor}{gray!60}
-\colorlet{Color1}{blue!10}
+\colorlet{Color1}{blue!10} 
 \colorlet{Color2}{white}
 
 %% configure colors
@@ -133,6 +133,8 @@ Basis für die Auswahl der Dienste wird die Auswertung einer Studentenbefragung b
 \newpage
 \singlespacing
 
+\setcounter{secnumdepth}{4} 
+\setcounter{tocdepth}{4} 
 \tableofcontents
 \newpage
 %% enable if these lists should be shown on their own page
@@ -209,7 +211,7 @@ which are published in a network-based repositories)"\cite[2]{papazoglou2003serv
 Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} \cite{soap} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Im Gegensatz zu den oben beschriebenen einschränkenden Definitionen für Web-Dienste identifizieren in der vorliegenden Ausarbeitung folgende Eigenschaften einen Web-Dienst:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
-\item Der \textit{Scope} des Dienstes ist im Internet anzusiedeln.
+\item Der \textit{Scope} des Dienstes ist im \textit{Web} anzusiedeln.
 \item Die Schnittstelle des Dienstes ist öffentlich erreichbar und für die Bereitstellung der Dienstfunktionen vorgesehen.
 \end{itemize}
 
@@ -226,8 +228,9 @@ Dieses Kapitel befasst sich mit der Umsetzung der Middleware der Dienstkompositi
 \section{Requirements Engineering}
 
 \subsection{Umfrage}
+\label{sec:Umfrage}
 
-Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, die relevanten Dienste zu finden, aus denen sich die Dienstkomposition zusammenschließt. Die Umfrage wurde an der HAW Hamburg durchgeführt. Befragt wurden Studenten der Fachrichtung Informatik. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, wurden insgesamt 100 Studenten befragt, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik werden mit 20 beziehungsweise 17 Studenten vertreten. Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen \cite{HAWStudenten}. Also wurden ungefähr 9,68\% der in Frage kommenden Probanden abgedeckt.  
+Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, Web-Dienste zu finden, aus denen sich die Dienstkomposition zusammenschließen soll. Außerdem sollen anhand der Auswertung Anforderungen an Middleware und Frontend abgeleitet werden. Befragt wurden Studenten der Fachrichtung Informatik an der HAW Hamburg. Durch die Einschränkung auf eine Fachrichtung soll der Umfang an in Frage kommenden Web-Diensten verringert werden. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, haben insgesamt 100 Studenten teilgenommen, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik sind mit 20 beziehungsweise 17 Studenten vertreten. 
 
 \begin{figure}[H]
 \begin{center}
@@ -237,21 +240,39 @@ Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, die re
 \end{center}
 \end{figure}
 
-Die Durchführung der Umfrage fand im Juni 2016 an der Haw Hamburg statt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
+Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen \cite{HAWStudenten}. Also wurden ungefähr 9,68\% der in Frage kommenden Probanden abgedeckt. Die Durchführung der Umfrage fand im Juni 2016 an der HAW Hamburg statt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
 ////
-In die erste Spalte des Fragebogens konnten die Probanden einen Web-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Web-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Web-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Web-Dienst geklärt werden:
+
+\subsubsection{Aufbau}
+
+Am Anfang des Umfragebogens wurden Studienfach und Fachsemester des Probanden abgefragt. In die erste Spalte des Fragebogens konnten die Probanden einen Web-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Web-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Web-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Web-Dienst geklärt werden:
 \begin{itemize}
 \item Häufigkeit
 \item Zufriedenheit
 \item Antrieb
 \item Umfeld
 \end{itemize}
-Des weiteren sollte das \textit{Device} für die Nutzung des Web-Dienstes angegeben werden und ob über den \textit{Browser} oder eine Applikation auf den Web-Dienst zugegriffen wird. Zum Schluss sollte angegeben werden, ob der Befragte Zugriffsrechte an Drittanbieter für den jeweiligen Web-Dienst freigeben würde. Diese Frage durfte auch mit "Weiß nicht" beantwortet werden, weil die Folgen auf die Antwort für jeden Web-Dienst andere sind, je nach dem wie sensibel die Daten des Web-Dienst für den Befragten sind.
+Des weiteren sollte das \textit{Device} für die Nutzung des Web-Dienstes angegeben werden und ob über den \textit{Browser} oder eine Applikation auf den Web-Dienst zugegriffen wird. Zum Schluss sollte angegeben werden, ob der Befragte Zugriffsrechte an Drittanbieter für den jeweiligen Web-Dienst freigeben würde. Diese Frage durfte auch mit "Weiß nicht" beantwortet werden, weil die Folgen auf die Antwort für jeden Web-Dienst andere sind, je nach dem wie sensibel die Daten des Web-Dienstes für den Befragten sind.
+
+\subsubsection{Auswertung}
+
+Im folgenden Abschnitt werden zunächst allgemeine Ergebnisse der Auswertung vorgestellt. Diese sind unbedeutend für das Ziel der Umfrage (siehe \ref{sec:Umfrage}), liefern aber interessante Informationen für zukünftige Arbeiten. In Abbildung \ref{fig:Korr_Semester_Dienst} wird das Fachsemester des Studierenden mit der Anzahl der von ihm genutzten Web-Dienste gegenübergestellt. Ein Student im ersten Semester nutzt im Schnitt Vier Web-Dienste für kooperatives Arbeiten. Bis zum Fünften Fachsemester steigt diese Anzahl auf ungefähr Sieben an. In den Semestern Sechs und Sieben sind es um die Sechs Web-Dienste. Die aufgeführten Beobachtungen und das Ergebnis der Korrelationsformel zeigen eine Korrelation zwischen Fachsemester und Anzahl der Web-Dienste. Je höher das Fachsemester desto höher die Anzahl der genutzten Web-Dienste. Ein Grund für diese Kausalität könnten die sich in jedem Semester ändernden Mitglieder für Gruppenarbeiten sein. Web-Dienste werden untereinander besprochen und schlussendlich genutzt. Der Abfall von genutzten Web-Diensten im Sechsten und Siebten Semester kann mit dem reduziertem Aufkommen von Gruppenaufgaben erklärt werden. Aufgrund von Bachelorarbeiten belegen die Studenten weniger Kurse und haben im folge dessen eine geringere Anzahl an kooperativen Arbeiten, bei denen auf Web-Dienste zurückgegriffen werden müssten.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/Korr_Semester_Dienst.png}
+\caption{Korrelation zwischen Fachsemester und Anzahl der genutzten Web-Dienste}
+ \label{fig:Korr_Semester_Dienst}
+\end{center}
+\end{figure}
+
 
 Grafik Studenten : Studienfach
 Grafik Studenten : Semester
 Grafik Semester : Anzahl Dienste
+Grafik Nutzer : Dienst
 Grafik Dienst : Dienstgruppen
+Grafik Zufriedenheit : Anzahl Nutzer Korrelation
 
 
 
