@@ -1,14 +1,14 @@
 {
-  "service_name": "GITHUB",
+  "service_name": "BITBUCKET",
   "grpc_ip": "localhost",
-  "grpc_port": 50056,
+  "grpc_port": 50071,
   "grpc_service_name": "VersionControl",
   "grpc_package_name": "versionControl",
   "authentication_type": "OAUTH2",
   "requests": [
     {
       "http-method": "get",
-      "route": "/github/repositories",
+      "route": "/bitbucket/repositories",
       "header_parameter": [
         "authorization"
       ],
@@ -22,7 +22,7 @@
     },
     {
       "http-method": "get",
-      "route": "/github/repository/content",
+      "route": "/bitbucket/repository/content",
       "query_parameter": [
         "path",
         "repositoryName"
@@ -42,7 +42,7 @@
     },
     {
       "http-method": "post",
-      "route": "/github/repository/share",
+      "route": "/bitbucket/repository/share",
       "query_parameter": [
         "repositoryName",
         "usernameToAdd"

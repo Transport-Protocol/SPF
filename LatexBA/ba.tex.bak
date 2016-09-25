@@ -276,7 +276,7 @@ Wie in \ref{sec:Umfrage_Aufbau} erklärt, sollte jeder Befragte die von ihm genut
 \end{center}
 \end{figure}
 
-Um eine bessere Übersicht zu schaffen können die Web-Dienste in Kategorien eingeteilt werden. Die Web-Dienste werden in folgende Kategorien eingeteilt:
+Um eine bessere Übersicht zu schaffen können die Web-Dienste in Kategorien eingeteilt werden.
 \begin{itemize}
 \item \textit{Team Collaboration}: Dienste für die Zusammenarbeit und Organisation innerhalb eines Teams.
 \item \textit{Cloud Storage}: Speichern und teilen von Dateien über das Internet.
@@ -285,6 +285,13 @@ Um eine bessere Übersicht zu schaffen können die Web-Dienste in Kategorien einge
 \item \textit{Document Collaboration}: Gleichzeitige Bearbeitung von Dokumenten in Gruppen. 
 \end{itemize}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/Dienstkategorien.png}
+\caption{Verteilung der Dienste auf die Dienstkategorien}
+\label{fig:Dienst_Anzahl}
+\end{center}
+\end{figure}
 
 
 Grafik Nutzer : Dienst

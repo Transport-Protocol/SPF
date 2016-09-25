@@ -37,7 +37,7 @@ exports.start = function () {
 function getRepositories(call, callback) {
     winston.log('info', 'getRepositories rpc method request: ' + JSON.stringify(call.request));
     if (!call.request.auth) {
-        _error('getRepositories', 'missing parameter', callback);
+        _error('getRepositories', 'missing parameter auth', callback);
     } else {
         var auth = call.request.auth;
         console.log(auth);

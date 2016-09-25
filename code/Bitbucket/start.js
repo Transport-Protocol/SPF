@@ -22,14 +22,6 @@ function main() {
     init();
     server.init(nconf.get('grpcServerIp'), nconf.get('grpcServerPort'));
     server.start();
-
-    bitbucket.downloadRepository('TdNo4SIQlHhro9-QnkUviFq9J7joVjbT8pwT2nkHTlwi_3yzmPg8TLnGfvMLhq-rDngxaPVgqhcBNhp8mv0=','moba',function(err,content){
-        if(err){
-            console.log(err);
-        } else {
-            console.log('got content',content);
-        }
-    });
 }
 
 

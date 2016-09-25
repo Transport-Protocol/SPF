@@ -16,7 +16,7 @@ function init() {
         grpc.credentials.createInsecure());
     auth = {
         type: 'OAUTH2',
-        token: 'iiul23GmAVVU0WO1zVC6ExAQobFk__mPlb9BxmWEMGXPZ7FQViT7C8noMT-XEtJI_mtUXJz4aJVhxdp9Zs8='
+        token: '3dF0oo14uyda2jY6MHY_DVjnGdkj8E-c0r9LGRefMHf1lD1yi5H6FupOjk4N89Illqv1w-dT_T4yfa6B5TM='
     };
 }
 
@@ -30,6 +30,7 @@ describe('Bitbucket', function () {
     });
     describe('getRepositories', function () {
         it('retireves all repositories as json array string', function (done) {
+            this.timeout(10000);
             console.log(auth);
             client.getRepositories({
                 auth: auth
@@ -44,6 +45,7 @@ describe('Bitbucket', function () {
 
     describe('getRepositoryContent', function () {
         it('lists the repository content specified by path', function (done) {
+            this.timeout(10000);
             client.getRepositoryContent({
                 auth: auth,
                 path: '/',
@@ -58,6 +60,7 @@ describe('Bitbucket', function () {
     });
     describe('addUserToRepo', function () {
         it('adds a user to a repository', function (done) {
+            this.timeout(10000);
             client.addUserToRepository({
                 auth: auth,
                 usernameToAdd: 'philippGoogle',

@@ -43,8 +43,7 @@ function addUserToRepo(auth, repo, userToAdd, callback) {
        if(err){
            return callback(err);
        } else {
-           var url = 'https://api.bitbucket.org/1.0/privileges/' + username + '/' + repo  + '/' + userToAdd;
-           console.log(url);
+           var url = 'https://api.bitbucket.org/1.0/privileges/' + username + '/' + repo.toLowerCase()  + '/' + userToAdd;
            var privilege = 'write';
            var options = {
                method: 'PUT',
@@ -78,7 +77,7 @@ function getRepoContent(auth, repo, path, callback) {
         if(err){
             return callback(err);
         } else {
-            var url = 'https://api.bitbucket.org/1.0/repositories/' + username + '/' + repo + '/src' + '/master/' + path;
+            var url = 'https://api.bitbucket.org/1.0/repositories/' + username + '/' + repo.toLowerCase() + '/src' + '/master/' + path;
             console.log(url);
             var options = {
                 method: 'GET',
@@ -137,7 +136,7 @@ function downloadRepository(auth,repo,callback){
         if(err){
             return callback(err);
         } else {
-            var url = 'https://bitbucket.org/' + username + '/' + repo + '/get/master.tar.gz';
+            var url = 'https://bitbucket.org/' + username + '/' + repo.toLowerCase() + '/get/master.tar.gz';
             console.log(url);
             var options = {
                 method: 'GET',
@@ -170,7 +169,7 @@ function _parseRepoListBody(body) {
     var parsed = JSON.parse(body);
     var result = [];
     for (var i = 0; i < parsed.values.length; i++) {
-        result[i] = {repo: parsed.values[i].name};
+        result[i] = parsed.values[i].name;
     }
     return result;
 }

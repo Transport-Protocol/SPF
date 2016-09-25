@@ -29,6 +29,7 @@ var self = {};
 
 function _initGRPC(self,protoFileName){
     var url = self.config['grpc_ip'] + ':' + self.config['grpc_port'];
+    winston.log('info','%s grpc url: %s',self.config['service_name'],url);
     var proto = grpc.load('./proto/' + protoFileName)[self.config['grpc_package_name']];
     self.client = new proto[self.config['grpc_service_name']](url,
         grpc.credentials.createInsecure());
@@ -75,7 +76,13 @@ CustomRoute.prototype.route = function (){
 };
 
 function _setAuthorization(token, authType){
-    return {token: token,type: authType};
+    var parsedToken;
+    if(authType === 'OAUTH2'){
+        parsedToken = token.substr(6);
+    } else if(authType === 'BASIC'){
+        parsedToken = token;
+    }
+    return {token: parsedToken,type: authType};
 }
 
 function _createHttpJsonResult(params, grpcResponse){
@@ -99,7 +106,7 @@ function _createGrpcJsonArgs(req, params) {
     var resultAsObj = {};
     for (var i in params) {
         var param = params[i];
-        if (param === 'authorization') {
+        if (param === 'auth') {
             //encrypt authentication
             resultAsObj['auth'] = _setAuthorization(req.headers.authorization,self.config['authentication_type'])
         } else if (req.query.hasOwnProperty(param)) {
@@ -120,7 +127,7 @@ function _noFileUploadedError(res){
 }
 
 function _offlineError(res) {
-    res.status(504).send(self.config['service_name'] + 'connector offline');
+    res.status(504).send(self.config['service_name'] + ' connector offline');
 }
 
 
