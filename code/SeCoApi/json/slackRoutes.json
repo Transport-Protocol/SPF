@@ -1,48 +1,48 @@
 {
-  "service_name": "GITHUB",
+  "service_name": "SLACK",
   "grpc_ip": "localhost",
-  "grpc_port": 50056,
-  "grpc_service_name": "VersionControl",
-  "grpc_package_name": "versionControl",
+  "grpc_port": 50048,
+  "grpc_service_name": "SlackMessaging",
+  "grpc_package_name": "slackMessaging",
   "authentication_type": "OAUTH2",
   "requests": [
     {
       "http-method": "get",
-      "route": "/github/repositories",
+      "route": "/slack/channelList",
       "header_parameter": [
         "authorization"
       ],
-      "grpc_function": "getRepositories",
+      "grpc_function": "getChannelList",
       "response_parameter": [
-        "repos"
+        "channels"
       ]
     },
     {
       "http-method": "get",
-      "route": "/github/repository/content",
+      "route": "/slack/channel/messages",
       "query_parameter": [
-        "path",
-        "repositoryName"
+        "channelId",
+        "oldest"
       ],
       "header_parameter": [
         "authorization"
       ],
-      "grpc_function": "getRepositoryContent",
+      "grpc_function": "getChannelMessages",
       "response_parameter": [
-        "dirs"
+        "messages"
       ]
     },
     {
       "http-method": "post",
-      "route": "/github/repository/share",
+      "route": "/slack/sendMessage",
       "query_parameter": [
-        "repositoryName",
-        "usernameToAdd"
+        "channelId",
+        "message"
       ],
       "header_parameter": [
         "authorization"
       ],
-      "grpc_function": "addUserToRepository",
+      "grpc_function": "sendMessage",
       "response_parameter": [
         "status"
       ]

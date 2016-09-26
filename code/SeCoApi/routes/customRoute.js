@@ -56,11 +56,10 @@ CustomRoute.prototype.route = function (){
             if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
                 return;
             }
-            var jsonGrpcArgs = _createGrpcJsonArgs(req, requestArray[requestID]['grpc_function_paramater'],res);
-            console.log(jsonGrpcArgs);
+            var jsonGrpcArgs = _createGrpcJsonArgs(req, requestArray[requestID]['query_parameter'],res);
             self.client[requestArray[requestID]['grpc_function']](jsonGrpcArgs, function (err, response) {
                 if (err) {
-                    _offlineError(res);
+                    return _offlineError(res,self.config['service_name']);
                 } else {
                     if (response.err) {
                         return res.json(response.err);
@@ -104,12 +103,11 @@ function _createHttpJsonResult(params, grpcResponse){
 
 function _createGrpcJsonArgs(req, params) {
     var resultAsObj = {};
+    //encrypt authentication and set grpc parameter
+    resultAsObj['auth'] = _setAuthorization(req.headers.authorization,self.config['authentication_type'])
     for (var i in params) {
         var param = params[i];
-        if (param === 'auth') {
-            //encrypt authentication
-            resultAsObj['auth'] = _setAuthorization(req.headers.authorization,self.config['authentication_type'])
-        } else if (req.query.hasOwnProperty(param)) {
+        if (req.query.hasOwnProperty(param)) {
             resultAsObj[param] = req.query[param];
         }
         if (param === 'fileName') {
@@ -126,8 +124,8 @@ function _noFileUploadedError(res){
     res.status(400).send("no uploaded file found under 'file'");
 }
 
-function _offlineError(res) {
-    res.status(504).send(self.config['service_name'] + ' connector offline');
+function _offlineError(res,serviceName) {
+    res.status(504).send(serviceName + ' connector offline');
 }
 
 

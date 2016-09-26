@@ -42,7 +42,7 @@ exports.start = function () {
 function register(call, callback) {
     winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
     if (!call.request.name || !call.request.password) {
-        _error('register', 'missing parameter', callback);
+        _error('register', 'missing grpc parameter', callback);
     } else if (call.request.name.length < nconf.get('userNameMinLength')) {
         _error('register', 'name has to be at least ' + nconf.get('userNameMinLength') + ' characters', callback);
     } else if (call.request.password.length < nconf.get('passwordMinLength')) {
@@ -66,7 +66,7 @@ function register(call, callback) {
 function login(call, callback) {
     winston.log('info', 'rpc method login request: ' + JSON.stringify(call.request));
     if (!call.request.name || !call.request.password) {
-        _error('login', 'missing parameter', callback);
+        _error('login', 'missing grpc parameter', callback);
     } else {
         db.readUser(call.request.name, function (err, user) {
             if (err) {
@@ -97,7 +97,7 @@ function login(call, callback) {
 function setAuthentication(call, callback) {
     winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
     if (!call.request.service || !call.request.username || !call.request.access_token) {
-        _error('setAccessToken', 'missing parameter', callback);
+        _error('setAccessToken', 'missing grpc parameter', callback);
     } else {
         db.addAuthentication(call.request.username, call.request.service, call.request.access_token,call.request.refresh_token, function (err, user) {
             if (err) {

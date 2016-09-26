@@ -13,9 +13,6 @@
         "authorization"
       ],
       "grpc_function": "getRepositories",
-      "grpc_function_paramater": [
-        "auth"
-      ],
       "response_parameter": [
         "repos"
       ]
@@ -31,11 +28,6 @@
         "authorization"
       ],
       "grpc_function": "getRepositoryContent",
-      "grpc_function_paramater": [
-        "path",
-        "auth",
-        "repositoryName"
-      ],
       "response_parameter": [
         "dirs"
       ]
@@ -51,11 +43,6 @@
         "authorization"
       ],
       "grpc_function": "addUserToRepository",
-      "grpc_function_paramater": [
-        "repositoryName",
-        "auth",
-        "usernameToAdd"
-      ],
       "response_parameter": [
         "status"
       ]

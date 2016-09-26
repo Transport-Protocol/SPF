@@ -1,8 +1,6 @@
 {
   "httpPort" : 8080,
   "rpcTimeoutMS" : 5000,
-  "owncloudGrpcServerPort" : 50051,
-  "owncloudGrpcServerIp" : "localhost",
-  "dropboxGrpcServerPort" : 50052,
-  "dropboxGrpcServerIp" : "localhost"
+  "userServiceIp" : "localhost",
+  "userServicePort" : 50054
 }

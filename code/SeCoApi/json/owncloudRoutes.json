@@ -16,10 +16,6 @@
         "authorization"
       ],
       "grpc_function": "getFile",
-      "grpc_function_paramater": [
-        "path",
-        "authorization"
-      ],
       "response_parameter": [
         "fileName",
         "fileBuffer"
@@ -35,10 +31,6 @@
         "authorization"
       ],
       "grpc_function": "getFileTree",
-      "grpc_function_paramater": [
-        "path",
-        "authorization"
-      ],
       "response_parameter": [
         "dirs"
       ]
@@ -53,12 +45,6 @@
         "authorization"
       ],
       "grpc_function": "uploadFile",
-      "grpc_function_paramater": [
-        "path",
-        "authorization",
-        "fileBuffer",
-        "fileName"
-      ],
       "response_parameter": [
         "status"
       ]

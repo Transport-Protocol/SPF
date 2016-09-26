@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package userManagement;
+
+// The rpc FileStorage service definition.
+service UserManagement {
+    rpc Register (RegisterRequest) returns (RegisterReply) {
+    }
+
+    rpc Login (LoginRequest) returns (LoginReply) {
+    }
+
+    rpc ReadUser (ReadUserRequest) returns (ReadUserReply) {
+    }
+
+    rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply) {
+    }
+
+    rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {
+    }
+}
+
+message RegisterRequest {
+    string name = 1;
+    string password = 2;
+}
+
+message RegisterReply {
+    string status = 1;
+    string err = 2;
+}
+
+message LoginRequest {
+    string name = 1;
+    string password = 2;
+}
+
+message LoginReply {
+    string status = 1;
+    string err = 2;
+}
+
+message ReadUserRequest {
+    string name = 1;
+}
+
+message ReadUserReply {
+    string name = 1;
+    string auth = 2;
+    string err = 3;
+}
+
+message DeleteUserRequest {
+    string name = 1;
+}
+
+message DeleteUserReply {
+    string status = 1;
+    string err = 2;
+}
+
+message IsLoginCorrectRequest {
+    string name = 1;
+    string password = 2;
+}
+
+message IsLoginCorrectReply {
+    bool isCorrect = 1;
+    string err = 2;
+}
+

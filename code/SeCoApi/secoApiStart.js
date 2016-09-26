@@ -24,6 +24,7 @@ function registerRoutes() {
     app.use('/api', new CustomRoute('./json/githubRoutes.json', 'versionControl.proto').route());
     app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route());
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route());
+    app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route());
 }
 
 //global vars
