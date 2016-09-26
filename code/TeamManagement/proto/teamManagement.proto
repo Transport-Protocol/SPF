@@ -13,6 +13,8 @@ service TeamManagement {
   rpc DeleteTeam (DeleteTeamRequest) returns (DeleteTeamReply) {}
 
   rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {}
+
+  rpc List (ListRequest) returns (ListReply) {}
 }
 
 message CreateRequest {
@@ -64,5 +66,14 @@ message IsLoginCorrectRequest {
 message IsLoginCorrectReply {
   bool isCorrect = 1;
   string err = 2;
+}
+
+message ListRequest {
+    string username = 1;
+}
+
+message ListReply {
+    string teamList =1;
+    string err = 2;
 }
 

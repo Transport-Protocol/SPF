@@ -15,11 +15,12 @@ var exports = module.exports = {};
 var _server;
 
 exports.init = function (serverIp, serverPort) {
-    var teamManagementProto = grpc.load('./proto/teammanagement.proto').teamManagement;
+    var teamManagementProto = grpc.load('./proto/teamManagement.proto').teamManagement;
     _server = new grpc.Server();
     _server.addProtoService(teamManagementProto.TeamManagement.service, {
         create: create,
-        join: join
+        join: join,
+        list: list
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -51,7 +52,7 @@ function create(call, callback) {
                 winston.log('error', 'error performing rpc method createTeam: ', err);
                 return callback(null, {err: err.message});
             } else {
-                winston.log('info', 'succesfully performed createTeam rpc method: ',createdTeam);
+                winston.log('info', 'succesfully performed createTeam rpc method: ', createdTeam);
                 return callback(null, {status: 'created'});
             }
         });
@@ -68,35 +69,40 @@ function join(call, callback) {
     if (!call.request.teamName || !call.request.password || !call.request.userName) {
         _error('login', 'missing parameter', callback);
     } else {
-        db.isTeamLoginCorrect(call.request.teamName, call.request.password, function (err, isCorrect) {
+        db.isTeamLoginCorrect(call.request.teamName, call.request.password, function (err) {
             if (err) {
                 winston.log('error', 'error performing rpc method join: ', err);
                 return callback(null, {err: err.message});
             } else {
-                if (isCorrect === false) {
-                    winston.log('info', 'wrong login credentials for team: ', call.request.teamName);
-                    return callback(null, {err: 'wrong password'});
-                } else {
-                    db.readTeam(call.request.teamName, function (err, team) {
-                        if (err) {
-                            winston.log('error', 'error performing rpc method join: ', err);
-                            return callback(null, {err: err.message});
-                        } else {
-                            team.members.push(call.request.userName);
-                            team.save(function (err) {
-                                if (err) {
-                                    winston.log('error', 'creating adding member to  Team ', err);
-                                    return callback(null, {err: err.message});
-                                } else {
-                                    winston.log('info', 'succesfully added member to Team with name: ' + team.name);
-                                    return callback(null, {status: 'joined'});
-                                }
-                            });
-                        }
-                    });
-                }
+                db.readTeam(call.request.teamName, function addUserToTeam(err, team) {
+                    if (err) {
+                        winston.log('error', 'error performing rpc method join: ', err);
+                        return callback(null, {err: err.message});
+                    } else {
+                        //add user to team
+                        team.members.push(call.request.userName);
+                        team.save(function (err) {
+                            if (err) {
+                                winston.log('error', 'creating adding member to  Team ', err);
+                                return callback(null, {err: err.message});
+                            } else {
+                                winston.log('info', 'succesfully added member to Team with name: ' + team.name);
+                                return callback(null, {status: 'joined'});
+                            }
+                        });
+                    }
+                });
             }
         });
+    }
+}
+
+function list(call,callback){
+    winston.log('info', 'rpc method list request: ' + JSON.stringify(call.request));
+    if (!call.request.username) {
+        _error('login', 'missing parameter', callback);
+    } else {
+
     }
 }
 

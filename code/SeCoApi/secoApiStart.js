@@ -17,6 +17,7 @@ nconf.argv()
 
 var CustomRoute = require('./routes/customRoute');
 var UserRoute = require('./routes/userRoute');
+var TeamRoute = require('./routes/teamRoute');
 
 
 function registerRoutes() {
@@ -27,6 +28,7 @@ function registerRoutes() {
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route());
     app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route());
     app.use('/api', UserRoute);
+    app.use('/api', TeamRoute);
 }
 
 //global vars

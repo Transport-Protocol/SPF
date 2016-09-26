@@ -112,8 +112,29 @@ function isTeamLoginCorrect(name, password, callback) {
                 callback(err);
             }
             logger.log('info', 'successfully checked isTeamLoginCorrect for name: ' + name + '  result: ' + isMatch);
-            callback(null, isMatch);
+            if (!isMatch) {
+                callback(new Error('wrong password'));
+            } else {
+                callback(null);
+            }
         });
+    });
+}
+
+/**
+ * Returns all teams the user is member of
+ * @param username
+ * @param callback
+ */
+function listTeams(username, callback) {
+    Team.find({members: username}, function (err, teams) {
+        if (err) {
+            return callback(err);
+        }
+        if(teams.length === 0){
+            return callback(new Error('no teams found'));
+        }
+        return callback(null,teams);
     });
 }
 
@@ -138,5 +159,6 @@ module.exports = {
     createTeam: createTeam,
     readTeam: readTeam,
     deleteTeam: deleteTeam,
-    isTeamLoginCorrect: isTeamLoginCorrect
+    isTeamLoginCorrect: isTeamLoginCorrect,
+    listTeams: listTeams
 };

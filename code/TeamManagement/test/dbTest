@@ -1,0 +1,30 @@
+/**
+ * Created by PhilippMac on 26.09.16.
+ */
+'use strict';
+
+var expect = require('chai').expect,
+    assert = require('chai').assert,
+    db = require('../db/db')
+
+
+function init(){
+    db.connect(10,'mongodb://127.0.0.1/secoTeam');
+}
+
+var client = {};
+
+describe('TeamManagement', function () {
+    before(function() {
+        init();
+    });
+    describe('list', function () {
+        it('all Teams a user is part of', function (done) {
+            db.listTeams('test',function(err,teams){
+                console.log(err);
+                console.log(teams);
+                done();
+            });
+        });
+    });
+});

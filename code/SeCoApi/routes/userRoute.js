@@ -8,14 +8,16 @@ var ParamChecker = require('./../utility/paramChecker'),
     router = express.Router(),
     paramChecker = new ParamChecker(),
     url = nconf.get('userServiceIp') + ':' + nconf.get('userServicePort');
+
+
 winston.log('info', 'userservice grpc url: %s', url);
 
 var proto = grpc.load('./proto/userManagement.proto').userManagement;
 var client = new proto.UserManagement(url,
     grpc.credentials.createInsecure());
 
-
-router.get('/user/register', function (req, res) {
+//REGISTER ROUTE
+router.post('/user/register', function (req, res) {
     if (!paramChecker.containsParameter(['username', 'password'], req, res)) {
         return;
     }
@@ -37,7 +39,8 @@ router.get('/user/register', function (req, res) {
     });
 });
 
-router.get('/user/login', function (req, res) {
+//LOGIN ROUTE
+router.post('/user/login', function (req, res) {
     if (!paramChecker.containsParameter(['username', 'password'], req, res)) {
         return;
     }
