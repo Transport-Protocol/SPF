@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose'),
     nconf = require('nconf'),
+    uuid = require('node-uuid'),
     User = require('./models/user'),
     logger = require('winston');
 
@@ -111,6 +112,53 @@ function isLoginCorrect(name, password, callback) {
 }
 
 /**
+ * Sets a sessionId for user and returns it
+ * @param name
+ * @param callback
+ */
+function setSessionId(name,callback) {
+    readUser(name, function(err, user){
+        if(err){
+            logger.log('error','setSessionId couldnt get user: ',name);
+            return callback(err);
+        } else {
+            user.sessionID = uuid.v4();
+            user.save(function (err) {
+                if (err) {
+                    logger.log('error', 'set sessionId ', err.message);
+                    return callback(err);
+                }
+                logger.log('info', 'successfully set sessionId for user : ' + user);
+                return callback(null, user.sessionID);
+            });
+        }
+    });
+}
+
+/**
+ * Checks if specified sessionId is matching
+ * @param name
+ * @param sessionId
+ * @param callback err,boolean
+ */
+function isSessionIdCorrect(name,sessionId,callback){
+    readUser(name,function(err,user){
+       if(err){
+           logger.log('error','isSessionIdCorrect couldnt get user: ',name);
+           return callback(err);
+       } else {
+           if(sessionId == user.sessionID){
+               logger.log('info','sessionId is correct');
+               return callback(null,true);
+           } else {
+               logger.log('info','sessionId is not correct');
+               return callback(null,false);
+           }
+       }
+    });
+}
+
+/**
  * Adds authentication for a service
  * @param username
  * @param service
@@ -171,5 +219,7 @@ module.exports = {
     readUser: readUser,
     deleteUser: deleteUser,
     isLoginCorrect: isLoginCorrect,
-    addAuthentication: addAuthentication
+    addAuthentication: addAuthentication,
+    setSessionId : setSessionId,
+    isSessionIdCorrect : isSessionIdCorrect
 };

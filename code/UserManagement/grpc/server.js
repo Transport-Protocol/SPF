@@ -46,7 +46,7 @@ function register(call, callback) {
     } else if (call.request.name.length < nconf.get('userNameMinLength')) {
         _error('register', 'name has to be at least ' + nconf.get('userNameMinLength') + ' characters', callback);
     } else if (call.request.password.length < nconf.get('passwordMinLength')) {
-        _error('register', 'password has to be at least ' + nconf.get('passwordMinLength'), callback);
+        _error('register', 'password has to be at least ' + nconf.get('passwordMinLength') + ' characters', callback);
     } else {
         db.createUser(call.request.name, call.request.password, function (err, createdUser) {
             if (err) {
@@ -68,11 +68,13 @@ function login(call, callback) {
     if (!call.request.name || !call.request.password) {
         _error('login', 'missing grpc parameter', callback);
     } else {
+        //get user
         db.readUser(call.request.name, function (err, user) {
             if (err) {
                 winston.log('error', 'error performing rpc method login: ', err);
                 return callback(null, {err: err.message});
             }
+            //is password correct?
             user.comparePassword(call.request.password, function (err, isCorrect) {
                 if (err) {
                     winston.log('error', 'error performing rpc method login while comparing passwords: ', err);
@@ -80,12 +82,23 @@ function login(call, callback) {
                 }
                 winston.log('info', 'succesfully performed login rpc method');
                 var status = {};
-                if(isCorrect){
+                //password correct
+                if (isCorrect) {
                     status = 'login successful';
+                    db.setSessionId(user.username, function (err, sessionId) {
+                        if (err) {
+                            //login correct but problems setting sessionId
+                            return callback(null, {err: err});
+                        } else {
+                            //login ok and sessionid set
+                            return callback(null, {status: status, sessionId: sessionId, loginSuccessful: true});
+                        }
+                    });
+                    //password wrong
                 } else {
                     status = 'wrong login credentials';
+                    return callback(null, {status: status, loginSuccessful: false});
                 }
-                return callback(null, {status: status});
             });
         });
     }
@@ -99,12 +112,12 @@ function setAuthentication(call, callback) {
     if (!call.request.service || !call.request.username || !call.request.access_token) {
         _error('setAccessToken', 'missing grpc parameter', callback);
     } else {
-        db.addAuthentication(call.request.username, call.request.service, call.request.access_token,call.request.refresh_token, function (err, user) {
+        db.addAuthentication(call.request.username, call.request.service, call.request.access_token, call.request.refresh_token, function (err, user) {
             if (err) {
                 winston.log('error', 'error performing rpc method setAccessToken: ', err);
                 return callback(null, {err: err.message});
             } else {
-                winston.log('info', 'succesfully performed setAccessToken rpc method ',user);
+                winston.log('info', 'succesfully performed setAccessToken rpc method ', user);
                 return callback(null, {status: 'created'});
             }
         });

@@ -5,6 +5,7 @@
 var express = require('express'),
     fileUpload = require('express-fileupload'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
     winston = require('winston'),
     fs = require('fs'),
     nconf = require('nconf');
@@ -15,27 +16,28 @@ nconf.argv()
 
 
 var CustomRoute = require('./routes/customRoute');
+var UserRoute = require('./routes/userRoute');
 
 
 function registerRoutes() {
-    app.use('/api', router);
     app.use('/api', new CustomRoute('./json/dropboxRoutes.json', 'fileStorage.proto').route());
     app.use('/api', new CustomRoute('./json/owncloudRoutes.json', 'fileStorage.proto').route());
     app.use('/api', new CustomRoute('./json/githubRoutes.json', 'versionControl.proto').route());
     app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route());
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route());
     app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route());
+    app.use('/api', UserRoute);
 }
 
 //global vars
 var app;
-var router;
 
 function init() {
     process.env.LOG_LEVEL = 'info';
     winston.level = process.env.LOG_LEVEL;
     app = express();
     app.use(bodyParser.json());
+    app.use(cookieParser());
     //reading multipart fileupload
     app.use(fileUpload());
     router = express.Router();
@@ -54,7 +56,7 @@ function notFound(req, res, next) {
     res.status(404).send('not found');
 }
 
-function login(req,res,next) {
+function login(req, res, next) {
 
 }
 

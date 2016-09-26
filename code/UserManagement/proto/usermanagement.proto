@@ -37,7 +37,9 @@ message LoginRequest {
 
 message LoginReply {
     string status = 1;
-    string err = 2;
+    bool loginSuccessful = 2;
+    string err = 3;
+    string sessionId = 4;
 }
 
 message ReadUserRequest {
