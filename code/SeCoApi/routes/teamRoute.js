@@ -96,12 +96,18 @@ TeamRoute.prototype.route = function (router){
            teamName: req.query.teamName,
            services: req.body.services
        }, function(err,response) {
-
+           if (response.err) {
+               winston.log('error', 'couldnt add Services to team %s', req.query.teamName, err);
+               return res.json(response.err);
+           } else {
+               winston.log('info', 'successfully joined team: ', req.query.teamName);
+               return res.json(response.status);
+           }
        });
     });
 
     return router;
-}
+};
 
 
 

@@ -127,25 +127,53 @@ function isTeamLoginCorrect(name, password, callback) {
  * @param callback
  */
 function listTeams(username, callback) {
-    Team.find({members: username}).lean().exec(function(err,teams) {
+    Team.find({members: username}).lean().exec(function (err, teams) {
         if (err) {
             return callback(err);
         }
-        if(teams.length === 0){
+        if (teams.length === 0) {
             return callback(new Error('no teams found'));
         }
-        var teamsInfoArray = []
+        var teamsInfoArray = [];
         //remove password, not needed here
-        for(var i = 0;i<teams.length;i++){
+        for (var i = 0; i < teams.length; i++) {
             teamsInfoArray[i] = {
-                teamName : teams[i].teamName,
-                teamCreator : teams[i].teamCreator,
-                members : teams[i].members,
-                services : teams[i].services
+                teamName: teams[i].teamName,
+                teamCreator: teams[i].teamCreator,
+                members: teams[i].members,
+                services: teams[i].services
             }
         }
-        return callback(null,teamsInfoArray);
+        logger.log('info', 'successfully got infos of teams');
+        return callback(null, teamsInfoArray);
     });
+}
+
+function addServices(teamName, services, callback) {
+    Team.findOne({teamName: teamName}, function (err, team) {
+            if (err) {
+                return callback(err);
+            }
+            if (!team) {
+                return callback(new Error('team not found'));
+            } else {
+                for (var i = 0; i < services.length; i++) {
+                    if (team.services.indexOf(services[i]) === -1) {
+                        team.services.push(services[i]);
+                    }
+                }
+                team.save(function (err) {
+                    if (err) {
+                        logger.log('error', 'adding services ', err.message);
+                        return callback(err);
+                    }
+                    logger.log('info', 'successfully added Services %s to team ', team.services, teamName);
+                    return callback(null);
+                });
+            }
+        }
+    )
+    ;
 }
 
 /**
@@ -170,5 +198,6 @@ module.exports = {
     readTeam: readTeam,
     deleteTeam: deleteTeam,
     isTeamLoginCorrect: isTeamLoginCorrect,
-    listTeams: listTeams
+    listTeams: listTeams,
+    addServices: addServices
 };

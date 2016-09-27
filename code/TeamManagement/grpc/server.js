@@ -152,13 +152,13 @@ function addServices(call,callback){
     if (!call.request.services || !call.request.teamName) {
         _error('login', 'missing parameter', callback);
     } else {
-        db.listTeams(call.request.username, function(err,teams){
+        db.addServices(call.request.teamName,call.request.services, function(err){
             if(err){
-                winston.log('error','couldnt list teams for user %s %s',call.request.username,err);
+                winston.log('error','couldnt add Services %s to team %s',call.request.teamName,call.request.services,err);
                 return callback(null,{err: err.message});
             } else {
-                winston.log('info', 'successfully list teams for user %s',call.request.username);
-                return callback(null,{teamList: JSON.stringify(teams)});
+                winston.log('info', 'successfully add Services %s to team',call.request.services,call.request.teamName);
+                return callback(null,{status: 'ok'});
             }
         });
     }

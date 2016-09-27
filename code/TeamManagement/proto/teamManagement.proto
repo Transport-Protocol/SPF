@@ -20,6 +20,7 @@ enum ServiceType {
     BITBUCKET = 2;
     GOOGLE = 3;
     SLACK = 4;
+    OWNCLOUD = 5;
 }
 
 message CreateRequest {
