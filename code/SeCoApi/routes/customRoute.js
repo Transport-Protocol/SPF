@@ -7,7 +7,6 @@
 var grpc = require('grpc'),
     winston = require('winston'),
     fs = require('fs'),
-    express = require('express'),
     nconf = require('nconf'),
     HashMap = require('hashmap'),
     ParamChecker = require('./../utility/paramChecker'),
@@ -36,8 +35,7 @@ function _initGRPC(self,protoFileName){
 }
 
 
-CustomRoute.prototype.route = function (){
-    var router = express.Router();
+CustomRoute.prototype.route = function (router){
     var self = this;
     var requestArray = this.config['requests'];
     var requestMap = new HashMap();

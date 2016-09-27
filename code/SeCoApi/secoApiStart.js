@@ -8,27 +8,31 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     winston = require('winston'),
     fs = require('fs'),
+    expressListRoutes   = require('express-list-routes'),
     nconf = require('nconf');
 
 nconf.argv()
     .env()
     .file({file: './config/config.json'});
 
+var router = express.Router();
 
 var CustomRoute = require('./routes/customRoute');
 var UserRoute = require('./routes/userRoute');
 var TeamRoute = require('./routes/teamRoute');
 
 
+
+
 function registerRoutes() {
-    app.use('/api', new CustomRoute('./json/dropboxRoutes.json', 'fileStorage.proto').route());
-    app.use('/api', new CustomRoute('./json/owncloudRoutes.json', 'fileStorage.proto').route());
-    app.use('/api', new CustomRoute('./json/githubRoutes.json', 'versionControl.proto').route());
-    app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route());
-    app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route());
-    app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route());
-    app.use('/api', UserRoute);
-    app.use('/api', TeamRoute);
+    app.use('/api', new CustomRoute('./json/dropboxRoutes.json', 'fileStorage.proto').route(router));
+    app.use('/api', new CustomRoute('./json/owncloudRoutes.json', 'fileStorage.proto').route(router));
+    app.use('/api', new CustomRoute('./json/githubRoutes.json', 'versionControl.proto').route(router));
+    app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route(router));
+    app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route(router));
+    app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route(router));
+    app.use('/api', new UserRoute().route(router));
+    app.use('/api', new TeamRoute().route(router));
 }
 
 //global vars
@@ -67,12 +71,17 @@ function start() {
     // =============================================================================
     app.listen(nconf.get('httpPort'));
     winston.log('info', 'Api created at port: ', nconf.get('httpPort'));
+    printRoutes();
 }
 
 function main() {
     init();
     app.use(notFound); //register as last middleware
     start();
+}
+
+function printRoutes(){
+    expressListRoutes({ prefix: '/api' }, 'API:', router );
 }
 
 

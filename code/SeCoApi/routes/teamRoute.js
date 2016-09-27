@@ -3,67 +3,73 @@
 var ParamChecker = require('./../utility/paramChecker'),
     grpc = require('grpc'),
     winston = require('winston'),
-    nconf = require('nconf'),
-    express = require('express'),
-    router = express.Router(),
-    paramChecker = new ParamChecker(),
-    url = nconf.get('teamServiceIp') + ':' + nconf.get('teamServicePort');
+    nconf = require('nconf');
 
 
-winston.log('info', 'teamservice grpc url: %s', url);
 
-var proto = grpc.load('./proto/teamManagement.proto').teamManagement;
-var client = new proto.TeamManagement(url,
-    grpc.credentials.createInsecure());
+function TeamRoute(){
+    this.paramChecker = new ParamChecker();
+    var url = nconf.get('teamServiceIp') + ':' + nconf.get('teamServicePort');
+    winston.log('info', 'teamservice grpc url: %s', url);
+    var proto = grpc.load('./proto/teamManagement.proto').teamManagement;
+    this.client = new proto.TeamManagement(url,
+        grpc.credentials.createInsecure());
+}
 
-
-router.post('/team/create', function (req, res) {
-    if (!paramChecker.containsParameter(['teamName', 'password','teamCreator'], req, res)) {
-        return;
-    }
-    client.create({
-        teamName: req.query.teamName,
-        password: req.query.password,
-        teamCreator: req.query.teamCreator
-    }, function (err, response) {
-        if (err) {
-            _offlineError(res);
-        } else {
-            if (response.err) {
-                winston.log('error', 'couldnt create team: ', req.query.teamName);
-                return res.json(response.err);
-            } else {
-                winston.log('info', 'successfully created team: ', req.query.teamName);
-                return res.json(response.status);
-            }
+TeamRoute.prototype.route = function (router){
+    var self = this;
+    router.post('/team/create', function (req, res) {
+        if (!self.paramChecker.containsParameter(['teamName', 'password','teamCreator'], req, res)) {
+            return;
         }
-    });
-});
-
-router.post('/team/join', function (req, res) {
-    if (!paramChecker.containsParameter(['teamName', 'password','userName'], req, res)) {
-        return;
-    }
-    client.create({
-        teamName: req.query.teamName,
-        password: req.query.password,
-        userName: req.query.userName
-    }, function (err, response) {
-        if (err) {
-            _offlineError(res);
-        } else {
-            if (response.err) {
-                winston.log('error', 'couldnt join team: ', req.query.teamName);
-                return res.json(response.err);
+        self.client.create({
+            teamName: req.query.teamName,
+            password: req.query.password,
+            teamCreator: req.query.teamCreator
+        }, function (err, response) {
+            if (err) {
+                _offlineError(res);
             } else {
-                winston.log('info', 'successfully joined team: ', req.query.teamName);
-                return res.json(response.status);
+                if (response.err) {
+                    winston.log('error', 'couldnt create team: ', req.query.teamName);
+                    return res.json(response.err);
+                } else {
+                    winston.log('info', 'successfully created team: ', req.query.teamName);
+                    return res.json(response.status);
+                }
             }
-        }
+        });
     });
-});
 
-module.exports = router;
+    router.post('/team/join', function (req, res) {
+        if (!self.paramChecker.containsParameter(['teamName', 'password','userName'], req, res)) {
+            return;
+        }
+        self.client.create({
+            teamName: req.query.teamName,
+            password: req.query.password,
+            userName: req.query.userName
+        }, function (err, response) {
+            if (err) {
+                _offlineError(res);
+            } else {
+                if (response.err) {
+                    winston.log('error', 'couldnt join team: ', req.query.teamName);
+                    return res.json(response.err);
+                } else {
+                    winston.log('info', 'successfully joined team: ', req.query.teamName);
+                    return res.json(response.status);
+                }
+            }
+        });
+    });
+
+    return router;
+}
+
+
+
+module.exports = TeamRoute;
 
 
 function _offlineError(res) {
