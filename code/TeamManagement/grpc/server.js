@@ -20,7 +20,8 @@ exports.init = function (serverIp, serverPort) {
     _server.addProtoService(teamManagementProto.TeamManagement.service, {
         create: create,
         join: join,
-        list: list
+        list: list,
+        addServices: addServices
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -34,7 +35,7 @@ exports.start = function () {
 };
 
 /**
- * Implements the register RPC method.
+ * Implements the create team RPC function.
  * Check for missing parameter. check for valid input.
  * CreateTeam in mongodb.
  */
@@ -60,13 +61,13 @@ function create(call, callback) {
 }
 
 /**
- * Implements the login RPC method.
+ * Implements the join team RPC function.
  * Check missing parameter.
  * Add user to team members.
  */
 function join(call, callback) {
     winston.log('info', 'rpc method login request: ' + JSON.stringify(call.request));
-    if (!call.request.teamName || !call.request.password || !call.request.userName) {
+    if (!call.request.teamName || !call.request.password || !call.request.username) {
         _error('login', 'missing parameter', callback);
     } else {
         db.isTeamLoginCorrect(call.request.teamName, call.request.password, function (err) {
@@ -80,7 +81,7 @@ function join(call, callback) {
                         return callback(null, {err: err.message});
                     } else {
                         //add user to team
-                        team.members.push(call.request.userName);
+                        team.members.push(call.request.username);
                         team.save(function (err) {
                             if (err) {
                                 winston.log('error', 'creating adding member to  Team ', err);
@@ -97,14 +98,72 @@ function join(call, callback) {
     }
 }
 
+/**
+ * Implements the list teams rpc function
+ * @param call
+ * @param callback
+ */
 function list(call,callback){
     winston.log('info', 'rpc method list request: ' + JSON.stringify(call.request));
     if (!call.request.username) {
         _error('login', 'missing parameter', callback);
     } else {
-
+        db.listTeams(call.request.username, function(err,teams){
+          if(err){
+              winston.log('error','couldnt list teams for user %s %s',call.request.username,err);
+              return callback(null,{err: err.message});
+          } else {
+              winston.log('info', 'successfully list teams for user %s',call.request.username);
+              return callback(null,{teamList: JSON.stringify(teams)});
+          }
+        });
     }
 }
+
+/**
+ * Implements the list teams rpc function
+ * @param call
+ * @param callback
+ */
+function list(call,callback){
+    winston.log('info', 'rpc method list request: ' + JSON.stringify(call.request));
+    if (!call.request.username) {
+        _error('login', 'missing parameter', callback);
+    } else {
+        db.listTeams(call.request.username, function(err,teams){
+            if(err){
+                winston.log('error','couldnt list teams for user %s %s',call.request.username,err);
+                return callback(null,{err: err.message});
+            } else {
+                winston.log('info', 'successfully list teams for user %s',call.request.username);
+                return callback(null,{teamList: JSON.stringify(teams)});
+            }
+        });
+    }
+}
+
+/**
+ * Implements the addServices rpc function
+ * @param call
+ * @param callback
+ */
+function addServices(call,callback){
+    winston.log('info', 'rpc method addServices request: ' + JSON.stringify(call.request));
+    if (!call.request.services || !call.request.teamName) {
+        _error('login', 'missing parameter', callback);
+    } else {
+        db.listTeams(call.request.username, function(err,teams){
+            if(err){
+                winston.log('error','couldnt list teams for user %s %s',call.request.username,err);
+                return callback(null,{err: err.message});
+            } else {
+                winston.log('info', 'successfully list teams for user %s',call.request.username);
+                return callback(null,{teamList: JSON.stringify(teams)});
+            }
+        });
+    }
+}
+
 
 
 function _error(functionName, errorMessage, callback) {

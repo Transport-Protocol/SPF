@@ -127,14 +127,24 @@ function isTeamLoginCorrect(name, password, callback) {
  * @param callback
  */
 function listTeams(username, callback) {
-    Team.find({members: username}, function (err, teams) {
+    Team.find({members: username}).lean().exec(function(err,teams) {
         if (err) {
             return callback(err);
         }
         if(teams.length === 0){
             return callback(new Error('no teams found'));
         }
-        return callback(null,teams);
+        var teamsInfoArray = []
+        //remove password, not needed here
+        for(var i = 0;i<teams.length;i++){
+            teamsInfoArray[i] = {
+                teamName : teams[i].teamName,
+                teamCreator : teams[i].teamCreator,
+                members : teams[i].members,
+                services : teams[i].services
+            }
+        }
+        return callback(null,teamsInfoArray);
     });
 }
 

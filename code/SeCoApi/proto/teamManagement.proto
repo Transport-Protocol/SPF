@@ -8,13 +8,18 @@ service TeamManagement {
 
   rpc Join (JoinRequest) returns (JoinReply) {}
 
-  rpc ReadTeam (ReadTeamRequest) returns (ReadTeamReply) {}
-
-  rpc DeleteTeam (DeleteTeamRequest) returns (DeleteTeamReply) {}
-
-  rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {}
+  rpc AddServices (AddServicesRequest) returns (AddServicesReply) {}
 
   rpc List (ListRequest) returns (ListReply) {}
+}
+
+//service types enum
+enum ServiceType {
+  GITHUB = 0;
+  DROPBOX = 1;
+  BITBUCKET = 2;
+  GOOGLE = 3;
+  SLACK = 4;
 }
 
 message CreateRequest {
@@ -31,7 +36,7 @@ message CreateReply {
 message JoinRequest {
   string teamName = 1;
   string password = 2;
-  string userName = 3;
+  string username = 3;
 }
 
 message JoinReply {
@@ -39,34 +44,6 @@ message JoinReply {
   string err = 2;
 }
 
-message ReadTeamRequest {
-  string name = 1;
-}
-
-message ReadTeamReply {
-  string name = 1;
-  repeated string services = 2;
-  string err = 3;
-}
-
-message DeleteTeamRequest {
-  string name = 1;
-}
-
-message DeleteTeamReply {
-  string status = 1;
-  string err = 2;
-}
-
-message IsLoginCorrectRequest {
-  string name = 1;
-  string password = 2;
-}
-
-message IsLoginCorrectReply {
-  bool isCorrect = 1;
-  string err = 2;
-}
 
 message ListRequest {
   string username = 1;
@@ -74,6 +51,16 @@ message ListRequest {
 
 message ListReply {
   string teamList =1;
+  string err = 2;
+}
+
+message AddServicesRequest {
+  string teamName = 1;
+  repeated ServiceType services = 2;
+}
+
+message AddServicesReply {
+  string status  =1;
   string err = 2;
 }
 
