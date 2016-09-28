@@ -2,6 +2,7 @@
 
 var ParamChecker = require('./../utility/paramChecker'),
     grpc = require('grpc'),
+    auth = require('basic-auth'),
     winston = require('winston'),
     nconf = require('nconf');
 
@@ -44,23 +45,25 @@ UserRoute.prototype.checkSession = function (req,res,next){
 
 UserRoute.prototype.route = function (router) {
     var self = this;
+
     //REGISTER ROUTE
     router.post('/user/register', function (req, res) {
-        if (!self.paramChecker.containsParameter(['username', 'password'], req, res)) {
-            return;
+        var user = auth(req);
+        if(typeof user === 'undefined'){
+            return res.status(401).send('invalid or missing basic authentication');
         }
         client.register({
-            name: req.query.username,
-            password: req.query.password
+            name: user.name,
+            password: user.pass
         }, function (err, response) {
             if (err) {
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt register user: ', req.query.username);
+                    winston.log('error', 'couldnt register user: ', user.name);
                     return res.json(response.err);
                 } else {
-                    winston.log('info', 'successfully registered user: ', req.query.username);
+                    winston.log('info', 'successfully registered user: ', user.name);
                     return res.json(response.status);
                 }
             }
@@ -69,25 +72,26 @@ UserRoute.prototype.route = function (router) {
 
     //LOGIN ROUTE
     router.post('/user/login', function (req, res) {
-        if (!self.paramChecker.containsParameter(['username', 'password'], req, res)) {
-            return;
+        var user = auth(req);
+        if(typeof user === 'undefined'){
+            return res.status(401).send('invalid or missing basic authentication');
         }
         client.login({
-            name: req.query.username,
-            password: req.query.password
+            name: user.name,
+            password: user.pass
         }, function (err, response) {
             if (err) {
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt login user: ', req.query.username);
+                    winston.log('error', 'couldnt login user: ', user.name);
                     return res.json(response.err);
                 } else {
                     if (!response.loginSuccessful) {
-                        winston.log('info', 'wrong login from user: ', req.query.username);
+                        winston.log('info', 'wrong login from user: ', user.name);
                         return res.json(response.status);
                     } else {
-                        winston.log('info', 'successful login for user: ', req.query.username);
+                        winston.log('info', 'successful login for user: ', user.name);
                         //res.cookie('sessionId', response.sessionId);
                         return res.json({
                             "status": "ok",

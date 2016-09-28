@@ -67,21 +67,26 @@ function notFound(req, res, next) {
 }
 
 function basicAuth(req, res, next) {
-    secoBasicAuth.verifyBasicAuth(req, function (err, authenticated, username) {
-        if (err) {
-            winston.log('error', 'couldnt authenticate at SeCo Api', err);
-            res.status(401).send(err.message);
-        } else {
-            if (!authenticated) {
-                winston.log('info', 'username or password wrong');
-                res.status(401).send('not authenticated at SeCo Api');
+    //skip for user routes
+    if (req.url.indexOf('api/user') !== -1) {
+        next();
+    } else {
+        secoBasicAuth.verifyBasicAuth(req, function (err, authenticated, username) {
+            if (err) {
+                winston.log('error', 'couldnt authenticate at SeCo Api', err);
+                res.status(401).send(err.message);
             } else {
-                winston.log('info', 'authenticated user %s at SeCo Api', username);
-                req.username = username;
-                next();
+                if (!authenticated) {
+                    winston.log('info', 'username or password wrong');
+                    res.status(401).send('not authenticated at SeCo Api');
+                } else {
+                    winston.log('info', 'authenticated user %s at SeCo Api', username);
+                    req.username = username;
+                    next();
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 
