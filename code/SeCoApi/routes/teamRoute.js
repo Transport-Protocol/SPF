@@ -68,6 +68,7 @@ TeamRoute.prototype.route = function (router){
         if (!self.paramChecker.containsParameter(['username'], req, res)) {
             return;
         }
+        console.log(req.session.username);
         self.client.list({
             username: req.query.username
         }, function (err, response) {
@@ -78,7 +79,7 @@ TeamRoute.prototype.route = function (router){
                     winston.log('error', 'couldnt list teams for user ', req.query.username, err);
                     return res.json(response.err);
                 } else {
-                    winston.log('info', 'successfully joined team: ', req.query.teamName);
+                    winston.log('info', 'successfully got list of teams');
                     return res.json(JSON.parse(response.teamList));
                 }
             }

@@ -5,23 +5,51 @@ var ParamChecker = require('./../utility/paramChecker'),
     winston = require('winston'),
     nconf = require('nconf');
 
+var client;
+
 function UserRoute(){
     this.paramChecker = new ParamChecker();
     var url = nconf.get('userServiceIp') + ':' + nconf.get('userServicePort');
     winston.log('info', 'userservice grpc url: %s', url);
     var proto = grpc.load('./proto/userManagement.proto').userManagement;
-    this.client = new proto.UserManagement(url,
+    client = new proto.UserManagement(url,
         grpc.credentials.createInsecure());
 }
+
+UserRoute.prototype.checkSession = function (req,res,next){
+    winston.log('info','check if session exists');
+    if(req.cookies.sessionId){
+        winston.log('info','cookie with sessionId received');
+        client.getUsernameBySessionId({
+            sessionId: req.cookies.sessionId
+        }, function (err, response) {
+            if (err) {
+                _offlineError(res);
+            } else {
+                if (response.err) {
+                    winston.log('error', 'couldnt get username from sessionId', response.err);
+                    next();
+                } else {
+                    winston.log('info', 'successfully got username from sessionId.name: ', response.username);
+                    req.session.username = response.username;
+                    next();
+                }
+            }
+        });
+    } else {
+        winston.log('info','no cookie for sessionId received');
+        next();
+    }
+};
 
 UserRoute.prototype.route = function (router) {
     var self = this;
     //REGISTER ROUTE
     router.post('/user/register', function (req, res) {
-        if (!paramChecker.containsParameter(['username', 'password'], req, res)) {
+        if (!self.paramChecker.containsParameter(['username', 'password'], req, res)) {
             return;
         }
-        self.client.register({
+        client.register({
             name: req.query.username,
             password: req.query.password
         }, function (err, response) {
@@ -41,10 +69,10 @@ UserRoute.prototype.route = function (router) {
 
     //LOGIN ROUTE
     router.post('/user/login', function (req, res) {
-        if (!paramChecker.containsParameter(['username', 'password'], req, res)) {
+        if (!self.paramChecker.containsParameter(['username', 'password'], req, res)) {
             return;
         }
-        self.client.login({
+        client.login({
             name: req.query.username,
             password: req.query.password
         }, function (err, response) {
@@ -68,7 +96,7 @@ UserRoute.prototype.route = function (router) {
         });
     });
     return router;
-}
+};
 
 
 module.exports = UserRoute;

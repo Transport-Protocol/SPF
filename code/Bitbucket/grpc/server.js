@@ -54,7 +54,7 @@ function getRepositories(call, callback) {
 
 
 /**
- * Implements the GetFileTree RPC method.
+ * Implements the getRepositoryContent RPC method.
  */
 function getRepositoryContent(call, callback) {
     winston.log('info', 'getRepositoryContent rpc method request: ' + JSON.stringify(call.request));
@@ -81,7 +81,7 @@ function getRepositoryContent(call, callback) {
 }
 
 /**
- * Implements the UploadFile RPC method.
+ * Implements the addUserToRepository RPC method.
  */
 function addUserToRepository(call, callback) {
     winston.log('info', 'addUserToRepository rpc method request');

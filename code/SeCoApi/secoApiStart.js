@@ -6,6 +6,7 @@ var express = require('express'),
     fileUpload = require('express-fileupload'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     winston = require('winston'),
     fs = require('fs'),
     expressListRoutes   = require('express-list-routes'),
@@ -19,6 +20,7 @@ var router = express.Router();
 
 var CustomRoute = require('./routes/customRoute');
 var UserRoute = require('./routes/userRoute');
+var userRoute = new UserRoute();
 var TeamRoute = require('./routes/teamRoute');
 
 
@@ -31,7 +33,7 @@ function registerRoutes() {
     app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route(router));
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route(router));
     app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route(router));
-    app.use('/api', new UserRoute().route(router));
+    app.use('/api', userRoute.route(router));
     app.use('/api', new TeamRoute().route(router));
 }
 
@@ -46,8 +48,10 @@ function init() {
     app.use(cookieParser());
     //reading multipart fileupload
     app.use(fileUpload());
+    app.use(session({secret: 'mySpecialSecret'}));
     router = express.Router();
     app.use(newRequest);
+    app.use(userRoute.checkSession);
     registerRoutes();
     app.use(notFound);
 }
@@ -57,14 +61,12 @@ function newRequest(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 }
 
+
 function notFound(req, res, next) {
     winston.log('info', 'route not found');
     res.status(404).send('not found');
 }
 
-function login(req, res, next) {
-
-}
 
 function start() {
     // START THE SERVER

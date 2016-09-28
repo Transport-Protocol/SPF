@@ -18,6 +18,8 @@ service UserManagement {
 
     rpc IsLoginCorrect (IsLoginCorrectRequest) returns (IsLoginCorrectReply) {
     }
+
+    rpc GetUsernameBySessionId (GetUserBySessionRequest) returns (GetUserBySessionReply) {}
 }
 
 message RegisterRequest {
@@ -71,3 +73,11 @@ message IsLoginCorrectReply {
     string err = 2;
 }
 
+message GetUserBySessionRequest {
+    string sessionId = 1;
+}
+
+message GetUserBySessionReply {
+    string username = 1;
+    string err = 2;
+}

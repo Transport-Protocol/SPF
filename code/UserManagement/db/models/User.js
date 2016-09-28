@@ -11,7 +11,7 @@ var UserSchema = new mongoose.Schema({
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
     auth: {type: Array}, // JSON String with service authentication tokens and service name {service : example,token : example}
-    sessionID : {type: String}
+    sessionId : {type: String}
 });
 
 UserSchema.pre('save', function(next) {

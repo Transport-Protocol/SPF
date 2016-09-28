@@ -20,7 +20,8 @@ exports.init = function (serverIp, serverPort) {
     _server = new grpc.Server();
     _server.addProtoService(userManagementProto.UserManagement.service, {
         register: register,
-        login: login
+        login: login,
+        getUsernameBySessionId: getUsernameBySessionId
     });
     _server.addProtoService(authProto.Authentication.service, {
         setAuthentication: setAuthentication
@@ -108,7 +109,7 @@ function login(call, callback) {
  * Implements the setAccessToken RPC method.
  */
 function setAuthentication(call, callback) {
-    winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
+    winston.log('info', 'rpc method setAuthentication request: ' + JSON.stringify(call.request));
     if (!call.request.service || !call.request.username || !call.request.access_token) {
         _error('setAccessToken', 'missing grpc parameter', callback);
     } else {
@@ -119,6 +120,23 @@ function setAuthentication(call, callback) {
             } else {
                 winston.log('info', 'succesfully performed setAccessToken rpc method ', user);
                 return callback(null, {status: 'created'});
+            }
+        });
+    }
+}
+
+function getUsernameBySessionId(call,callback) {
+    winston.log('info', 'rpc method getUsernameBySessionId request: ' + JSON.stringify(call.request));
+    if (!call.request.sessionId) {
+        _error('setAccessToken', 'missing grpc parameter', callback);
+    } else {
+        db.getUsernameBySessionId(call.request.sessionId, function (err,username){
+            if(err){
+                winston.log('error', 'error performing rpc method getUsernameBySessionId: ', err);
+                return callback(null, {err: err.message});
+            } else {
+                winston.log('info', 'succesfully performed getUsernameBySessionId rpc method.');
+                return callback(null, {username: username});
             }
         });
     }
