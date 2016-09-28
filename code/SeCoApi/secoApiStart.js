@@ -9,8 +9,9 @@ var express = require('express'),
     session = require('express-session'),
     winston = require('winston'),
     fs = require('fs'),
-    expressListRoutes   = require('express-list-routes'),
-    nconf = require('nconf');
+    expressListRoutes = require('express-list-routes'),
+    nconf = require('nconf'),
+    secoBasicAuth = require('./utility/secoBasicAuth');
 
 nconf.argv()
     .env()
@@ -22,8 +23,6 @@ var CustomRoute = require('./routes/customRoute');
 var UserRoute = require('./routes/userRoute');
 var userRoute = new UserRoute();
 var TeamRoute = require('./routes/teamRoute');
-
-
 
 
 function registerRoutes() {
@@ -48,10 +47,10 @@ function init() {
     app.use(cookieParser());
     //reading multipart fileupload
     app.use(fileUpload());
-    app.use(session({secret: 'mySpecialSecret'}));
+    //app.use(session({secret: 'mySpecialSecret'}));
     router = express.Router();
     app.use(newRequest);
-    app.use(userRoute.checkSession);
+    app.use(basicAuth);
     registerRoutes();
     app.use(notFound);
 }
@@ -65,6 +64,24 @@ function newRequest(req, res, next) {
 function notFound(req, res, next) {
     winston.log('info', 'route not found');
     res.status(404).send('not found');
+}
+
+function basicAuth(req, res, next) {
+    secoBasicAuth.verifyBasicAuth(req, function (err, authenticated, username) {
+        if (err) {
+            winston.log('error', 'couldnt authenticate at SeCo Api', err);
+            res.status(401).send(err.message);
+        } else {
+            if (!authenticated) {
+                winston.log('info', 'username or password wrong');
+                res.status(401).send('not authenticated at SeCo Api');
+            } else {
+                winston.log('info', 'authenticated user %s at SeCo Api', username);
+                req.username = username;
+                next();
+            }
+        }
+    });
 }
 
 
@@ -82,8 +99,8 @@ function main() {
     start();
 }
 
-function printRoutes(){
-    expressListRoutes({ prefix: '/api' }, 'API:', router );
+function printRoutes() {
+    expressListRoutes({prefix: '/api'}, 'API:', router);
 }
 
 

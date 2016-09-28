@@ -105,19 +105,20 @@ function isTeamLoginCorrect(name, password, callback) {
         if (err) {
             logger.log('error', 'isTeamLoginCorrect - ', err.message);
             callback(err);
+        } else {
+            team.comparePassword(password, function (err, isMatch) {
+                if (err) {
+                    logger.log('error', 'isTeamLoginCorrect - ', err.message);
+                    callback(err);
+                }
+                logger.log('info', 'successfully checked isTeamLoginCorrect for name: ' + name + '  result: ' + isMatch);
+                if (!isMatch) {
+                    callback(new Error('wrong password'));
+                } else {
+                    callback(null);
+                }
+            });
         }
-        team.comparePassword(password, function (err, isMatch) {
-            if (err) {
-                logger.log('error', 'isTeamLoginCorrect - ', err.message);
-                callback(err);
-            }
-            logger.log('info', 'successfully checked isTeamLoginCorrect for name: ' + name + '  result: ' + isMatch);
-            if (!isMatch) {
-                callback(new Error('wrong password'));
-            } else {
-                callback(null);
-            }
-        });
     });
 }
 

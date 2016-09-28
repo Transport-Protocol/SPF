@@ -21,7 +21,8 @@ exports.init = function (serverIp, serverPort) {
     _server.addProtoService(userManagementProto.UserManagement.service, {
         register: register,
         login: login,
-        getUsernameBySessionId: getUsernameBySessionId
+        getUsernameBySessionId: getUsernameBySessionId,
+        isLoginCorrect: isLoginCorrect
     });
     _server.addProtoService(authProto.Authentication.service, {
         setAuthentication: setAuthentication
@@ -111,7 +112,7 @@ function login(call, callback) {
 function setAuthentication(call, callback) {
     winston.log('info', 'rpc method setAuthentication request: ' + JSON.stringify(call.request));
     if (!call.request.service || !call.request.username || !call.request.access_token) {
-        _error('setAccessToken', 'missing grpc parameter', callback);
+        _error('setAuthentication', 'missing grpc parameter', callback);
     } else {
         db.addAuthentication(call.request.username, call.request.service, call.request.access_token, call.request.refresh_token, function (err, user) {
             if (err) {
@@ -128,7 +129,7 @@ function setAuthentication(call, callback) {
 function getUsernameBySessionId(call,callback) {
     winston.log('info', 'rpc method getUsernameBySessionId request: ' + JSON.stringify(call.request));
     if (!call.request.sessionId) {
-        _error('setAccessToken', 'missing grpc parameter', callback);
+        _error('getUsernameBySessionId', 'missing grpc parameter', callback);
     } else {
         db.getUsernameBySessionId(call.request.sessionId, function (err,username){
             if(err){
@@ -137,6 +138,23 @@ function getUsernameBySessionId(call,callback) {
             } else {
                 winston.log('info', 'succesfully performed getUsernameBySessionId rpc method.');
                 return callback(null, {username: username});
+            }
+        });
+    }
+}
+
+function isLoginCorrect(call,callback) {
+    winston.log('info', 'rpc method isLoginCorrect request: ' + JSON.stringify(call.request));
+    if (!call.request.name || !call.request.password) {
+        _error('isLoginCorrect', 'missing grpc parameter', callback);
+    } else {
+        db.isLoginCorrect(call.request.name,call.request.password, function (err,isMatch){
+            if(err){
+                winston.log('error', 'error performing rpc method isLoginCorrect: ', err);
+                return callback(null, {err: err.message});
+            } else {
+                winston.log('info', 'succesfully performed isLoginCorrect rpc method.');
+                return callback(null, {isCorrect: isMatch});
             }
         });
     }

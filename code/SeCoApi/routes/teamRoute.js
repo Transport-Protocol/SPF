@@ -19,13 +19,13 @@ function TeamRoute(){
 TeamRoute.prototype.route = function (router){
     var self = this;
     router.post('/team/create', function (req, res) {
-        if (!self.paramChecker.containsParameter(['teamName', 'password','teamCreator'], req, res)) {
+        if (!self.paramChecker.containsParameter(['teamName', 'password'], req, res)) {
             return;
         }
         self.client.create({
             teamName: req.query.teamName,
             password: req.query.password,
-            teamCreator: req.query.teamCreator
+            teamCreator: req.username
         }, function (err, response) {
             if (err) {
                 _offlineError(res);
@@ -42,13 +42,13 @@ TeamRoute.prototype.route = function (router){
     });
 
     router.post('/team/join', function (req, res) {
-        if (!self.paramChecker.containsParameter(['teamName', 'password','username'], req, res)) {
+        if (!self.paramChecker.containsParameter(['teamName', 'password'], req, res)) {
             return;
         }
-        self.client.create({
+        self.client.join({
             teamName: req.query.teamName,
             password: req.query.password,
-            username: req.query.username
+            username: req.username
         }, function (err, response) {
             if (err) {
                 _offlineError(res);
@@ -65,18 +65,14 @@ TeamRoute.prototype.route = function (router){
     });
 
     router.get('/team/list', function (req, res) {
-        if (!self.paramChecker.containsParameter(['username'], req, res)) {
-            return;
-        }
-        console.log(req.session.username);
         self.client.list({
-            username: req.query.username
+            username: req.username
         }, function (err, response) {
             if (err) {
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt list teams for user ', req.query.username, err);
+                    winston.log('error', 'couldnt list teams for user ', req.username, err);
                     return res.json(response.err);
                 } else {
                     winston.log('info', 'successfully got list of teams');

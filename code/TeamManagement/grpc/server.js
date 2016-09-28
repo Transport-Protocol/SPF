@@ -109,28 +109,6 @@ function list(call,callback){
         _error('login', 'missing parameter', callback);
     } else {
         db.listTeams(call.request.username, function(err,teams){
-          if(err){
-              winston.log('error','couldnt list teams for user %s %s',call.request.username,err);
-              return callback(null,{err: err.message});
-          } else {
-              winston.log('info', 'successfully list teams for user %s',call.request.username);
-              return callback(null,{teamList: JSON.stringify(teams)});
-          }
-        });
-    }
-}
-
-/**
- * Implements the list teams rpc function
- * @param call
- * @param callback
- */
-function list(call,callback){
-    winston.log('info', 'rpc method list request: ' + JSON.stringify(call.request));
-    if (!call.request.username) {
-        _error('login', 'missing parameter', callback);
-    } else {
-        db.listTeams(call.request.username, function(err,teams){
             if(err){
                 winston.log('error','couldnt list teams for user %s %s',call.request.username,err);
                 return callback(null,{err: err.message});

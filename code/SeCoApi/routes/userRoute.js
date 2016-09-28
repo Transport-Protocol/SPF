@@ -88,8 +88,11 @@ UserRoute.prototype.route = function (router) {
                         return res.json(response.status);
                     } else {
                         winston.log('info', 'successful login for user: ', req.query.username);
-                        res.cookie('sessionId', response.sessionId);
-                        return res.json(response.status);
+                        //res.cookie('sessionId', response.sessionId);
+                        return res.json({
+                            "status": "ok",
+                            "username": req.query.username
+                        });
                     }
                 }
             }
