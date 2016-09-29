@@ -192,7 +192,7 @@ function addAuthentication(username, service, access_token, refresh_token, callb
                 logger.log('error', 'adding authentication ', err.message);
                 return callback(err);
             }
-            logger.log('info', 'successfully added authentication for user : ' + user);
+            logger.log('info', 'successfully added authentication for user : ',username);
             return callback(null, user);
         });
     });

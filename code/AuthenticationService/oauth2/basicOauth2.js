@@ -33,7 +33,7 @@ function OAuth2(expressApp, filePath, callback) {
         }
         self.config = JSON.parse(file);
         self.authUrl = _setAuthUrl(self);
-        winston.log('info', self.getAuthorizationURL('philipp'));
+        winston.log('info', self.getAuthorizationURL('test1'));
         _registerHttpCallback(self, expressApp);
 
         return callback(null);

@@ -1,0 +1,17 @@
+{
+  "name": "teammanagement",
+  "version": "1.0.0",
+  "description": "Enables crud on team and populates it over grpc",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "author": "philipp prögel",
+  "license": "ISC",
+  "dependencies": {
+    "grpc": "^1.0.0",
+    "mongoose": "^4.5.10",
+    "nconf": "^0.8.4",
+    "winston": "^2.2.0"
+  }
+}

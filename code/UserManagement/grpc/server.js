@@ -25,7 +25,8 @@ exports.init = function (serverIp, serverPort) {
         isLoginCorrect: isLoginCorrect
     });
     _server.addProtoService(authProto.Authentication.service, {
-        setAuthentication: setAuthentication
+        setAuthentication: setAuthentication,
+        getAuthentication: getAuthentication
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
@@ -126,13 +127,44 @@ function setAuthentication(call, callback) {
     }
 }
 
-function getUsernameBySessionId(call,callback) {
+/**
+ * Implements the getAccessToken RPC method.
+ */
+function getAuthentication(call, callback) {
+    winston.log('info', 'rpc method getAuthentication request: ' + JSON.stringify(call.request));
+    if (!call.request.service || !call.request.username) {
+        _error('getAuthentication', 'missing grpc parameter', callback);
+    } else {
+        db.readUser(call.request.username, function (err, user) {
+            if (err) {
+                winston.log('error', 'error performing rpc method getAuthentication: ', err);
+                return callback(null, {err: err.message});
+            } else {
+                var token;
+                for (var i = 0; i < user.auth.length; i++) {
+                    if (user.auth[i].service === call.request.service) {
+                        token = user.auth[i].access_token;
+                        break;
+                    }
+                }
+                if (!token) {
+                    return callback(null, {err: 'not found'});
+                } else {
+                    winston.log('info', 'succesfully performed getAuthentication rpc method');
+                    return callback(null, {token: token});
+                }
+            }
+        });
+    }
+}
+
+function getUsernameBySessionId(call, callback) {
     winston.log('info', 'rpc method getUsernameBySessionId request: ' + JSON.stringify(call.request));
     if (!call.request.sessionId) {
         _error('getUsernameBySessionId', 'missing grpc parameter', callback);
     } else {
-        db.getUsernameBySessionId(call.request.sessionId, function (err,username){
-            if(err){
+        db.getUsernameBySessionId(call.request.sessionId, function (err, username) {
+            if (err) {
                 winston.log('error', 'error performing rpc method getUsernameBySessionId: ', err);
                 return callback(null, {err: err.message});
             } else {
@@ -143,13 +175,13 @@ function getUsernameBySessionId(call,callback) {
     }
 }
 
-function isLoginCorrect(call,callback) {
+function isLoginCorrect(call, callback) {
     winston.log('info', 'rpc method isLoginCorrect request: ' + JSON.stringify(call.request));
     if (!call.request.name || !call.request.password) {
         _error('isLoginCorrect', 'missing grpc parameter', callback);
     } else {
-        db.isLoginCorrect(call.request.name,call.request.password, function (err,isMatch){
-            if(err){
+        db.isLoginCorrect(call.request.name, call.request.password, function (err, isMatch) {
+            if (err) {
                 winston.log('error', 'error performing rpc method isLoginCorrect: ', err);
                 return callback(null, {err: err.message});
             } else {
