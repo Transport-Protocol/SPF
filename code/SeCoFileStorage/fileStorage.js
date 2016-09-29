@@ -67,7 +67,7 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
                         return callback(err);
                     } else {
                         //3. speichere FS filepath (EFP) in db und mappe es mit username + richtiger filepath (SFP) + fs service name beim upload
-                        db.insertFileStorageEntry(filePath,serviceFp,username,teamName,serviceName,function(err){
+                        db.insertFileStorageEntry(fileName,filePath,serviceFp,username,serviceName,teamName,function(err){
                            if(err){
                                return callback(err);
                            } else {
@@ -83,9 +83,41 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
 
 
 function getFile(teamName, filePath, callback) {
-    //1. hole entry aus db anhand von filepath(SFP).
-    //2. hole auth von user service anhand des username + service
-    //3. getFIle vom Service mit auth und gemapptem filepath
+    //1. hole entry aus db anhand von filepath(SFP) und teamname.
+    db.getFileStorageEntry(filePath,teamName,function(err,entry){
+        if(err){
+            return callback(err);
+        }
+        //2. hole auth von user service anhand des username + service
+        authService.getAuthentication({
+            username: entry.username,
+            service: entry.serviceName
+        }, function authResult(err, response) {
+            if (err) {
+                return callback(new Error('auth service offline'));
+            } else {
+                if(response.err){
+                    return callback(new Error(response.err));
+                } else {
+                    //3. getFIle vom Service mit auth und gemapptem filepath
+                    var auth = {
+                        token : response.token,
+                        type : "OAUTH2"
+                    };
+                    _getService(entry.serviceName).getFile({
+                        path: entry.serviceFilePath + "/" + entry.fileName,
+                        auth: auth
+                    }, function getFileResult(err,response) {
+                        if(err){
+                            return callback(new Error(entry.serviceName + ' service offline'));
+                        } else {
+                            return callback(null,response.fileName,response.fileBuffer);
+                        }
+                    });
+                }
+            }
+        });
+    });
 }
 
 function getFileTree(teamName, path, callback) {

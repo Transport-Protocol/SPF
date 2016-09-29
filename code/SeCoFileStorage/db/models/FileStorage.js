@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var FileStorageSchema = new mongoose.Schema({
     seCoFilePath: {type: String, required: true},
     serviceFilePath: {type: String, required: true},
+    fileName: {type: String, required: true},
     username: {type: String, required: true},
     teamName: {type: String, required: true},
     serviceName: {type: String, required: true}

@@ -28,9 +28,10 @@ function connect(dbPoolsize, dbPath) {
     });
 }
 
-function insertFileStorageEntry(seCoFp, serviceFp, username, serviceName,teamName, callback) {
+function insertFileStorageEntry(fileName,seCoFp, serviceFp, username, serviceName,teamName, callback) {
     _deleteEntry(seCoFp,teamName,function (){
         var newEntry = new FileStorage({
+            fileName: fileName,
             seCoFilePath: seCoFp,
             serviceFilePath: serviceFp,
             username: username,
@@ -50,6 +51,19 @@ function insertFileStorageEntry(seCoFp, serviceFp, username, serviceName,teamNam
     });
 }
 
+function getFileStorageEntry(seCoFp,teamName,callback){
+    FileStorage.findOne({seCoFilePath:seCoFp,teamName: teamName},function(err,entry){
+       if(err){
+           return callback(err);
+       }
+       if(!entry){
+           return callback(new Error('not found'));
+       } else {
+           return callback(null,entry);
+       }
+    });
+}
+
 function _deleteEntry(seCoFp,teamName,callback){
     FileStorage.find({ seCoFilePath:seCoFp,teamName: teamName }).remove( function(err) {
        if(err){
@@ -64,5 +78,6 @@ function _deleteEntry(seCoFp,teamName,callback){
 
 module.exports = {
     connect: connect,
-    insertFileStorageEntry: insertFileStorageEntry
+    insertFileStorageEntry: insertFileStorageEntry,
+    getFileStorageEntry: getFileStorageEntry
 }
