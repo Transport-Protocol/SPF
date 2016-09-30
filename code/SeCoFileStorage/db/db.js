@@ -1,9 +1,13 @@
 /**
  * Created by PhilippMac on 24.08.16.
+ *
+ * https://docs.mongodb.com/manual/reference/operator/query-array/
+ * https://docs.mongodb.com/manual/tutorial/model-tree-structures/#model-tree-structures-with-materialized-paths
+ *
  */
 var mongoose = require('mongoose'),
     nconf = require('nconf'),
-    FileStorage = require('./models/FileStorage'),
+    TeamStorage = require('./models/TeamStorage'),
     logger = require('winston');
 
 
@@ -28,56 +32,125 @@ function connect(dbPoolsize, dbPath) {
     });
 }
 
-function insertFileStorageEntry(fileName,seCoFp, serviceFp, username, serviceName,teamName, callback) {
-    _deleteEntry(seCoFp,teamName,function (){
-        var newEntry = new FileStorage({
-            fileName: fileName,
-            seCoFilePath: seCoFp,
-            serviceFilePath: serviceFp,
-            username: username,
-            teamName: teamName,
-            serviceName: serviceName
-        });
+function _createTeamStorage(teamName,callback){
+    var teamStorage = new TeamStorage({
+        teamName: teamName
+    });
+    // save  to database
+    teamStorage.save(function (err) {
+        if (err) {
+            return callback(err);
+        }
+        return callback(null, teamStorage);
+    });
+}
 
-        // save  to database
-        newEntry.save(function (err) {
-            if (err) {
-                logger.log('error', 'creating new FileStorage Entry', err);
-                return callback(err);
-            }
-            logger.log('info', 'successfully created FileStorage Entry');
-            return callback(null, newEntry);
-        });
+function _addFileToTeamStorage(teamStorage,fileStorage,callback){
+    teamStorage.files.push(fileStorage);
+    teamStorage.save(function (err) {
+        if (err) {
+            return callback(err);
+        }
+        return callback(null, teamStorage);
+    });
+}
+
+function _insertFileToTeamStorage(teamStorage,fileStorage,callback){
+    _addFileToTeamStorage(teamStorage,fileStorage,function(err,teamStorage){
+        if(err){
+            return callback(err);
+        }
+        return callback(null,teamStorage);
+    });
+}
+
+function _deleteFileStorage(teamStorage,seCoFP){
+    for(var i = 0;i<teamStorage.files.length;i++){
+        if(teamStorage.files[i].seCoFilePath === seCoFP){
+            teamStorage.files.splice(i,1);
+            break;
+        }
+    }
+}
+
+function _hasFileStorage(teamStorage,seCoFP){
+    var hasFs = false;
+    for(var i = 0;i<teamStorage.files.length;i++){
+        if(teamStorage.files[i].seCoFilePath === seCoFP){
+            hasFs =  true;
+            break;
+        }
+    }
+    return hasFs;
+}
+
+
+function insertTeamStorageEntry(teamName,fileName,seCoFp, serviceFp, username, serviceName, callback) {
+    var fileStorage = {
+        fileName: fileName,
+        seCoFilePath: seCoFp,
+        serviceFilePath: serviceFp,
+        username: username,
+        serviceName: serviceName
+    };
+    _hasTeamStorageEntry(teamName,function(err,teamStorage){
+       if(err){
+           return callback(err);
+       }
+       if(!teamStorage){
+           _createTeamStorage(teamName,function(err,teamStorage){
+               if(err){
+                   return callback(err);
+               }
+                _insertFileToTeamStorage(teamStorage,fileStorage,callback);
+           });
+       } else {
+           if(_hasFileStorage(teamStorage,fileStorage.seCoFilePath)){
+               _deleteFileStorage(teamStorage,fileStorage.seCoFilePath);
+           }
+           _insertFileToTeamStorage(teamStorage,fileStorage,callback);
+       }
     });
 }
 
 function getFileStorageEntry(seCoFp,teamName,callback){
-    FileStorage.findOne({seCoFilePath:seCoFp,teamName: teamName},function(err,entry){
+    TeamStorage.findOne({teamName: teamName},function(err,entry){
        if(err){
            return callback(err);
        }
        if(!entry){
            return callback(new Error('not found'));
        } else {
-           return callback(null,entry);
+           var file;
+           for(var i = 0;i<entry.files.length;i++){
+               if(entry.files[i].seCoFilePath === seCoFp){
+                   file = entry.files[i];
+                   break;
+               }
+           }
+           if(!file){
+               return callback(new Error('not found'));
+           }
+           return callback(null,file);
        }
     });
 }
 
-function _deleteEntry(seCoFp,teamName,callback){
-    FileStorage.find({ seCoFilePath:seCoFp,teamName: teamName }).remove( function(err) {
+function _hasTeamStorageEntry(teamName,callback){
+    TeamStorage.findOne({ teamName:teamName}, function(err,teamStroage) {
        if(err){
-           logger.log('info','entry didnt exist,nothing to delete');
-           return callback(null);
+           return callback(err);
        } else {
-           logger.log('info','deleted entry');
-           return callback(null);
+           if(!teamStroage){
+               return callback(null,null);
+           }
+           return callback(null,teamStroage);
        }
     });
 }
 
 module.exports = {
     connect: connect,
-    insertFileStorageEntry: insertFileStorageEntry,
+    insertTeamStorageEntry: insertTeamStorageEntry,
     getFileStorageEntry: getFileStorageEntry
 }
