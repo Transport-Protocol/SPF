@@ -4,6 +4,7 @@
 var grpc = require('grpc'),
     winston = require('winston'),
     nconf = require('nconf'),
+    parser = require('./pathParser'),
     db = require('./db/db');
 
 
@@ -62,17 +63,17 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
                 winston.log('info', 'successfully got auth from auth service.token: ', response.token);
                 //2. upload file zu FS dienst in einen Folder + filepath mit dem Namen prefix+teamName (EFP)
                 var serviceFp = 'SeCo' + teamName;
-                _uploadToService(response.token, serviceName, serviceFp , fileName, fileBuffer, function (err, status) {
+                _uploadToService(response.token, serviceName, serviceFp, fileName, fileBuffer, function (err, status) {
                     if (err) {
                         return callback(err);
                     } else {
                         //3. speichere FS filepath (EFP) in db und mappe es mit username + richtiger filepath (SFP) + fs service name beim upload
-                        db.insertTeamStorageEntry(teamName,fileName,filePath,serviceFp,username,serviceName,function(err){
-                           if(err){
-                               return callback(err);
-                           } else {
-                               return callback(null);
-                           }
+                        db.insertTeamStorageEntry(teamName, fileName, filePath, serviceFp, username, serviceName, function (err) {
+                            if (err) {
+                                return callback(err);
+                            } else {
+                                return callback(null);
+                            }
                         });
                     }
                 });
@@ -83,9 +84,14 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
 
 
 function getFile(teamName, filePath, callback) {
+    var parsed = parser.parsePath(filePath);
+    if (!parsed) {
+        return callback(new Error('wrong path syntax'));
+    }
+    console.log('parsed ' + parsed.path + '   ' + parsed.fileName);
     //1. hole entry aus db anhand von filepath(SFP) und teamname.
-    db.getFileStorageEntry(filePath,teamName,function(err,entry){
-        if(err){
+    db.getFileStorageEntry(parsed.path, parsed.fileName, teamName, function (err, entry) {
+        if (err) {
             return callback(err);
         }
         //2. hole auth von user service anhand des username + service
@@ -96,22 +102,22 @@ function getFile(teamName, filePath, callback) {
             if (err) {
                 return callback(new Error('auth service offline'));
             } else {
-                if(response.err){
+                if (response.err) {
                     return callback(new Error(response.err));
                 } else {
                     //3. getFIle vom Service mit auth und gemapptem filepath
                     var auth = {
-                        token : response.token,
-                        type : "OAUTH2"
+                        token: response.token,
+                        type: "OAUTH2"
                     };
                     _getService(entry.serviceName).getFile({
                         path: entry.serviceFilePath + "/" + entry.fileName,
                         auth: auth
-                    }, function getFileResult(err,response) {
-                        if(err){
+                    }, function getFileResult(err, response) {
+                        if (err) {
                             return callback(new Error(entry.serviceName + ' service offline'));
                         } else {
-                            return callback(null,response.fileName,response.fileBuffer);
+                            return callback(null, response.fileName, response.fileBuffer);
                         }
                     });
                 }
@@ -121,7 +127,24 @@ function getFile(teamName, filePath, callback) {
 }
 
 function getFileTree(teamName, path, callback) {
-    //1. Alle paths aus db mit path zu tree zusammensetzen
+    //1. Hole filestorages array
+    db.getFileStorages(teamName, function (err, files) {
+        if (err) {
+            return callback(err);
+        }
+        var dirs = [];
+        //2. schreibe alle files mit dem gleichen path heraus
+        for (var i = 0; i < files.length; i++) {
+            if (files[i].seCoFilePath === path) {
+                dirs.push({
+                    tag: 'file',
+                    name: files[i].fileName
+                })
+            }
+        }
+        //3. schreibe alle möglichen Folgefolder raus TODO
+        return callback(null,dirs);
+    });
 }
 
 function _uploadToService(auth, serviceName, filePath, fileName, fileBuffer, callback) {

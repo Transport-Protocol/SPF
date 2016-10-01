@@ -73,10 +73,10 @@ function _deleteFileStorage(teamStorage,seCoFP){
     }
 }
 
-function _hasFileStorage(teamStorage,seCoFP){
+function _hasFileStorage(teamStorage,seCoFP,fileName){
     var hasFs = false;
     for(var i = 0;i<teamStorage.files.length;i++){
-        if(teamStorage.files[i].seCoFilePath === seCoFP){
+        if(teamStorage.files[i].seCoFilePath === seCoFP && teamStorage.files[i].fileName === fileName){
             hasFs =  true;
             break;
         }
@@ -105,7 +105,7 @@ function insertTeamStorageEntry(teamName,fileName,seCoFp, serviceFp, username, s
                 _insertFileToTeamStorage(teamStorage,fileStorage,callback);
            });
        } else {
-           if(_hasFileStorage(teamStorage,fileStorage.seCoFilePath)){
+           if(_hasFileStorage(teamStorage,fileStorage.seCoFilePath,fileStorage.fileName)){
                _deleteFileStorage(teamStorage,fileStorage.seCoFilePath);
            }
            _insertFileToTeamStorage(teamStorage,fileStorage,callback);
@@ -113,7 +113,7 @@ function insertTeamStorageEntry(teamName,fileName,seCoFp, serviceFp, username, s
     });
 }
 
-function getFileStorageEntry(seCoFp,teamName,callback){
+function getFileStorageEntry(seCoFp,fileName,teamName,callback){
     TeamStorage.findOne({teamName: teamName},function(err,entry){
        if(err){
            return callback(err);
@@ -123,7 +123,7 @@ function getFileStorageEntry(seCoFp,teamName,callback){
        } else {
            var file;
            for(var i = 0;i<entry.files.length;i++){
-               if(entry.files[i].seCoFilePath === seCoFp){
+               if(entry.files[i].seCoFilePath === seCoFp && entry.files[i].fileName === fileName){
                    file = entry.files[i];
                    break;
                }
@@ -133,6 +133,15 @@ function getFileStorageEntry(seCoFp,teamName,callback){
            }
            return callback(null,file);
        }
+    });
+}
+
+function getFileStorages(teamName,callback){
+    TeamStorage.findOne({teamName: teamName},function(err,entry) {
+        if (err) {
+            return callback(err);
+        }
+        return callback(null,entry.files);
     });
 }
 
@@ -152,5 +161,6 @@ function _hasTeamStorageEntry(teamName,callback){
 module.exports = {
     connect: connect,
     insertTeamStorageEntry: insertTeamStorageEntry,
-    getFileStorageEntry: getFileStorageEntry
+    getFileStorageEntry: getFileStorageEntry,
+    getFileStorages: getFileStorages
 }

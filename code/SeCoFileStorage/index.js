@@ -22,6 +22,7 @@ function init() {
 function main() {
     init();
 
+
     /*
      db.insertTeamStorageEntry('team2','file2','test/seco','documents/today','user2','GOOGLE',function(err,entry){
      if(err){

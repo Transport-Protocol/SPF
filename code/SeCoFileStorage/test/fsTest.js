@@ -18,7 +18,7 @@ function init() {
 describe('FileStorage Service', function () {
     before(function () {
         init();
-    });
+    });/*
     describe('uploadFile', function () {
         it('uploads pdf file to dropbox as generic filestorage service', function (done) {
             this.timeout(10000);
@@ -26,7 +26,7 @@ describe('FileStorage Service', function () {
                 if (err) {
                     throw err;
                 }
-                fsConnector.uploadFile('test1', 'team2', 'DROPBOX', 'code', 'Projektplan2.pdf', data, function (err) {
+                fsConnector.uploadFile('test1', 'team2', 'DROPBOX', 'code/pdf/plan', 'Projektplan2.pdf', data, function (err) {
                     expect(err).to.be.a('null');
                     done();
                 });
@@ -36,9 +36,21 @@ describe('FileStorage Service', function () {
     describe('getFile', function () {
         it('returns file from fsStorage service that is uploaded at dropbox', function (done) {
             this.timeout(10000);
-            fsConnector.getFile('team2', 'code', function (err, fileName) {
+            fsConnector.getFile('team2', 'code/pdf/plan/Projektplan2.pdf', function (err, fileName) {
                 expect(err).to.be.a('null');
                 assert.equal(fileName, 'Projektplan2.pdf');
+                done();
+            });
+
+        });
+    });*/
+    describe('getFileTree', function () {
+        it('returns directory from fsStorage service specified by path', function (done) {
+            this.timeout(10000);
+            fsConnector.getFileTree('team2', 'code/pdf/plan', function (err, dirs) {
+                console.log(dirs);
+                expect(err).to.be.a('null');
+                assert.equal(dirs.length, 1);
                 done();
             });
 
