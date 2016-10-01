@@ -67,7 +67,7 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
                         return callback(err);
                     } else {
                         //3. speichere FS filepath (EFP) in db und mappe es mit username + richtiger filepath (SFP) + fs service name beim upload
-                        db.insertFileStorageEntry(fileName,filePath,serviceFp,username,serviceName,teamName,function(err){
+                        db.insertTeamStorageEntry(teamName,fileName,filePath,serviceFp,username,serviceName,function(err){
                            if(err){
                                return callback(err);
                            } else {
@@ -121,7 +121,7 @@ function getFile(teamName, filePath, callback) {
 }
 
 function getFileTree(teamName, path, callback) {
-    //1. Alle paths aus db zu tree zusammensetzen
+    //1. Alle paths aus db mit path zu tree zusammensetzen
 }
 
 function _uploadToService(auth, serviceName, filePath, fileName, fileBuffer, callback) {
@@ -141,7 +141,6 @@ function _uploadToService(auth, serviceName, filePath, fileName, fileBuffer, cal
             if (response.err) {
                 return callback(new Error(response.err));
             } else {
-                winston.log('info', 'successfully uploaded file');
                 return callback(null, response.status);
             }
         }
