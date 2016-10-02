@@ -18,7 +18,7 @@ function init() {
 describe('FileStorage Service', function () {
     before(function () {
         init();
-    });/*
+    });
     describe('uploadFile', function () {
         it('uploads pdf file to dropbox as generic filestorage service', function (done) {
             this.timeout(10000);
@@ -43,7 +43,7 @@ describe('FileStorage Service', function () {
             });
 
         });
-    });*/
+    });
     describe('getFileTree', function () {
         it('returns directory from fsStorage service specified by path', function (done) {
             this.timeout(10000);

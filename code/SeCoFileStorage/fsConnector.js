@@ -135,16 +135,45 @@ function getFileTree(teamName, path, callback) {
         var dirs = [];
         //2. schreibe alle files mit dem gleichen path heraus
         for (var i = 0; i < files.length; i++) {
-            if (files[i].seCoFilePath === path) {
-                dirs.push({
-                    tag: 'file',
-                    name: files[i].fileName
-                })
+            if (files[i].seCoFilePath.indexOf(path) != -1) {
+                //eintrag ist file oder folder
+                if(files[i].seCoFilePath.length === path.length){
+                    //ist eine file
+                    dirs.push({
+                        tag: 'file',
+                        name: files[i].fileName
+                    })
+                } else {
+                    //ist ein directory
+                    var splitted = files[i].seCoFilePath.split('/');
+                    if(splitted.length === 0){
+                        //falscher path aufbau
+                        return callback(new Error('wrong path'));
+                    }
+                    var folderName = splitted[splitted.length-1];
+                    if(!_gotFolder(dirs,folderName)){
+                        //foldername noch nicht geaddet
+                        dirs.push({
+                            tag: 'folder',
+                            name: folderName
+                        })
+                    }
+                }
             }
         }
-        //3. schreibe alle möglichen Folgefolder raus TODO
         return callback(null,dirs);
     });
+}
+
+function _gotFolder(dirs,folder){
+    var gotF = false;
+    for(var i = 0;i<dirs.length;i++){
+        if(dirs[i].name === folder){
+            gotF = true;
+            break;
+        }
+    }
+    return gotF;
 }
 
 function _uploadToService(auth, serviceName, filePath, fileName, fileBuffer, callback) {

@@ -22,6 +22,9 @@ function init() {
 function main() {
     init();
 
+    fsConnector.getFileTree('team2', 'code/pdf', function (err, dirs) {
+        console.log(dirs);
+    });
 
     /*
      db.insertTeamStorageEntry('team2','file2','test/seco','documents/today','user2','GOOGLE',function(err,entry){
