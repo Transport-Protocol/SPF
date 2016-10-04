@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package authentication;
+
+//interface between auth service and user service to insert auth credentials to database
+service Authentication {
+
+    rpc SetAuthentication (SetAuthenticationRequest) returns (SetAuthenticationReply) {
+    }
+
+    rpc GetAuthentication (GetAuthenticationRequest) returns (GetAuthenticationReply) {
+    }
+
+}
+
+//service types enum
+enum ServiceType {
+    GITHUB = 0;
+    DROPBOX = 1;
+    BITBUCKET = 2;
+    GOOGLE = 3;
+    SLACK = 4;
+    OWNCLOUD = 5;
+}
+
+message SetAuthenticationRequest {
+    ServiceType service = 1;
+    string username = 2;
+    string access_token = 3;
+    string refresh_token = 4;
+}
+
+
+message SetAuthenticationReply {
+    string status = 1;
+    string err = 2;
+}
+
+message GetAuthenticationRequest {
+    ServiceType service = 1;
+    string username = 2;
+}
+
+
+message GetAuthenticationReply {
+    string token = 1;
+    string err = 2;
+}

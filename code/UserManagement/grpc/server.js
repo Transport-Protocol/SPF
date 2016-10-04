@@ -117,10 +117,10 @@ function setAuthentication(call, callback) {
     } else {
         db.addAuthentication(call.request.username, call.request.service, call.request.access_token, call.request.refresh_token, function (err, user) {
             if (err) {
-                winston.log('error', 'error performing rpc method setAccessToken: ', err);
+                winston.log('error', 'error performing rpc method setAuthentication: ', err);
                 return callback(null, {err: err.message});
             } else {
-                winston.log('info', 'succesfully performed setAccessToken rpc method ', user);
+                winston.log('info', 'succesfully performed setAuthentication rpc method');
                 return callback(null, {status: 'created'});
             }
         });

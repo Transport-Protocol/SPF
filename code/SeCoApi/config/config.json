@@ -4,7 +4,9 @@
   "userServiceIp" : "localhost",
   "userServicePort" : 50054,
   "teamServiceIp" : "localhost",
-  "teamServicePort" : 50045
+  "teamServicePort" : 50045,
+  "authServiceIp" : "localhost",
+  "authServicePort" : 50061
 }
 
 

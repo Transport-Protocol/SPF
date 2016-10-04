@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package authService;
+
+// interface between auth service and seco api to start authentication process and refresh tokens
+service AuthService {
+  rpc GetAuthorizationUrl (AuthUrlRequest) returns (AuthUrlReply) {}
+  rpc RefreshAccessToken (RefreshRequest) returns (RefreshReply) {}
+}
+
+//service types enum
+enum ServiceType {
+    GITHUB = 0;
+    DROPBOX = 1;
+    BITBUCKET = 2;
+    GOOGLE = 3;
+    SLACK = 4;
+}
+
+message AuthUrlRequest {
+  ServiceType service = 1;
+  string username = 2;
+}
+
+
+message AuthUrlReply {
+  string url = 1; //oauth2 url
+  string err = 2;
+}
+
+message RefreshRequest {
+    ServiceType service = 1;
+    string refresh_token = 2;
+}
+
+
+message RefreshReply {
+    string access_token = 1;
+    string err = 2;
+}
+
+

@@ -21,8 +21,8 @@ var router = express.Router();
 
 var CustomRoute = require('./routes/customRoute');
 var UserRoute = require('./routes/userRoute');
-var userRoute = new UserRoute();
 var TeamRoute = require('./routes/teamRoute');
+var AuthRoute = require('./routes/authRoute');
 
 
 function registerRoutes() {
@@ -32,8 +32,9 @@ function registerRoutes() {
     app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route(router));
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route(router));
     app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route(router));
-    app.use('/api', userRoute.route(router));
+    app.use('/api', new UserRoute().route(router));
     app.use('/api', new TeamRoute().route(router));
+    app.use('/api', new AuthRoute().route(router));
 }
 
 //global vars
