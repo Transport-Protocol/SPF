@@ -32,7 +32,7 @@ function registerRoutes() {
     app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route(router));
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route(router));
     app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route(router));
-    app.use('/api', new CustomRoute('./json/seCoFileStorage.json', 'fileStorage.proto').route(router));
+    app.use('/api', new CustomRoute('./json/seCoFileStorage.json', 'seCoFileStorage.proto').route(router));
     app.use('/api', new UserRoute().route(router));
     app.use('/api', new TeamRoute().route(router));
     app.use('/api', new AuthRoute().route(router));

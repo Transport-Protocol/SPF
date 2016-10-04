@@ -8,9 +8,6 @@ var expect = require('chai').expect,
 
 function init() {
     nconf.file({file: './config/config.json'});
-    while(nconf.get('owncloudServiceIp') === undefined){
-        console.log('lol');
-    }
     fsConnector.init();
 }
 

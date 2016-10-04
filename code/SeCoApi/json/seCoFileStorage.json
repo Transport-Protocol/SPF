@@ -2,7 +2,7 @@
   "service_name": "SECOFILESTORAGE",
   "grpc_ip": "localhost",
   "grpc_port": 50040,
-  "grpc_service_name": "SecoFileStorage",
+  "grpc_service_name": "SeCoFileStorage",
   "grpc_package_name": "seCoFileStorage",
   "authentication_type": "",
   "requests": [

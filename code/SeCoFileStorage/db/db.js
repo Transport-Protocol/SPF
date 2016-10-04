@@ -141,6 +141,9 @@ function getFileStorages(teamName,callback){
         if (err) {
             return callback(err);
         }
+        if(!entry){
+            return callback(new Error('no files uploaded yet'));
+        }
         return callback(null,entry.files);
     });
 }

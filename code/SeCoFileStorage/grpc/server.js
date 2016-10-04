@@ -14,9 +14,9 @@ var exports = module.exports = {};
 var _server;
 
 exports.init = function (serverIp, serverPort) {
-    var fileStorageProto = grpc.load('./proto/fileStorage.proto').fileStorage;
+    var fileStorageProto = grpc.load('./proto/seCoFileStorage.proto').seCoFileStorage;
     _server = new grpc.Server();
-    _server.addProtoService(fileStorageProto.FileStorage.service, {
+    _server.addProtoService(fileStorageProto.SeCoFileStorage.service, {
         getFile: getFile,
         getFileTree: getFileTree,
         uploadFile: uploadFile
@@ -37,9 +37,10 @@ exports.start = function () {
  */
 function getFile(call, callback) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
-    connector.getFile(call.request.path, function (err, fileName, fileBuffer) {
+    checkParamater(call.request, ['teamName', 'filePath'], callback);
+    connector.getFile(call.request.teamName, call.request.filePath, function (err, fileName, fileBuffer) {
         if (err) {
-            winston.log('error', 'error performing getFile: ',err);
+            winston.log('error', 'error performing getFile: ', err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getFile rpc method');
@@ -53,13 +54,14 @@ function getFile(call, callback) {
  */
 function getFileTree(call, callback) {
     winston.log('info', 'getFileTree rpc method request: ' + JSON.stringify(call.request));
-    connector.getFileTree(call.request.path, function (err, dirs) {
+    checkParamater(call.request, ['teamName', 'filePath'], callback);
+    connector.getFileTree(call.request.teamName, call.request.filePath, function (err, dirs) {
         if (err) {
-            winston.log('error', 'error performing getFileTree: ',err);
+            winston.log('error', 'error performing getFileTree: ', err);
             return callback(null, {err: err.message});
         }
-        winston.log('info', 'succesfully performed getFileTree rpc method',dirs);
-        return callback(null, {dirs: dirs});
+        winston.log('info', 'succesfully performed getFileTree rpc method', dirs);
+        return callback(null, {dirs: JSON.stringify(dirs)});
     });
 }
 
@@ -68,12 +70,26 @@ function getFileTree(call, callback) {
  */
 function uploadFile(call, callback) {
     winston.log('info', 'uploadFile rpc method request');
+    checkParamater(call.request, ['teamName', 'filePath', 'userName', 'serviceName', 'fileName', 'fileBuffer'], callback);
     connector.uploadFile(call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
         if (err) {
-            winston.log('error', 'error performing uploadFile: ',err);
+            winston.log('error', 'error performing uploadFile: ', err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed uploadFile rpc method');
         return callback(null, {status: status});
     });
+}
+
+function checkParamater(request, params, callback) {
+    var missingParams = [];
+    for (var i = 0; i < params.length; i++) {
+        var param = params[i];
+        if (!request.hasOwnProperty(param)) {
+            missingParams.push(param);
+        }
+    }
+    if (missingParams.length > 0) {
+        return callback(null, {err: 'missing grpc parameter: ' + missingParams.toString()});
+    }
 }
