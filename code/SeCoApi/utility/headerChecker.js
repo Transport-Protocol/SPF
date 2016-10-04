@@ -6,6 +6,9 @@ function HeaderChecker(){
 }
 
 HeaderChecker.prototype.containsParameter = function (params, req, res){
+    if(params === undefined){
+        return true;
+    }
     var allParamsOk = true;
     for(var i = 0;i<params.length;i++){
         if(!checkParameter(req,res,params[i])){

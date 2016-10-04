@@ -1,0 +1,49 @@
+{
+  "service_name": "SECOFILESTORAGE",
+  "grpc_ip": "localhost",
+  "grpc_port": 50040,
+  "grpc_service_name": "SecoFileStorage",
+  "grpc_package_name": "seCoFileStorage",
+  "authentication_type": "",
+  "requests": [
+    {
+      "http-method": "get",
+      "route": "/filestorage/file",
+      "query_parameter": [
+        "filePath",
+        "teamName"
+      ],
+      "grpc_function": "getFile",
+      "response_parameter": [
+        "fileName",
+        "fileBuffer"
+      ]
+    },
+    {
+      "http-method": "get",
+      "route": "/filestorage/filetree",
+      "query_parameter": [
+        "filePath",
+        "teamName"
+      ],
+      "grpc_function": "getFileTree",
+      "response_parameter": [
+        "dirs"
+      ]
+    },
+    {
+      "http-method": "put",
+      "route": "/filestorage/upload",
+      "query_parameter": [
+        "filePath",
+        "fileName",
+        "fileBuffer",
+        "serviceName"
+      ],
+      "grpc_function": "uploadFile",
+      "response_parameter": [
+        "status"
+      ]
+    }
+  ]
+}

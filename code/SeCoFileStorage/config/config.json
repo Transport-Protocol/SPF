@@ -1,14 +1,16 @@
 {
-  "dbPath":"mongodb://127.0.0.1/secoFileStorage",
-  "dbPoolSize":10,
-  "authServiceIp" : "localhost",
-  "authServicePort" : 50054,
-  "owncloudServiceIp" : "localhost",
-  "owncloudServicePort" : 50051,
-  "dropboxServiceIp" : "localhost",
-  "dropboxServicePort" : 50052,
-  "googleServiceIp" : "localhost",
-  "googleServicePort" : 50049
+  "dbPath": "mongodb://127.0.0.1/secoFileStorage",
+  "dbPoolSize": 10,
+  "grpcServerIp": "localhost",
+  "grpcServerPort": 50040,
+  "authServiceIp": "localhost",
+  "authServicePort": 50054,
+  "owncloudServiceIp": "localhost",
+  "owncloudServicePort": 50051,
+  "dropboxServiceIp": "localhost",
+  "dropboxServicePort": 50052,
+  "googleServiceIp": "localhost",
+  "googleServicePort": 50049
 }
 
 

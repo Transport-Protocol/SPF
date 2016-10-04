@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package fileStorage;
+package seCoFileStorage;
 
 // The rpc FileStorage service definition.
-service FileStorage {
+service SeCoFileStorage {
   // Gets a file
   rpc GetFile (GetFileRequest) returns (GetFileReply) {}
 
@@ -12,22 +12,10 @@ service FileStorage {
   rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
 }
 
-//Auth message
-message Authentication {
-    string token = 1; //auth string,for example user:password or Bearer XXXXX
-    AuthenticationType type = 2;
-}
-
-//Auth types enum
-enum AuthenticationType {
-    BASIC = 0;
-    OAUTH2 = 1;
-}
-
 // The request message
 message GetFileRequest {
-  string path = 1;
-  Authentication auth = 2;
+  string teamName = 1;
+  string filePath = 2;
 }
 
 // The response message
@@ -39,8 +27,8 @@ message GetFileReply {
 
 // The request message
 message GetFileTreeRequest {
-  string path = 1;
-  Authentication auth = 2;
+  string teamName = 1;
+  string filePath = 2;
 }
 
 // The response message
@@ -51,10 +39,12 @@ message GetFileTreeReply {
 
 // The request message
 message UploadFileRequest {
-  string path = 1;
-  bytes fileBuffer = 2;
-  string fileName = 3;
-  Authentication auth = 4;
+  string userName = 1;
+  string teamName = 2;
+  string serviceName = 3;
+  string filePath = 4;
+  string fileName = 5;
+  string fileBuffer = 6;
 }
 
 // The response message

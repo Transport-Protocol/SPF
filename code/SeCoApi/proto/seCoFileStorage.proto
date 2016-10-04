@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package seCoFileStorage;
+
+// The rpc FileStorage service definition.
+service SeCoFileStorage {
+    // Gets a file
+    rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+
+    rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
+
+    rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
+}
+
+// The request message
+message GetFileRequest {
+    string teamName = 1;
+    string filePath = 2;
+}
+
+// The response message
+message GetFileReply {
+    string fileName = 1;
+    bytes fileBuffer = 2;
+    string err = 3;
+}
+
+// The request message
+message GetFileTreeRequest {
+    string teamName = 1;
+    string filePath = 2;
+}
+
+// The response message
+message GetFileTreeReply {
+    string dirs = 1;
+    string err = 2;
+}
+
+// The request message
+message UploadFileRequest {
+    string userName = 1;
+    string teamName = 2;
+    string serviceName = 3;
+    string filePath = 4;
+    string fileName = 5;
+    string fileBuffer = 6;
+}
+
+// The response message
+message UploadFileResponse {
+    string status = 1;
+    string err = 2;
+}

@@ -63,17 +63,11 @@ CustomRoute.prototype.route = function (router) {
             if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
                 return;
             }
-            self.userClient.getAuthentication({
-                service: self.config.service_name,
-                username: req.username
-            }, function (err, response) {
+            _handleAuth(self.config,req.username, function (err, token) {
                 if (err) {
-                    return res.status(504).send('User service for authentication offline');
+                    return res.status(504).send(err.message);
                 }
-                if (response.err) {
-                    return res.json(response.err);
-                }
-                var authToken = response.token;
+                var authToken = token;
                 winston.log('info','authToken: ',authToken);
                 var jsonGrpcArgs = _createGrpcJsonArgs(req, requestArray[requestID]['query_parameter'], authToken);
                 self.client[requestArray[requestID]['grpc_function']](jsonGrpcArgs, function (err, response) {
@@ -93,6 +87,24 @@ CustomRoute.prototype.route = function (router) {
     }
     return router;
 };
+
+function _handleAuth(config,username,callback){
+    if(config.authentication_type === ''){
+        return callback(null,null);
+    }
+    self.userClient.getAuthentication({
+        service: config.service_name,
+        username: username
+    }, function (err, response) {
+       if(err){
+           return callback(new Error('User service for authentication offline'));
+       }
+       if(response.err){
+           return callback(new Error('Authentication for ' + config.service_name + ' not set'));
+       }
+       return callback(null,response.token);
+    });
+}
 
 function _setAuthorization(token, authType) {
     var parsedToken;
@@ -124,7 +136,7 @@ function _createHttpJsonResult(params, grpcResponse) {
 function _createGrpcJsonArgs(req, params,token) {
     var resultAsObj = {};
     //encrypt authentication and set grpc parameter
-    resultAsObj['auth'] = _setAuthorization(token, self.config['authentication_type'])
+    if(token) resultAsObj['auth'] = _setAuthorization(token, self.config['authentication_type'])
     for (var i in params) {
         var param = params[i];
         if (req.query.hasOwnProperty(param)) {

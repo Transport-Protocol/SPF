@@ -214,4 +214,4 @@ module.exports = {
     uploadFile: uploadFile,
     getFile: getFile,
     getFileTree: getFileTree
-}
+};
