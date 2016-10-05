@@ -33,9 +33,11 @@ describe('FileStorage Service', function () {
     describe('getFile', function () {
         it('returns file from fsStorage service that is uploaded at dropbox', function (done) {
             this.timeout(10000);
-            fsConnector.getFile('team2', 'code/pdf/plan/Projektplan2.pdf', function (err, fileName) {
+            fsConnector.getFile('team2', 'code/pdf/plan/Projektplan2.pdf', function (err, fileName,fileBuffer) {
                 expect(err).to.be.a('null');
+                expect(fileBuffer).to.not.be.a('null');
                 assert.equal(fileName, 'Projektplan2.pdf');
+                console.log(err);
                 done();
             });
 

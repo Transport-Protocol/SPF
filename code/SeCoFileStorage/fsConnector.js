@@ -1,6 +1,7 @@
 /**
  * Created by PhilippMac on 28.09.16.
  */
+'use strict';
 var grpc = require('grpc'),
     winston = require('winston'),
     nconf = require('nconf'),
@@ -82,93 +83,152 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
     });
 }
 
-
 function getFile(teamName, filePath, callback) {
     var parsed = parser.parsePath(filePath);
     if (!parsed) {
         return callback(new Error('wrong path syntax'));
     }
     console.log('parsed ' + parsed.path + '   ' + parsed.fileName);
-    //1. hole entry aus db anhand von filepath(SFP) und teamname.
-    db.getFileStorageEntry(parsed.path, parsed.fileName, teamName, function (err, entry) {
-        if (err) {
-            return callback(err);
-        }
-        //2. hole auth von user service anhand des username + service
-        authService.getAuthentication({
-            username: entry.username,
-            service: entry.serviceName
-        }, function authResult(err, response) {
-            if (err) {
-                return callback(new Error('auth service offline'));
-            } else {
-                if (response.err) {
-                    return callback(new Error(response.err));
-                } else {
-                    //3. getFIle vom Service mit auth und gemapptem filepath
-                    var auth = {
-                        token: response.token,
-                        type: "OAUTH2"
-                    };
-                    _getService(entry.serviceName).getFile({
-                        path: entry.serviceFilePath + "/" + entry.fileName,
-                        auth: auth
-                    }, function getFileResult(err, response) {
-                        if (err) {
-                            return callback(new Error(entry.serviceName + ' service offline'));
-                        } else {
-                            return callback(null, response.fileName, response.fileBuffer);
-                        }
-                    });
-                }
-            }
+
+    var fileEntry;
+    _getFileStoragesByPathNameTeam(parsed.path, parsed.fileName, teamName)
+        .then(entry => {
+            fileEntry = entry;
+            return _getAuthentication(entry.username, entry.serviceName);
+        })
+        .then(token => {
+            return _getFileFromService(token, fileEntry.serviceName, fileEntry.serviceFilePath, fileEntry.fileName);
+        })
+        .then(result => {
+            return callback(null, result.fileName, result.fileBuffer);
+        })
+        .catch(error => {
+            return callback(error);
         });
-    });
 }
 
 function getFileTree(teamName, path, callback) {
-    //1. Hole filestorages array
-    db.getFileStorages(teamName, function (err, files) {
-        if (err) {
-            return callback(err);
-        }
-        var dirs = [];
-        //2. schreibe alle files mit dem gleichen path heraus
-        for (var i = 0; i < files.length; i++) {
-            if (files[i].seCoFilePath.indexOf(path) != -1) {
-                //eintrag ist file oder folder
-                if(files[i].seCoFilePath.length === path.length){
-                    //ist eine file
-                    dirs.push({
-                        tag: 'file',
-                        name: files[i].fileName
-                    })
+    _getFileStorages(teamName)
+        .then(files => {
+            return _getFilesInPath(files, path);
+        })
+        .then(dirs => {
+            return callback(null, dirs);
+        })
+        .catch(error => {
+            return callback(error);
+        });
+}
+
+
+/*******PRIVATE FUNCTIONS**********/
+
+function _getFileStoragesByPathNameTeam(path, fileName, teamName) {
+    return new Promise(
+        function (resolve, reject) {
+            db.getFileStorageEntry(path, fileName, teamName, function (err, entry) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(entry);
+            });
+        });
+}
+
+function _getAuthentication(username, serviceName) {
+    return new Promise(
+        function (resolve, reject) {
+            authService.getAuthentication({
+                username: username,
+                service: serviceName
+            }, function authResult(err, response) {
+                if (err) {
+                    reject(new Error('auth service offline'));
+                }
+                if (response.err) {
+                    reject(new Error(response.err));
+                }
+                resolve(response.token);
+            });
+        });
+}
+
+function _getFileFromService(token, serviceName, serviceFilePath, fileName) {
+    return new Promise(
+        function (resolve, reject) {
+            var auth = {
+                token: token,
+                type: "OAUTH2"
+            };
+            _getService(serviceName).getFile({
+                path: serviceFilePath + "/" + fileName,
+                auth: auth
+            }, function getFileResult(err, response) {
+                if (err) {
+                    reject(new Error(entry.serviceName + ' service offline'));
                 } else {
-                    //ist ein directory
-                    var splitted = files[i].seCoFilePath.split('/');
-                    if(splitted.length === 0){
-                        //falscher path aufbau
-                        return callback(new Error('wrong path'));
-                    }
-                    var folderName = splitted[splitted.length-1];
-                    if(!_gotFolder(dirs,folderName)){
-                        //foldername noch nicht geaddet
+                    var result = {
+                        fileName: response.fileName,
+                        fileBuffer: response.fileBuffer
+                    };
+                    resolve(result);
+                }
+            });
+        });
+}
+
+function _getFileStorages(teamName) {
+    return new Promise(
+        function (resolve, reject) {
+            db.getFileStorages(teamName, function (err, files) {
+                if (err) {
+                    reject(error);
+                }
+                resolve(files);
+            });
+        });
+}
+
+function _getFilesInPath(files, path) {
+    return new Promise(
+        function (resolve, reject) {
+            var dirs = [];
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].seCoFilePath.indexOf(path) != -1) {
+                    //eintrag ist file oder folder
+                    if (files[i].seCoFilePath.length === path.length) {
+                        //ist eine file
                         dirs.push({
-                            tag: 'folder',
-                            name: folderName
+                            tag: 'file',
+                            name: files[i].fileName
                         })
+                    } else {
+                        //ist ein directory
+                        var splitted = files[i].seCoFilePath.split('/');
+                        if (splitted.length === 0) {
+                            //falscher path aufbau
+                            var error = new Error('wrong path');
+                            reject(error);
+                        }
+                        var folderName = splitted[splitted.length - 1];
+                        if (!_gotFolder(dirs, folderName)) {
+                            //foldername noch nicht geaddet
+                            dirs.push({
+                                tag: 'folder',
+                                name: folderName
+                            })
+                        }
                     }
                 }
             }
-        }
-        return callback(null,dirs);
-    });
+            resolve(dirs);
+        });
 }
 
-function _gotFolder(dirs,folder){
+function _gotFolder(dirs, folder) {
     var gotF = false;
-    for(var i = 0;i<dirs.length;i++){
-        if(dirs[i].name === folder){
+    for (var i = 0; i < dirs.length; i++) {
+        if (dirs[i].name === folder) {
             gotF = true;
             break;
         }
