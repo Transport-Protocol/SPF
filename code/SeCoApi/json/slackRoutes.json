@@ -9,9 +9,6 @@
     {
       "http-method": "get",
       "route": "/slack/channelList",
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "getChannelList",
       "response_parameter": [
         "channels"
@@ -24,9 +21,6 @@
         "channelId",
         "oldest"
       ],
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "getChannelMessages",
       "response_parameter": [
         "messages"
@@ -38,9 +32,6 @@
       "query_parameter": [
         "channelId",
         "message"
-      ],
-      "header_parameter": [
-        "authorization"
       ],
       "grpc_function": "sendMessage",
       "response_parameter": [

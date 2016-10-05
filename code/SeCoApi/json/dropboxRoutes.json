@@ -45,6 +45,10 @@
         "authorization"
       ],
       "grpc_function": "uploadFile",
+      "reserved_parameter": [
+        "fileName",
+        "fileBuffer"
+      ],
       "response_parameter": [
         "status"
       ]

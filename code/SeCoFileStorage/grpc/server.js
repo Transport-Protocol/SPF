@@ -69,9 +69,9 @@ function getFileTree(call, callback) {
  * Implements the UploadFile RPC method.
  */
 function uploadFile(call, callback) {
-    winston.log('info', 'uploadFile rpc method request');
+    winston.log('info', 'uploadFile rpc method request',call.request);
     checkParamater(call.request, ['teamName', 'filePath', 'userName', 'serviceName', 'fileName', 'fileBuffer'], callback);
-    connector.uploadFile(call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
+    connector.uploadFile(call.request.userName, call.request.serviceName, call.request.filePath, call.request.fileName, call.request.fileBuffer, function (err, status) {
         if (err) {
             winston.log('error', 'error performing uploadFile: ', err);
             return callback(null, {err: err.message});
@@ -86,6 +86,8 @@ function checkParamater(request, params, callback) {
     for (var i = 0; i < params.length; i++) {
         var param = params[i];
         if (!request.hasOwnProperty(param)) {
+            missingParams.push(param);
+        } else if (request[param] === '') {
             missingParams.push(param);
         }
     }

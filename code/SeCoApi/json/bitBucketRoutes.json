@@ -9,9 +9,6 @@
     {
       "http-method": "get",
       "route": "/bitbucket/repositories",
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "getRepositories",
       "response_parameter": [
         "repos"
@@ -24,9 +21,6 @@
         "path",
         "repositoryName"
       ],
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "getRepositoryContent",
       "response_parameter": [
         "dirs"
@@ -38,9 +32,6 @@
       "query_parameter": [
         "repositoryName",
         "usernameToAdd"
-      ],
-      "header_parameter": [
-        "authorization"
       ],
       "grpc_function": "addUserToRepository",
       "response_parameter": [

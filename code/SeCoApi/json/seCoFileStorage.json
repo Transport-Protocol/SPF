@@ -36,11 +36,13 @@
       "route": "/filestorage/upload",
       "query_parameter": [
         "filePath",
-        "fileName",
-        "fileBuffer",
-        "serviceName"
+        "serviceName",
+        "teamName"
       ],
       "grpc_function": "uploadFile",
+      "reserved_parameter": [
+        "userName"
+      ],
       "response_parameter": [
         "status"
       ]

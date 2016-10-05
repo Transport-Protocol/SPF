@@ -12,9 +12,6 @@
       "query_parameter": [
         "path"
       ],
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "getFile",
       "response_parameter": [
         "fileName",
@@ -27,9 +24,6 @@
       "query_parameter": [
         "path"
       ],
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "getFileTree",
       "response_parameter": [
         "dirs"
@@ -41,10 +35,11 @@
       "query_parameter": [
         "path"
       ],
-      "header_parameter": [
-        "authorization"
-      ],
       "grpc_function": "uploadFile",
+      "reserved_parameter": [
+        "fileName",
+        "fileBuffer"
+      ],
       "response_parameter": [
         "status"
       ]

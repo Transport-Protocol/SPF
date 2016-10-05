@@ -63,13 +63,13 @@ CustomRoute.prototype.route = function (router) {
             if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
                 return;
             }
-            _handleAuth(self.config,req.username, function (err, token) {
+            _handleAuth(self.config, req.username, function (err, token) {
                 if (err) {
                     return res.status(504).send(err.message);
                 }
                 var authToken = token;
-                winston.log('info','authToken: ',authToken);
-                var jsonGrpcArgs = _createGrpcJsonArgs(req, requestArray[requestID]['query_parameter'], authToken);
+                winston.log('info', 'authToken: ', authToken);
+                var jsonGrpcArgs = _createGrpcJsonArgs(self.config,req, requestArray[requestID]['query_parameter'], requestArray[requestID]['reserved_parameter'], authToken);
                 self.client[requestArray[requestID]['grpc_function']](jsonGrpcArgs, function (err, response) {
                     if (err) {
                         return _offlineError(res, self.config['service_name']);
@@ -88,21 +88,21 @@ CustomRoute.prototype.route = function (router) {
     return router;
 };
 
-function _handleAuth(config,username,callback){
-    if(config.authentication_type === ''){
-        return callback(null,null);
+function _handleAuth(config, username, callback) {
+    if (config.authentication_type === '') {
+        return callback(null, null);
     }
     self.userClient.getAuthentication({
         service: config.service_name,
         username: username
     }, function (err, response) {
-       if(err){
-           return callback(new Error('User service for authentication offline'));
-       }
-       if(response.err){
-           return callback(new Error('Authentication for ' + config.service_name + ' not set'));
-       }
-       return callback(null,response.token);
+        if (err) {
+            return callback(new Error('User service for authentication offline'));
+        }
+        if (response.err) {
+            return callback(new Error('Authentication for ' + config.service_name + ' not set'));
+        }
+        return callback(null, response.token);
     });
 }
 
@@ -133,23 +133,24 @@ function _createHttpJsonResult(params, grpcResponse) {
     return result;
 }
 
-function _createGrpcJsonArgs(req, params,token) {
-    var resultAsObj = {};
+function _createGrpcJsonArgs(config,req, queryParams, reservedParams, token) {
+    var grpcArgs = {};
     //encrypt authentication and set grpc parameter
-    if(token) resultAsObj['auth'] = _setAuthorization(token, self.config['authentication_type'])
+    if (token) grpcArgs['auth'] = _setAuthorization(token, config['authentication_type']);
+    var params = queryParams.concat(reservedParams);
     for (var i in params) {
         var param = params[i];
-        if (req.query.hasOwnProperty(param)) {
-            resultAsObj[param] = req.query[param];
-        }
-        if (param === 'fileName') {
-            resultAsObj[param] = req.files.file.name;
-        }
-        if (param === 'fileBuffer') {
-            resultAsObj[param] = req.files.file.data;
+        if (param === 'userName') {
+            grpcArgs['userName'] = req.username;
+        } else if (req.query.hasOwnProperty(param)) {
+            grpcArgs[param] = req.query[param];
+        } else if (param === 'fileName') {
+            grpcArgs[param] = req.files.file.name;
+        } else if (param === 'fileBuffer') {
+            grpcArgs[param] = req.files.file.data;
         }
     }
-    return resultAsObj;
+    return grpcArgs;
 }
 
 function _noFileUploadedError(res) {
