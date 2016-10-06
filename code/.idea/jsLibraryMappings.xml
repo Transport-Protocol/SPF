@@ -8,7 +8,9 @@
     <file url="file://$PROJECT_DIR$/Google" libraries="{code/Google/node_modules}" />
     <file url="file://$PROJECT_DIR$/Owncloud" libraries="{code/Owncloud/node_modules}" />
     <file url="file://$PROJECT_DIR$/SeCoApi" libraries="{code/SeCoApi/node_modules}" />
+    <file url="file://$PROJECT_DIR$/SeCoFileStorage" libraries="{code/SeCoFileStorage/node_modules}" />
     <file url="file://$PROJECT_DIR$/Slack" libraries="{code/Slack/node_modules}" />
+    <includedPredefinedLibrary name="ECMAScript 6" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>

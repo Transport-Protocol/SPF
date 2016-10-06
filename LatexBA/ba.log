@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.21)  22 SEP 2016 13:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.21)  6 OCT 2016 12:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1386,11 +1386,11 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 414.
  ) 
 Here is how much of TeX's memory you used:
- 14998 strings out of 493014
- 244972 string characters out of 6133351
+ 14994 strings out of 493014
+ 244878 string characters out of 6133351
  548922 words of memory out of 5000000
- 18071 multiletter control sequences out of 15000+600000
- 83319 words of font info for 136 fonts, out of 8000000 for 9000
+ 18070 multiletter control sequences out of 15000+600000
+ 83048 words of font info for 134 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,10n,66p,8516b,578s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc
@@ -1404,7 +1404,7 @@ pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLiberti
 neT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLib
 ertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/L
 inLibertineTI.pfb>
-Output written on ba.pdf (24 pages, 601493 bytes).
+Output written on ba.pdf (24 pages, 601404 bytes).
 PDF statistics:
  369 PDF objects out of 1000 (max. 8388607)
  324 compressed objects within 4 object streams
