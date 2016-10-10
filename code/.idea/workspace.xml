@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6cef7e7-6793-4032-be88-99a94a390aa4" name="Default" comment="bitbucket customRoute implementiert. &#10;bitbucket repo wird toLowerCase() formatiert.Sonst wird not Found Error zurückgegeben.&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LatexBA/ba.tex.bak" afterPath="$PROJECT_DIR$/../LatexBA/ba.tex.bak" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LatexBA/images/Probanden.png" afterPath="$PROJECT_DIR$/../LatexBA/images/Probanden.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="code.iws" />
@@ -1263,7 +1264,7 @@
       <workItem from="1474835708018" duration="62000" />
       <workItem from="1474835786284" duration="22520000" />
       <workItem from="1474975303462" duration="38605000" />
-      <workItem from="1475574470823" duration="15473000" />
+      <workItem from="1475574470823" duration="16140000" />
     </task>
     <task id="LOCAL-00049" summary="github connector grpc server implementiert.muss noch getestet werden.&#10;&#10;TODO: Auth service für oauth2 flow. als eigener microservice">
       <created>1472730351608</created>
@@ -1644,7 +1645,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166263000" />
+    <option name="totallyTimeSpent" value="166930000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="833" extended-state="6" />

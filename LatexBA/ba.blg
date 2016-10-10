@@ -15,45 +15,45 @@ Database file #2: bibtex.bib
 Warning--empty journal in bianco2007evaluating
 
 Done.
-You've used 13 entries,
+You've used 20 entries,
             4087 wiz_defined-function locations,
-            1420 strings with 19680 characters,
-and the built_in function-call counts, 8415 in all, are:
-= -- 671
-> -- 159
-< -- 62
-+ -- 85
-- -- 27
-* -- 382
-:= -- 1325
-add.period$ -- 29
-call.type$ -- 13
-change.case$ -- 12
-chr.to.int$ -- 135
-cite$ -- 14
-duplicate$ -- 611
-empty$ -- 735
-format.name$ -- 33
-if$ -- 1946
+            1450 strings with 20434 characters,
+and the built_in function-call counts, 11152 in all, are:
+= -- 884
+> -- 206
+< -- 58
++ -- 105
+- -- 40
+* -- 482
+:= -- 1826
+add.period$ -- 45
+call.type$ -- 20
+change.case$ -- 18
+chr.to.int$ -- 111
+cite$ -- 21
+duplicate$ -- 851
+empty$ -- 1031
+format.name$ -- 49
+if$ -- 2571
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 112
-newline$ -- 68
-num.names$ -- 13
-pop$ -- 271
+int.to.str$ -- 20
+missing$ -- 166
+newline$ -- 95
+num.names$ -- 20
+pop$ -- 426
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 659
+skip$ -- 884
 stack$ -- 0
-substring$ -- 327
-swap$ -- 470
-text.length$ -- 17
+substring$ -- 284
+swap$ -- 607
+text.length$ -- 21
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 13
+type$ -- 20
 warning$ -- 1
-while$ -- 42
-width$ -- 15
-write$ -- 147
+while$ -- 48
+width$ -- 22
+write$ -- 212
 (There was 1 warning)

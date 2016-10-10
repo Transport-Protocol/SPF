@@ -24,13 +24,13 @@
 \bibitem{wang2008scientific}
 L.~Wang, J.~Tao, M.~Kunze, A.~C. Castellanos, D.~Kramer, and W.~Karl,
   ``Scientific cloud computing: Early definition and experience.'' in
-  \emph{HPCC}, vol.~8, 2008, pp. 825--830.
+  \emph{HPCC}, vol.~8, 2008, p.~3.
 
 \bibitem{nardi2000interaction}
 B.~A. Nardi, S.~Whittaker, and E.~Bradner, ``Interaction and outeraction:
   instant messaging in action,'' in \emph{Proceedings of the 2000 ACM
   conference on Computer supported cooperative work}.\hskip 1em plus 0.5em
-  minus 0.4em\relax ACM, 2000, pp. 79--88.
+  minus 0.4em\relax ACM, 2000, p.~80.
 
 \bibitem{collins2004version}
 B.~Collins-Sussman, B.~Fitzpatrick, and M.~Pilato, \emph{Version control with
@@ -82,11 +82,45 @@ M.~Reichert and D.~Stoll, ``Komposition, choreograhpie und orchestrierung von
   web services: Ein {\"u}berblick,'' in \emph{EMISA Forum}, vol.~24, no.~2,
   2004, pp. 21--32.
 
+\bibitem{Asana}
+\BIBentryALTinterwordspacing
+Asana. (2016) Asana. [Online]. Available: \url{https://asana.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Twoodo}
+\BIBentryALTinterwordspacing
+Twoodo. (2016) Twoodo. [Online]. Available: \url{https://www.twoodo.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Trello}
+\BIBentryALTinterwordspacing
+Trello. (2016) Trello. [Online]. Available: \url{https://trello.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{rodriguez2012distributed}
+C.~Rodr{\'\i}guez-Bustos and J.~Aponte, ``How distributed version control
+  systems impact open source software projects,'' in \emph{Proceedings of the
+  9th IEEE Working Conference on Mining Software Repositories}.\hskip 1em plus
+  0.5em minus 0.4em\relax IEEE Press, 2012, pp. 36--39.
+
+\bibitem{vallance2010conditions}
+M.~Vallance, P.~A. Towndrow, and C.~Wiz, ``Conditions for successful online
+  document collaboration,'' \emph{TechTrends}, vol.~54, no.~1, p.~22, 2010.
+
+\bibitem{stein2014forschungsdesigns}
+P.~Stein, ``Forschungsdesigns f{\"u}r die quantitative sozialforschung,'' in
+  \emph{Handbuch Methoden der empirischen Sozialforschung}.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 2014.
+
 \bibitem{HAWStudenten}
 \BIBentryALTinterwordspacing
 H.~Hamburg. (2016) Studierende der haw hamburg sommersemester 2016. [Online].
   Available:
   \url{https://www.haw-hamburg.de/fileadmin/user_upload/Presse_und_Kommunikation/Downloads/C_1_Web_SoSe_16_Studierende_gesamt_20160617.pdf}
 \BIBentrySTDinterwordspacing
+
+\bibitem{rasch2004quantitative}
+B.~Rasch, M.~Friese, W.~Hofmann, and E.~Naumann, \emph{Quantitative
+  methoden}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2004.
 
 \end{thebibliography}

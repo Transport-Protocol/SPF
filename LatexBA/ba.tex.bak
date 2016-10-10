@@ -195,29 +195,69 @@ Im Rahmen dieser Ausarbeitung ist die komplette Spezifikation für einen Dienst n
 \begin{itemize}
 \item Der Dienst benötigt einen Namen oder \textit{Identifier} um erreichbar zu sein. Falls der Dienst mit mehreren anderen Diensten in einem System gekoppelt wird, muss der Name oder \textit{Identifier} eindeutig sein.
 \item Es wird eine Schnittstelle benötigt. Über diese Schnittstelle werden die Funktionen des Dienstes bereitgestellt. Innerhalb der Schnittstelle müssen die Eingabe-, Ausgabe- und Fehlerparameter als auch die Nachrichtentypen für die jeweiligen Funktionen beschrieben werden.
-\item Jeder Dienst besitzt einen Anwendungsbereich oder \textit{Scope}. Dieser kann von der Applikation über das System bis hin zum Internet reichen.
+\item Jeder Dienst besitzt einen Anwendungsbereich. Dieser kann von der Applikation über das System bis hin zum Internet reichen.
 \end{itemize}
 
 \section{Web-Dienst}
 
 Es stellt sich nun die Frage was einen Dienst zu einem Web-Dienst macht. Web-Dienste oder auch \textit{Webservices} werden auf unterschiedliche Weisen definiert:
 \begin{itemize}
-\item \grqq{}It exposes its features programmatically over the Internet
-using standard Internet languages and protocols\grqq{}\cite[2]{papazoglou2003service}
-\item \grqq{}It can be implemented via a self-describing interface
-based on open Internet standards (e.g., XML interfaces
-which are published in a network-based repositories)\grqq{}\cite[2]{papazoglou2003service}
+\item \grqq{}It exposes its features programmatically over the Internet using standard Internet languages and protocols\grqq{}\cite[2]{papazoglou2003service}
+\item \grqq{}It can be implemented via a self-describing interface based on open Internet standards (e.g., XML interfaces which are published in a network-based repositories)\grqq{}\cite[2]{papazoglou2003service}
 \end{itemize}
-Die angesprochenen Standards für die Entwicklung der Web-Dienste sind \ac{SOAP} \cite{soap} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Im Gegensatz zu den oben beschriebenen einschränkenden Definitionen für Web-Dienste identifizieren in der vorliegenden Ausarbeitung folgende Eigenschaften einen Web-Dienst:
+Die angesprochenen \textit{Internet standards} für die Entwicklung der Web-Dienste sind \ac{SOAP} \cite{soap} und \ac{REST} \cite{pautasso2008restful}. Durch diese Definitionen sind Dienste die ihre Schnittstellen mit anderen Protokollen anbieten ausgeschlossen. Beispiele für andere Protokolle sind zum Beispiel \ac{AMQP} \cite{vinoski2006advanced} oder \ac{GRPC} \cite{grpc}. Im Gegensatz zu den oben beschriebenen einschränkenden Definitionen für Web-Dienste identifizieren in der vorliegenden Ausarbeitung folgende Eigenschaften einen Web-Dienst:
 \begin{itemize}
 \item Der Dienst erfüllt die oben eingeführten Eigenschaften eines Dienstes.
-\item Der \textit{Scope} des Dienstes ist im \textit{Web} anzusiedeln.
+\item Der Anwendungsbereich des Dienstes ist das \textit{Web}.
 \item Die Schnittstelle des Dienstes ist öffentlich erreichbar und für die Bereitstellung der Dienstfunktionen vorgesehen.
 \end{itemize}
 
+\section{Online-Dienst}
+
+Angelehnt an die Web-Dienste existieren auch die Online-Dienste. Im Gegensatz zu den Web-Diensten 
+
 \section{Dienstkomposition}
+\label{sec:Dienstkomposition}
 
 Nachdem Dienste und Web-Dienste beschrieben sind, muss noch die Dienstkomposition definiert werden. Eine Dienstkomposition beschreibt den Zusammenschluss mehrerer Dienste zu einer neuen Anwendung oder auch einem neuem Geschäftsprozess. Dabei kann die entstandene Komposition wieder als neuer Dienst verstanden werden \cite[4]{reichert2004komposition}. Eine Dienstkomposition kann sowohl Proaktiv als auch Reaktiv aufgebaut sein. Proaktiv heißt, dass die zugehörigen Dienste der Komposition vor der Laufzeit bekannt sind. Wohingegen eine reaktive Komposition die Dienste dynamisch zusammenstellt \cite[5]{reichert2004komposition}. 
+
+\section{Dienstkategorien}
+
+Um einige Dienste im Laufe der Ausarbeitung zusammenfassen und kategorisieren zu können werden in diesem Abschnitt einige Dienstkategorien eingeführt.
+
+\subsection{Cloud-Storage}
+
+Bei \textit{Cloud-Storage} Diensten können Dateien über das Internet in der sogenannten \textit{Cloud} abgelegt werden \cite{wang2008scientific}. Der Zugriff auf die Dateien findet wie in einem normalen Dateisystem statt. Der Vorteil liegt hier bei der Erreichbarkeit. Der Anwender kann von überall auf seine Daten zugreifen und sie bearbeiten. 
+
+\subsection{Team Collaboration}
+
+\textit{Team Collaboration} ist ein noch wenig diskutierter Begriff. Diese Art von Diensten versucht die Zusammenarbeit in Teams zu vereinfachen. Dabei werden verschiedene Aufgaben wie zum Beispiel Terminplanung, Kommunikation oder Speicherung von Dateien auf einer Plattform angeboten. Beispiele für \textit{Team Collaboration} Dienste sind: 
+\begin{itemize}
+\item Asana \cite{Asana}
+\item Twoodo \cite{Twoodo}
+\item Trello \cite{Trello}
+\end{itemize}
+
+\subsection{Instant-Messaging}
+
+\textit{Instant-Messaging} Dienste ermöglichen den Nachrichten-Austausch in Echtzeit. Dabei können oft auch Gruppen-Gespräche gestartet werden, um die Kommunikation innerhalb einer Gruppe zu erleichtern \cite{nardi2000interaction}. In Abbildung \ref{fig:Instant-SMS}) ist der Versand von \ac{SMS} Nachrichten im Vergleich zu \textit{Instant-Messaging} Nachrichten zu sehen. Im Jahr 2012 wurden das erste Mal mehr Nachrichten mit \textit{Instant-Messaging} Diensten als mit \ac{SMS} verschickt. Das zeigt die Wichtigkeit dieser Dienste auf.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{images/instant-messaging-sms.png}
+\caption{Versand von Instant-Messaging-Nachrichten und SMS weltweit 2011 und 2012 und Prognose für 2013 (in Milliarden pro Tag)}
+\label{fig:Instant-SMS}
+\end{center}
+\end{figure}
+
+
+\subsection{Versionsverwaltung}
+
+Mit Hilfe der Versionsverwaltung werden Änderungen an Dateien und Dokumenten gespeichert. Dies ermöglicht ein Zurücksetzen auf ältere Versionen und das Zusammenarbeiten von mehreren Entwicklern. Die Dateien werden in einem sogenannten \textit{Repository} abgelegt. Eine besondere Form der Versionsverwaltung ist die verteilte Versionsverwaltung. Dabei ist das \textit{Repository} dezentralisiert und ermöglicht Entwicklern \textit{offline} zu arbeiten \cite{rodriguez2012distributed}.
+
+\subsection{Document Collaboration}
+
+\textit{Document Collaboration} ermöglicht das gemeinsame und gleichzeitige Bearbeiten von Dokumenten. Anders als bei \textit{Cloud-Storage} Diensten steht hier die gleichzeitige Bearbeitung im Vordergrund.
+\cite{vallance2010conditions}
 
 
 
@@ -230,7 +270,13 @@ Dieses Kapitel befasst sich mit der Umsetzung der Middleware der Dienstkompositi
 \subsection{Umfrage}
 \label{sec:Umfrage}
 
-Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, Web-Dienste zu finden, aus denen sich die Dienstkomposition zusammenschließen soll. Außerdem sollen anhand der Auswertung Anforderungen an Middleware und Frontend abgeleitet werden. Befragt wurden Studenten der Fachrichtung Informatik an der HAW Hamburg. Durch die Einschränkung auf eine Fachrichtung soll der Umfang an in Frage kommenden Web-Diensten verringert werden. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, haben insgesamt 100 Studenten teilgenommen, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik sind mit 20 beziehungsweise 17 Studenten vertreten. 
+Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit folgenden Zielen:
+\begin{itemize}
+ \item Eine Menge an Online-Diensten finden, die Studenten für kooperatives Arbeiten nutzen.
+ \item Anforderungen an die \textit{Middleware} ableiten.
+ \item Anforderungen an das beispielhafte \textit{Frontend} ableiten.
+ \end{itemize}
+Die Grundgesamtheit \cite[146]{stein2014forschungsdesigns}für die Befragung bilden die Studenten der Fachrichtung Informatik an der HAW Hamburg. Durch die Einschränkung auf eine Fachrichtung soll der Umfang an in Frage kommenden Online-Diensten verringert werden. Wie in Abbildung \ref{fig:Verteilung_Probanden}) zu sehen ist, haben insgesamt 100 Studenten teilgenommen, wobei mit 60 Studenten die Fachrichtung Technische Informatik am stärksten vertreten ist. Angewandte und-Wirtschaftsinformatik sind mit jeweils 20 Studenten vertreten. 
 
 \begin{figure}[H]
 \begin{center}
@@ -240,24 +286,23 @@ Im Rahmen der Ausarbeitung wurde eine Umfrage durchgeführt, mit dem Ziel, Web-Di
 \end{center}
 \end{figure}
 
-Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen \cite{HAWStudenten}. Also wurden ungefähr 9,68\% der in Frage kommenden Probanden abgedeckt. Die Durchführung der Umfrage fand im Juni 2016 an der HAW Hamburg statt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
+Im Sommersemester 2016 befanden sich insgesamt 968 Studenten in den erwähnten Studiengängen \cite{HAWStudenten}. Also wurden 9,68\% der in Frage kommenden Probanden abgedeckt. Die Durchführung der Umfrage fand im Juni 2016 an der HAW Hamburg statt. Die Befragten hatten eine Bearbeitungszeit von 10 Minuten. 
 
 \subsubsection{Aufbau}
 \label{sec:Umfrage_Aufbau}
 
-Am Anfang des Umfragebogens wurden Studienfach und Fachsemester des Probanden abgefragt. In die erste Spalte des Fragebogens konnten die Probanden einen Web-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Web-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Web-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Web-Dienst geklärt werden:
+Am Anfang des Umfragebogens wurden Studienfach und Fachsemester des Probanden abgefragt. In die erste Spalte des Fragebogens konnten die Probanden einen Online-Dienst eintragen, den sie im Rahmen ihres Studiums für kooperatives Arbeiten nutzen. Dies war nötig, weil die Menge an vorhandenen Online-Diensten zu groß für eine Vorauswahl ist. Einzig die Web-Dienste Owncloud und EMIL wurden als Vorauswahl angegeben, weil diese im Rahmen eines Informatik Studiums an der HAW Hamburg in der Fachrichtung Informatik genutzt werden. Zu jedem Online-Dienst wurden die gleichen Sieben Fragen gestellt, mit Einfach oder-Mehrfachauswahl. Dabei sollten folgende Eigenschaften im Nutzungsverhalten mit dem jeweiligem Online-Dienst geklärt werden:
 \begin{itemize}
 \item Häufigkeit
 \item Zufriedenheit
 \item Antrieb
 \item Umfeld
 \end{itemize}
-Des weiteren sollte das \textit{Device} für die Nutzung des Web-Dienstes angegeben werden und ob über den \textit{Browser} oder eine Applikation auf den Web-Dienst zugegriffen wird. Zum Schluss sollte angegeben werden, ob der Befragte Zugriffsrechte an Drittanbieter für den jeweiligen Web-Dienst freigeben würde. Diese Frage durfte auch mit "Weiß nicht" beantwortet werden, weil die Folgen auf die Antwort für jeden Web-Dienst andere sind, je nach dem wie sensibel die Daten des Web-Dienstes für den Befragten sind.
+Des weiteren sollte das \textit{Device} für die Nutzung des Web-Dienstes angegeben werden und ob über den \textit{Browser} oder eine Applikation auf den Web-Dienst zugegriffen wird. Zum Schluss sollte angegeben werden, ob der Befragte Zugriffsrechte an Drittanbieter für den jeweiligen Web-Dienst freigeben würde. Diese Frage durfte auch mit "Weiß nicht" beantwortet werden, weil die Folgen auf die Antwort für jeden Online-Dienst andere sind, je nach dem wie sensibel die Daten des Online-Dienstes für den Befragten sind. Der vollständige Fragebogen liegt auch als Anlage bei.
 
 \subsubsection{Auswertung}
 
-Im folgenden Abschnitt werden zunächst allgemeine Ergebnisse der Auswertung vorgestellt. Diese sind unbedeutend für das Ziel der Umfrage (siehe \ref{sec:Umfrage}), liefern aber interessante Informationen für zukünftige Arbeiten. In Abbildung \ref{fig:Korr_Semester_Dienst} wird das Fachsemester des Studierenden mit der Anzahl der von ihm genutzten Web-Dienste gegenübergestellt. Ein Student im ersten Semester nutzt im Schnitt Vier Web-Dienste für kooperatives Arbeiten. Bis zum Fünften Fachsemester steigt diese Anzahl auf ungefähr Sieben an. In den Semestern Sechs und Sieben sind es um die Sechs Web-Dienste. Die aufgeführten Beobachtungen und das Ergebnis der Korrelationsformel zeigen eine Korrelation zwischen Fachsemester und Anzahl der Web-Dienste. Je höher das Fachsemester desto höher die Anzahl der genutzten Web-Dienste. Ein Grund für diese Kausalität könnten die sich in jedem Semester ändernden Mitglieder für Gruppenarbeiten sein. Web-Dienste werden untereinander besprochen und schlussendlich genutzt. Der Abfall von genutzten Web-Diensten im Sechsten und Siebten Semester kann mit dem reduziertem Aufkommen von Gruppenaufgaben erklärt werden. Aufgrund von Bachelorarbeiten belegen die Studenten weniger Kurse und haben im folge dessen eine geringere Anzahl an kooperativen Arbeiten, bei denen auf Web-Dienste zurückgegriffen werden müssten.
-
+Im folgenden Abschnitt werden die Ergebnisse der Auswertung vorgestellt. Dabei werden interessante Informationen für zukünftige Arbeiten, als auch Ergebnisse für die Ziele der Umfrage (siehe \ref{sec:Umfrage}) dargelegt. In Abbildung \ref{fig:Korr_Semester_Dienst} ist die Korrelation vom Fachsemester des Studierenden mit der Anzahl der von ihm genutzten Web-Dienste zu sehen.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{images/Korr_Semester_Dienst.png}
@@ -265,9 +310,9 @@ Im folgenden Abschnitt werden zunächst allgemeine Ergebnisse der Auswertung vorg
 \label{fig:Korr_Semester_Dienst}
 \end{center}
 \end{figure}
-
-Wie in \ref{sec:Umfrage_Aufbau} erklärt, sollte jeder Befragte die von ihm genutzten Web-Dienste für kooperatives Arbeiten auflisten. In \ref{fig:Dienst_Anzahl} sind alle angegebenen Web-Dienst und die zugehörige Anzahl der Nutzer zu sehen. Insgesamt wurden 23 verschiedene Web-Dienste für kooperatives Arbeiten angegeben. Die beiden von der HAW Hamburg vorgegeben Web-Dienste, Owncloud und EMIL, werden von 97\% beziehungsweise 92\% der Informatik Studenten genutzt. TODO weiter ausführen viellt
-
+Ein Student im ersten Semester nutzt im Schnitt Vier Web-Dienste für kooperatives Arbeiten. Bis zum Fünften Fachsemester steigt diese Anzahl auf ungefähr Sieben an. In den Semestern Sechs und Sieben sind es um die Sechs Web-Dienste. Die aufgeführten Beobachtungen und das Ergebnis der Korrelationsformel nach Pearson \cite[85]{rasch2004quantitative} zeigen eine Korrelation zwischen Fachsemester und Anzahl der Web-Dienste. Je höher das Fachsemester desto höher die Anzahl der genutzten Web-Dienste. Ein Grund für diese Kausalität könnten die sich in jedem Semester ändernden Mitglieder für Gruppenarbeiten sein. Dienste werden untereinander besprochen und ausgetauscht. Der Abfall von genutzten Diensten im Sechsten und Siebten Semester kann mit dem reduziertem Aufkommen von Gruppenaufgaben erklärt werden. Aufgrund von Bachelorarbeiten belegen die Studenten weniger Kurse und haben im folge dessen eine geringere Anzahl an kooperativen Arbeiten, bei denen auf Online-Dienste zurückgegriffen werden müssten.
+\\\\
+Wie im Abschnitt \ref{sec:Umfrage_Aufbau} erklärt, sollte jeder Befragte die von ihm genutzten Online-Dienste für kooperatives Arbeiten auflisten. In der Abbildung \ref{fig:Dienst_Anzahl} sind alle angegebenen Online-Dienste und die zugehörige Anzahl der Nutzer zu sehen.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{images/Dienst_AnzahlNutzer.png}
@@ -275,27 +320,33 @@ Wie in \ref{sec:Umfrage_Aufbau} erklärt, sollte jeder Befragte die von ihm genut
 \label{fig:Dienst_Anzahl}
 \end{center}
 \end{figure}
-
-Um eine bessere Übersicht zu schaffen können die Web-Dienste in Kategorien eingeteilt werden.
-\begin{itemize}
-\item \textit{Team Collaboration}: Dienste für die Zusammenarbeit und Organisation innerhalb eines Teams.
-\item \textit{Cloud Storage}: Speichern und teilen von Dateien über das Internet.
-\item \textit{Instant-Messaging}: Nachrichtenaustausch in Echtzeit.
-\item \textit{Versionsverwaltung}: Verwaltung von Änderungen an Dateien.
-\item \textit{Document Collaboration}: Gleichzeitige Bearbeitung von Dokumenten in Gruppen. 
-\end{itemize}
+Insgesamt wurden 23 verschiedene Online-Dienste für kooperatives Arbeiten angegeben. Die beiden von der HAW Hamburg vorgegeben Web-Dienste, \textit{Owncloud} und \textit{EMIL}, werden von 97\% beziehungsweise 92\% der Informatik Studenten genutzt. Der \textit{Instant-Messaging} Dienst \textit{WhatsApp} ist mit 79\% der am meisten genutzte Online-Dienst, der nicht vorgegeben wurde. Der am häufigsten genutzte Online-Dienst für Versionsverwaltung ist Github mit 39\%. \textit{Google Docs} ist mit 29\% der am weitesten verbreitete \textit{Document Collaboration} Dienst unter den Informatik Studenten der HAW Hamburg.
+\\
+\\
+Um eine bessere Übersicht zu schaffen ist in Abbildung \ref{fig:Dienst_Kategorien} eine Aufteilung in Dienstkategorien zu sehen. Verwendet werden die im Abschnitt \ref{sec:Dienstkomposition} eingeführten Kategorien. Die Prozente beziehen sich auf die 534 im Zuge der Umfrage angegeben Online-Dienste, im Gegensatz zu Abbildung \ref{fig:Dienst_Anzahl} sind auch doppelte Eingaben mit eingeschlossen.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{images/Dienstkategorien.png}
 \caption{Verteilung der Dienste auf die Dienstkategorien}
-\label{fig:Dienst_Anzahl}
+\label{fig:Dienst_Kategorien}
+\end{center}
+\end{figure}
+
+Jeder Dritte angegebene Online-Dienst ist ein \textit{Cloud-Storage} Dienst und damit die Dienstkategorie, die am häufigsten vertreten ist. 
+TODO Daten beschreiben
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/Student_Dienstkategorien.png}
+\caption{Genutzte Dienstkombinationen der Studenten}
+\label{fig:Dienst_Kategorien}
 \end{center}
 \end{figure}
 
 
-Grafik Nutzer : Dienst
-Grafik Dienst : Dienstgruppen
+ 
+
 Grafik Zufriedenheit : Anzahl Nutzer Korrelation
 
 
@@ -385,6 +436,7 @@ Komponentendiagramm. Hier oder Analyse Design?
 
 \begin{acronym}[Bash]
  \acro{API}{Application Programmable Interface}
+ \acro{SMS}{Short Message Service}
  \acro{SOAP}{Simple Object Access Protocol}
  \acro{REST}{Representational State Transfer}
  \acro{HTTP}{Hypertext Transfer Protocol}
