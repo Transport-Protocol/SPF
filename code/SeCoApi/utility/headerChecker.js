@@ -1,6 +1,7 @@
 /**
  * Created by PhilippMac on 19.07.16.
  */
+var RpcJsonResponseBuilder = require('./rpcJsonResponseBuilder');
 
 function HeaderChecker(){
 }
@@ -29,7 +30,8 @@ function checkParameter(req, res, paramater) {
 }
 
 function sendError(res, missingParamater) {
-    res.status(400).send('header parameter: '.concat(missingParamater).concat(' is missing'));
+    var result = RpcJsonResponseBuilder.buildError('Header parameter "' + missingParamater + '" is missing');
+    return res.json(result);
 }
 
 

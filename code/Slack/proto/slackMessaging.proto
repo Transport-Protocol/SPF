@@ -12,14 +12,14 @@ service SlackMessaging {
 
 //Auth message
 message Authentication {
-    string token = 1; //auth string,for example user:password or Bearer XXXXX
-    AuthenticationType type = 2;
+  string token = 1; //auth string,for example user:password or Bearer XXXXX
+  AuthenticationType type = 2;
 }
 
 //Auth types enum
 enum AuthenticationType {
-    BASIC = 0;
-    OAUTH2 = 1;
+  BASIC = 0;
+  OAUTH2 = 1;
 }
 
 // The request message
@@ -43,14 +43,15 @@ message GetChannelMessagesRequest {
 // The response message
 message GetChannelMessagesReply {
   string messages = 1;
-  string err = 2;
+  string timeStampOfLastMsg = 2;
+  string err = 3;
 }
 
 // The request message
 message SendMessageRequest {
   string channelId = 1;
   string message = 2;
-  bool as_user = 3; //if false,message sender is bot
+  string as_user = 3; //if false,message sender is bot
   Authentication auth = 4;
 }
 

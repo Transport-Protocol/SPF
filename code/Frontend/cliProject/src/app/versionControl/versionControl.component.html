@@ -1,0 +1,71 @@
+<md-card>
+  <md-toolbar color="primary">{{name}}</md-toolbar>
+  <div layout="row" layout-xs="column" layout-padding>
+    <md-card flex="35" flex-xs="100">
+      <md-card-title-group>
+        <md-card-subtitle>Repositories</md-card-subtitle>
+      </md-card-title-group>
+      <md-radio-group *ngIf="!repoListLoading" [(ngModel)]="chosenOption" layout="column">
+        <md-radio-button *ngFor="let repo of repos" [align]="'start'" (click)="repoClicked(repo)" [value]="repo">
+          {{repo}}
+        </md-radio-button>
+      </md-radio-group>
+      <md-progress-circle *ngIf="repoListLoading" color="accent" mode="indeterminate"></md-progress-circle>
+    </md-card>
+    <div flex="65" flex-xs="100" *ngIf="chosenOption">
+      <div layout="row" layout-align="start none">
+        <div *ngFor="let path of curDir; let isLast = last; let curIndex = index" layout="row"
+             layout-align="center center">
+          <button md-button md-ripple color="accent" (click)="handlePathButtonClick($event, curIndex)">
+            {{path}}
+          </button>
+          <md-icon *ngIf="!isLast" color="primary">keyboard_arrow_right</md-icon>
+          <!-- wait for new angular2 release till md-icon theming is working   -->
+        </div>
+      </div>
+      <md-data-table layout-fill style="padding: 30px">
+        <thead>
+        <tr>
+          <th class="md-text-cell sortable" (click)="sortByName()">
+            <div layout="row" layout-align="start center">
+              <label>Filename</label>
+              <md-icon *ngIf="currentSortType!==0">sort</md-icon>
+              <md-icon *ngIf="sortAscending && currentSortType===0">arrow_upward</md-icon>
+              <md-icon *ngIf="!sortAscending && currentSortType===0">arrow_downward</md-icon>
+            </div>
+          </th>
+          <th class="sortable md-text-cell" (click)="sortByType()">
+            <div layout="row" layout-align="start center">
+              <label>Filetype</label>
+              <md-icon *ngIf="currentSortType!==1">sort</md-icon>
+              <md-icon *ngIf="sortAscending && currentSortType===1">arrow_upward</md-icon>
+              <md-icon *ngIf="!sortAscending && currentSortType===1">arrow_downward</md-icon>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="!loading">
+          <tr *ngFor="let dir of dirs;let curIndex = index;" (click)="rowClicked(curIndex)" [@slideIn]="'active'">
+            <td class="md-text-cell">{{dir.name}}</td>
+            <td *ngIf="dir.tag === 'folder'" class="md-text-cell">
+              <md-icon [md-tooltip]="'Folder'" [tooltip-position]="'after'" color="primary">folder</md-icon>
+            </td>
+            <td *ngIf="dir.tag === 'file'" class="md-text-cell">
+              <md-icon [md-tooltip]="'File'" [tooltip-position]="'after'" color="primary">insert_drive_file</md-icon>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="loading">
+          <td>
+            <md-progress-circle mode="indeterminate" color="accent"></md-progress-circle>
+          </td>
+          <td>
+            <!--<md-progress-circle mode="indeterminate" color="accent"></md-progress-circle>-->
+          </td>
+        </tr>
+        </tbody>
+      </md-data-table>
+    </div>
+  </div>
+</md-card>

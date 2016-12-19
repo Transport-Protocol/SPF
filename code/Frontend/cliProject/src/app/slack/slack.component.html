@@ -1,0 +1,38 @@
+<md-card>
+  <md-toolbar color="primary">{{name}}</md-toolbar>
+  <md-card-content layout="row" layout-xs="column">
+    <md-card flex="25" flex-xs="100">
+      <md-card-title-group>
+        <md-card-subtitle>Channel</md-card-subtitle>
+      </md-card-title-group>
+      <md-radio-group layout="column" *ngIf="!loading">
+        <md-radio-button *ngFor="let channel of channels" [align]="'start'" (click)="channelClicked(channel)"
+                         [value]="channel">
+          {{channel.name}}
+        </md-radio-button>
+      </md-radio-group>
+      <md-progress-circle *ngIf="loading" mode="indeterminate" color="accent"></md-progress-circle>
+    </md-card>
+    <div flex="75" flex-xs="100">
+      <div style="overflow-y: scroll;max-height: 400px" #scrollMe>
+        <div *ngFor="let message of messages;let curIndex = index;" layout="row" layout-align="start none"
+             [ngClass]="{'bgEven': curIndex%2===0,'bgUnEven': curIndex%2===1}">
+          <div style="margin: 20px">
+            <span>{{ message.ts*1000 | date:'medium' }} </span>
+            <b>{{message.name}}: </b>
+            <span>{{message.message}}</span>
+          </div>
+        </div>
+      </div>
+      <md-card *ngIf="!loadingMessages && hasMessages" layout="row" style="padding-top: 10px"
+               layout-align="start center" layout-margin>
+        <button md-icon-button color="accent" (click)="refresh()">
+          <md-icon>refresh</md-icon>
+        </button>
+        <md-textarea [(ngModel)]='chatMsgBinding' MyFocus flex="60" placeholder="Enter chat message"></md-textarea>
+        <button flex="30" color="accent" md-raised-button (click)="sendPressed()">Send!</button>
+      </md-card>
+      <md-progress-circle *ngIf="loadingMessages" mode="indeterminate" color="accent"></md-progress-circle>
+    </div>
+  </md-card-content>
+</md-card>

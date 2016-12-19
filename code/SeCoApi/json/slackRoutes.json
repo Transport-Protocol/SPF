@@ -23,7 +23,8 @@
       ],
       "grpc_function": "getChannelMessages",
       "response_parameter": [
-        "messages"
+        "messages",
+        "timeStampOfLastMsg"
       ]
     },
     {
@@ -31,7 +32,8 @@
       "route": "/slack/sendMessage",
       "query_parameter": [
         "channelId",
-        "message"
+        "message",
+        "as_user"
       ],
       "grpc_function": "sendMessage",
       "response_parameter": [

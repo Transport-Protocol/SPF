@@ -44,7 +44,7 @@ message UploadFileRequest {
   string serviceName = 3;
   string filePath = 4;
   string fileName = 5;
-  string fileBuffer = 6;
+  bytes fileBuffer = 6;
 }
 
 // The response message

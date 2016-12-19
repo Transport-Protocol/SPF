@@ -1,0 +1,18 @@
+<md-card class="teamAreaCard" layout="column">
+  <md-card-title-group>
+    <md-card-subtitle>Team Area</md-card-subtitle>
+    <md-card-title>Active Team:
+      <span *ngIf="hasTeam">{{currentTeam.teamName}}</span>
+      <span *ngIf="!hasTeam">none</span>
+    </md-card-title>
+    <img src="assets/images/team.png" style="max-height: 96px">
+  </md-card-title-group>
+  <md-card-content layout="column">
+    content area
+  </md-card-content>
+  <md-card-actions layout="row" layout-xs="column">
+    <button style="margin: 3px" md-raised-button md-ripple color="accent" (click)="openChangeTeamDialog()">change Team</button>
+    <button style="margin: 3px" md-raised-button md-ripple color="accent" (click)="openJoinTeamDialog()">join Team</button>
+    <button style="margin: 3px" md-raised-button md-ripple color="accent" (click)="openCreateTeamDialog()">create Team</button>
+  </md-card-actions>
+</md-card>

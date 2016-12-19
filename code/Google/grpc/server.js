@@ -5,7 +5,9 @@
 
 var grpc = require('grpc'),
     winston = require('winston'),
+    fs = require('fs'),
     connector = require('.././google');
+
 
 
 var exports = module.exports = {};
@@ -42,9 +44,11 @@ function getFile(call, callback) {
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getFile rpc method');
+        console.log('obejct type: ' + Object.prototype.toString.call(fileBuffer));
         return callback(null, {fileName: fileName, fileBuffer: fileBuffer});
     });
 }
+
 
 
 /**

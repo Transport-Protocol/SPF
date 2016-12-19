@@ -46,7 +46,7 @@ function getRepositories(call, callback) {
                 winston.log('error', 'error performing getRepositories: ', err);
                 return callback(null, {err: err.message});
             }
-            winston.log('info', 'succesfully performed getRepositories rpc method');
+            winston.log('info', 'succesfully performed getRepositories rpc method: ',repos);
             return callback(null, {repos: JSON.stringify(repos)});
         });
     }

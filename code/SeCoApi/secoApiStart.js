@@ -2,11 +2,13 @@
  * Created by phili on 18.07.2016.
  * Service Composition API with http interface
  */
+process.chdir(__dirname); //set working directory to path of file that is being executed
 var express = require('express'),
     fileUpload = require('express-fileupload'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    cors = require('cors'),
     winston = require('winston'),
     fs = require('fs'),
     expressListRoutes = require('express-list-routes'),
@@ -45,10 +47,11 @@ function init() {
     process.env.LOG_LEVEL = 'info';
     winston.level = process.env.LOG_LEVEL;
     app = express();
-    app.use(bodyParser.json());
+    //app.use(bodyParser.json());
     app.use(cookieParser());
     //reading multipart fileupload
     app.use(fileUpload());
+    app.use(cors());
     //app.use(session({secret: 'mySpecialSecret'}));
     router = express.Router();
     app.use(newRequest);
@@ -69,8 +72,8 @@ function notFound(req, res, next) {
 }
 
 function basicAuth(req, res, next) {
-    //skip for user routes
-    if (req.url.indexOf('api/user') !== -1) {
+    //skip for user routes,except auth list
+    if (req.url.indexOf('api/user') !== -1 && req.url.indexOf('/user/auth/list') === -1) {
         next();
     } else {
         secoBasicAuth.verifyBasicAuth(req, function (err, authenticated, username) {

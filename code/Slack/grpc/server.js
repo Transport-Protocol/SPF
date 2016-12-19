@@ -52,13 +52,13 @@ function getChannelList(call, callback) {
  */
 function getChannelMessages(call, callback) {
     winston.log('info', 'getChannelMessages rpc method request: ' + JSON.stringify(call.request));
-    connector.getChannelMessages(call.request.auth.token, call.request.channelId,call.request.oldest, function (err, messages) {
+    connector.getChannelMessages(call.request.auth.token, call.request.channelId,call.request.oldest, function (err, result) {
         if (err) {
             winston.log('error', 'error performing getChannelMessages: ',err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getChannelMessages rpc method');
-        return callback(null, {messages: JSON.stringify(messages)});
+        return callback(null, {messages: JSON.stringify(result.messages), timeStampOfLastMsg: result.tsOfLastMsg});
     });
 }
 
@@ -67,7 +67,11 @@ function getChannelMessages(call, callback) {
  */
 function sendMessage(call, callback) {
     winston.log('info', 'sendMessage rpc method request');
-    connector.sendMessage(call.request.auth.token, call.request.channelId, call.request.message, call.request.as_user, function (err, status) {
+    var asUser = false;
+    if(call.request.as_user === 'true'){
+        asUser = true;
+    }
+    connector.sendMessage(call.request.auth.token, call.request.channelId, call.request.message, asUser, function (err, status) {
         if (err) {
             winston.log('error', 'error performing sendMessage: ',err);
             return callback(null, {err: err.message});

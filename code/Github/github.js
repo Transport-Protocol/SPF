@@ -89,11 +89,11 @@ function addUserToRepo(auth, repo, userToAdd, callback) {
 }
 
 function getRepoContent(auth, repo, path, callback) {
-    _getUsername(auth, function (err, username) {
+    _getRepoOwner(auth,repo, function (err, owner) {
         if (err) {
             return callback(err);
         } else {
-            var url = 'https://api.github.com/repos/' + username + '/' + repo + '/contents/' + path;
+            var url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + path;
             console.log(url);
             var options = {
                 method: 'GET',
@@ -169,21 +169,67 @@ function _getUsername(auth, callback) {
     }
 }
 
+function _getRepoOwner(auth,repo,callback){
+    var url = 'https://api.github.com/user/repos';
+    var options = {
+        method: 'GET',
+        uri: url,
+        headers: {
+            'User-Agent': 'Seco Api'
+        }
+    };
+    if (auth.type == 'BASIC') {
+        options.auth = {
+            user: auth.username,
+            pass: auth.password
+        }
+    } else {
+        options.auth = {
+            'bearer': auth.token
+        }
+    }
+    request(options, function (err, response, body) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback(err);
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            console.log(response.body);
+            return callback(new Error(response.statusCode + ': ' + response.statusMessage + ' ' + body));
+        }
+        var parsed = JSON.parse(body);
+        var owner = "";
+        for(var i = 0;i<parsed.length;i++){
+            if(parsed[i].name === repo){
+                owner = parsed[i].owner.login;
+            }
+        }
+        winston.log('info', 'successfully got repo owner from github: ', owner);
+        return callback(null, owner);
+    });
+}
+
 
 function _parseRepoListBody(body) {
     var parsed = JSON.parse(body);
     var result = [];
     for (var i = 0; i < parsed.length; i++) {
-        result[i] = {repo: parsed[i].name};
+        result[i] = parsed[i].name;
     }
     return result;
 }
+
 
 function _parseRepoContent(body) {
     var parsed = JSON.parse(body);
     var result = [];
     for (var i = 0; i < parsed.length; i++) {
-        result[i] = {name: parsed[i].name, tag: parsed[i].type};
+        var type = parsed[i].type;
+        if(type === 'dir'){
+            type = 'folder';
+        }
+        result[i] = {name: parsed[i].name, tag: type};
     }
     return result;
 }

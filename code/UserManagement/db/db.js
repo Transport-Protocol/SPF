@@ -116,10 +116,10 @@ function isLoginCorrect(name, password, callback) {
  * @param name
  * @param callback
  */
-function setSessionId(name,callback) {
-    readUser(name, function(err, user){
-        if(err){
-            logger.log('error','setSessionId couldnt get user: ',name);
+function setSessionId(name, callback) {
+    readUser(name, function (err, user) {
+        if (err) {
+            logger.log('error', 'setSessionId couldnt get user: ', name);
             return callback(err);
         } else {
             var sessionId = uuid.v4();
@@ -142,20 +142,20 @@ function setSessionId(name,callback) {
  * @param sessionId
  * @param callback err,boolean
  */
-function isSessionIdCorrect(name,sessionId,callback){
-    readUser(name,function(err,user){
-       if(err){
-           logger.log('error','isSessionIdCorrect couldnt get user: ',name);
-           return callback(err);
-       } else {
-           if(sessionId == user.sessionId){
-               logger.log('info','sessionId is correct');
-               return callback(null,true);
-           } else {
-               logger.log('info','sessionId is not correct');
-               return callback(null,false);
-           }
-       }
+function isSessionIdCorrect(name, sessionId, callback) {
+    readUser(name, function (err, user) {
+        if (err) {
+            logger.log('error', 'isSessionIdCorrect couldnt get user: ', name);
+            return callback(err);
+        } else {
+            if (sessionId == user.sessionId) {
+                logger.log('info', 'sessionId is correct');
+                return callback(null, true);
+            } else {
+                logger.log('info', 'sessionId is not correct');
+                return callback(null, false);
+            }
+        }
     });
 }
 
@@ -172,17 +172,15 @@ function addAuthentication(username, service, access_token, refresh_token, callb
         if (err) {
             return callback(err);
         }
-        var alreadyRegistered = false;
         for (var i = 0; i < user.auth.length; i++) {
             if (user.auth[i].service === service) {
                 //Entry already registered;update
-                logger.log('info', 'authentication entry already registered for user %s on service %s', username, service);
-                alreadyRegistered = true;
-                user.auth[i].access_token = access_token;
-                user.auth[i].refresh_token = refresh_token;
+                logger.log('info', 'authentication entry already registered for user %s on service %s - remove old value', username, service);
+                user.auth.splice(i,1);
+                break;
             }
         }
-        if (!alreadyRegistered) user.auth.push({
+        user.auth.push({
             service: service,
             access_token: access_token,
             refresh_token: refresh_token
@@ -192,24 +190,39 @@ function addAuthentication(username, service, access_token, refresh_token, callb
                 logger.log('error', 'adding authentication ', err.message);
                 return callback(err);
             }
-            logger.log('info', 'successfully added authentication for user : ',username);
+            logger.log('info', 'successfully added authentication for user : ', username);
             return callback(null, user);
         });
     });
 }
 
-function getUsernameBySessionId(sessionId,callback){
-    User.findOne({sessionId: sessionId}, function(err,user){
-       if(err) {
-           logger.log('error','getUserBySessionId',err);
-           return callback(err);
-       }
-       if(!user){
-           logger.log('error','user with sessionId: %s not found',sessionId);
-           return callback(new Error('not found'));
-       }
-       logger.log('info','found user with sessionId: ',sessionId);
-        return callback(null,user.username);
+function getUsernameBySessionId(sessionId, callback) {
+    User.findOne({sessionId: sessionId}, function (err, user) {
+        if (err) {
+            logger.log('error', 'getUserBySessionId', err);
+            return callback(err);
+        }
+        if (!user) {
+            logger.log('error', 'user with sessionId: %s not found', sessionId);
+            return callback(new Error('not found'));
+        }
+        logger.log('info', 'found user with sessionId: ', sessionId);
+        return callback(null, user.username);
+    });
+}
+
+function getAuthStatusList(username, callback) {
+    readUser(username, function (err, user) {
+        if (err) {
+            return callback(err);
+        } else {
+            var list = [];
+            console.log(user);
+            for (var i = 0; i < user.auth.length; i++) {
+                list[i] = user.auth[i].service;
+            }
+            return callback(null, list);
+        }
     });
 }
 
@@ -236,7 +249,8 @@ module.exports = {
     deleteUser: deleteUser,
     isLoginCorrect: isLoginCorrect,
     addAuthentication: addAuthentication,
-    setSessionId : setSessionId,
-    isSessionIdCorrect : isSessionIdCorrect,
-    getUsernameBySessionId : getUsernameBySessionId
+    setSessionId: setSessionId,
+    isSessionIdCorrect: isSessionIdCorrect,
+    getUsernameBySessionId: getUsernameBySessionId,
+    getAuthStatusList: getAuthStatusList
 };

@@ -22,7 +22,8 @@ exports.init = function (serverIp, serverPort) {
         register: register,
         login: login,
         getUsernameBySessionId: getUsernameBySessionId,
-        isLoginCorrect: isLoginCorrect
+        isLoginCorrect: isLoginCorrect,
+        getAuthStatusList: getAuthStatusList
     });
     _server.addProtoService(authProto.Authentication.service, {
         setAuthentication: setAuthentication,
@@ -40,6 +41,27 @@ exports.start = function () {
 };
 
 /**
+ * Implements the getAuthStatusList RPC method.
+ */
+function getAuthStatusList(call, callback) {
+    winston.log('info', 'rpc method getAuthStatusList request: ' + JSON.stringify(call.request));
+    if (!call.request.username) {
+        _error('register', 'missing grpc parameter', callback);
+    } else {
+        db.getAuthStatusList(call.request.username, function (err, list) {
+            if (err) {
+                var errMsg = err;
+                winston.log('error', 'error performing rpc method getAuthStatusList: ', errMsg);
+                return callback(null, {err: errMsg.message});
+            } else {
+                winston.log('info', 'succesfully performed getAuthStatusList rpc method');
+                return callback(null, {list: JSON.stringify(list)});
+            }
+        });
+    }
+}
+
+/**
  * Implements the register RPC method.
  */
 function register(call, callback) {
@@ -53,8 +75,12 @@ function register(call, callback) {
     } else {
         db.createUser(call.request.name, call.request.password, function (err, createdUser) {
             if (err) {
-                winston.log('error', 'error performing rpc method createUser: ', err);
-                return callback(null, {err: err.message});
+                var errMsg = err;
+                if(err.message.indexOf('duplicate key') !== -1){
+                    errMsg = new Error('username already in use');
+                }
+                winston.log('error', 'error performing rpc method createUser: ', errMsg);
+                return callback(null, {err: errMsg.message});
             } else {
                 winston.log('info', 'succesfully performed createUser rpc method');
                 return callback(null, {status: 'created'});

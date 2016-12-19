@@ -1,6 +1,7 @@
 'use strict';
 
 var ParamChecker = require('./../utility/paramChecker'),
+    RpcJsonResponseBuilder = require('./../utility/rpcJsonResponseBuilder'),
     grpc = require('grpc'),
     auth = require('basic-auth'),
     winston = require('winston'),
@@ -8,7 +9,7 @@ var ParamChecker = require('./../utility/paramChecker'),
 
 var client;
 
-function UserRoute(){
+function UserRoute() {
     this.paramChecker = new ParamChecker();
     var url = nconf.get('userServiceIp') + ':' + nconf.get('userServicePort');
     winston.log('info', 'userservice grpc url: %s', url);
@@ -17,10 +18,10 @@ function UserRoute(){
         grpc.credentials.createInsecure());
 }
 
-UserRoute.prototype.checkSession = function (req,res,next){
-    winston.log('info','check if session exists');
-    if(req.cookies.sessionId){
-        winston.log('info','cookie with sessionId received');
+UserRoute.prototype.checkSession = function (req, res, next) {
+    winston.log('info', 'check if session exists');
+    if (req.cookies.sessionId) {
+        winston.log('info', 'cookie with sessionId received');
         client.getUsernameBySessionId({
             sessionId: req.cookies.sessionId
         }, function (err, response) {
@@ -38,19 +39,21 @@ UserRoute.prototype.checkSession = function (req,res,next){
             }
         });
     } else {
-        winston.log('info','no cookie for sessionId received');
+        winston.log('info', 'no cookie for sessionId received');
         next();
     }
 };
 
 UserRoute.prototype.route = function (router) {
     var self = this;
-
     //REGISTER ROUTE
     router.post('/user/register', function (req, res) {
         var user = auth(req);
-        if(typeof user === 'undefined'){
-            return res.status(401).send('invalid or missing basic authentication');
+        if (typeof user === 'undefined' || user.name.length === 0 || user.pass.length === 0) {
+            var errMsg = 'invalid or missing basic authentication';
+            winston.log('error', errMsg + ' for route user/register');
+            var jsonResponse = RpcJsonResponseBuilder.buildError(errMsg);
+            return res.json(jsonResponse);
         }
         client.register({
             name: user.name,
@@ -60,11 +63,43 @@ UserRoute.prototype.route = function (router) {
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt register user: ', user.name);
-                    return res.json(response.err);
+                    winston.log('error', 'couldnt register user ', response.err);
+                    var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
+                    return res.json(jsonResponse);
                 } else {
                     winston.log('info', 'successfully registered user: ', user.name);
-                    return res.json(response.status);
+                    var jsonResponse = RpcJsonResponseBuilder.buildParams(['status'], [response.status]);
+                    return res.json(jsonResponse);
+                }
+            }
+        });
+    });
+
+    //auth list ROUTE
+    router.get('/user/auth/list', function (req, res) {
+        var user = auth(req);
+        console.log('auth/list route');
+        if (typeof user === 'undefined' || user.name.length === 0 || user.pass.length === 0) {
+            var errMsg = 'invalid or missing basic authentication';
+            winston.log('error', errMsg + ' for route user/login');
+            var jsonResponse = RpcJsonResponseBuilder.buildError(errMsg);
+            return res.json(jsonResponse);
+        }
+        client.getAuthStatusList({
+            username: user.name
+        }, function (err, response) {
+            if (err) {
+                _offlineError(res);
+            } else {
+                if (response.err) {
+                    winston.log('error', 'couldnt list auths ', response.err);
+                    var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
+                    return res.json(jsonResponse);
+                } else {
+                    winston.log('info', 'successful list auths for user: ', user.name);
+                    //res.cookie('sessionId', response.sessionId);
+                    var jsonResponse = RpcJsonResponseBuilder.buildParams(['list'], [JSON.parse(response.list)]);
+                    return res.json(jsonResponse);
                 }
             }
         });
@@ -73,8 +108,12 @@ UserRoute.prototype.route = function (router) {
     //LOGIN ROUTE
     router.post('/user/login', function (req, res) {
         var user = auth(req);
-        if(typeof user === 'undefined'){
-            return res.status(401).send('invalid or missing basic authentication');
+        console.log(user.name + ' and pw: ' + user.pass);
+        if (typeof user === 'undefined' || user.name.length === 0 || user.pass.length === 0) {
+            var errMsg = 'invalid or missing basic authentication';
+            winston.log('error', errMsg + ' for route user/login');
+            var jsonResponse = RpcJsonResponseBuilder.buildError(errMsg);
+            return res.json(jsonResponse);
         }
         client.login({
             name: user.name,
@@ -84,19 +123,19 @@ UserRoute.prototype.route = function (router) {
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt login user: ', user.name);
-                    return res.json(response.err);
+                    winston.log('error', 'couldnt login user ', response.err);
+                    var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
+                    return res.json(jsonResponse);
                 } else {
                     if (!response.loginSuccessful) {
                         winston.log('info', 'wrong login from user: ', user.name);
-                        return res.json(response.status);
+                        var jsonResponse = RpcJsonResponseBuilder.buildError(response.status);
+                        return res.json(jsonResponse);
                     } else {
                         winston.log('info', 'successful login for user: ', user.name);
                         //res.cookie('sessionId', response.sessionId);
-                        return res.json({
-                            "status": "ok",
-                            "username": req.query.username
-                        });
+                        var jsonResponse = RpcJsonResponseBuilder.buildParams(['status', 'username'], [response.status, user.name]);
+                        return res.json(jsonResponse);
                     }
                 }
             }
@@ -110,6 +149,8 @@ module.exports = UserRoute;
 
 
 function _offlineError(res) {
-    winston.log('error', 'usermanagement service offline');
-    return res.status(504).send('User Management service offline');
+    var errMsg = 'usermanagement service offline';
+    winston.log('error', errMsg);
+    var jsonResponse = RpcJsonResponseBuilder.buildError(errMsg);
+    return res.json(jsonResponse);
 }

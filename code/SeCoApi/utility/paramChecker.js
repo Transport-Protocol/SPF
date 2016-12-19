@@ -1,6 +1,7 @@
 /**
  * Created by phili on 18.07.2016.
  */
+var RpcJsonResponseBuilder = require('./RpcJsonResponseBuilder');
 
 function ParamChecker(){
 }
@@ -30,7 +31,8 @@ function checkParameter(req, res, paramater) {
 }
 
 function sendError(res, missingParamater) {
-    res.status(400).send('parameter: '.concat(missingParamater).concat(' is missing'));
+    var result = RpcJsonResponseBuilder.buildError('parameter "' + missingParamater + '" is missing');
+    return res.json(result);
 }
 
 

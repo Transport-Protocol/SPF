@@ -1,0 +1,10 @@
+<div layout="column" layout-padding layout-align="center" style="width: 600px">
+  <md-toolbar color="primary">Select Team</md-toolbar>
+  <md-nav-list layout="column" *ngIf="!loading">
+    <md-list-item *ngFor="let team of teams" (click)="changeTeam(team)">
+      <b>{{team.teamName}}</b>
+      <md-divider></md-divider>
+    </md-list-item>
+  </md-nav-list>
+  <md-progress-circle *ngIf="loading" mode="indeterminate" color="accent"></md-progress-circle>
+</div>

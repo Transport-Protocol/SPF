@@ -41,7 +41,9 @@
       ],
       "grpc_function": "uploadFile",
       "reserved_parameter": [
-        "userName"
+        "userName",
+        "fileName",
+        "fileBuffer"
       ],
       "response_parameter": [
         "status"

@@ -38,7 +38,7 @@ function getFile(call, callback) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
     connector.getFile(call.request.auth.token, call.request.path, function (err, fileName, fileBuffer) {
         if (err) {
-            winston.log('error', 'error performing getFile: ',err);
+            winston.log('error', 'error performing getFile: ', err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed getFile rpc method');
@@ -54,10 +54,10 @@ function getFileTree(call, callback) {
     winston.log('info', 'getFileTree rpc method request: ' + JSON.stringify(call.request));
     connector.getFileTree(call.request.auth.token, call.request.path, function (err, dirs) {
         if (err) {
-            winston.log('error', 'error performing getFileTree: ',err);
+            winston.log('error', 'error performing getFileTree: ', err);
             return callback(null, {err: err.message});
         }
-        winston.log('info', 'succesfully performed getFileTree rpc method',dirs);
+        winston.log('info', 'succesfully performed getFileTree rpc method', dirs);
         return callback(null, {dirs: dirs});
     });
 }
@@ -66,29 +66,13 @@ function getFileTree(call, callback) {
  * Implements the UploadFile RPC method.
  */
 function uploadFile(call, callback) {
-    winston.log('info', 'uploadFile rpc method request',call.request);
-    checkParamater(call.request,['auth','path','fileBuffer','fileName'],callback);
+    winston.log('info', 'uploadFile rpc method request', call.request);
     connector.uploadFile(call.request.auth.token, call.request.path, call.request.fileBuffer, call.request.fileName, function (err, status) {
         if (err) {
-            winston.log('error', 'error performing uploadFile: ',err);
+            winston.log('error', 'error performing uploadFile: ', err);
             return callback(null, {err: err.message});
         }
         winston.log('info', 'succesfully performed uploadFile rpc method');
         return callback(null, {status: status});
     });
-}
-
-function checkParamater(request, params, callback) {
-    var missingParams = [];
-    for (var i = 0; i < params.length; i++) {
-        var param = params[i];
-        if (!request.hasOwnProperty(param)) {
-            missingParams.push(param);
-        } else if (request[param] === '') {
-            missingParams.push(param);
-        }
-    }
-    if (missingParams.length > 0) {
-        return callback(null, {err: 'missing grpc parameter: ' + missingParams.toString()});
-    }
 }

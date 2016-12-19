@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';*/
+body{
+  margin: 0px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.help-block {
+  font-size: 12px;
+}
+
+.registerCard {
+  max-width: 800px;
+}
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 5px; }
+
+.alert-heading {
+  color: inherit; }
+
+.alert-link {
+  font-weight: bold; }
+
+.alert-dismissible {
+  padding-right: 2rem; }
+.alert-dismissible .close {
+  position: relative;
+  top: -.125rem;
+  right: -1rem;
+  color: inherit; }
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d0e9c6;
+  color: #3c763d; }
+.alert-success hr {
+  border-top-color: #c1e2b3; }
+.alert-success .alert-link {
+  color: #2b542c; }
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bcdff1;
+  color: #31708f; }
+.alert-info hr {
+  border-top-color: #a6d5ec; }
+.alert-info .alert-link {
+  color: #245269; }

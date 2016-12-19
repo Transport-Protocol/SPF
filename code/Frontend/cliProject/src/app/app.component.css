@@ -1,0 +1,15 @@
+.app-toolbar-filler {
+  flex: 1 1 auto;
+}
+
+div.m2app-dark {
+  background: black;
+}
+
+div.m2app-light {
+  background: #fafafa;
+}
+
+.content-container {
+  padding: 20px;
+}

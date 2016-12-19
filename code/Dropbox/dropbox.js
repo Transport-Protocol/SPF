@@ -17,6 +17,7 @@ var request = require('request'),
  * @param callback
  */
 function getFileTree(oauth2Token, path, callback) {
+    var formattedPath = _formatInputPath(path);
     var url = 'https://api.dropboxapi.com/2/files/list_folder';
     var options = {
         method: 'POST',
@@ -25,7 +26,7 @@ function getFileTree(oauth2Token, path, callback) {
             bearer: _formatOauth2Token(oauth2Token)
         },
         json: {
-            "path": path,
+            "path": formattedPath,
             "recursive": false,
             "include_media_info": false,
             "include_deleted": false,
@@ -43,10 +44,6 @@ function getFileTree(oauth2Token, path, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage + ' ' + body));
         }
         var dirs = body.entries;
-        if (dirs.length === 0) {
-            winston.log('error', 'empty dir');
-            return callback(new Error('empty dir'));
-        }
         winston.log('info', 'successfully got filetree from dropbox');
         return callback(null, JSON.stringify(_dropboxDirFormatToSimpleJSON(_sortArrayAlphabetically(dirs))));
     });
@@ -54,8 +51,8 @@ function getFileTree(oauth2Token, path, callback) {
 
 
 function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
-    console.log(oauth2Token);
-    var url = 'https://content.dropboxapi.com/1/files_put/auto/' + path + '/' + fileName;
+    var formattedPath = _formatInputPath(path);
+    var url = 'https://content.dropboxapi.com/1/files_put/auto/' + formattedPath + '/' + fileName;
     var options = {
         method: 'PUT',
         uri: url,
@@ -90,7 +87,8 @@ function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
  * @param callback
  */
 function getFile(oauth2Token, filePath, callback) {
-    var fileUrl = 'https://content.dropboxapi.com/1/files/auto/' + filePath;
+    var formattedPath = _formatInputPath(filePath);
+    var fileUrl = 'https://content.dropboxapi.com/1/files/auto/' + formattedPath;
     var pathSplit = filePath.split('/');
     //Get fileName from path for return value
     var fileName = pathSplit[pathSplit.length - 1];
@@ -144,6 +142,16 @@ function _sortArrayAlphabetically(array) {
 function _formatOauth2Token(token) {
     var oauth2TokenWithoutSpace = token.replace(/\s+/g, '');
     return oauth2TokenWithoutSpace.replace('Bearer', ''); //Remove Bearer
+}
+
+function _formatInputPath(path) {
+    var res = path;
+    if (path !== '') {
+        if (path.charAt(0) !== '/') {
+            res = '/' + path;
+        }
+    }
+    return res;
 }
 
 

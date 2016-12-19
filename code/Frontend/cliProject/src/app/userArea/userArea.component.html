@@ -1,0 +1,17 @@
+<md-card class="userAreaCard" layout="column">
+  <md-card-title-group>
+    <md-card-subtitle>User Area</md-card-subtitle>
+    <md-card-title>Logged in as: {{currentUser.username}}!</md-card-title>
+    <img src="assets/images/user.png" style="max-height: 96px">
+  </md-card-title-group>
+  <md-card-content layout="column">
+    content area
+  </md-card-content>
+  <md-card-actions layout="row" layout-xs="column">
+    <button style="margin: 3px" md-raised-button color="accent" class="md-raised">view Profile</button>
+    <button style="margin: 3px" md-raised-button (click)="openAuthSettingsDialog()" [disabled]="dialogRef"
+            color="accent">settings<md-icon>settings</md-icon>
+    </button>
+    <button style="margin: 3px" md-raised-button color="accent" [routerLink]="['/login']">logout<md-icon>exit_to_app</md-icon></button>
+  </md-card-actions>
+</md-card>

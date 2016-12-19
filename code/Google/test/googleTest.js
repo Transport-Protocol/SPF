@@ -9,7 +9,7 @@ var expect = require('chai').expect,
 var access_token = {};
 
 function init(){
-    access_token = 'ya29.CjBdA7Jt-PymM9SMY5OpHZci6NlLfPI2a5a4KR76iYewAHp5-JfuNg33K5LU8eKSQBg';
+    access_token = 'ya29.Gl2tA7SAgH9fr8OljQHZCSXWkQwhZlzUOif7hKraQQH1c8txCbHiMhLhvLs6pEkrgTeGkZ4jQnoh8VIv_k2w6sRXi6Mw5-mbdj_nO1ImAuK6po1dOKFG3v7VI9Hj8Xs';
 }
 
 
@@ -20,13 +20,14 @@ describe('Google', function () {
     describe('Path to directory content', function () {
         it("returns all directories in specified path", function (done) {
             this.timeout(10000);
-            google.getFileTree(access_token, '', function (err, dirs) {
+            google.getFileTree(access_token, 'test1', function (err, dirs) {
                 expect(err).to.be.a('null');
                 expect(dirs).to.be.not.a('null');
                 done();
             });
         });
     });
+    /*
     describe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
             this.timeout(10000);
@@ -50,5 +51,5 @@ describe('Google', function () {
                 });
             });
         });
-    });
+    });*/
 });

@@ -6,6 +6,7 @@
 
 var grpc = require('grpc'),
     winston = require('winston'),
+    RpcJsonResponseBuilder = require('./../utility/rpcJsonResponseBuilder'),
     fs = require('fs'),
     nconf = require('nconf'),
     HashMap = require('hashmap'),
@@ -65,7 +66,8 @@ CustomRoute.prototype.route = function (router) {
             }
             _handleAuth(self.config, req.username, function (err, token) {
                 if (err) {
-                    return res.status(504).send(err.message);
+                    var result = RpcJsonResponseBuilder.buildError(err.message);
+                    return res.json(result);
                 }
                 var authToken = token;
                 winston.log('info', 'authToken: ', authToken);
@@ -75,7 +77,8 @@ CustomRoute.prototype.route = function (router) {
                         return _offlineError(res, self.config['service_name']);
                     } else {
                         if (response.err) {
-                            return res.json(response.err);
+                            var result = RpcJsonResponseBuilder.buildError(response.err);
+                            return res.json(result);
                         }
                         var result = _createHttpJsonResult(requestArray[requestID]['response_parameter'], response);
                         winston.log('info', 'RPC Method %s successful.', requestArray[requestID]['grpc_function']);
@@ -119,6 +122,7 @@ function _setAuthorization(token, authType) {
 function _createHttpJsonResult(params, grpcResponse) {
     var result = {};
     var noJson = false;
+    result.ok = true;
     for (var i in params) {
         try {
             result[params[i]] = JSON.parse(grpcResponse[params[i]]);
@@ -137,17 +141,19 @@ function _createGrpcJsonArgs(config,req, queryParams, reservedParams, token) {
     var grpcArgs = {};
     //encrypt authentication and set grpc parameter
     if (token) grpcArgs['auth'] = _setAuthorization(token, config['authentication_type']);
-    var params = queryParams.concat(reservedParams);
-    for (var i in params) {
-        var param = params[i];
-        if (param === 'userName') {
-            grpcArgs['userName'] = req.username;
-        } else if (req.query.hasOwnProperty(param)) {
-            grpcArgs[param] = req.query[param];
-        } else if (param === 'fileName') {
-            grpcArgs[param] = req.files.file.name;
-        } else if (param === 'fileBuffer') {
-            grpcArgs[param] = req.files.file.data;
+    if(queryParams) {
+        var params = queryParams.concat(reservedParams);
+        for (var i in params) {
+            var param = params[i];
+            if (param === 'userName') {
+                grpcArgs['userName'] = req.username;
+            } else if (req.query.hasOwnProperty(param)) {
+                grpcArgs[param] = req.query[param];
+            } else if (param === 'fileName') {
+                grpcArgs[param] = req.files[Object.keys(req.files)[0]].name;
+            } else if (param === 'fileBuffer') {
+                grpcArgs[param] = req.files[Object.keys(req.files)[0]].data;
+            }
         }
     }
     return grpcArgs;
@@ -158,7 +164,8 @@ function _noFileUploadedError(res) {
 }
 
 function _offlineError(res, serviceName) {
-    res.status(504).send(serviceName + ' connector offline');
+    var result = RpcJsonResponseBuilder.buildError(serviceName + ' connector offline');
+    return res.json(result);
 }
 
 

@@ -37,8 +37,11 @@ exports.start = function () {
  */
 function getFile(call, callback) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
-    checkParamater(call.request, ['teamName', 'filePath'], callback);
-    connector.getFile(call.request.teamName, call.request.filePath, function (err, fileName, fileBuffer) {
+    var filePath = call.request.filePath;
+    if(filePath === ''){
+        filePath = '/'; //if empty dir,set to root
+    }
+    connector.getFile(call.request.teamName, filePath, function (err, fileName, fileBuffer) {
         if (err) {
             winston.log('error', 'error performing getFile: ', err);
             return callback(null, {err: err.message});
@@ -54,8 +57,11 @@ function getFile(call, callback) {
  */
 function getFileTree(call, callback) {
     winston.log('info', 'getFileTree rpc method request: ' + JSON.stringify(call.request));
-    checkParamater(call.request, ['teamName', 'filePath'], callback);
-    connector.getFileTree(call.request.teamName, call.request.filePath, function (err, dirs) {
+    var filePath = call.request.filePath;
+    if(filePath === ''){
+        filePath = '/'; //if empty dir,set to root
+    }
+    connector.getFileTree(call.request.teamName,filePath, function (err, dirs) {
         if (err) {
             winston.log('error', 'error performing getFileTree: ', err);
             return callback(null, {err: err.message});
@@ -70,8 +76,11 @@ function getFileTree(call, callback) {
  */
 function uploadFile(call, callback) {
     winston.log('info', 'uploadFile rpc method request',call.request);
-    checkParamater(call.request, ['teamName', 'filePath', 'userName', 'serviceName', 'fileName', 'fileBuffer'], callback);
-    connector.uploadFile(call.request.userName, call.request.serviceName, call.request.filePath, call.request.fileName, call.request.fileBuffer, function (err, status) {
+    var filePath = call.request.filePath;
+    if(filePath === ''){
+        filePath = '/'; //if empty dir,set to root
+    }
+    connector.uploadFile(call.request.userName,call.request.teamName, call.request.serviceName.toUpperCase(),filePath, call.request.fileName, call.request.fileBuffer, function (err, status) {
         if (err) {
             winston.log('error', 'error performing uploadFile: ', err);
             return callback(null, {err: err.message});
@@ -79,19 +88,4 @@ function uploadFile(call, callback) {
         winston.log('info', 'succesfully performed uploadFile rpc method');
         return callback(null, {status: status});
     });
-}
-
-function checkParamater(request, params, callback) {
-    var missingParams = [];
-    for (var i = 0; i < params.length; i++) {
-        var param = params[i];
-        if (!request.hasOwnProperty(param)) {
-            missingParams.push(param);
-        } else if (request[param] === '') {
-            missingParams.push(param);
-        }
-    }
-    if (missingParams.length > 0) {
-        return callback(null, {err: 'missing grpc parameter: ' + missingParams.toString()});
-    }
 }

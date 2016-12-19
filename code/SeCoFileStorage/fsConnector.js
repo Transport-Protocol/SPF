@@ -53,7 +53,7 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
     //1. hole auth für den Storage dienst von usermanagement service
     authService.getAuthentication({
         username: username,
-        service: serviceName
+        service: serviceName.toUpperCase()
     }, function authResult(err, response) {
         if (err) {
             return callback(new Error('auth service offline'));
@@ -89,7 +89,9 @@ function getFile(teamName, filePath, callback) {
         return callback(new Error('wrong path syntax'));
     }
     console.log('parsed ' + parsed.path + '   ' + parsed.fileName);
-
+    if(parsed.path === ''){
+        parsed.path = '/';
+    }
     var fileEntry;
     _getFileStoragesByPathNameTeam(parsed.path, parsed.fileName, teamName)
         .then(entry => {
@@ -182,7 +184,7 @@ function _getFileStorages(teamName) {
         function (resolve, reject) {
             db.getFileStorages(teamName, function (err, files) {
                 if (err) {
-                    reject(error);
+                    reject(err);
                 }
                 resolve(files);
             });
@@ -261,7 +263,7 @@ function _uploadToService(auth, serviceName, filePath, fileName, fileBuffer, cal
 
 function _getService(serviceName) {
     for (var i = 0; i < services.length; i++) {
-        if (services[i].name === serviceName) {
+        if (services[i].name === serviceName.toUpperCase()) {
             return services[i].service
         }
     }

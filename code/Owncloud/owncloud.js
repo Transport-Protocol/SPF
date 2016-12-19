@@ -37,10 +37,6 @@ owncloud.getFileTree = function (username, password, path, callback) {
             return callback(new Error(response.statusCode + ': ' + response.statusMessage));
         }
         var dirs = _getDirectoryFromXML(body);
-        if (dirs.length === 0) {
-            winston.log('error', 'empty dir');
-            return callback(new Error('empty dir'));
-        }
         winston.log('info', 'succesfully got filetree from dropbox');
         return callback(null, JSON.stringify(_owncloudDirFormatToSimpleJSON(dirs)));
     });

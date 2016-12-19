@@ -1,0 +1,60 @@
+<md-card class="service-content">
+  <md-tab-group md-stretch-tabs (selectChange)="current=$event.index">
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/googleDrive.png" alt="dropbox" height="48" width="48">
+      </template>
+      <div *ngIf="current === 0 || tabStarted[0]">
+        <fileStorage [tabId]="0" [name]="'Google'"></fileStorage>
+      </div>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/dropbox.png" alt="googleDrive" height="48" width="48">
+      </template>
+      <div *ngIf="current === 1 || tabStarted[1]">
+        <fileStorage [tabId]="1" [name]="'Dropbox'"></fileStorage>
+      </div>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/owncloud.png" alt="owncloud" height="48" width="48">
+      </template>
+      <div *ngIf="current === 2 || tabStarted[2]">
+        <fileStorage [tabId]="2" [name]="'Owncloud'"></fileStorage>
+      </div>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/owncloud.png" alt="owncloud" height="48" width="48">
+      </template>
+      <div *ngIf="current === 3 || tabStarted[3]">
+        <abstractFileStorage [tabId]="3" [name]="'Abstract FileStorage'"></abstractFileStorage>
+      </div>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/github.png" alt="github" height="48" width="48">
+      </template>
+      <div *ngIf="current === 4 || tabStarted[4]">
+        <versionControl [tabId]="4" [name]="'Github'"></versionControl>
+      </div>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/bitbucket.png" alt="bitbucket" height="48" width="48">
+      </template>
+      <div *ngIf="current === 5 || tabStarted[5]">
+        <versionControl [tabId]="5" [name]="'Bitbucket'"></versionControl>
+      </div>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <img src="assets/images/slack.png" alt="slack" height="48" width="48">
+      </template>
+      <div *ngIf="current === 6 || tabStarted[6]">
+        <app-slack [tabId]="6" [name]="'Slack'"></app-slack>
+      </div>
+    </md-tab>
+  </md-tab-group>
+</md-card>

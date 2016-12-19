@@ -63,7 +63,8 @@ function getChannelMessages(access_token, channelId,tsOfOldestMessage, callback)
         qs: {
             token: access_token,
             channel: channelId,
-            oldest: tsOfOldestMessage
+            oldest: tsOfOldestMessage,
+            count: 1000
         },
         json: true
     };
@@ -185,36 +186,36 @@ function _parseChannelList(body) {
             id: body.channels[i].id
         }
     }
-    return {
-        'channels': result
-    };
+    return result;
 }
 
 function _parseChannelMessages(access_token, body, callback) {
     var result = [];
     var name = {};
-    var ts = {};
-
+    var messagesLength = body.messages.length;
+    var curIndex = 0;
     //recursive function to retrieve all usernames from ids.Also fills cache
     var step = function (i) {
+        curIndex = messagesLength - i - 1; //from back to front,because first message is the newest
         if (i === body.messages.length) {
             return callback(null, {
                 'messages': result,
-                'tsOfLastMsg': body.messages[i-1].ts
+                'tsOfLastMsg': body.messages[0].ts
             });
         } else {
-            var id = body.messages[i].user;
+            var id = body.messages[curIndex].user;
             var bot = false;
             if (!id) {
                 //message comes from bot
-                id = body.messages[i].bot_id;
+                id = body.messages[curIndex].bot_id;
                 bot = true;
             }
             if (idNameCache.has(id)) {
                 name = idNameCache.get(id);
                 result[i] = {
-                    message: body.messages[i].text,
-                    name: name
+                    message: body.messages[curIndex].text,
+                    name: name,
+                    ts: body.messages[curIndex].ts
                 };
                 step(i + 1);
             } else {
@@ -225,8 +226,9 @@ function _parseChannelMessages(access_token, body, callback) {
                     } else {
                         idNameCache.set(id, name);
                         result[i] = {
-                            message: body.messages[i].text,
-                            name: name
+                            message: body.messages[curIndex].text,
+                            name: name,
+                            ts: body.messages[curIndex].ts
                         };
                         step(i + 1);
                     }
@@ -238,7 +240,7 @@ function _parseChannelMessages(access_token, body, callback) {
     if (body.messages.length > 0) {
         step(0);
     } else {
-        return callback(new Error('no messages in channel'))
+        return callback(new Error('no messages in channel with given parameters'))
     }
 }
 

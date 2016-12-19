@@ -1,6 +1,7 @@
 'use strict';
 
 var ParamChecker = require('./../utility/paramChecker'),
+    RpcJsonResponseBuilder = require('./../utility/rpcJsonResponseBuilder'),
     grpc = require('grpc'),
     winston = require('winston'),
     nconf = require('nconf');
@@ -19,6 +20,7 @@ function TeamRoute(){
 TeamRoute.prototype.route = function (router){
     var self = this;
     router.post('/team/create', function (req, res) {
+        console.log('teamRoute');
         if (!self.paramChecker.containsParameter(['teamName', 'password'], req, res)) {
             return;
         }
@@ -31,11 +33,13 @@ TeamRoute.prototype.route = function (router){
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt create team: ', req.query.teamName, err);
-                    return res.json(response.err);
+                    winston.log('error', 'couldnt create team: ', req.query.teamName,err);
+                    var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
+                    return res.json(jsonResponse);
                 } else {
                     winston.log('info', 'successfully created team: ', req.query.teamName);
-                    return res.json(response.status);
+                    var jsonResponse = RpcJsonResponseBuilder.buildParams(['status'], [response.status]);
+                    return res.json(jsonResponse);
                 }
             }
         });
@@ -55,10 +59,12 @@ TeamRoute.prototype.route = function (router){
             } else {
                 if (response.err) {
                     winston.log('error', 'couldnt join team: ', req.query.teamName, err);
-                    return res.json(response.err);
+                    var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
+                    return res.json(jsonResponse);
                 } else {
                     winston.log('info', 'successfully joined team: ', req.query.teamName);
-                    return res.json(response.status);
+                    var jsonResponse = RpcJsonResponseBuilder.buildParams(['status'], [response.status]);
+                    return res.json(jsonResponse);
                 }
             }
         });
@@ -73,10 +79,12 @@ TeamRoute.prototype.route = function (router){
             } else {
                 if (response.err) {
                     winston.log('error', 'couldnt list teams for user ', req.username, err);
-                    return res.json(response.err);
+                    var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
+                    return res.json(jsonResponse);
                 } else {
                     winston.log('info', 'successfully got list of teams');
-                    return res.json(JSON.parse(response.teamList));
+                    var jsonResponse = RpcJsonResponseBuilder.buildParams(['teamList'], [JSON.parse(response.teamList)]);
+                    return res.json(jsonResponse);
                 }
             }
         });

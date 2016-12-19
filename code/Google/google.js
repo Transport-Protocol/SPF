@@ -312,9 +312,9 @@ function _googleDirFormatToSimpleJSON(content) {
         var simpleFormat = {};
         simpleFormat.name = parsed.items[i].title;
         if (parsed.items[i].mimeType === 'application/vnd.google-apps.folder') {
-            simpleFormat.type = 'dir';
+            simpleFormat.tag = 'folder';
         } else {
-            simpleFormat.type = 'file';
+            simpleFormat.tag = 'file';
         }
         simpleJSONFormatArray.push(simpleFormat);
     }
