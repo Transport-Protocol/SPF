@@ -1,9 +1,0 @@
-{
-  "service": "SLACK",
-  "auth_url": "https://slack.com/oauth/authorize",
-  "access_token_url": "https://slack.com/api/oauth.access",
-  "client_id": "79533239492.79558641106",
-  "client_secret": "a338f2ebb190af09359f86b5e10e3f07",
-  "redirect_uri": "http://localhost:4000/slack/oauth/callback",
-  "redirect_route": "/slack/oauth/callback"
-}
