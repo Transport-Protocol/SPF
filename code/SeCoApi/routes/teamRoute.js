@@ -19,13 +19,12 @@ function TeamRoute(){
 
 TeamRoute.prototype.route = function (router){
     var self = this;
-    router.post('/team/create', function (req, res) {
-        console.log('teamRoute');
-        if (!self.paramChecker.containsParameter(['teamName', 'password'], req, res)) {
+    router.post('/:team/create', function (req, res) {
+        if (!self.paramChecker.containsParameter(['team', 'password'], req, res)) {
             return;
         }
         self.client.create({
-            teamName: req.query.teamName,
+            team: req.params.team,
             password: req.query.password,
             teamCreator: req.username
         }, function (err, response) {
@@ -33,11 +32,11 @@ TeamRoute.prototype.route = function (router){
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt create team: ', req.query.teamName,err);
+                    winston.log('error', 'couldnt create team: ', req.params.team,err);
                     var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
                     return res.json(jsonResponse);
                 } else {
-                    winston.log('info', 'successfully created team: ', req.query.teamName);
+                    winston.log('info', 'successfully created team: ', req.params.team);
                     var jsonResponse = RpcJsonResponseBuilder.buildParams(['status'], [response.status]);
                     return res.json(jsonResponse);
                 }
@@ -45,12 +44,12 @@ TeamRoute.prototype.route = function (router){
         });
     });
 
-    router.post('/team/join', function (req, res) {
-        if (!self.paramChecker.containsParameter(['teamName', 'password'], req, res)) {
+    router.post('/:team/join', function (req, res) {
+        if (!self.paramChecker.containsParameter(['team', 'password'], req, res)) {
             return;
         }
         self.client.join({
-            teamName: req.query.teamName,
+            team: req.params.team,
             password: req.query.password,
             username: req.username
         }, function (err, response) {
@@ -58,11 +57,11 @@ TeamRoute.prototype.route = function (router){
                 _offlineError(res);
             } else {
                 if (response.err) {
-                    winston.log('error', 'couldnt join team: ', req.query.teamName, err);
+                    winston.log('error', 'couldnt join team: ', req.params.team, err);
                     var jsonResponse = RpcJsonResponseBuilder.buildError(response.err);
                     return res.json(jsonResponse);
                 } else {
-                    winston.log('info', 'successfully joined team: ', req.query.teamName);
+                    winston.log('info', 'successfully joined team: ', req.params.team);
                     var jsonResponse = RpcJsonResponseBuilder.buildParams(['status'], [response.status]);
                     return res.json(jsonResponse);
                 }
@@ -70,7 +69,7 @@ TeamRoute.prototype.route = function (router){
         });
     });
 
-    router.get('/team/list', function (req, res) {
+    router.get('/teams', function (req, res) {
         self.client.list({
             username: req.username
         }, function (err, response) {
@@ -90,22 +89,22 @@ TeamRoute.prototype.route = function (router){
         });
     });
 
-    router.post('/team/addServices', function (req,res) {
-       if(!self.paramChecker.containsParameter(['teamName'],req,res)){
+    router.post('/:team/addServices', function (req,res) {
+       if(!self.paramChecker.containsParameter(['team'],req,res)){
           return;
        }
        if(!req.body.services){
            return res.status(400).send('missing json body with services');
        }
        self.client.addServices({
-           teamName: req.query.teamName,
+           team: req.params.team,
            services: req.body.services
        }, function(err,response) {
            if (response.err) {
-               winston.log('error', 'couldnt add Services to team %s', req.query.teamName, err);
+               winston.log('error', 'couldnt add Services to team %s', req.params.team, err);
                return res.json(response.err);
            } else {
-               winston.log('info', 'successfully joined team: ', req.query.teamName);
+               winston.log('info', 'successfully joined team: ', req.params.team);
                return res.json(response.status);
            }
        });

@@ -5,14 +5,14 @@
       <md-card-title-group>
         <md-card-subtitle>Repositories</md-card-subtitle>
       </md-card-title-group>
-      <md-radio-group *ngIf="!repoListLoading" [(ngModel)]="chosenOption" layout="column">
+      <md-radio-group *ngIf="!repoListLoading" [(ngModel)]="selectedRepo" layout="column">
         <md-radio-button *ngFor="let repo of repos" [align]="'start'" (click)="repoClicked(repo)" [value]="repo">
           {{repo}}
         </md-radio-button>
       </md-radio-group>
       <md-progress-circle *ngIf="repoListLoading" color="accent" mode="indeterminate"></md-progress-circle>
     </md-card>
-    <div flex="65" flex-xs="100" *ngIf="chosenOption">
+    <div flex="65" flex-xs="100" *ngIf="selectedRepo">
       <div layout="row" layout-align="start none">
         <div *ngFor="let path of curDir; let isLast = last; let curIndex = index" layout="row"
              layout-align="center center">
@@ -66,6 +66,7 @@
         </tr>
         </tbody>
       </md-data-table>
+      <button *ngIf="selectedRepo" md-raised-button color="accent" (click)="shareRepoWithTeam()">share repository with Team</button>
     </div>
   </div>
 </md-card>

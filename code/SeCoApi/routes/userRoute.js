@@ -108,7 +108,6 @@ UserRoute.prototype.route = function (router) {
     //LOGIN ROUTE
     router.post('/user/login', function (req, res) {
         var user = auth(req);
-        console.log(user.name + ' and pw: ' + user.pass);
         if (typeof user === 'undefined' || user.name.length === 0 || user.pass.length === 0) {
             var errMsg = 'invalid or missing basic authentication';
             winston.log('error', errMsg + ' for route user/login');

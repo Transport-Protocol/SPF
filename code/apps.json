@@ -26,6 +26,11 @@
       "instances": 1
     },
     {
+      "name": "Notification",
+      "script": "./NotificationService/notificationServiceStart.js",
+      "instances": 1
+    },
+    {
       "name": "Owncloud",
       "script": "./Owncloud/owncloudStart.js",
       "instances": 1
@@ -53,6 +58,11 @@
     {
       "name": "UserManagement",
       "script": "./UserManagement/userManagementStart.js",
+      "instances": 1
+    },
+    {
+      "name": "TransferService",
+      "script": "./TransferService/transferServiceStart.js",
       "instances": 1
     }
   ]

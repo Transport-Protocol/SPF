@@ -4,18 +4,29 @@ package fileStorage;
 
 // The rpc FileStorage service definition.
 service FileStorage {
-  // Gets a file
-  rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+    // Gets a file
+    rpc GetFile (GetFileRequest) returns (stream GetFileReply) {
+    }
 
-  rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
+    rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {
+    }
 
-  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
+    rpc UploadFile (stream UploadFileRequest) returns (UploadFileResponse) {
+    }
+
+    rpc FileTransfer (FileTransferRequest) returns (FileTransferReply) {
+    }
 }
 
 //Auth message
 message Authentication {
     string token = 1; //auth string,for example user:password or Bearer XXXXX
     AuthenticationType type = 2;
+}
+
+message Error {
+    string msg = 1;
+    int32 code = 2;
 }
 
 //Auth types enum
@@ -26,39 +37,48 @@ enum AuthenticationType {
 
 // The request message
 message GetFileRequest {
-  string path = 1;
-  Authentication auth = 2;
+    string path = 1;
+    Authentication auth = 2;
 }
 
 // The response message
 message GetFileReply {
-  string fileName = 1;
-  bytes fileBuffer = 2;
-  string err = 3;
+    bytes chunk = 1 [packed = true];
+    string fileName = 2;
+    Error err = 3;
 }
 
 // The request message
 message GetFileTreeRequest {
-  string path = 1;
-  Authentication auth = 2;
+    string path = 1;
+    Authentication auth = 2;
 }
 
 // The response message
 message GetFileTreeReply {
-  string dirs = 1;
-  string err = 2;
+    string dirs = 1;
+    Error err = 2;
 }
 
 // The request message
 message UploadFileRequest {
-  string path = 1;
-  bytes fileBuffer = 2;
-  string fileName = 3;
-  Authentication auth = 4;
+    bytes chunk = 2;
 }
 
 // The response message
 message UploadFileResponse {
-  string status = 1;
-  string err = 2;
+    string status = 1;
+    Error err = 2;
+}
+
+message FileTransferRequest {
+    string path = 1;
+    Authentication auth = 2;
+    string userName = 3;
+    string targetService = 4;
+}
+
+message FileTransferReply {
+    string status = 1;
+    Error err = 2;
 }

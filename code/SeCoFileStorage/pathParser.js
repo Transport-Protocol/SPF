@@ -14,16 +14,17 @@ function parsePath(path){
     if(splitted.length === 0){
         //no '/' found, root directory
         return {
-            path: '',
+            path: 'root',
             fileName: path
         }
     }
-    var filePath = '';
+    var filePath = 'root';
     for(var i = 0;i<splitted.length-1;i++){
-        if(i > 0){
-            filePath += '/';
-        }
+        filePath += '/';
         filePath += splitted[i];
+    }
+    if(filePath.charAt(filePath.length-1) === '/'){
+        filePath = filePath.substr(0,filePath.length-1);
     }
     return {
         path: filePath,

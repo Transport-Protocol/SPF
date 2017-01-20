@@ -12,31 +12,35 @@
       "grpc_function": "getRepositories",
       "response_parameter": [
         "repos"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "get",
-      "route": "/bitbucket/repository/content",
+      "route": "/bitbucket/:repository/filetree",
       "query_parameter": [
         "path",
-        "repositoryName"
+        "repository"
       ],
       "grpc_function": "getRepositoryContent",
       "response_parameter": [
         "dirs"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "post",
-      "route": "/bitbucket/repository/share",
+      "route": "/bitbucket/:repository/share",
       "query_parameter": [
-        "repositoryName",
+        "repository",
         "usernameToAdd"
       ],
       "grpc_function": "addUserToRepository",
       "response_parameter": [
         "status"
-      ]
+      ],
+      "notification": true,
+      "message": "shared Repository"
     }
   ]
 }

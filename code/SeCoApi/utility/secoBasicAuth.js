@@ -28,7 +28,7 @@ function verifyBasicAuth(req,callback){
             return callback(new Error('userservice offline'));
         } else {
             if (response.err) {
-                winston.log('error', 'couldnt check seco authentication',reponse.err);
+                winston.log('error', 'couldnt check seco authentication',response.err);
                 return callback(response.err);
             } else {
                 winston.log('info', 'successfully checked seco authentication. isMatch: ', response.isCorrect);

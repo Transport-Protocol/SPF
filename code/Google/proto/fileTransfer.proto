@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package fileTransfer;
+
+// The rpc FileStorage service definition.
+service FileTransfer {
+    rpc TransferTo (stream TransferToRequest) returns (TransferToReply) {}
+}
+
+// The request message
+message TransferToRequest {
+    bytes chunk = 1;
+}
+
+message Error {
+    string msg = 1;
+    int32 code = 2;
+}
+
+// The response message
+message TransferToReply {
+    string status = 1;
+    Error err = 2;
+}

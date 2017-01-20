@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {AuthenticationService} from '../_services/index';
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
+import {ServiceAuth} from '../_models/index';
+import {Response} from "@angular/http";
 
 @Component({
   selector: 'app-auth-settings',
@@ -41,14 +43,17 @@ export class AuthSettingsComponent implements OnInit {
     this.authenticationService.authList()
       .subscribe(
         data => {
-          if (data.ok) {
-            for (let i = 0; i < data.list.length; i++) {
-              this.updateServiceStatus(data.list[i]);
+          if (data instanceof Response) {
+            data = data.json();
+            if (data.ok) {
+              for (let i = 0; i < data.list.length; i++) {
+                this.updateServiceStatus(data.list[i]);
+              }
+              this.loading = false;
+            } else {
+              this.notService.error('could not retrieve authentication status list', data.errorMsg);
+              this.loading = false;
             }
-            this.loading = false;
-          } else {
-            this.notService.error('could not retrieve authentication status list', data.errorMsg);
-            this.loading = false;
           }
         },
         error => {
@@ -65,12 +70,15 @@ export class AuthSettingsComponent implements OnInit {
         this.authenticationService.oauth2Link(this.services[i].name.toLowerCase())
           .subscribe(
             data => {
-              if (data.ok) {
-                this.services[i].authUrl = data.url;
-                this.services[i].loading = false;
-              } else {
-                this.notService.error('could not retrieve auth url for service: ' + this.services[i].name, data.errorMsg);
-                this.services[i].loading = false;
+              if (data instanceof Response) {
+                data = data.json();
+                if (data.ok) {
+                  this.services[i].authUrl = data.url;
+                  this.services[i].loading = false;
+                } else {
+                  this.notService.error('could not retrieve auth url for service: ' + this.services[i].name, data.errorMsg);
+                  this.services[i].loading = false;
+                }
               }
             },
             error => {
@@ -92,13 +100,16 @@ export class AuthSettingsComponent implements OnInit {
   sendBasicAuth(service: string, username: string, password: string) {
     var target = this.getServiceByName(service);
     target.loading = true;
-    this.authenticationService.setBasicAuthOfService(service,username,password)
+    this.authenticationService.setBasicAuthOfService(service, username, password)
       .subscribe(
         data => {
-          target.loading = false;
-          if (data.ok) {
-          } else {
-            this.notService.error('could not set basicauth', data.errorMsg);
+          if (data instanceof Response) {
+            data = data.json();
+            target.loading = false;
+            if (data.ok) {
+            } else {
+              this.notService.error('could not set basicauth', data.errorMsg);
+            }
           }
         },
         error => {
@@ -107,9 +118,9 @@ export class AuthSettingsComponent implements OnInit {
         });
   }
 
-  getServiceByName(servicename: string){
-    for(let i = 0;i<this.services.length;i++){
-      if(this.services[i].name === servicename){
+  getServiceByName(servicename: string) {
+    for (let i = 0; i < this.services.length; i++) {
+      if (this.services[i].name === servicename) {
         return this.services[i];
       }
     }
@@ -160,12 +171,4 @@ export class AuthSettingsComponent implements OnInit {
     };
   }
 
-}
-
-interface ServiceAuth {
-  name: string;
-  type: string;
-  status: boolean;
-  loading: boolean;
-  authUrl: string;
 }

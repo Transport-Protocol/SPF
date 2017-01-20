@@ -1,7 +1,7 @@
 /**
  * Created by phili on 18.07.2016.
  */
-var RpcJsonResponseBuilder = require('./RpcJsonResponseBuilder');
+var RpcJsonResponseBuilder = require('./rpcJsonResponseBuilder');
 
 function ParamChecker(){
 }
@@ -23,7 +23,7 @@ ParamChecker.prototype.containsParameter = function (params, req, res){
 
 function checkParameter(req, res, paramater) {
     var contains = true;
-    if (!req.query.hasOwnProperty(paramater)) {
+    if (!req.query.hasOwnProperty(paramater) && !req.params.hasOwnProperty(paramater)) {
         sendError(res, paramater);
         contains = false;
     }

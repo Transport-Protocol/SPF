@@ -39,7 +39,7 @@ message GetReposReply {
 message GetRepoContenRequest {
   string path = 1;
   Authentication auth = 2;
-  string repositoryName = 3;
+  string repository = 3;
 }
 
 
@@ -50,7 +50,7 @@ message GetRepoContentReply {
 
 
 message AddUserToRepoRequest {
-  string repositoryName = 1;
+  string repository = 1;
   string usernameToAdd = 2;
   Authentication auth = 3;
 }

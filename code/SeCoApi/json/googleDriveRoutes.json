@@ -16,7 +16,8 @@
       "response_parameter": [
         "fileName",
         "fileBuffer"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "get",
@@ -27,11 +28,12 @@
       "grpc_function": "getFileTree",
       "response_parameter": [
         "dirs"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "put",
-      "route": "/google/upload",
+      "route": "/google/file",
       "query_parameter": [
         "path"
       ],
@@ -42,7 +44,26 @@
       ],
       "response_parameter": [
         "status"
-      ]
+      ],
+      "notification": true,
+      "message": "new file uploaded"
+    },
+    {
+      "http-method": "post",
+      "route": "/google/file/transfer",
+      "query_parameter": [
+        "path",
+        "targetService"
+      ],
+      "grpc_function": "fileTransfer",
+      "reserved_parameter": [
+        "userName"
+      ],
+      "response_parameter": [
+        "status"
+      ],
+      "notification": true,
+      "message": "new file transfer"
     }
   ]
 }

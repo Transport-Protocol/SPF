@@ -4,6 +4,6 @@
   "access_token_url": "https://github.com/login/oauth/access_token",
   "client_id": "e7703193a0cc139aae74",
   "client_secret": "18419c2f87f2ccc146ce8e9d37d7e126f7ee32d9",
-  "redirect_uri": "http://localhost:4000/github/oauth/callback",
+  "redirect_uri": "https://servicecompo.ddns.net:8081/github/oauth/callback",
   "redirect_route": "/github/oauth/callback"
 }

@@ -35,7 +35,7 @@
     <tbody>
     <ng-container *ngIf="!loading">
       <tr *ngFor="let dir of dirs;let curIndex = index;" (click)="rowClicked(curIndex)" [@slideIn]="'active'">
-        <td class="md-text-cell">{{dir.name}}</td>
+        <td class="md-text-cell fsEntryName">{{dir.name}}</td>
         <td *ngIf="dir.tag === 'folder'" class="md-text-cell">
           <md-icon [md-tooltip]="'Folder'" [tooltip-position]="'after'" color="primary">folder</md-icon>
         </td>
@@ -43,7 +43,7 @@
           <md-icon [md-tooltip]="'File'" [tooltip-position]="'after'" color="primary">insert_drive_file</md-icon>
         </td>
         <td>
-          <button *ngIf="!dir.isDownloading && dir.tag === 'file'" md-icon-button color="accent"
+          <button class="fsEntryDownload" *ngIf="!dir.isDownloading && dir.tag === 'file'" md-icon-button color="accent"
                   (click)="getFile(curIndex)">
             <md-icon>file_download</md-icon>
           </button>
@@ -64,19 +64,23 @@
     </tr>
     </tbody>
   </md-data-table>
+  <div flex-grow layout="row" layout-align="end center" style="padding-top: 20px" layout-padding>
+    <md-input dividerColor="accent" #folderName placeholder="Folder" style="padding-right: 10px"></md-input>
+    <button md-raised-button (click)="createFolder(folderName._value)">create Folder</button>
+  </div>
   <md-card>
     <h3>Upload File</h3>
-    <div layout="row" layout-padding layout-align="start center">
-      <input type="file" (change)="changeListener($event)">
+    <div layout="row" layout-xs="column" layout-padding layout-align="start center">
+      <input class="fsUploadInput" type="file" (change)="changeListener($event)">
       <div *ngFor="let fsProvider of fsProviderModel">
-          <button md-raised-button (click)="setActiveFsProvider(fsProvider)">
-            <img src="{{fsProvider.imgPath}}" height="24" width="24" alt="{{fsProvider.name}}">
-          </button>
+        <button md-raised-button (click)="setActiveFsProvider(fsProvider)">
+          <img src="{{fsProvider.imgPath}}" height="24" width="24" alt="{{fsProvider.name}}">
+        </button>
       </div>
-      <button *ngIf="!isUploading" md-icon-button color="accent" [disabled]="!uploadReady" (click)="uploadFile()">
+      <button class="fsUploadButton" *ngIf="!isUploading" md-icon-button color="accent" [disabled]="!uploadReady" (click)="uploadFile()">
         <md-icon>file_upload</md-icon>
       </button>
-      <md-progress-bar *ngIf="isUploading" mode="indeterminate" color="accent"></md-progress-bar>
+      <md-progress-bar *ngIf="isUploading" mode="determinate" value="{{uploadProgress}}" color="accent"></md-progress-bar>
     </div>
   </md-card>
 </md-card>

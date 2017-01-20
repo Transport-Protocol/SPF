@@ -1,4 +1,6 @@
 {
   "grpcServerPort" : 50051,
-  "grpcServerIp" : "localhost"
+  "grpcServerIp" : "localhost",
+  "grpcFileTransferIp" : "localhost",
+  "grpcFileTransferPort" : 50029
 }

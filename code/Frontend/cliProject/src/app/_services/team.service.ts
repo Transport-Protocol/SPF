@@ -20,12 +20,11 @@ export class TeamService {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
     let params = new URLSearchParams();
-    params.set('teamName', team.teamName);
     params.set('password', team.password);
     let options = new RequestOptions({headers: headers, search: params});
 
-    return this.http.post(this.config.apiEndpoint + 'team/create', {}, options)
-      .map(res => res.json())
+    return this.http.post(this.config.apiEndpoint + team.teamName + '/create', {}, options)
+      .map(res => res)
       .catch(this.handleError);
   }
 
@@ -35,8 +34,8 @@ export class TeamService {
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
     let options = new RequestOptions({headers: headers});
 
-    return this.http.get(this.config.apiEndpoint + 'team/list', options)
-      .map(res => res.json())
+    return this.http.get(this.config.apiEndpoint + 'teams', options)
+      .map(res => res)
       .catch(this.handleError);
   }
 
@@ -45,12 +44,11 @@ export class TeamService {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
     let params = new URLSearchParams();
-    params.set('teamName', teamName);
     params.set('password', password);
     let options = new RequestOptions({headers: headers, search: params});
 
-    return this.http.post(this.config.apiEndpoint + 'team/join', {}, options)
-      .map(res => res.json())
+    return this.http.post(this.config.apiEndpoint + teamName + '/join', {}, options)
+      .map(res => res)
       .catch(this.handleError);
   }
 

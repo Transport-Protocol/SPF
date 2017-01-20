@@ -66,23 +66,13 @@ function getFile(access_token, filePath, callback) {
                     'mimeType': 'application/pdf'
                 }
             };
-            request(options, function (err, response, body) {
-                if (err) {
-                    winston.log('error', 'application error: ', err);
-                    return callback(err);
-                }
-                if (response.statusCode >= 400 && response.statusCode <= 499) {
-                    winston.log('error', 'http error: ', err);
-                    return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-                }
-                winston.log('info', 'successfully got file from google');
-                return callback(null, fileName, body);
-            });
+            var myRequest = request(options);
+            return callback(null,myRequest);
         }
     });
 }
 
-function uploadFile(access_token, path, fileBuffer, fileName, callback) {
+function uploadFile(access_token, path, fileName, callback) {
     _getFolderIdByPath(access_token, path, function (err, id) {
         if (err) {
             return callback(err);
@@ -96,30 +86,47 @@ function uploadFile(access_token, path, fileBuffer, fileName, callback) {
                     var options = {
                         method: 'PUT',
                         uri: url,
-                        preambleCRLF: true,
-                        postambleCRLF: true,
                         auth: {
                             bearer: access_token
-                        },
-                        multipart: [{
-                            body: fileBuffer
-                        }]
+                        }
                     };
-                    request(options, function (err, response) {
-                        if (err) {
-                            winston.log('error', 'application error: ', err);
-                            return callback(err);
-                        }
-                        if (response.statusCode >= 400 && response.statusCode <= 499) {
-                            winston.log('error', 'http error: ', err);
-                            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-                        }
-                        winston.log('info', 'successfully uploaded file to google');
-                        return callback(null, 'upload successful');
-                    });
+                    var myRequest = request(options);
+                    return callback(null,myRequest);
                 }
             });
         }
+    });
+}
+
+function createFolder(access_token,folderName,parentid, callback) {
+    var mimeType = 'application/vnd.google-apps.folder';
+    var url = 'https://www.googleapis.com/drive/v3/files';
+    var options = {
+        method: 'POST',
+        uri: url,
+        auth: {
+            bearer: access_token
+        },
+        json: true,
+        body: {
+            name: folderName,
+            mimeType: mimeType,
+            parents: [
+                parentid
+            ]
+        }
+    };
+    request(options, function (err, response) {
+        if (err) {
+            winston.log('error', 'application error: ', err);
+            return callback({msg: err.message,code: 500});
+        }
+        if (response.statusCode >= 400 && response.statusCode <= 499) {
+            winston.log('error', 'http error: ', err);
+            return callback({msg: response.statusMessage,code: response.statusCode});
+        }
+        winston.log('info', 'successfully uploaded folder to google');
+        return callback(null, response.body.id);
     });
 }
 
@@ -136,17 +143,17 @@ function _uploadMetadata(access_token, parentid, fileName, callback) {
             name: fileName,
             parents: [
                 parentid
-                ]
+            ]
         }
     };
     request(options, function (err, response) {
         if (err) {
             winston.log('error', 'application error: ', err);
-            return callback(err);
+            return callback({msg: err,code: 500});
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+            return callback({msg: response.statusMessage,code: response.statusCode});
         }
         winston.log('info', 'successfully uploaded metadata to google');
         return callback(null, response.body.id);
@@ -191,11 +198,11 @@ function _getFolderId(access_token, parentId, folderName, callback) {
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+            return callback({msg: response.statusMessage,code: response.statusCode});
         }
         var items = JSON.parse(body).items;
         if (items.length === 0) {
-            return callback(new Error('not found'));
+            return callback({msg: 'not found',code: 500});
         }
         var id = items[0].id;
         winston.log('info', 'successfully got folderid from google for folder: %s', folderName);
@@ -216,11 +223,11 @@ function _getFolderContentById(access_token, folderId, callback) {
     request(options, function (err, response, body) {
         if (err) {
             winston.log('error', 'application error: ', err);
-            return callback(err);
+            return callback({msg: err,code: 500});
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
+            return callback({msg: response.statusMessage,code: response.statusCode});
         }
         winston.log('info', 'successfully got filetree from google');
         return callback(null, body);
@@ -277,22 +284,29 @@ function _getFolderIdByPath(access_token, path, callback) {
     var splitted = path.split('/');
     var parent = 'root'; //root folder it is just root
     if (path === '' || path === '/') { //if root folder selected,directly get content
-        _getFolderContentById(access_token, parent, function (err, content) {
-            if (err) {
-                return callback(err);
-            } else {
-                return callback(null, content);
-            }
-        });
+        return callback(null, 'root');
     } else { //if subfolder selected,recursively iterate over folder to get the folderid
         var step = function (i) {
             _getFolderId(access_token, parent, splitted[i], function (err, id) {
                 if (err) {
-                    return callback(err);
+                    //folder is not present,create it
+                    createFolder(access_token,splitted[i],parent, function(err,folderId){
+                        if(err){
+                            return callback(err);
+                        } else {
+                            parent = folderId;
+                            if (i === splitted.length - 1) { //real folder found,get contents
+                                winston.log('info', 'folder id by path found: ', id);
+                                return callback(null, parent);
+                            } else {
+                                step(i + 1);
+                            }
+                        }
+                    });
                 } else {
                     parent = id;
                     if (i === splitted.length - 1) { //real folder found,get contents
-                        winston.log('info', 'folder id by path found');
+                        winston.log('info', 'folder id by path found: ', id);
                         return callback(null, id);
                     } else {
                         step(i + 1);
@@ -313,8 +327,10 @@ function _googleDirFormatToSimpleJSON(content) {
         simpleFormat.name = parsed.items[i].title;
         if (parsed.items[i].mimeType === 'application/vnd.google-apps.folder') {
             simpleFormat.tag = 'folder';
+            simpleFormat.contentLength = 0;
         } else {
             simpleFormat.tag = 'file';
+            simpleFormat.contentLength = parsed.items[i].fileSize;
         }
         simpleJSONFormatArray.push(simpleFormat);
     }
@@ -327,5 +343,6 @@ module.exports = {
     getFileTree: getFileTree,
     getFile: getFile,
     uploadFile: uploadFile,
-    getFolderId: _getFolderId
+    getFolderId: _getFolderId,
+    createFolder: createFolder
 };

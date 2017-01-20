@@ -3,6 +3,7 @@ import {SlackChannel} from '../_models/slackChannel';
 import {SlackService, ActiveTabService} from '../_services/index';
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
 import {SlackChannelMessage} from "../_models/slackChannelMessage";
+import {Response} from "@angular/http";
 
 @Component({
   selector: 'app-slack',
@@ -40,13 +41,16 @@ export class SlackComponent implements OnInit {
     this.slackService.channelList()
       .subscribe(
         data => {
-          if (data.ok) {
-            this.notService.success('Got slack channel list!', '');
-            this.fillChannelList(data.channels);
-            this.loading = false;
-          } else {
-            this.notService.error('slack channellist failed', data.errorMsg);
-            this.loading = false;
+          if (data instanceof Response) {
+            data = data.json();
+            if (data.ok) {
+              this.notService.success('Got slack channel list!', '');
+              this.fillChannelList(data.channels);
+              this.loading = false;
+            } else {
+              this.notService.error('slack channellist failed', data.errorMsg);
+              this.loading = false;
+            }
           }
         },
         error => {
@@ -72,13 +76,16 @@ export class SlackComponent implements OnInit {
     this.slackService.channelMessages(channel, lastTimeStamp)
       .subscribe(
         data => {
-          this.loadingMessages = false;
-          if (data.ok) {
-            this.notService.success('Got slack channelmessages!', '');
-            this.setTimeStampOfLastMsg(data.timeStampOfLastMsg);
-            this.appendMessages(data.messages);
-          } else {
-            this.notService.error('slack channelmessages failed', data.errorMsg);
+          if (data instanceof Response) {
+            data = data.json();
+            this.loadingMessages = false;
+            if (data.ok) {
+              this.notService.success('Got slack channelmessages!', '');
+              this.setTimeStampOfLastMsg(data.timeStampOfLastMsg);
+              this.appendMessages(data.messages);
+            } else {
+              this.notService.error('slack channelmessages failed', data.errorMsg);
+            }
           }
         },
         error => {
@@ -87,17 +94,20 @@ export class SlackComponent implements OnInit {
         });
   }
 
-  sendMessage(channelId: string, message: string){
+  sendMessage(channelId: string, message: string) {
     this.loadingSendMessage = true;
     this.slackService.sendMessage(channelId, message)
       .subscribe(
         data => {
-          this.loadingSendMessage = false;
-          if (data.ok) {
-            this.notService.success('slack message sent!', '');
-            this.refresh();
-          } else {
-            this.notService.error('slack sending message failed', data.errorMsg);
+          if (data instanceof Response) {
+            data = data.json();
+            this.loadingSendMessage = false;
+            if (data.ok) {
+              this.notService.success('slack message sent!', '');
+              this.refresh();
+            } else {
+              this.notService.error('slack sending message failed', data.errorMsg);
+            }
           }
         },
         error => {
@@ -112,7 +122,7 @@ export class SlackComponent implements OnInit {
 
   appendMessages(newMessages: SlackChannelMessage[]) {
     this.messages = this.messages.concat(newMessages);
-    if(this.messages.length > 0){
+    if (this.messages.length > 0) {
       this.hasMessages = true;
     }
     this.scrollToBottom();
@@ -128,11 +138,11 @@ export class SlackComponent implements OnInit {
   }
 
   refresh() {
-    this.getChannelMessages(this.selectedChannel,this.timeStampOfLastMsgReceived+1);
+    this.getChannelMessages(this.selectedChannel, this.timeStampOfLastMsgReceived + 1);
   }
 
   sendPressed() {
-    this.sendMessage(this.selectedChannel.id,this.chatMsgBinding);
+    this.sendMessage(this.selectedChannel.id, this.chatMsgBinding);
     this.chatMsgBinding = ''; //refresh chatbox content
   }
 

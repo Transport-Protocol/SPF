@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package notification;
+
+// The rpc FileStorage service definition.
+service Notification {
+    rpc Create (CreateRequest) returns (CreateReply) {
+    }
+
+    rpc List (ListRequest) returns (ListReply) {
+    }
+}
+
+//service types enum
+enum ServiceType {
+    GITHUB = 0;
+    DROPBOX = 1;
+    BITBUCKET = 2;
+    GOOGLE = 3;
+    SLACK = 4;
+    OWNCLOUD = 5;
+    SECOFILESTORAGE = 6;
+}
+
+message CreateRequest {
+    string username = 1;
+    string team = 2;
+    string message = 3;
+    ServiceType service = 4;
+}
+
+message CreateReply {
+    string status = 1;
+    string err = 2;
+}
+
+message ListRequest {
+    string team = 1;
+    string username = 2;
+    int32 timeStamp = 3;
+}
+
+message ListReply {
+    string notifications = 1;
+    string err = 2;
+}
+

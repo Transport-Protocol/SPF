@@ -1,9 +1,7 @@
 /**
  * Created by PhilippMac on 13.09.16.
  */
-/**
- * Created by PhilippMac on 25.08.16.
- */
+process.chdir(__dirname); //set working directory to path of file that is being executed
 'use strict';
 
 var expect = require('chai').expect,
@@ -13,7 +11,7 @@ var expect = require('chai').expect,
 
 function init() {
 
-    var proto = grpc.load('./proto/fileStorage.proto').fileStorage;
+    var proto = grpc.load('../proto/fileStorage.proto').fileStorage;
     var url = 'localhost:50049';
     console.log(url);
     client = new proto.FileStorage(url,

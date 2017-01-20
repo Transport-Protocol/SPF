@@ -9,7 +9,6 @@ var grpc = require('grpc'),
     RpcJsonResponseBuilder = require('./../utility/rpcJsonResponseBuilder'),
     fs = require('fs'),
     nconf = require('nconf'),
-    HashMap = require('hashmap'),
     ParamChecker = require('./../utility/paramChecker'),
     HeaderChecker = require('./../utility/headerChecker');
 
@@ -20,19 +19,25 @@ function CustomRoute(jsonConfigFilePath, protoFileName) {
     this.paramChecker = new ParamChecker();
     this.headerChecker = new HeaderChecker();
     this.client = {};
-    this.userClient = {};
+    this._userClient = {};
+    this.notificationService = {};
 
     _initGRPC(this, protoFileName);
     _initUserService(this);
 }
 
 var self = {};
+var notificationServiceUrl = 'localhost:50039';
 
 function _initGRPC(self, protoFileName) {
     var url = self.config['grpc_ip'] + ':' + self.config['grpc_port'];
     winston.log('info', '%s grpc url: %s', self.config['service_name'], url);
     var proto = grpc.load('./proto/' + protoFileName)[self.config['grpc_package_name']];
     self.client = new proto[self.config['grpc_service_name']](url,
+        grpc.credentials.createInsecure());
+
+    proto = grpc.load('./proto/notification.proto').notification;
+    self.notificationService = new proto.Notification(notificationServiceUrl,
         grpc.credentials.createInsecure());
 }
 
@@ -47,21 +52,16 @@ function _initUserService(self) {
 
 CustomRoute.prototype.route = function (router) {
     var self = this;
-    var requestArray = this.config['requests'];
-    var requestMap = new HashMap();
-    //Map routes to array index, necessary for secondary for loop to get the right config
-    for (var j in requestArray) {
-        requestMap.set(requestArray[j]['route'], j);
-    }
+    let requestArray = this.config['requests'];
     //build all routes specified in config file
-    for (var i in requestArray) {
+    for (let i in requestArray) {
         //listen on http method on route
-        router[requestArray[i]['http-method']](requestArray[i]['route'], function (req, res) {
-            var requestID = requestMap.get(req.route.path);
-            if (!self.paramChecker.containsParameter(requestArray[requestID]['query_parameter'], req, res)) {
+        let curConfig = requestArray[i];
+        router[curConfig['http-method']](curConfig['route'], function (req, res) {
+            if (!self.paramChecker.containsParameter(curConfig['query_parameter'], req, res)) {
                 return;
             }
-            if (!self.headerChecker.containsParameter(requestArray[requestID]['header_parameter'], req, res)) {
+            if (!self.headerChecker.containsParameter(curConfig['header_parameter'], req, res)) {
                 return;
             }
             _handleAuth(self.config, req.username, function (err, token) {
@@ -71,17 +71,20 @@ CustomRoute.prototype.route = function (router) {
                 }
                 var authToken = token;
                 winston.log('info', 'authToken: ', authToken);
-                var jsonGrpcArgs = _createGrpcJsonArgs(self.config,req, requestArray[requestID]['query_parameter'], requestArray[requestID]['reserved_parameter'], authToken);
-                self.client[requestArray[requestID]['grpc_function']](jsonGrpcArgs, function (err, response) {
+                var jsonGrpcArgs = _createGrpcJsonArgs(self.config, req, curConfig['query_parameter'], curConfig['reserved_parameter'], authToken);
+                self.client[curConfig['grpc_function']](jsonGrpcArgs, function (err, response) {
                     if (err) {
-                        return _offlineError(res, self.config['service_name']);
+                        return _grpcError(res,self.config['service_name'],err);
                     } else {
                         if (response.err) {
-                            var result = RpcJsonResponseBuilder.buildError(response.err);
-                            return res.json(result);
+                            return res.status(response.err.code).send(response.err.msg);
                         }
-                        var result = _createHttpJsonResult(requestArray[requestID]['response_parameter'], response);
-                        winston.log('info', 'RPC Method %s successful.', requestArray[requestID]['grpc_function']);
+                        //notification?
+                        if (curConfig['notification'] === true) {
+                            _sendNotification(req.username, req.query.team, curConfig['message'], self.config['service_name'], self.notificationService);
+                        }
+                        var result = _createHttpJsonResult(curConfig['response_parameter'], response);
+                        winston.log('info', 'RPC Method %s successful.', curConfig['grpc_function']);
                         return res.json(result);
                     }
                 });
@@ -90,6 +93,29 @@ CustomRoute.prototype.route = function (router) {
     }
     return router;
 };
+
+function _sendNotification(username, team, message, service, notificationService) {
+    if (!team && team !== '') {
+        winston.log('error','no query.team set - cant create notification');
+    } else {
+        notificationService.create({
+            username: username,
+            team: team,
+            message: message,
+            service: service.toUpperCase()
+        }, function (err, response) {
+            if (err) {
+                winston.log('error', 'couldnt create notification: ', err);
+            } else {
+                if (response.err) {
+                    winston.log('error', 'couldnt create notification: ', response.err);
+                } else {
+                    winston.log('info', 'successfully created notification');
+                }
+            }
+        });
+    }
+}
 
 function _handleAuth(config, username, callback) {
     if (config.authentication_type === '') {
@@ -137,18 +163,18 @@ function _createHttpJsonResult(params, grpcResponse) {
     return result;
 }
 
-function _createGrpcJsonArgs(config,req, queryParams, reservedParams, token) {
+function _createGrpcJsonArgs(config, req, queryParams, reservedParams, token) {
     var grpcArgs = {};
     //encrypt authentication and set grpc parameter
     if (token) grpcArgs['auth'] = _setAuthorization(token, config['authentication_type']);
-    if(queryParams) {
+    if (queryParams) {
         var params = queryParams.concat(reservedParams);
         for (var i in params) {
             var param = params[i];
             if (param === 'userName') {
                 grpcArgs['userName'] = req.username;
-            } else if (req.query.hasOwnProperty(param)) {
-                grpcArgs[param] = req.query[param];
+            } else if (req.query.hasOwnProperty(param) || req.params.hasOwnProperty(param)) {
+                grpcArgs[param] = req.query[param] || req.params[param];
             } else if (param === 'fileName') {
                 grpcArgs[param] = req.files[Object.keys(req.files)[0]].name;
             } else if (param === 'fileBuffer') {
@@ -163,8 +189,8 @@ function _noFileUploadedError(res) {
     res.status(400).send("no uploaded file found under 'file'");
 }
 
-function _offlineError(res, serviceName) {
-    var result = RpcJsonResponseBuilder.buildError(serviceName + ' connector offline');
+function _grpcError(res, serviceName, err) {
+    var result = RpcJsonResponseBuilder.buildError(serviceName + ': ' + err);
     return res.json(result);
 }
 

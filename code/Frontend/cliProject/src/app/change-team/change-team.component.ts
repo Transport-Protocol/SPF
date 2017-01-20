@@ -3,6 +3,7 @@ import {TeamService} from '../_services/index';
 import {Team} from "../_models/team";
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
 import {InformNewTeamService} from "../_services/inform-new-team.service";
+import {Response} from "@angular/http";
 
 @Component({
   selector: 'app-change-team',
@@ -28,14 +29,14 @@ export class ChangeTeamComponent implements OnInit {
     this.teams = teams;
   }
 
-  changeTeam(team: Team){
+  changeTeam(team: Team) {
     localStorage.setItem('currentTeam', JSON.stringify(team));
     this.informNewTeamService.newTeam(true);
   }
 
-  getTeamByName(teamName: string){
-    for(let i = 0;i<this.teams.length;i++){
-      if(this.teams[i].teamName === teamName){
+  getTeamByName(teamName: string) {
+    for (let i = 0; i < this.teams.length; i++) {
+      if (this.teams[i].teamName === teamName) {
         return this.teams[i];
       }
     }
@@ -46,12 +47,15 @@ export class ChangeTeamComponent implements OnInit {
     this.teamService.listTeams()
       .subscribe(
         data => {
-          this.loading = false;
-          if (data.ok) {
-            this.notService.success('Team list received!', '');
-            this.setTeams(data.teamList);
-          } else {
-            this.notService.error('Team list failed', data.errorMsg);
+          if (data instanceof Response) {
+            data = data.json();
+            this.loading = false;
+            if (data.ok) {
+              this.notService.success('Team list received!', '');
+              this.setTeams(data.teamList);
+            } else {
+              this.notService.error('Team list failed', data.errorMsg);
+            }
           }
         },
         error => {

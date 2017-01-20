@@ -16,7 +16,7 @@ describe('Dropbox', function () {
             });
         });
     });
-    describe('Path to file', function () {
+    xdescribe('Path to file', function () {
         it('returns file contents as buffer and filename specified by path', function (done) {
             this.timeout(10000);
             dropbox.getFile('8pFZZrjCIREAAAAAAABz-8Num_Z274v4hmJzxtqNLmTAtXsSS_mac1FXszTyUqY7', 'BA/Gliederung.pdf', function (err, fileName, buffer) {
@@ -27,7 +27,7 @@ describe('Dropbox', function () {
             });
         });
     });
-    describe('Upload file to path', function () {
+    xdescribe('Upload file to path', function () {
         it('uploads file to path and returns status', function (done) {
             this.timeout(10000);
             var fs = require('fs');

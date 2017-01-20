@@ -2,7 +2,7 @@
   <md-card-title-group>
     <md-card-subtitle>Team Area</md-card-subtitle>
     <md-card-title>Active Team:
-      <span *ngIf="hasTeam">{{currentTeam.teamName}}</span>
+      <span class="activeTeam" *ngIf="hasTeam">{{currentTeam.teamName}}</span>
       <span *ngIf="!hasTeam">none</span>
     </md-card-title>
     <img src="assets/images/team.png" style="max-height: 96px">

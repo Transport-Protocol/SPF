@@ -7,5 +7,7 @@ export interface IAppConfig {
 }
 
 export const AppConfig: IAppConfig = {
-  apiEndpoint: "http://localhost:8080/api/"
+  //apiEndpoint: "https://ec2-54-93-97-126.eu-central-1.compute.amazonaws.com:8080/api/"
+  //apiEndpoint: "http://localhost:8080/api/"
+  apiEndpoint: "https://servicecompo.ddns.net:8080/api/"
 };

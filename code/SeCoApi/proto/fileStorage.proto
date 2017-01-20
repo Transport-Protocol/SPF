@@ -10,18 +10,20 @@ service FileStorage {
   rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
 
   rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
+
+  rpc FileTransfer ( FileTransferRequest) returns (FileTransferReply) {}
 }
 
 //Auth message
 message Authentication {
-    string token = 1; //auth string,for example user:password or Bearer XXXXX
-    AuthenticationType type = 2;
+  string token = 1; //auth string,for example user:password or Bearer XXXXX
+  AuthenticationType type = 2;
 }
 
 //Auth types enum
 enum AuthenticationType {
-    BASIC = 0;
-    OAUTH2 = 1;
+  BASIC = 0;
+  OAUTH2 = 1;
 }
 
 // The request message
@@ -59,6 +61,18 @@ message UploadFileRequest {
 
 // The response message
 message UploadFileResponse {
+  string status = 1;
+  string err = 2;
+}
+
+message FileTransferRequest {
+  string path = 1;
+  Authentication auth = 2;
+  string userName = 3;
+  string targetService = 4;
+}
+
+message FileTransferReply {
   string status = 1;
   string err = 2;
 }

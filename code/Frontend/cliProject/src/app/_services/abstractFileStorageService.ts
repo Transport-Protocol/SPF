@@ -2,7 +2,7 @@
  * Created by PhilippMac on 17.12.16.
  */
 import {Injectable,Inject} from '@angular/core';
-import {Http, Headers, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Http, Headers, RequestOptions, Response, URLSearchParams,ResponseContentType} from '@angular/http';
 import {Observable}     from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -17,8 +17,6 @@ export class AbstractFileStorageService {
   }
 
   uploadFile(file:File,path:string,serviceName:string,teamName:string) {
-    let formData = new FormData();
-    formData.append('file',file);
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let headers = new Headers();
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
@@ -27,27 +25,9 @@ export class AbstractFileStorageService {
     params.set('teamName',teamName);
     params.set('serviceName',serviceName);
     let options = new RequestOptions({headers: headers, search: params});
-    return this.http.put(this.config.apiEndpoint+ 'filestorage/upload',formData, options)
+    return this.http.put(this.config.apiEndpoint+ 'filestorage/file',file, options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
-      })
-      .catch(this.handleError);
-  }
-
-  authList() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    let headers = new Headers();
-    console.log('password ' + currentUser.basicAuth);
-    headers.append("Authorization", "Basic " + currentUser.basicAuth);
-    let options = new RequestOptions({headers: headers});
-
-    return this.http.get(this.config.apiEndpoint+'user/auth/list', options)
-      .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
@@ -62,9 +42,7 @@ export class AbstractFileStorageService {
     let options = new RequestOptions({headers: headers, search: params});
     return this.http.get(this.config.apiEndpoint+ 'filestorage/filetree', options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
@@ -76,12 +54,10 @@ export class AbstractFileStorageService {
     let params = new URLSearchParams();
     params.set('filePath',path);
     params.set('teamName',teamName);
-    let options = new RequestOptions({headers: headers, search: params});
+    let options = new RequestOptions({headers: headers, search: params,responseType: ResponseContentType.Blob});
     return this.http.get(this.config.apiEndpoint + 'filestorage/file', options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }

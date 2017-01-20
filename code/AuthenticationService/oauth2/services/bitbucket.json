@@ -4,6 +4,6 @@
   "access_token_url": "https://bitbucket.org/site/oauth2/access_token",
   "client_id": "hdYA8D9vE9QeGVjBvz",
   "client_secret": "yG7y7qubEuEWhR487BaHMcgaQ85DgPpA",
-  "redirect_uri": "http://localhost:4000/bitbucket/oauth/callback",
+  "redirect_uri": "https://servicecompo.ddns.net:8081/bitbucket/oauth/callback",
   "redirect_route": "/bitbucket/oauth/callback"
 }

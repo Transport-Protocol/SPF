@@ -13,6 +13,7 @@ var exports = module.exports = {};
 
 //global var
 var _server;
+var _authService;
 
 exports.init = function (serverIp, serverPort) {
     var userManagementProto = grpc.load('./proto/usermanagement.proto').userManagement;
@@ -31,6 +32,14 @@ exports.init = function (serverIp, serverPort) {
     });
     var serverUri = serverIp + ':' + serverPort;
     _server.bind(serverUri, grpc.ServerCredentials.createInsecure());
+
+    //init auth service connection
+    var url = nconf.get('authServiceIp') + ':' + nconf.get('authServicePort');
+    winston.log('info', 'authservice grpc url: %s', url);
+    var proto = grpc.load('./proto/authService.proto').authService;
+    _authService = new proto.AuthService(url,
+        grpc.credentials.createInsecure());
+
     db.connect(nconf.get('dbPoolSize'), nconf.get('dbPath'));
     winston.log('info', 'RPC init succesful on: ' + serverUri);
 };
@@ -76,7 +85,7 @@ function register(call, callback) {
         db.createUser(call.request.name, call.request.password, function (err, createdUser) {
             if (err) {
                 var errMsg = err;
-                if(err.message.indexOf('duplicate key') !== -1){
+                if (err.message.indexOf('duplicate key') !== -1) {
                     errMsg = new Error('username already in use');
                 }
                 winston.log('error', 'error performing rpc method createUser: ', errMsg);
@@ -166,22 +175,44 @@ function getAuthentication(call, callback) {
                 winston.log('error', 'error performing rpc method getAuthentication: ', err);
                 return callback(null, {err: err.message});
             } else {
-                var token;
+                var targetServiceAuthEntry;
                 for (var i = 0; i < user.auth.length; i++) {
                     if (user.auth[i].service === call.request.service) {
-                        token = user.auth[i].access_token;
+                        targetServiceAuthEntry = user.auth[i];
                         break;
                     }
                 }
-                if (!token) {
+                if (!targetServiceAuthEntry) {
                     return callback(null, {err: 'not found'});
                 } else {
-                    winston.log('info', 'succesfully performed getAuthentication rpc method');
-                    return callback(null, {token: token});
+                    console.log(targetServiceAuthEntry);
+                    if (targetServiceAuthEntry.refresh_token) {
+                        if (new Date().getTime() > targetServiceAuthEntry.tsOfSet + 3600000) {
+                            //token aelter als eine stunde
+                            _refreshAccessToken(call.request.username, targetServiceAuthEntry.service.toUpperCase(), targetServiceAuthEntry.refresh_token, function (err, accessToken) {
+                                if (err) {
+                                    console.log('error refreshing', err);
+                                    return callback(null, {err: 'could not refresh tokens'});
+                                } else {
+                                    winston.log('info', 'successfully refreshed tokens');
+                                    _getAuthenticationSuccess(accessToken, callback);
+                                }
+                            });
+                        } else {
+                            _getAuthenticationSuccess(targetServiceAuthEntry.access_token, callback);
+                        }
+                    } else {
+                        _getAuthenticationSuccess(targetServiceAuthEntry.access_token, callback);
+                    }
                 }
             }
         });
     }
+}
+
+function _getAuthenticationSuccess(access_token, callback) {
+    winston.log('info', 'succesfully performed getAuthentication rpc method');
+    return callback(null, {token: access_token});
 }
 
 function getUsernameBySessionId(call, callback) {
@@ -218,6 +249,27 @@ function isLoginCorrect(call, callback) {
     }
 }
 
+function _refreshAccessToken(username, service, refresh_token, callback) {
+    _authService.refreshAccessToken({
+        service: service,
+        refresh_token: refresh_token
+    }, function (err, response) {
+        if (err) {
+            return callback('authService offline');
+        } else {
+            if (response.err) {
+                return callback(err.message);
+            } else {
+                db.refreshAuthentication(username, service, response.access_token, function (err) {
+                    if (err) {
+                        winston.log('error', 'couldnt refresh auth in db');
+                    }
+                });
+                return callback(null, response.access_token);
+            }
+        }
+    });
+}
 
 function _error(functionName, errorMessage, callback) {
     var error = new Error(errorMessage);

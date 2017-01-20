@@ -1,11 +1,12 @@
 import {Component, Input} from '@angular/core';
 
 import {AbstractFileStorageService, ActiveTabService} from '../_services/index';
-import {FileMetaData, Team} from '../_models/index';
+import {FileMetaData, Team, FsProvider} from '../_models/index';
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
 import {slideIn} from'../_animations/animations';
 
 import * as FileSaver from "file-saver";
+import {Response} from "@angular/http";
 
 @Component({
   selector: 'abstractFileStorage',
@@ -27,18 +28,18 @@ export class AbstractFileStorageComponent {
   private targetUploadFile: File;
   private uploadReady: boolean;
   private isUploading: boolean;
+  private uploadProgress: number;
 
   private fsProviderModel: FsProvider[] = [];
   private activeFsProvider: FsProvider = {
-    name: 'Google',
-    imgPath: 'assets/images/google.png'
+    name: 'Dropbox',
+    imgPath: 'assets/images/dropbox.png'
   };
 
   constructor(private abstractFileStorageService: AbstractFileStorageService,
               private notService: NotificationsService,
               private activeTabService: ActiveTabService) {
     this.fillFsProvider();
-    //this.lastDir = JSON.parse(localStorage.getItem('lastDir' + name));
   }
 
   ngOnInit() {
@@ -52,7 +53,6 @@ export class AbstractFileStorageComponent {
 
   setActiveFsProvider(selected: FsProvider) {
     this.activeFsProvider = selected;
-    console.log(this.activeFsProvider.name);
   }
 
   fillFsProvider() {
@@ -83,23 +83,41 @@ export class AbstractFileStorageComponent {
   }
 
   uploadFile() {
+    var fileName = this.targetUploadFile.name;
     this.isUploading = true;
-    this.uploadReady = false;
     var curTeam = this.getCurTeam();
-    this.abstractFileStorageService.uploadFile(this.targetUploadFile, this.parsePath(), this.activeFsProvider.name, curTeam.teamName)
+    this.abstractFileStorageService.uploadFile(this.targetUploadFile, this.parsePath() + fileName, this.activeFsProvider.name, curTeam.teamName)
       .subscribe(
         data => {
-          this.isUploading = false;
-          if (data.ok) {
-            this.notService.success('Got upload data!', '');
+          if (data instanceof Response) {
+            data = data.json();
+            this.isUploading = false;
+            if (data.ok) {
+              this.notService.success('Got upload data!', '');
+              this.getFileTree();
+            } else {
+              this.notService.error('upload failed', data.errorMsg);
+            }
           } else {
-            this.notService.error('upload failed', data.errorMsg);
+            this.uploadProgress = data.bytes / data.total * 100;
           }
         },
         error => {
           this.isUploading = false;
           this.notService.error('upload error', error);
         });
+  }
+
+  addUploadedFile(file: FileMetaData) {
+    let alreadyPresent = false;
+    for (let i = 0; i < this.dirs.length; i++) {
+      if (this.dirs[i].name === file.name) {
+        alreadyPresent = true;
+      }
+    }
+    if (!alreadyPresent) {
+      this.dirs.push(file);
+    }
   }
 
   getCurTeam() {
@@ -110,27 +128,46 @@ export class AbstractFileStorageComponent {
   getFileTree() {
     this.loading = true;
     var curTeam = this.getCurTeam();
-    this.abstractFileStorageService.getFileTree(this.parsePath(), curTeam.teamName)
-      .subscribe(
-        data => {
-          if (data.ok) {
-            this.notService.success('Got filetree data!', '');
-            this.fillDirs(data.dirs);
-            this.sortByName();
+    if (curTeam) {
+      this.abstractFileStorageService.getFileTree(this.parsePath(), curTeam.teamName)
+        .subscribe(
+          data => {
+            if (data instanceof Response) {
+              data = data.json();
+              if (data.ok) {
+                this.notService.success('Got filetree data!', '');
+                this.fillDirs(data.dirs);
+                this.sortByName();
+                this.loading = false;
+              } else {
+                this.notService.error('filetree failed', data.errorMsg);
+                this.loading = false;
+              }
+            }
+          },
+          error => {
+            let errorMsg = error;
+            if (error === '0 -  {"isTrusted":true}') {
+              errorMsg = 'api offline!';
+            }
+            this.notService.error('filetree error', errorMsg);
             this.loading = false;
-          } else {
-            this.notService.error('filetree failed', data.errorMsg);
-            this.loading = false;
-          }
-        },
-        error => {
-          let errorMsg = error;
-          if (error === '0 -  {"isTrusted":true}') {
-            errorMsg = 'api offline!';
-          }
-          this.notService.error('filetree error', errorMsg);
-          this.loading = false;
-        });
+          });
+    }
+  }
+
+  createFolder(name: string) {
+    var folder = {
+      name: name,
+      tag: 'folder',
+      isDownloading: false,
+      isTransfering: false,
+      shareClicked: false,
+      contentLength: 0,
+      bytesDownloaded: 0,
+      progressInPercent: 0
+    };
+    this.dirs.push(folder);
   }
 
   getFile(index: number) {
@@ -140,15 +177,12 @@ export class AbstractFileStorageComponent {
     this.abstractFileStorageService.getFile(this.parsePath() + '/' + targetDir.name, curTeam.teamName)
       .subscribe(
         data => {
-          targetDir.isDownloading = false;
-          if (data.ok) {
-            this.notService.success('Got file data!', '');
-            var uint8Array = new Uint8Array(data.fileBuffer.data);
-            var blob = new Blob([uint8Array]);
-            var filename = data.fileName;
-            FileSaver.saveAs(blob, filename);
-          } else {
-            this.notService.error('getFile failed', data.errorMsg);
+          if (data instanceof Response) {
+            targetDir.isDownloading = false;
+            if (data) {
+              this.notService.success('Got file data!', '');
+              FileSaver.saveAs(data.blob(), targetDir.name);
+            }
           }
         },
         error => {
@@ -166,10 +200,7 @@ export class AbstractFileStorageComponent {
     for (let i = 0; i < this.curDir.length; i++) {
       let dir = this.curDir[i];
       if (dir !== 'root') {
-        path += dir;
-        if (i !== this.curDir.length - 1) {
-          path += '/';
-        }
+        path += dir + '/';
       }
     }
     return path;
@@ -192,7 +223,6 @@ export class AbstractFileStorageComponent {
   }
 
   sortByType() {
-    console.log('sortbytype clicked');
     if (this.currentSortType === SortTypes.NAME) {
       this.sortAscending = true;
     }
@@ -235,9 +265,4 @@ export class AbstractFileStorageComponent {
 
 enum SortTypes {
   NAME, TYPE
-}
-
-class FsProvider {
-  name: string;
-  imgPath: string;
 }

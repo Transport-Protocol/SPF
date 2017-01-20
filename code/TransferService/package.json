@@ -1,0 +1,19 @@
+{
+  "name": "transferFilestorage",
+  "version": "1.0.0",
+  "description": "Enables transfer to an filestorage service",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "author": "philipp prögel",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chunk": "0.0.2",
+    "grpc": "^1.0.1",
+    "mocha": "^3.1.0",
+    "nconf": "^0.8.4",
+    "winston": "^2.2.0"
+  }
+}

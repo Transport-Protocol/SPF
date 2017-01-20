@@ -1,11 +1,13 @@
 ﻿import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-
 import {AuthenticationService} from '../_services/index';
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
+import {Response} from "@angular/http";
+import {User} from '../_models/index';
 
 @Component({
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 
 export class LoginComponent implements OnInit {
@@ -27,16 +29,21 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
         data => {
-          if (data.ok) {
-            this.notService.success('Logged in!','');
-            this.router.navigate(['/']);
-          } else {
-            this.notService.error('Login failed',data.errorMsg);
-            this.loading = false;
+          if (data instanceof Response) {
+            data = data.json();
+            if (data.ok) {
+              var user = new User(this.model.username, btoa(this.model.username + ':' + this.model.password));
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              this.notService.success('Logged in!', '');
+              this.router.navigate(['/']);
+            } else {
+              this.notService.error('Login failed', data.errorMsg);
+              this.loading = false;
+            }
           }
         },
         error => {
-          this.notService.error('login error',error);
+          this.notService.error('login error', error);
           this.loading = false;
         });
   }

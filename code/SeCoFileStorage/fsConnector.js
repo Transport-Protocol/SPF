@@ -2,6 +2,7 @@
  * Created by PhilippMac on 28.09.16.
  */
 'use strict';
+process.chdir(__dirname); //set working directory to path of file that is being executed
 var grpc = require('grpc'),
     winston = require('winston'),
     nconf = require('nconf'),
@@ -49,22 +50,24 @@ function init() {
  */
 
 
-function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuffer, callback) {
+function uploadFile(username, teamName, serviceName, filePath, fileName, grpcCall, callback) {
     //1. hole auth für den Storage dienst von usermanagement service
     authService.getAuthentication({
         username: username,
         service: serviceName.toUpperCase()
     }, function authResult(err, response) {
         if (err) {
-            return callback(new Error('auth service offline'));
+            return callback({msg:'auth service offline', code:502});
         } else {
             if (response.err) {
-                return callback(new Error(response.err));
+                return callback({msg:response.err,code:500});
             } else {
                 winston.log('info', 'successfully got auth from auth service.token: ', response.token);
                 //2. upload file zu FS dienst in einen Folder + filepath mit dem Namen prefix+teamName (EFP)
-                var serviceFp = 'SeCo' + teamName;
-                _uploadToService(response.token, serviceName, serviceFp, fileName, fileBuffer, function (err, status) {
+                filePath = _parsePath(filePath);
+                winston.log('info', 'parsed filePath: ' + filePath);
+                var serviceFp = 'ServiceComposition-' + teamName;
+                _uploadToService(response.token, serviceName, serviceFp, fileName, grpcCall, function (err, status) {
                     if (err) {
                         return callback(err);
                     } else {
@@ -73,7 +76,7 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
                             if (err) {
                                 return callback(err);
                             } else {
-                                return callback(null);
+                                return callback(null,status);
                             }
                         });
                     }
@@ -83,15 +86,24 @@ function uploadFile(username, teamName, serviceName, filePath, fileName, fileBuf
     });
 }
 
+function _parsePath(path) {
+    var parsed = 'root';
+    if (path !== '' && path !== '/') {
+        if (path.charAt(0) === '/') {
+            parsed = 'root' + path;
+        } else {
+            parsed = 'root/' + path;
+        }
+    }
+    return parsed;
+}
+
 function getFile(teamName, filePath, callback) {
     var parsed = parser.parsePath(filePath);
     if (!parsed) {
-        return callback(new Error('wrong path syntax'));
+        return callback({msg:'wrong path syntax',code:400});
     }
     console.log('parsed ' + parsed.path + '   ' + parsed.fileName);
-    if(parsed.path === ''){
-        parsed.path = '/';
-    }
     var fileEntry;
     _getFileStoragesByPathNameTeam(parsed.path, parsed.fileName, teamName)
         .then(entry => {
@@ -101,8 +113,8 @@ function getFile(teamName, filePath, callback) {
         .then(token => {
             return _getFileFromService(token, fileEntry.serviceName, fileEntry.serviceFilePath, fileEntry.fileName);
         })
-        .then(result => {
-            return callback(null, result.fileName, result.fileBuffer);
+        .then(grpcCall => {
+            return callback(null, grpcCall);
         })
         .catch(error => {
             return callback(error);
@@ -112,6 +124,8 @@ function getFile(teamName, filePath, callback) {
 function getFileTree(teamName, path, callback) {
     _getFileStorages(teamName)
         .then(files => {
+            path = _parsePath(path);
+            winston.log('info', 'parsed path: ' + path);
             return _getFilesInPath(files, path);
         })
         .then(dirs => {
@@ -130,7 +144,7 @@ function _getFileStoragesByPathNameTeam(path, fileName, teamName) {
         function (resolve, reject) {
             db.getFileStorageEntry(path, fileName, teamName, function (err, entry) {
                 if (err) {
-                    reject(err);
+                    reject({msg:err.message,code:500});
                 }
                 resolve(entry);
             });
@@ -145,10 +159,10 @@ function _getAuthentication(username, serviceName) {
                 service: serviceName
             }, function authResult(err, response) {
                 if (err) {
-                    reject(new Error('auth service offline'));
+                    reject({msg:'auth service offline',code:502});
                 }
                 if (response.err) {
-                    reject(new Error(response.err));
+                    reject({msg:'auth not set for service: ' + serviceName,code:401});
                 }
                 resolve(response.token);
             });
@@ -162,20 +176,9 @@ function _getFileFromService(token, serviceName, serviceFilePath, fileName) {
                 token: token,
                 type: "OAUTH2"
             };
-            _getService(serviceName).getFile({
-                path: serviceFilePath + "/" + fileName,
-                auth: auth
-            }, function getFileResult(err, response) {
-                if (err) {
-                    reject(new Error(entry.serviceName + ' service offline'));
-                } else {
-                    var result = {
-                        fileName: response.fileName,
-                        fileBuffer: response.fileBuffer
-                    };
-                    resolve(result);
-                }
-            });
+            var grpcCall =_getService(serviceName).getFile({path: serviceFilePath + "/" + fileName, auth: auth});
+            if(!grpcCall) reject({msg:'unexpected error',code:500});
+            resolve(grpcCall);
         });
 }
 
@@ -184,7 +187,7 @@ function _getFileStorages(teamName) {
         function (resolve, reject) {
             db.getFileStorages(teamName, function (err, files) {
                 if (err) {
-                    reject(err);
+                    reject({msg: err.message, code: 500});
                 }
                 resolve(files);
             });
@@ -196,7 +199,7 @@ function _getFilesInPath(files, path) {
         function (resolve, reject) {
             var dirs = [];
             for (var i = 0; i < files.length; i++) {
-                if (files[i].seCoFilePath.indexOf(path) != -1) {
+                if (files[i].seCoFilePath.indexOf(path) !== -1) {
                     //eintrag ist file oder folder
                     if (files[i].seCoFilePath.length === path.length) {
                         //ist eine file
@@ -209,15 +212,20 @@ function _getFilesInPath(files, path) {
                         var splitted = files[i].seCoFilePath.split('/');
                         if (splitted.length === 0) {
                             //falscher path aufbau
-                            var error = new Error('wrong path');
-                            reject(error);
+                            reject({msg: 'wrong path', code: 400});
                         }
-                        var folderName = splitted[splitted.length - 1];
-                        if (!_gotFolder(dirs, folderName)) {
+                        var targetIndex;
+                        for (var j = 0; j < splitted.length; j++) {
+                            if (path.indexOf(splitted[j]) === -1) {
+                                targetIndex = j;
+                                break;
+                            }
+                        }
+                        if (!_gotFolder(dirs, splitted[targetIndex])) {
                             //foldername noch nicht geaddet
                             dirs.push({
                                 tag: 'folder',
-                                name: folderName
+                                name: splitted[targetIndex]
                             })
                         }
                     }
@@ -238,26 +246,30 @@ function _gotFolder(dirs, folder) {
     return gotF;
 }
 
-function _uploadToService(auth, serviceName, filePath, fileName, fileBuffer, callback) {
+function _uploadToService(auth, serviceName, filePath, fileName, grpcCall, callback) {
     var service = _getService(serviceName);
-    var authentication = {
-        token: auth
-    };
-    service.uploadFile({
-        path: filePath,
-        fileName: fileName,
-        fileBuffer: fileBuffer,
-        auth: authentication
-    }, function uploadResult(err, response) {
+    var metadata = new grpc.Metadata();
+    metadata.add('authToken',auth);
+    metadata.add('path',filePath);
+    metadata.add('fileName',fileName);
+    var uploadFileCall = service.uploadFile(metadata, function uploadResult(err, response) {
         if (err) {
-            return callback(new Error('auth service offline'));
+            return callback({msg: serviceName + ' service is offline',code: 502});
         } else {
             if (response.err) {
-                return callback(new Error(response.err));
+                return callback(response.err);
             } else {
                 return callback(null, response.status);
             }
         }
+    });
+
+    grpcCall.on('data',function(chunk){
+       uploadFileCall.write({chunk:chunk.chunk});
+    });
+
+    grpcCall.on('end', function(){
+       uploadFileCall.end();
     });
 }
 

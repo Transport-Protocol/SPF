@@ -18,7 +18,7 @@ var fs = require('fs'),
     request = require('request');
 
 
-function OAuth2(expressApp, filePath, callback) {
+function OAuth2(app,router, filePath, callback) {
     this.config = {};
     this.authUrl = {};
     var proto = grpc.load('./proto/authentication.proto').authentication;
@@ -34,14 +34,14 @@ function OAuth2(expressApp, filePath, callback) {
         self.config = JSON.parse(file);
         self.authUrl = _setAuthUrl(self);
         winston.log('info', self.getAuthorizationURL('test1'));
-        _registerHttpCallback(self, expressApp);
+        _registerHttpCallback(self, app,router);
 
         return callback(null);
     });
 }
 
-function _registerHttpCallback(self, expressApp) {
-    expressApp.get(self.getRedirectRoute(), function (req, res) {
+function _registerHttpCallback(self,app, router) {
+    router.get(self.getRedirectRoute(), function (req, res) {
         winston.log('info', 'redirect received');
         res.send('ty');
         if(res.req.query.code) {
@@ -73,6 +73,7 @@ function _registerHttpCallback(self, expressApp) {
             winston.log('error','user didnt allow access');
         }
     });
+    app.use('',router);
 }
 
 function _setAuthUrl(self) {
@@ -87,7 +88,7 @@ function _setAuthUrl(self) {
     }  else if(self.config.service === 'GOOGLE') {
         fullUrl += '&response_type=code&scope=https://www.googleapis.com/auth/drive&access_type=offline'
     } else if(self.config.service === 'SLACK') {
-        fullUrl += '&scope=client'
+        fullUrl += '&scope=channels:history%20channels:read%20chat:write:bot%20chat:write:user%20users:read%20identify'
     }
     return fullUrl;
 }

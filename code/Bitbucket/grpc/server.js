@@ -58,7 +58,7 @@ function getRepositories(call, callback) {
  */
 function getRepositoryContent(call, callback) {
     winston.log('info', 'getRepositoryContent rpc method request: ' + JSON.stringify(call.request));
-    if (!call.request.auth || !call.request.repositoryName || !call.request.path) {
+    if (!call.request.auth || !call.request.repository || !call.request.path) {
         _error('getRepositoryContent', 'missing parameter', callback);
     } else {
         var auth = call.request.auth;
@@ -69,7 +69,7 @@ function getRepositoryContent(call, callback) {
             token = auth.token;
         }
         console.log(token);
-        connector.getRepoFiles(token, call.request.repositoryName, call.request.path, function (err, dirs) {
+        connector.getRepoFiles(token, call.request.repository, call.request.path, function (err, dirs) {
             if (err) {
                 winston.log('error', 'error performing getRepositoryContent: ', err);
                 return callback(null, {err: err.message});
@@ -85,11 +85,11 @@ function getRepositoryContent(call, callback) {
  */
 function addUserToRepository(call, callback) {
     winston.log('info', 'addUserToRepository rpc method request');
-    if (!call.request.auth || !call.request.repositoryName || !call.request.usernameToAdd) {
+    if (!call.request.auth || !call.request.repository || !call.request.usernameToAdd) {
         _error('addUserToRepository', 'missing parameter', callback);
     } else {
         var auth = call.request.auth;
-        connector.addUserToRepo(auth.token, call.request.repositoryName, call.request.usernameToAdd, function (err, status) {
+        connector.addUserToRepo(auth.token, call.request.repository, call.request.usernameToAdd, function (err, status) {
             if (err) {
                 winston.log('error', 'error performing addUserToRepository: ', err);
                 return callback(null, {err: err.message});

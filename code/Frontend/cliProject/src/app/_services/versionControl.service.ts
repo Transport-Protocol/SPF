@@ -23,9 +23,7 @@ export class VersionControlService {
     let options = new RequestOptions({headers: headers});
     return this.http.get(this.config.apiEndpoint+ serviceName.toLowerCase() + '/repositories', options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
@@ -36,29 +34,24 @@ export class VersionControlService {
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
     let params = new URLSearchParams();
     params.set('path',dir);
-    params.set('repositoryName',repoName);
     let options = new RequestOptions({headers: headers, search: params});
-    return this.http.get(this.config.apiEndpoint+ serviceName.toLowerCase() + '/repository/content', options)
+    return this.http.get(this.config.apiEndpoint+ serviceName.toLowerCase() + '/' + repoName + '/filetree', options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
 
-  getFile(path: string, serviceName: string) {
+  shareRepository(repoName: string, serviceName: string,userToShareWith: string) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let headers = new Headers();
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
     let params = new URLSearchParams();
-    params.set('path',path);
+    params.set('usernameToAdd',userToShareWith);
     let options = new RequestOptions({headers: headers, search: params});
-    return this.http.get(this.config.apiEndpoint+ serviceName.toLowerCase() + '/file', options)
+    return this.http.post(this.config.apiEndpoint+ serviceName.toLowerCase() + '/' + repoName + '/share',{}, options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }

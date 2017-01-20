@@ -18,3 +18,6 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 import 'hammerjs';
+
+//for animations in unsupported browsers
+import 'web-animations-js/web-animations.min';

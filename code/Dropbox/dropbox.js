@@ -36,12 +36,12 @@ function getFileTree(oauth2Token, path, callback) {
     request(options, function (err, response, body) {
         if (err) {
             winston.log('error', 'application error: ', err);
-            return callback(err);
+            return callback({msg: err.message, code: 500});
         }
         if (response.statusCode >= 400 && response.statusCode <= 499) {
             winston.log('error', 'http error: ', err);
             console.log(response.body);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage + ' ' + body));
+            return callback({msg: response.statusMessage, code: response.statusCode});
         }
         var dirs = body.entries;
         winston.log('info', 'successfully got filetree from dropbox');
@@ -50,7 +50,7 @@ function getFileTree(oauth2Token, path, callback) {
 }
 
 
-function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
+function uploadFile(oauth2Token, path, fileName) {
     var formattedPath = _formatInputPath(path);
     var url = 'https://content.dropboxapi.com/1/files_put/auto/' + formattedPath + '/' + fileName;
     var options = {
@@ -58,40 +58,21 @@ function uploadFile(oauth2Token, path, fileBuffer, fileName, callback) {
         uri: url,
         auth: {
             bearer: _formatOauth2Token(oauth2Token)
-        },
-        multipart: [{
-            body: fileBuffer
-        }]
+        }
     };
-
-    request(options, function (err, response) {
-        if (err) {
-            winston.log('error', 'application error: ', err);
-            return callback(err);
-        }
-        if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-        }
-        winston.log('info', 'successfully uploaded file to dropbox');
-        return callback(null, 'upload successful');
-    });
+    var myRequest = request(options);
+    return myRequest;
 }
 
 /**
  * Gets a file from dropbox
  * encoding = null has to be set for binary data,otherwise file gets corrupted by utf encoding
- * @param username
- * @param password
+ * @param oauth2token
  * @param filePath
- * @param callback
  */
-function getFile(oauth2Token, filePath, callback) {
+function getFile(oauth2Token, filePath) {
     var formattedPath = _formatInputPath(filePath);
     var fileUrl = 'https://content.dropboxapi.com/1/files/auto/' + formattedPath;
-    var pathSplit = filePath.split('/');
-    //Get fileName from path for return value
-    var fileName = pathSplit[pathSplit.length - 1];
     var options = {
         method: 'GET',
         uri: fileUrl,
@@ -100,27 +81,24 @@ function getFile(oauth2Token, filePath, callback) {
             bearer: _formatOauth2Token(oauth2Token)
         }
     };
-    request(options, function (err, response, body) {
-        if (err) {
-            winston.log('error', 'application error: ', err);
-            return callback(err);
-        }
-        if (response.statusCode >= 400 && response.statusCode <= 499) {
-            winston.log('error', 'http error: ', err);
-            return callback(new Error(response.statusCode + ': ' + response.statusMessage));
-        }
-        winston.log('info', 'successfully got file from dropbox');
-        return callback(null, fileName, body);
-    });
+    var myRequest = request(options);
+    return myRequest;
 }
 
 
 function _dropboxDirFormatToSimpleJSON(dirs) {
     var simpleJSONFormatArray = [];
     for (var i = 0; i < dirs.length; i++) {
+        var contentLength = 0;
+        try {
+            contentLength = dirs[i]['size'];
+        } catch(err){
+            //directory has no size
+        }
         var simpleFormat = {
             tag: dirs[i]['.tag'],
-            name: dirs[i]['name']
+            name: dirs[i]['name'],
+            contentLength: contentLength
         };
         simpleJSONFormatArray.push(simpleFormat);
     }

@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
-import {MaterialModule} from '@angular/material';
+import {MaterialModule, MdIconRegistry, OVERLAY_PROVIDERS, MdDialog, InteractivityChecker} from '@angular/material';
 import {AppComponent} from './app.component';
 import {routing}        from './app.routing';
 import {Ng2MaterialModule} from 'ng2-material';
@@ -40,6 +40,11 @@ import {JoinTeamComponent} from './join-team/join-team.component';
 import {SlackComponent} from './slack/slack.component';
 
 
+import {XHRBackend} from '@angular/http';
+import {CustomBackend} from './_services/CustomBackend';
+
+import {FileSizePipe} from './_pipes/fileSize.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +63,8 @@ import {SlackComponent} from './slack/slack.component';
     CreateTeamComponent,
     ChangeTeamComponent,
     JoinTeamComponent,
-    SlackComponent
+    SlackComponent,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
@@ -82,7 +88,13 @@ import {SlackComponent} from './slack/slack.component';
     InformNewTeamService,
     SlackService,
     AbstractFileStorageService,
-    {provide: APP_CONFIG, useValue: AppConfig}
+    OVERLAY_PROVIDERS,
+    MdIconRegistry,
+    MdDialog,
+    InteractivityChecker,
+    {provide: APP_CONFIG, useValue: AppConfig},
+    CustomBackend,
+    {provide: XHRBackend, useExisting:CustomBackend}
   ],
   entryComponents: [
     AuthSettingsComponent,

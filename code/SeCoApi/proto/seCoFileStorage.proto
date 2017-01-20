@@ -5,11 +5,19 @@ package seCoFileStorage;
 // The rpc FileStorage service definition.
 service SeCoFileStorage {
     // Gets a file
-    rpc GetFile (GetFileRequest) returns (GetFileReply) {}
+    rpc GetFile (GetFileRequest) returns (stream GetFileReply) {
+    }
 
-    rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {}
+    rpc GetFileTree (GetFileTreeRequest) returns (GetFileTreeReply) {
+    }
 
-    rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {}
+    rpc UploadFile (stream UploadFileRequest) returns (UploadFileResponse) {
+    }
+}
+
+message Error {
+    string msg = 1;
+    int32 code = 2;
 }
 
 // The request message
@@ -20,9 +28,8 @@ message GetFileRequest {
 
 // The response message
 message GetFileReply {
-    string fileName = 1;
-    bytes fileBuffer = 2;
-    string err = 3;
+    bytes chunk = 1;
+    Error err = 2;
 }
 
 // The request message
@@ -34,21 +41,17 @@ message GetFileTreeRequest {
 // The response message
 message GetFileTreeReply {
     string dirs = 1;
-    string err = 2;
+    Error err = 2;
 }
 
 // The request message
 message UploadFileRequest {
-    string userName = 1;
-    string teamName = 2;
-    string serviceName = 3;
-    string filePath = 4;
-    string fileName = 5;
-    bytes fileBuffer = 6;
+    bytes chunk = 1;
+    Error err = 2;
 }
 
 // The response message
 message UploadFileResponse {
     string status = 1;
-    string err = 2;
+    Error err = 2;
 }

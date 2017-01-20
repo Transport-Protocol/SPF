@@ -2,7 +2,7 @@
  * Created by PhilippMac on 25.08.16.
  */
 'use strict';
-
+process.chdir(__dirname); //set working directory to path of file that is being executed
 var expect = require('chai').expect,
     //assert = require('chai').assert,
     grpc = require('grpc');
@@ -10,7 +10,7 @@ var expect = require('chai').expect,
 
 function init(){
 
-    var proto = grpc.load('./proto/authService.proto').authService;
+    var proto = grpc.load('../proto/authService.proto').authService;
     var url='localhost:50061';
     console.log(url);
     client = new proto.AuthService(url,

@@ -23,7 +23,7 @@ enum ServiceType {
 }
 
 message CreateRequest {
-  string teamName = 1;
+  string team = 1; //as name
   string password = 2;
   string teamCreator = 3;
 }
@@ -34,7 +34,7 @@ message CreateReply {
 }
 
 message JoinRequest {
-  string teamName = 1;
+  string team = 1; //as name
   string password = 2;
   string username = 3;
 }
@@ -55,7 +55,7 @@ message ListReply {
 }
 
 message AddServicesRequest {
-  string teamName = 1;
+  string team = 1; //as name
   repeated ServiceType services = 2;
 }
 

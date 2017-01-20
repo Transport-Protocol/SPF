@@ -12,31 +12,35 @@
       "grpc_function": "getRepositories",
       "response_parameter": [
         "repos"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "get",
-      "route": "/github/repository/content",
+      "route": "/github/:repository/filetree",
       "query_parameter": [
         "path",
-        "repositoryName"
+        "repository"
       ],
       "grpc_function": "getRepositoryContent",
       "response_parameter": [
         "dirs"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "post",
-      "route": "/github/repository/share",
+      "route": "/github/:repository/share",
       "query_parameter": [
-        "repositoryName",
+        "repository",
         "usernameToAdd"
       ],
       "grpc_function": "addUserToRepository",
       "response_parameter": [
         "status"
-      ]
+      ],
+      "notification": true,
+      "message": "shared Repository"
     }
   ]
 }

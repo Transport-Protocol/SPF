@@ -19,15 +19,7 @@ export class AuthenticationService {
 
     return this.http.post(this.config.apiEndpoint + 'user/login', {}, options)
       .map((response: Response) => {
-        // login successful if status ok
-        let data = response.json();
-        if (data.ok) {
-          // store user details in local storage to keep user logged in between page refreshes
-          var user = new User(username, btoa(username + ':' + password));
-          console.log('name of new user: ' + user.username);
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
@@ -37,12 +29,9 @@ export class AuthenticationService {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + currentUser.basicAuth);
     let options = new RequestOptions({headers: headers});
-
     return this.http.get(this.config.apiEndpoint + 'user/auth/list', options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
@@ -54,9 +43,7 @@ export class AuthenticationService {
     let options = new RequestOptions({headers: headers});
     return this.http.get(this.config.apiEndpoint + 'auth/' + serviceName + '/authUrl', options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }
@@ -71,9 +58,7 @@ export class AuthenticationService {
     let options = new RequestOptions({headers: headers, search: params});
     return this.http.post(this.config.apiEndpoint + 'basicauth',{}, options)
       .map((response: Response) => {
-        // request successful if status ok
-        let data = response.json();
-        return data;
+        return response;
       })
       .catch(this.handleError);
   }

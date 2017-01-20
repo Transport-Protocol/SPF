@@ -4,8 +4,7 @@
  */
 process.chdir(__dirname); //set working directory to path of file that is being executed
 var express = require('express'),
-    fileUpload = require('express-fileupload'),
-    bodyParser = require('body-parser'),
+    https = require('https'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     cors = require('cors'),
@@ -25,19 +24,27 @@ var CustomRoute = require('./routes/customRoute');
 var UserRoute = require('./routes/userRoute');
 var TeamRoute = require('./routes/teamRoute');
 var AuthRoute = require('./routes/authRoute');
+var OwncloudRoute = require('./routes/owncloudRoute');
+var DropboxRoute = require('./routes/dropboxRoute');
+var GoogleRoute = require('./routes/googleRoute');
+var AbstractFsRoute = require('./routes/abstractFsRoute');
 
 
 function registerRoutes() {
-    app.use('/api', new CustomRoute('./json/dropboxRoutes.json', 'fileStorage.proto').route(router));
-    app.use('/api', new CustomRoute('./json/owncloudRoutes.json', 'fileStorage.proto').route(router));
+    //app.use('/api', new CustomRoute('./json/dropboxRoutes.json', 'fileStorage.proto').route(router));
+    //app.use('/api', new CustomRoute('./json/owncloudRoutes.json', 'fileStorage.proto').route(router));
+    // app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route(router));
+    //app.use('/api', new CustomRoute('./json/seCoFileStorage.json', 'seCoFileStorage.proto').route(router));
     app.use('/api', new CustomRoute('./json/githubRoutes.json', 'versionControl.proto').route(router));
-    app.use('/api', new CustomRoute('./json/googleDriveRoutes.json', 'fileStorage.proto').route(router));
     app.use('/api', new CustomRoute('./json/bitBucketRoutes.json', 'versionControl.proto').route(router));
     app.use('/api', new CustomRoute('./json/slackRoutes.json', 'slackMessaging.proto').route(router));
-    app.use('/api', new CustomRoute('./json/seCoFileStorage.json', 'seCoFileStorage.proto').route(router));
     app.use('/api', new UserRoute().route(router));
     app.use('/api', new TeamRoute().route(router));
     app.use('/api', new AuthRoute().route(router));
+    app.use('/api', new OwncloudRoute('./json/owncloudRoutes.json').route(router));
+    app.use('/api', new DropboxRoute('./json/dropboxRoutes.json').route(router));
+    app.use('/api', new GoogleRoute('./json/googleDriveRoutes.json').route(router));
+    app.use('/api', new AbstractFsRoute('./json/seCoFileStorage.json').route(router));
 }
 
 //global vars
@@ -50,7 +57,7 @@ function init() {
     //app.use(bodyParser.json());
     app.use(cookieParser());
     //reading multipart fileupload
-    app.use(fileUpload());
+    //app.use(fileUpload());
     app.use(cors());
     //app.use(session({secret: 'mySpecialSecret'}));
     router = express.Router();
@@ -94,11 +101,18 @@ function basicAuth(req, res, next) {
     }
 }
 
-
 function start() {
     // START THE SERVER
     // =============================================================================
-    app.listen(nconf.get('httpPort'));
+    //app.listen(nconf.get('httpPort'));
+
+    https.createServer({
+        key: fs.readFileSync('privkey.pem'),
+        cert: fs.readFileSync('fullchain.pem'),
+        ca: fs.readFileSync('chain.pem'),
+        requestCert: true
+    }, app).listen(nconf.get('httpPort'));
+    // handles your app
     winston.log('info', 'Api created at port: ', nconf.get('httpPort'));
     printRoutes();
 }
@@ -112,6 +126,7 @@ function main() {
 function printRoutes() {
     expressListRoutes({prefix: '/api'}, 'API:', router);
 }
+
 
 
 main();

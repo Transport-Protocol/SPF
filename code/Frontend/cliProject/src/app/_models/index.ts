@@ -3,3 +3,7 @@ export * from './fileMetaData';
 export * from './service';
 export * from './team';
 export * from './repo';
+export * from './serviceAuth';
+export * from './fsProvider';
+export * from './shareService';
+export * from './xhrProgress';

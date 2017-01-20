@@ -41,14 +41,14 @@ exports.start = function () {
  */
 function create(call, callback) {
     winston.log('info', 'rpc method register request: ' + JSON.stringify(call.request));
-    if (!call.request.teamName || !call.request.password || !call.request.teamCreator) {
+    if (!call.request.team || !call.request.password || !call.request.teamCreator) {
         _error('register', 'missing parameter', callback);
-    } else if (call.request.teamName.length < nconf.get('teamNameMinLength')) {
+    } else if (call.request.team.length < nconf.get('teamNameMinLength')) {
         _error('register', 'teamname has to be at least ' + nconf.get('teamNameMinLength') + ' characters', callback);
     } else if (call.request.password.length < nconf.get('passwordMinLength')) {
         _error('register', 'password has to be at least ' + nconf.get('passwordMinLength'), callback);
     } else {
-        db.createTeam(call.request.teamCreator, call.request.teamName, call.request.password, function (err, createdTeam) {
+        db.createTeam(call.request.teamCreator, call.request.team, call.request.password, function (err, createdTeam) {
             if (err) {
                 winston.log('error', 'error performing rpc method createTeam: ', err);
                 return callback(null, {err: err.message});
@@ -67,15 +67,15 @@ function create(call, callback) {
  */
 function join(call, callback) {
     winston.log('info', 'rpc method login request: ' + JSON.stringify(call.request));
-    if (!call.request.teamName || !call.request.password || !call.request.username) {
+    if (!call.request.team || !call.request.password || !call.request.username) {
         _error('login', 'missing parameter', callback);
     } else {
-        db.isTeamLoginCorrect(call.request.teamName, call.request.password, function (err) {
+        db.isTeamLoginCorrect(call.request.team, call.request.password, function (err) {
             if (err) {
                 winston.log('error', 'error performing rpc method join: ', err);
                 return callback(null, {err: err.message});
             } else {
-                db.readTeam(call.request.teamName, function addUserToTeam(err, team) {
+                db.readTeam(call.request.team, function addUserToTeam(err, team) {
                     if (err) {
                         winston.log('error', 'error performing rpc method join: ', err);
                         return callback(null, {err: err.message});
@@ -127,15 +127,15 @@ function list(call,callback){
  */
 function addServices(call,callback){
     winston.log('info', 'rpc method addServices request: ' + JSON.stringify(call.request));
-    if (!call.request.services || !call.request.teamName) {
+    if (!call.request.services || !call.request.team) {
         _error('login', 'missing parameter', callback);
     } else {
-        db.addServices(call.request.teamName,call.request.services, function(err){
+        db.addServices(call.request.team,call.request.services, function(err){
             if(err){
-                winston.log('error','couldnt add Services %s to team %s',call.request.teamName,call.request.services,err);
+                winston.log('error','couldnt add Services %s to team %s',call.request.team,call.request.services,err);
                 return callback(null,{err: err.message});
             } else {
-                winston.log('info', 'successfully add Services %s to team',call.request.services,call.request.teamName);
+                winston.log('info', 'successfully add Services %s to team',call.request.services,call.request.team);
                 return callback(null,{status: 'ok'});
             }
         });

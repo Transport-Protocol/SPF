@@ -61,7 +61,7 @@ function getAuthorizationUrl(call, callback) {
  * Implements the refreshAccessToken RPC method.
  */
 function refreshAccessToken(call, callback) {
-    winston.log('info', 'getAccessToken rpc method request: ' + JSON.stringify(call.request));
+    winston.log('info', 'refreshAccessToken rpc method request: ' + JSON.stringify(call.request));
     var service = _getOAuth2ServiceByName(call.request.service);
     service.refreshAccessToken(call.request.refresh_token,function(err,access_token){
        if(err){

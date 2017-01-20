@@ -12,33 +12,37 @@
       "grpc_function": "getChannelList",
       "response_parameter": [
         "channels"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "get",
-      "route": "/slack/channel/messages",
+      "route": "/slack/:channel/messages",
       "query_parameter": [
-        "channelId",
+        "channel",
         "oldest"
       ],
       "grpc_function": "getChannelMessages",
       "response_parameter": [
         "messages",
         "timeStampOfLastMsg"
-      ]
+      ],
+      "notification": false
     },
     {
       "http-method": "post",
-      "route": "/slack/sendMessage",
+      "route": "/slack/:channel/message",
       "query_parameter": [
-        "channelId",
+        "channel",
         "message",
         "as_user"
       ],
       "grpc_function": "sendMessage",
       "response_parameter": [
         "status"
-      ]
+      ],
+      "notification": true,
+      "message": "new message sent"
     }
   ]
 }

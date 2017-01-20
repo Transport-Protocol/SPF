@@ -1,0 +1,6 @@
+{
+  "dbPath":"mongodb://127.0.0.1/secoNotification",
+  "dbPoolSize":10,
+  "grpcServerIp":"localhost",
+  "grpcServerPort":50039
+}

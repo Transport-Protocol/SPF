@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 
 import {UserService} from '../_services/index';
 import {NotificationsService} from "angular2-notifications/lib/notifications.service";
+import {Response} from "@angular/http";
 
 @Component({
   templateUrl: 'register.component.html'
@@ -35,13 +36,16 @@ export class RegisterComponent {
     this.userService.create(this.model)
       .subscribe(
         data => {
-          var registerAnswer = data;
-          if (!registerAnswer.ok) {
-            this.notService.alert('Registration failed',registerAnswer.errorMsg);
-            this.loading = false;
-          } else {
-            this.notService.success('Registration successful', '');
-            this.router.navigate(['/login']);
+          if(data instanceof Response) {
+            data = data.json();
+            var registerAnswer = data;
+            if (!registerAnswer.ok) {
+              this.notService.alert('Registration failed', registerAnswer.errorMsg);
+              this.loading = false;
+            } else {
+              this.notService.success('Registration successful', '');
+              this.router.navigate(['/login']);
+            }
           }
         },
         error => {

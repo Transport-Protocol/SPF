@@ -4,7 +4,7 @@
 var mongoose = require('mongoose'),
     nconf = require('nconf'),
     uuid = require('node-uuid'),
-    User = require('./models/user'),
+    User = require('./models/User'),
     logger = require('winston');
 
 
@@ -176,14 +176,15 @@ function addAuthentication(username, service, access_token, refresh_token, callb
             if (user.auth[i].service === service) {
                 //Entry already registered;update
                 logger.log('info', 'authentication entry already registered for user %s on service %s - remove old value', username, service);
-                user.auth.splice(i,1);
+                user.auth.splice(i, 1);
                 break;
             }
         }
         user.auth.push({
             service: service,
             access_token: access_token,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+            tsOfSet: new Date().getTime()
         });
         user.save(function (err) {
             if (err) {
@@ -191,6 +192,37 @@ function addAuthentication(username, service, access_token, refresh_token, callb
                 return callback(err);
             }
             logger.log('info', 'successfully added authentication for user : ', username);
+            return callback(null, user);
+        });
+    });
+}
+
+function refreshAuthentication(username, service, access_token, callback) {
+    readUser(username, function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+        var savedRefToken;
+        for (var i = 0; i < user.auth.length; i++) {
+            if (user.auth[i].service === service) {
+                logger.log('info', 'remove old value');
+                savedRefToken = user.auth[i].refresh_token;
+                user.auth.splice(i, 1);
+                break;
+            }
+        }
+        user.auth.push({
+            service: service,
+            access_token: access_token,
+            refresh_token: savedRefToken,
+            tsOfSet: new Date().getTime()
+        });
+        user.save(function (err) {
+            if (err) {
+                logger.log('error', 'refreshing authentication ', err.message);
+                return callback(err);
+            }
+            logger.log('info', 'successfully refreshed authentication for user : ', username);
             return callback(null, user);
         });
     });
@@ -249,6 +281,7 @@ module.exports = {
     deleteUser: deleteUser,
     isLoginCorrect: isLoginCorrect,
     addAuthentication: addAuthentication,
+    refreshAuthentication: refreshAuthentication,
     setSessionId: setSessionId,
     isSessionIdCorrect: isSessionIdCorrect,
     getUsernameBySessionId: getUsernameBySessionId,

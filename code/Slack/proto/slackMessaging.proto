@@ -35,7 +35,7 @@ message GetChannelListReply {
 
 // The request message
 message GetChannelMessagesRequest {
-  string channelId = 1;
+  string channel = 1; //as Id
   string oldest = 2; //timestamp of oldest msg
   Authentication auth = 3;
 }
@@ -49,7 +49,7 @@ message GetChannelMessagesReply {
 
 // The request message
 message SendMessageRequest {
-  string channelId = 1;
+  string channel = 1; //as Id
   string message = 2;
   string as_user = 3; //if false,message sender is bot
   Authentication auth = 4;

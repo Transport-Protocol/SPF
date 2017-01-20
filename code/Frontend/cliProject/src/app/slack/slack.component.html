@@ -15,7 +15,7 @@
     </md-card>
     <div flex="75" flex-xs="100">
       <div style="overflow-y: scroll;max-height: 400px" #scrollMe>
-        <div *ngFor="let message of messages;let curIndex = index;" layout="row" layout-align="start none"
+        <div class="slackChatMessageEntry" *ngFor="let message of messages;let curIndex = index;" layout="row" layout-align="start none"
              [ngClass]="{'bgEven': curIndex%2===0,'bgUnEven': curIndex%2===1}">
           <div style="margin: 20px">
             <span>{{ message.ts*1000 | date:'medium' }} </span>
@@ -29,7 +29,7 @@
         <button md-icon-button color="accent" (click)="refresh()">
           <md-icon>refresh</md-icon>
         </button>
-        <md-textarea [(ngModel)]='chatMsgBinding' MyFocus flex="60" placeholder="Enter chat message"></md-textarea>
+        <md-textarea class="inputChatMessage" [(ngModel)]='chatMsgBinding' MyFocus flex="60" placeholder="Enter chat message"></md-textarea>
         <button flex="30" color="accent" md-raised-button (click)="sendPressed()">Send!</button>
       </md-card>
       <md-progress-circle *ngIf="loadingMessages" mode="indeterminate" color="accent"></md-progress-circle>

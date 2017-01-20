@@ -4,13 +4,13 @@ package teamManagement;
 
 // The rpc FileStorage service definition.
 service TeamManagement {
-  rpc Create (CreateRequest) returns (CreateReply) {}
+    rpc Create (CreateRequest) returns (CreateReply) {}
 
-  rpc Join (JoinRequest) returns (JoinReply) {}
+    rpc Join (JoinRequest) returns (JoinReply) {}
 
-  rpc AddServices (AddServicesRequest) returns (AddServicesReply) {}
+    rpc AddServices (AddServicesRequest) returns (AddServicesReply) {}
 
-  rpc List (ListRequest) returns (ListReply) {}
+    rpc List (ListRequest) returns (ListReply) {}
 }
 
 //service types enum
@@ -20,29 +20,28 @@ enum ServiceType {
     BITBUCKET = 2;
     GOOGLE = 3;
     SLACK = 4;
-    OWNCLOUD = 5;
 }
 
 message CreateRequest {
-  string teamName = 1;
-  string password = 2;
-  string teamCreator = 3;
+    string team = 1; //as name
+    string password = 2;
+    string teamCreator = 3;
 }
 
 message CreateReply {
-  string status = 1;
-  string err = 2;
+    string status = 1;
+    string err = 2;
 }
 
 message JoinRequest {
-  string teamName = 1;
-  string password = 2;
-  string username = 3;
+    string team = 1; //as name
+    string password = 2;
+    string username = 3;
 }
 
 message JoinReply {
-  string status = 1;
-  string err = 2;
+    string status = 1;
+    string err = 2;
 }
 
 
@@ -56,7 +55,7 @@ message ListReply {
 }
 
 message AddServicesRequest {
-    string teamName = 1;
+    string team = 1; //as name
     repeated ServiceType services = 2;
 }
 

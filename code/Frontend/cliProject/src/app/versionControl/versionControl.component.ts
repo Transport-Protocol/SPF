@@ -6,6 +6,9 @@ import {FileMetaData} from '../_models/index';
 import {ActiveTabService, VersionControlService} from '../_services/index';
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
 import {slideIn} from'../_animations/animations';
+import {Team} from "../_models/team";
+import {User} from "../_models/user";
+import {Response} from "@angular/http";
 
 
 @Component({
@@ -21,7 +24,7 @@ export class VersionControlComponent {
   @Input() name: string;
 
   repos: string[] = [];
-  chosenOption: string;
+  selectedRepo: string;
   private dirs: FileMetaData[] = [];
   private curDir: string[] = ['root'];
   private sortAscending: boolean = true;
@@ -40,17 +43,20 @@ export class VersionControlComponent {
     this.getRepositories();
   }
 
-  getRepositories(){
+  getRepositories() {
     this.repoListLoading = true;
     this.versionControlService.getRepositories(this.name)
       .subscribe(
         data => {
-          this.repoListLoading = false;
-          if (data.ok) {
-            this.notService.success('Got versioncontrol data!', '');
-            this.repos = data.repos;
-          } else {
-            this.notService.error('Got versioncontrol failed', data.errorMsg);
+          if (data instanceof Response) {
+            data = data.json();
+            this.repoListLoading = false;
+            if (data.ok) {
+              this.notService.success('Got versioncontrol data!', '');
+              this.repos = data.repos;
+            } else {
+              this.notService.error('Got versioncontrol failed', data.errorMsg);
+            }
           }
         },
         error => {
@@ -61,17 +67,20 @@ export class VersionControlComponent {
 
   getRepoContent() {
     this.loading = true;
-    this.versionControlService.getRepositoryContent(this.parsePath(),this.chosenOption, this.name)
+    this.versionControlService.getRepositoryContent(this.parsePath(), this.selectedRepo, this.name)
       .subscribe(
         data => {
-          if (data.ok) {
-            this.notService.success('Got repo content data!', '');
-            this.fillDirs(data.dirs);
-            this.sortByName();
-            this.loading = false;
-          } else {
-            this.notService.error('repo content failed', data.errorMsg);
-            this.loading = false;
+          if (data instanceof Response) {
+            data = data.json();
+            if (data.ok) {
+              this.notService.success('Got repo content data!', '');
+              this.fillDirs(data.dirs);
+              this.sortByName();
+              this.loading = false;
+            } else {
+              this.notService.error('repo content failed', data.errorMsg);
+              this.loading = false;
+            }
           }
         },
         error => {
@@ -80,9 +89,9 @@ export class VersionControlComponent {
         });
   }
 
-  repoClicked(repo: string,index: number){
+  repoClicked(repo: string, index: number) {
     this.curDir = ['root'];
-    this.chosenOption = repo;
+    this.selectedRepo = repo;
     this.getRepoContent();
   }
 
@@ -107,6 +116,39 @@ export class VersionControlComponent {
     this.curDir.push(path);
   }
 
+  shareRepoWithTeam() {
+    var myUser: User = JSON.parse(localStorage.getItem('currentUser'));
+    var myTeam: Team;
+    if (myTeam = JSON.parse(localStorage.getItem('currentTeam'))) {
+      if (myTeam.members.length <= 1) {
+        this.notService.error('no user except you in team', '');
+      } else {
+        for (let i = 0; i < myTeam.members.length; i++) {
+          let memberName = myTeam.members[i];
+          if (myUser.username !== memberName) {
+            this.versionControlService.shareRepository(this.selectedRepo, this.name, memberName)
+              .subscribe(
+                data => {
+                  if (data instanceof Response) {
+                    data = data.json();
+                    if (data.ok) {
+                      this.notService.success('Shared repo with user: ' + memberName, '');
+                    } else {
+                      this.notService.error('Could not share repo with user: ' + memberName, data.errorMsg);
+                    }
+                  }
+                },
+                error => {
+                  this.notService.error('Could not share repo with user: ' + memberName, error);
+                });
+          }
+        }
+      }
+    } else {
+      this.notService.error('no team selected for sharing repository', '');
+    }
+  }
+
   parsePath() {
     let path: string = '';
     for (let i = 0; i < this.curDir.length; i++) {
@@ -118,7 +160,7 @@ export class VersionControlComponent {
         }
       }
     }
-    if(this.curDir.length === 1){
+    if (this.curDir.length === 1) {
       path += '/';
     }
     return path;

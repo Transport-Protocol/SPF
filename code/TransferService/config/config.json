@@ -1,0 +1,14 @@
+{
+  "grpcServerIp": "localhost",
+  "grpcServerPort": 50029,
+  "authServiceIp": "localhost",
+  "authServicePort": 50054,
+  "owncloudServiceIp": "localhost",
+  "owncloudServicePort": 50051,
+  "dropboxServiceIp": "localhost",
+  "dropboxServicePort": 50052,
+  "googleServiceIp": "localhost",
+  "googleServicePort": 50049
+}
+
+

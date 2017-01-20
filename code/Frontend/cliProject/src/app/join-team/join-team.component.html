@@ -1,17 +1,17 @@
-<div layout="row" layout-padding layout-align="center" style="width: 600px">
-  <md-card class="app-input-section registerCard" layout="column" layout-fill>
+<div layout="row" layout-padding layout-align="center">
+  <md-card layout="column" layout-fill>
     <md-toolbar color="primary" layout="row" layout-align="center center">Join Team</md-toolbar>
     <md-card-content layout="column">
       <div layout="row" layout-align="center center" layout-padding>
         <md-icon >account_circle</md-icon>
-        <md-input flex="grow" dividerColor="accent" [(ngModel)]="model.teamName" #teamName placeholder="Teamname" maxlength="20"
+        <md-input class="joinTeamName" flex="grow" dividerColor="accent" [(ngModel)]="model.teamName" #teamName placeholder="Teamname" maxlength="20"
                   minlength="6"
                   required>
         </md-input>
       </div>
       <div layout="row" layout-align="center center" layout-padding>
         <md-icon>lock</md-icon>
-        <md-input flex="grow" dividerColor="accent" [(ngModel)]="model.password" #password1 placeholder="Password" maxlength="20"
+        <md-input class="joinTeamPassword" flex="grow" dividerColor="accent" [(ngModel)]="model.password" #password1 placeholder="Password" maxlength="20"
                   minlength="6"
                   required type="password"></md-input>
       </div>

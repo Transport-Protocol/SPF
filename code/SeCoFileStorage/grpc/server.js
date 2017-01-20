@@ -35,19 +35,26 @@ exports.start = function () {
 /**
  * Implements the GetFile RPC method.
  */
-function getFile(call, callback) {
+function getFile(call) {
     winston.log('info', 'getFile rpc method request: ' + JSON.stringify(call.request));
     var filePath = call.request.filePath;
     if(filePath === ''){
         filePath = '/'; //if empty dir,set to root
     }
-    connector.getFile(call.request.teamName, filePath, function (err, fileName, fileBuffer) {
+    connector.getFile(call.request.teamName, filePath, function (err, getFileCall) {
         if (err) {
             winston.log('error', 'error performing getFile: ', err);
-            return callback(null, {err: err.message});
+            call.write({err: err});
+            call.end();
+        } else {
+            getFileCall.on('data',function(chunk){
+               call.write({chunk: chunk.chunk});
+            });
+            getFileCall.on('end',function(){
+               call.end();
+                winston.log('info', 'succesfully performed getFile rpc method');
+            });
         }
-        winston.log('info', 'succesfully performed getFile rpc method');
-        return callback(null, {fileName: fileName, fileBuffer: fileBuffer});
     });
 }
 
@@ -64,7 +71,7 @@ function getFileTree(call, callback) {
     connector.getFileTree(call.request.teamName,filePath, function (err, dirs) {
         if (err) {
             winston.log('error', 'error performing getFileTree: ', err);
-            return callback(null, {err: err.message});
+            return callback(null, {err: err});
         }
         winston.log('info', 'succesfully performed getFileTree rpc method', dirs);
         return callback(null, {dirs: JSON.stringify(dirs)});
@@ -75,12 +82,12 @@ function getFileTree(call, callback) {
  * Implements the UploadFile RPC method.
  */
 function uploadFile(call, callback) {
-    winston.log('info', 'uploadFile rpc method request',call.request);
-    var filePath = call.request.filePath;
+    winston.log('info', 'uploadFile rpc method request');
+    var filePath = call.metadata.get('path')[0];
     if(filePath === ''){
         filePath = '/'; //if empty dir,set to root
     }
-    connector.uploadFile(call.request.userName,call.request.teamName, call.request.serviceName.toUpperCase(),filePath, call.request.fileName, call.request.fileBuffer, function (err, status) {
+    connector.uploadFile(call.metadata.get('username')[0],call.metadata.get('teamName')[0], call.metadata.get('serviceName')[0].toUpperCase(),filePath, call.metadata.get('fileName')[0],call, function (err, status) {
         if (err) {
             winston.log('error', 'error performing uploadFile: ', err);
             return callback(null, {err: err.message});

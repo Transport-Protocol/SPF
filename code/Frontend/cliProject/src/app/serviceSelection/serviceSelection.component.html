@@ -2,18 +2,20 @@
   <md-tab-group md-stretch-tabs (selectChange)="current=$event.index">
     <md-tab>
       <template md-tab-label>
-        <img src="assets/images/googleDrive.png" alt="dropbox" height="48" width="48">
+        <img src="assets/images/googleDrive.png" alt="google" height="48" width="48">
       </template>
       <div *ngIf="current === 0 || tabStarted[0]">
-        <fileStorage [tabId]="0" [name]="'Google'"></fileStorage>
+        <fileStorage [tabId]="0" [name]="'Google'" [shares]="[{name: 'Owncloud',imgPath: 'assets/images/owncloud.png'},
+        {name: 'Dropbox',imgPath: 'assets/images/dropbox.png'}]"></fileStorage>
       </div>
     </md-tab>
     <md-tab>
       <template md-tab-label>
-        <img src="assets/images/dropbox.png" alt="googleDrive" height="48" width="48">
+        <img src="assets/images/dropbox.png" alt="dropbox" height="48" width="48">
       </template>
       <div *ngIf="current === 1 || tabStarted[1]">
-        <fileStorage [tabId]="1" [name]="'Dropbox'"></fileStorage>
+        <fileStorage [tabId]="1" [name]="'Dropbox'" [shares]="[{name: 'Owncloud',imgPath: 'assets/images/owncloud.png'},
+        {name: 'Google',imgPath: 'assets/images/googleDrive.png'}]" ></fileStorage>
       </div>
     </md-tab>
     <md-tab>
@@ -21,12 +23,13 @@
         <img src="assets/images/owncloud.png" alt="owncloud" height="48" width="48">
       </template>
       <div *ngIf="current === 2 || tabStarted[2]">
-        <fileStorage [tabId]="2" [name]="'Owncloud'"></fileStorage>
+        <fileStorage [tabId]="2" [name]="'Owncloud'" [shares]="[{name: 'Dropbox',imgPath: 'assets/images/dropbox.png'},
+        {name: 'Google',imgPath: 'assets/images/googleDrive.png'}]"></fileStorage>
       </div>
     </md-tab>
     <md-tab>
       <template md-tab-label>
-        <img src="assets/images/owncloud.png" alt="owncloud" height="48" width="48">
+        <img src="assets/images/fileStorage.png" alt="fileStorage" height="48" width="48">
       </template>
       <div *ngIf="current === 3 || tabStarted[3]">
         <abstractFileStorage [tabId]="3" [name]="'Abstract FileStorage'"></abstractFileStorage>

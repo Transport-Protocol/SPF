@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {TeamService} from '../_services/index';
 import {Team} from "../_models/team";
+import {MdDialog} from '@angular/material';
 import {NotificationsService} from 'angular2-notifications/lib/notifications.service';
+import {Response} from "@angular/http";
 
 @Component({
   selector: 'app-create-team',
@@ -12,7 +14,7 @@ export class CreateTeamComponent implements OnInit {
   model: any = {};
   loading: boolean;
 
-  constructor(private teamService: TeamService, private notService: NotificationsService) {
+  constructor(private teamService: TeamService, private notService: NotificationsService, public dialog: MdDialog) {
   }
 
   ngOnInit() {
@@ -24,11 +26,15 @@ export class CreateTeamComponent implements OnInit {
     this.teamService.createTeam(team)
       .subscribe(
         data => {
-          this.loading = false;
-          if (data.ok) {
-            this.notService.success('Team created!', '');
-          } else {
-            this.notService.error('Team creation failed', data.errorMsg);
+          if (data instanceof Response) {
+            data = data.json();
+            this.loading = false;
+            if (data.ok) {
+              this.notService.success('Team created!', '');
+              this.dialog.closeAll();
+            } else {
+              this.notService.error('Team creation failed', data.errorMsg);
+            }
           }
         },
         error => {
